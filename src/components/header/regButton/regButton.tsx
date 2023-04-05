@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import { MouseEvent } from 'react';
-
 import Button from 'react-bootstrap/Button';
-import styles from '@/styles/RegButton.module.scss';
+import styles from '@/styles/header/RegButton.module.scss';
 
 function RegButton() {
   

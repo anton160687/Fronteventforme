@@ -1,6 +1,6 @@
 import HeaderNavbar from "./navbar/Navbar";
 
-const isAuth = false;
+const isAuth = true;
 
 export default function Header () {
     return <>

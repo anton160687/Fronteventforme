@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Nav from 'react-bootstrap/Nav';
-import styles from '@/styles/Login.module.scss';
+import styles from '@/styles/header/Login.module.scss';
 
 function Login () {
     return (

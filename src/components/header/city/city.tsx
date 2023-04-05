@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image';
-import styles from '@/styles/City.module.scss';
+import styles from '@/styles/header/City.module.scss';
 
 function City () {
     const [lat, setLat] = useState<number>(0);

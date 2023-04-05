@@ -8,18 +8,21 @@ import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
 import City from '../city/city';
 import RegButton from '../regButton/regButton';
 import Login from '../login/Login';
+import Search from '../search/Search';
+import styles from '@/styles/header/Navbar.module.scss';
+import Avatar from '../avatar/Avatar';
 
 type HeaderNavbarProps = {
     isAuth: boolean,
 }
 
-function HeaderNavbar( { isAuth }:HeaderNavbarProps ) {
+function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
     const { pathname } = useRouter();
     const navigation = [
         {
             id: 1,
             path: '#',
-            text: 'Свадебные сайты'
+            text: 'Свадебные\u00A0сайты'
         },
         {
             id: 2,
@@ -50,7 +53,7 @@ function HeaderNavbar( { isAuth }:HeaderNavbarProps ) {
         <Navbar bg='light' expand='lg'>
             <Container>
                 <Navbar.Brand as={Link} href='/' className='me-2 me-xl-4'>
-                    <Image src='/img/header/logo.png' width={143} height={32} alt='EventForME' />
+                    <Image className={styles.logo} src='/img/header/logo.png' width={143} height={33} alt='EventForME' />
                 </Navbar.Brand>
 
                 {/* Меню для мобильных устройств */}
@@ -58,21 +61,22 @@ function HeaderNavbar( { isAuth }:HeaderNavbarProps ) {
 
                 <Navbar.Collapse id='light-navbar-nav' className='order-lg-2'>
                     <Nav>
-                        {!isAuth && <City/>}
+                        {!isAuth && <City />}
 
-                        <CatalogDropDown/>
+                        <CatalogDropDown />
 
                         {renderNavigation()}
 
-                        {!isAuth && <Login/>}
-                        
-                        {!isAuth && <RegButton/>}
+                        {!isAuth &&<Login />}
+                        {!isAuth &&<RegButton />}
+
+                        {isAuth && <Search />}
+                        {isAuth && <Avatar role={'bride'} first_name={'Имя'} second_name={'Фамилия'} avatar={''}/>}
 
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-
     )
 }
 
