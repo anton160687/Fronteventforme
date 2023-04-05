@@ -1,7 +1,9 @@
-import Navbar from "../navbar/Navbar";
+import HeaderNavbar from "./navbar/Navbar";
+
+const isAuth = false;
 
 export default function Header () {
     return <>
-    Header here, and this is navbar <Navbar/>
+        <HeaderNavbar isAuth={isAuth}/>
     </>
 }
