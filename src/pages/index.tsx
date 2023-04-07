@@ -1,8 +1,10 @@
-import Hero from '@/components/hero/Hero';
+import Hero from '@/components/main/hero/Hero';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { fetchUsers } from '@/store/user/userSlice';
+import SupplierCard from '@/components/main/supplierCard/supplierCard';
+import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
 
 export default function Home() {  
   // кастомизируем диспатч:
@@ -17,6 +19,8 @@ export default function Home() {
   return (
     <>
       <Hero/>
+      <SupplierCard/>
+      <PlanWeddingCard/>
     </>
   )
 }

@@ -1,0 +1,45 @@
+.input__frame {
+  border: 1px solid #EFECF3;
+  border-radius: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 6px;
+  height: 44px;
+}
+
+.input__field {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.input__field::-webkit-input-placeholder {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 150% !important;
+}
+
+.input__field:-ms-input-placeholder {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 150% !important;
+}
+
+.input__field::-ms-input-placeholder {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 150% !important;
+}
+
+.input__field::placeholder {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 150% !important;
+}
+
+.input__btn {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 150%;
+}
+/*# sourceMappingURL=Search.module.css.map */
