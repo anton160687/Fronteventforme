@@ -6,18 +6,18 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import FormGroup from '../_finder/FormGroup';
-import DropdownSelect from '../_finder/DropdownSelect';
+import FormGroup from '../../_finder/FormGroup';
+import DropdownSelect from '../../_finder/DropdownSelect';
 
 
-const BgParallax = dynamic(() => import('../_finder/BgParallax'), { ssr: false })
+const BgParallax = dynamic(() => import('../../_finder/BgParallax'), { ssr: false })
 
 function Hero(): JSX.Element {
   return (
     <>
      <Container fluid as='section' className='my-5 pt-5 pb-lg-4 px-xxl-4'>
         <BgParallax
-          imgSrc='/images/real-estate/hero-image-v2.jpg'
+          imgSrc='/img/hero/hero.png'
           type='scroll' // scale, opacity, scroll-opacity, scale-opacity
           speed={0.5} // from -1.0 to 2.0
           overlay={45} // from 0 to 100 or 'gradient' to apply gradient overlay
