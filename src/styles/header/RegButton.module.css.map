@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAC;EACN,WAAW,EAAE,IAAI;CAClB;;AACD,AAAA,aAAa,CAAC;EACZ,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,GAAG;EAChB,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,UAAU,EAAE,MAAM;EAClB,KAAK,EAAE,OAAO;EACd,OAAO,EAAE,IAAI;EACb,GAAG,EAAE,IAAI;CACV",
+    "sources": [
+        "RegButton.module.scss"
+    ],
+    "names": [],
+    "file": "RegButton.module.css"
+}

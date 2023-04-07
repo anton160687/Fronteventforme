@@ -1,0 +1,73 @@
+.city__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.city__text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 11px;
+  border-right: 1px solid #D5D2DC;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.city__name {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 150%;
+  color: #1F1B2D;
+  margin: 0;
+}
+
+.city__input {
+  border: none;
+  max-width: 130px;
+}
+
+.city__input::-webkit-input-placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  color: #674FA3;
+  padding-left: 16px;
+}
+
+.city__input:-ms-input-placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  color: #674FA3;
+  padding-left: 16px;
+}
+
+.city__input::-ms-input-placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  color: #674FA3;
+  padding-left: 16px;
+}
+
+.city__input::placeholder {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  color: #674FA3;
+  padding-left: 16px;
+}
+/*# sourceMappingURL=City.module.css.map */

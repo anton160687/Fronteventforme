@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import styles from "@/styles/main/Main.module.scss";
+import Link from "next/link";
 
 function SupplierCard() {
 
@@ -15,7 +16,9 @@ function SupplierCard() {
                         <h2>Стань нашим исполнителем</h2>
                         <p className='pb-3 fs-lg'>Длинная подпись предоставляемой услуги на несколько небольших строчек</p>
                         <Button size='lg' onClick={() => { }}>
-                            {'Регистрация\u00A0'}<img src='/img/arrow.png' />
+                            <Link href='#' className={styles.btn__link}>
+                                {'Регистрация\u00A0'}<img src='/img/arrow.png' />
+                            </Link>
                         </Button>
                     </Col>
                     <Col md={5}>
