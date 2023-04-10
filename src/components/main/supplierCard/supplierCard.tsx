@@ -10,8 +10,8 @@ import styles from "@/styles/main/Main.module.scss";
 function SupplierCard() {
 
     return (
-        <section className={styles.supplier_card__container + ' bg-secondary'}>
-            <Container as='section'>
+        <section className={styles.my64 + ' bg-secondary'}>
+            <Container as='section' className="mx-auto w-75">
                 <Row className='align-items-center'>
                     <Col md={7} xxl={6} className='text-md-start text-center'>
                         <h2>Стань нашим исполнителем</h2>

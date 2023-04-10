@@ -8,7 +8,7 @@ import Link from "next/link";
 function PlanWeddingCard() {
 
     return (
-        <section className={styles.plan_wedding__container}>
+        <section className={styles.my124}>
             <Container as='section'>
                 <Row className='align-items-center justify-content-center'>
                     <Col md={6} className='text-center'>
