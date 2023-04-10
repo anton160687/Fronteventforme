@@ -6,6 +6,7 @@ import { fetchUsers } from '@/store/user/userSlice';
 import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
 import SupplierSlider from "@/components/main/supplierSlider/supplierSlider";
+import {Locations} from "@/components/main/locations/locations";
 
 export default function Home() {  
   // кастомизируем диспатч:
@@ -18,11 +19,12 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-      <Hero/>
+      <>
+        <Hero/>
         <SupplierSlider/>
-      <SupplierCard/>
-      <PlanWeddingCard/>
-    </>
+          <Locations/>
+        <SupplierCard/>
+        <PlanWeddingCard/>
+      </>
   )
 }
