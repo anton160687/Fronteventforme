@@ -49,3 +49,17 @@
     font-weight: 500;
     line-height: 30px;
 }
+
+.more_services {
+    &__description {
+        @include fz(9,18);
+        color: $grey;
+    }
+}
+
+.step {
+    &__title {}
+    &__description {
+        margin: 0;
+    }
+}
