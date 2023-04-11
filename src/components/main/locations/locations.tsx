@@ -30,7 +30,7 @@ export function Locations({array, title}): JSX.Element {
 
              <div className={styles.grid}>
                  {shortData.map((property, index) => (
-                     <div className={`${styles.locations_wrapper} ${index === 0 ? styles.locations_wrapper_1 : ''}`} key={index}>
+                     <div className={`${styles.locations_wrapper} card-hover shadow-sm ${index === 0 ? styles.locations_wrapper_1 : ''}`} key={index}>
                              <Link href={property.href} className={styles.locations__overlay}>
                                  <div href={property.href} className={styles.overlay_wrapper}>
                                      <div className={`${styles.locations__description} pb-3 ps-3`}>
@@ -39,7 +39,7 @@ export function Locations({array, title}): JSX.Element {
                                              <div className="d-flex align-items-center my-1">
                                                  <i className={`${styles.description__star} fi-star-filled me-1`}></i>
                                                  <p><span className={styles.fw_bold}>{property.stars}</span>
-                                                     ({property.feedback.length})</p>
+                                                     {' '}({property.feedback.length})</p>
                                              </div>
                                              <div className="d-flex align-items-center my-1">
                                                  <i className={`fi-map-pin me-1`}></i>
