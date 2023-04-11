@@ -1,15 +1,24 @@
 import Container from "react-bootstrap/Container";
 import styles from "@/styles/main/Main.module.scss";
 import Link from "next/link";
-import {properties} from "@/mocks/locations";
 
 
-
-export function Locations({array=properties, title='Лучшие локации'}): JSX.Element {
+export function Locations({array, title}): JSX.Element {
+    let shortData = [];
 
     // для страницы нужно только 5 элементов
-    const shortData = Object.assign(array);
-    shortData.length = 5;
+    if (array) {
+        shortData = Object.assign(array);
+        shortData.length = 5;
+    }
+
+
+    function addToFav (e) {
+        e.preventDefault();
+
+        console.log('Добавлено в избранное')
+
+    }
 
     return (
         <Container as='section' className="mx-auto w-75">
@@ -21,11 +30,37 @@ export function Locations({array=properties, title='Лучшие локации'
 
              <div className={styles.grid}>
                  {shortData.map((property, index) => (
-                     <div className={`${styles.place_wrapper} ${index === 0 ? styles.place_wrapper_1 : ''}`} key={index}>
-                         <Link href={property.href}>
-                             <div className={styles.place_wrapper__gradient}> </div>
+                     <div className={`${styles.locations_wrapper} ${index === 0 ? styles.locations_wrapper_1 : ''}`} key={index}>
+                             <Link href={property.href} className={styles.locations__overlay}>
+                                 <div href={property.href} className={styles.overlay_wrapper}>
+                                     <div className={`${styles.locations__description} pb-3 ps-3`}>
+                                         <h3 className={`${styles.description__title} mb-1`}>{property.title}</h3>
+                                         <div className={`${styles.description__text} fs-sm opacity-70`}>
+                                             <div className="d-flex align-items-center my-1">
+                                                 <i className={`${styles.description__star} fi-star-filled me-1`}></i>
+                                                 <p><span className={styles.fw_bold}>{property.stars}</span>
+                                                     ({property.feedback.length})</p>
+                                             </div>
+                                             <div className="d-flex align-items-center my-1">
+                                                 <i className={`fi-map-pin me-1`}></i>
+                                                 <p>{property.location}</p>
+                                             </div>
+                                             <div className="d-flex align-items-center my-1">
+                                                 <i className={`fi-credit-card me-1`}></i>
+                                                 <p className={styles.fw_bold}>от {property.price} ₽</p>
+                                             </div>
+
+                                         </div>
+                                     </div>
+                                     <div className={`${styles.locations__icon_wrapper} pt-3 pe-3`}>
+                                         <button type="button"
+                                                 className={`${styles.locations__icon} btn btn-icon btn-light btn-xs rounded-circle`}
+                                                 onClick={addToFav}
+                                         ><i className="fi-heart"></i></button>
+                                     </div>
+                                 </div>
+                             </Link>
                              <img src={property.image} alt={property.title}/>
-                         </Link>
                      </div>
                  ))}
 
