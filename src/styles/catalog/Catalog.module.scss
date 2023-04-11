@@ -1,0 +1,43 @@
+.sidebar__link {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #666276;
+    & > p {
+        padding: 0;
+        margin: 12px;
+    }
+}
+
+.catalog__title {
+    display: flex;
+    gap: 32px;
+    align-items: baseline;
+    & > h2 {
+        white-space: nowrap;
+    }
+}
+
+.catalog__title_content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.catalog__title_text {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    & > p {
+        margin: 0;
+    }
+}
+.catalog__title_link {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    & > p {
+        margin: 0;
+    }
+}

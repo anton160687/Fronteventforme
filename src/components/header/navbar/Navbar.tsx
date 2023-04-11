@@ -61,7 +61,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
 
                 <Navbar.Collapse id='light-navbar-nav' className='order-lg-2'>
                     <Nav>
-                        {!isAuth && <City />}
+                        <City />
 
                         <CatalogDropDown />
 
@@ -70,7 +70,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
                         {!isAuth &&<Login />}
                         {!isAuth &&<RegButton />}
 
-                        {isAuth && <Search />}
+                        {/* {isAuth && <Search />} */}
                         {isAuth && <Avatar role={'bride'} first_name={'Имя'} second_name={'Фамилия'} avatar={''}/>}
 
                     </Nav>
