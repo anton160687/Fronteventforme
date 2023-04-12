@@ -1,9 +1,19 @@
-import { cardsLinkArrey } from "@/mocks/cardsLinkArrey";
+import { cards} from "@/mocks/cards";
+import Link from "next/link";
 import { FC } from "react";
-import {Container, Col, Row} from "react-bootstrap";
+import {Container, Col, Row, Button} from "react-bootstrap";
 import { Card } from "./card";
 
-export const CardsLink = () => (
+export const CardsLink:FC = () => {
+const {cardsLinkArrey} = cards || {};
+
+  if (!cardsLinkArrey) {
+    <button type="button" className="btn btn-primary" onClick={"/"} >
+        Home
+    </button>
+  }
+  
+  return(
   <section>
     <Container style={{marginTop: "104px"}}>
       <Row className='align-items-center justify-content-center'> 
@@ -14,13 +24,12 @@ export const CardsLink = () => (
       </Row>
       <Row className='align-items-center justify-content-space-evenly g-2'>
         {cardsLinkArrey && cardsLinkArrey.map(item =>
-          ( <Card 
-            key={item.id} 
-            title={item.title} 
-            description={item.description} 
-            pathImg={item.pathImg} />)
+          ( <Link key={item.id} href={"#"}>
+              <Card title={item.title} description={item.description} pathImg={item.pathImg} />
+          </Link>
+          )
         )}
       </Row>
     </Container>
   </section>
-)
+)}
