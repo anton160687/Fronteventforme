@@ -5,6 +5,8 @@ import { AppDispatch } from '@/store';
 import { fetchUsers } from '@/store/user/userSlice';
 import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
+import { CardsLink } from '@/components/main/cardsLink/cardsLink';
+
 
 export default function Home() {  
   // кастомизируем диспатч:
@@ -19,6 +21,7 @@ export default function Home() {
   return (
     <>
       <Hero/>
+      <CardsLink/>
       <SupplierCard/>
       <PlanWeddingCard/>
     </>
