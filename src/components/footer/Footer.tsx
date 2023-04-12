@@ -39,7 +39,7 @@ export default function Footer() {
           {/* Logo + contacts */}
           <div className='mb-sm-0 mb-4 px-2'>
 
-            <Link href='/real-estate' className='d-inline-flex mb-4'>
+            <Link href='/' className='d-inline-flex mb-4'>
               <Image src='/img/header/logo.png' width={143} height={33} alt='EventForME' />
             </Link>
 
