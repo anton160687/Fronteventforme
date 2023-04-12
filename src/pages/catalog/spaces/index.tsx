@@ -6,6 +6,8 @@ import Pagination from 'react-bootstrap/Pagination';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Title from "@/components/catalog/title/Title";
+import Sorting from "@/components/catalog/sorting/Sorting";
+import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
 
 
 function CatalogSpaces() {
@@ -18,11 +20,14 @@ function CatalogSpaces() {
         <Breadcrumb.Item linkAs={Link} href='/catalog'>Каталог</Breadcrumb.Item>
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
       </Breadcrumb>
-  
+
       <Row>
         <Sidebar />
         <Col>
-        <Title title={'Банкетные залы'} quantity={184} />
+          <Title title={'Банкетные залы'} quantity={184} />
+          <SpaceFilters />
+          <Sorting />
+
 
           <Pagination size='lg'>
             <Pagination.Item>
