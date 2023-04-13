@@ -1,18 +1,12 @@
 .city__form {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .city__text {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   gap: 11px;
   border-right: 1px solid #D5D2DC;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   text-align: center;
   padding-left: 16px;
   padding-right: 16px;
@@ -34,8 +28,7 @@
   border: none;
   max-width: 130px;
 }
-
-.city__input::-webkit-input-placeholder {
+.city__input::-moz-placeholder {
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -43,7 +36,6 @@
   color: #674FA3;
   padding-left: 16px;
 }
-
 .city__input:-ms-input-placeholder {
   font-style: normal;
   font-weight: 500;
@@ -52,16 +44,6 @@
   color: #674FA3;
   padding-left: 16px;
 }
-
-.city__input::-ms-input-placeholder {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 150%;
-  color: #674FA3;
-  padding-left: 16px;
-}
-
 .city__input::placeholder {
   font-style: normal;
   font-weight: 500;
@@ -70,4 +52,3 @@
   color: #674FA3;
   padding-left: 16px;
 }
-/*# sourceMappingURL=City.module.css.map */
