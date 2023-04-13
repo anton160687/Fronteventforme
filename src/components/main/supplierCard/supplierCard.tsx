@@ -11,7 +11,7 @@ import RegisterBtn from "@/components/main/registerBtn/registerBtn";
 function SupplierCard() {
 
     return (
-        <section className={styles.my64 + ' bg-secondary'}>
+        <section className={styles.py64 + ' bg-secondary'}>
             <Container as='section' className="mx-auto w-75">
                 <Row className='align-items-center'>
                     <Col md={7} xxl={6} className='text-md-start text-center'>
@@ -20,7 +20,7 @@ function SupplierCard() {
                         <RegisterBtn/>
                     </Col>
                     <Col md={5}>
-                        <div className='d-flex justify-content-center justify-content-md-start mb-md-0 mb-4'>
+                        <div className='d-flex justify-content-center mb-md-0 mb-4'>
                             <Image
                                 src='/img/photo.jpg'
                                 width={416}

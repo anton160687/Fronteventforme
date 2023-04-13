@@ -26,6 +26,7 @@ function SupplierSlider(): JSX.Element {
                 <div className='position-relative'>
                     <Swiper
                         modules={[Navigation]}
+                        loop={true}
                         navigation={{
                             prevEl: '#prev',
                             nextEl: '#next'
@@ -38,6 +39,7 @@ function SupplierSlider(): JSX.Element {
                             1300: {slidesPerView: 4}
                         }}
                         className='mx-n2'
+                        data-carousel-options='{"loop": true}'
                     >
                         {suppliers.map((supplier, index) => (
                             <SwiperSlide key={index} className='h-auto'>
