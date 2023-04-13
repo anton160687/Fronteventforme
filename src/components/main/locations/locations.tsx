@@ -5,8 +5,8 @@ import styles from "@/styles/main/Main.module.scss";
 
 
 type LocationProps = {
-    array: [],
-    title: 'string',
+    array: { href: string; image: string; title: string; price: number; feedback: {}[]; stars: number; location: string; }[],
+    title: string,
 }
 
 export function Locations({array, title}: LocationProps): JSX.Element {

@@ -27,10 +27,10 @@ export default function Home() {
       <>
           <Hero/>
           <CardsLink/>
-          <Locations array={properties} title={'ТОП-5 площадок разных категорий г. Москва'}/>
+          <Locations array={properties} title={"ТОП-5 площадок разных категорий г. Москва"}/>
           <MoreServices/>
           <SupplierSlider/>
-          <Locations array={properties} title={'Лучшие локации'}/>
+          <Locations array={properties} title={"Лучшие локации"}/>
           <PersonServices/>
           <SupplierCard/>
           <PlanWeddingCard/>
