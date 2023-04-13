@@ -1,0 +1,18 @@
+@import './_variables';
+
+//адаптивный шрифт
+//min-fz - минимальный размер шрифта (используется для мобильных устройств)
+//$max-fz - максимальный размер шрифта
+@mixin fz($min-fz, $max-fz) {
+  $add-fz: $max-fz - $min-fz;
+  $add-min-fz: $add-fz + $add-fz * 0.7;
+  @media (min-width: 767px) {
+    font-size: calc(#{$min-fz + px} + #{$add-fz} * (100vw / #{$max-width}));
+  }
+  @media (max-width: 767px) {
+    font-size: calc(
+      #{$min-fz + px} + #{$add-min-fz} *
+        ((100vw - #{$min-width + px}) / #{$max-width})
+    );
+  }
+}

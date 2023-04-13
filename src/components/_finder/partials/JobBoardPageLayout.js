@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button'
 import StickyNavbar from '../StickyNavbar'
 import ImageLoader from '../ImageLoader'
 import SocialButton from '../SocialButton'
-import MarketButton from '../../components/MarketButton'
+import MarketButton from '../../_finder/MarketButton'
 import SignInModalLight from '../partials/SignInModalLight'
 import SignUpModalLight from '../partials/SignUpModalLight'
 
