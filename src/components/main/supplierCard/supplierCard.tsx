@@ -23,7 +23,7 @@ function SupplierCard() {
                         </Button>
                     </Col>
                     <Col md={5}>
-                        <div className='d-flex justify-content-center justify-content-md-start mb-md-0 mb-4'>
+                        <div className='d-flex justify-content-center mb-md-0 mb-4'>
                             <Image
                                 src='/img/photo.jpg'
                                 width={416}
