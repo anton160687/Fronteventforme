@@ -1,9 +1,15 @@
+import { MouseEvent } from 'react';
+import Link from "next/link";
 import Container from "react-bootstrap/Container";
 import styles from "@/styles/main/Main.module.scss";
-import Link from "next/link";
 
 
-export function Locations({array, title}): JSX.Element {
+type LocationProps = {
+    array: [],
+    title: 'string',
+}
+
+export function Locations({array, title}: LocationProps): JSX.Element {
     let shortData = [];
 
     // для страницы нужно только 5 элементов
@@ -12,11 +18,9 @@ export function Locations({array, title}): JSX.Element {
         shortData.length = 5;
     }
 
-
-    function addToFav (e) {
+    function addToFav (e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-
-        console.log('Добавлено в избранное')
+        console.log('Добавлено в избранное');
 
     }
 
@@ -29,10 +33,10 @@ export function Locations({array, title}): JSX.Element {
 
 
              <div className={styles.grid}>
-                 {shortData.map((property, index) => (
+                 {shortData.map((property: any, index: number) => (
                      <div className={`${styles.locations_wrapper} card-hover shadow-sm ${index === 0 ? styles.locations_wrapper_1 : ''}`} key={index}>
                              <Link href={property.href} className={styles.locations__overlay}>
-                                 <div href={property.href} className={styles.overlay_wrapper}>
+                                 <div className={styles.overlay_wrapper}>
                                      <div className={`${styles.locations__description} pb-3 ps-3`}>
                                          <h3 className={`${styles.description__title} mb-1`}>{property.title}</h3>
                                          <div className={`${styles.description__text} fs-sm opacity-70`}>

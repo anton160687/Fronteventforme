@@ -26,7 +26,7 @@ function SupplierSlider(): JSX.Element {
                 <div className='position-relative'>
                     <Swiper
                         modules={[Navigation]}
-                        loop={true}
+                        // loop={true}
                         navigation={{
                             prevEl: '#prev',
                             nextEl: '#next'

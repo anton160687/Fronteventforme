@@ -25,11 +25,11 @@ export default function Home() {
   return (
       <>
           <Hero/>
-          <MoreServices/>
+          <CardsLink/>
           <Locations array={properties} title={'ТОП-5 площадок разных категорий г. Москва'}/>
+          <MoreServices/>
           <SupplierSlider/>
           <Locations array={properties} title={'Лучшие локации'}/>
-          <CardsLink/>
           <SupplierCard/>
           <PlanWeddingCard/>
       </>
