@@ -1,9 +1,11 @@
-.supplier_card__container {
-    padding: 64px 0;
+@import '@/styles/_mixins';
+
+.my64 {
+    margin: 64px 0;
 }
 
-.plan_wedding__container {
-    padding: 124px 0;
+.my124 {
+    margin: 124px 0;
 }
 
 .btn__link {
@@ -32,4 +34,18 @@
     text-align: center;
     color: #FFFFFF;
     margin-bottom: 48px;
+}
+.main__title {
+    @include fz(12,40);
+    line-height: 52px;
+}
+
+.main__subtitle {
+    @include fz(10,32);
+}
+
+.main__suptitle {
+    @include fz(9,20);
+    font-weight: 500;
+    line-height: 30px;
 }

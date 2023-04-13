@@ -5,6 +5,7 @@ import { AppDispatch } from '@/store';
 import { fetchUsers } from '@/store/user/userSlice';
 import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
+import SupplierSlider from "@/components/main/supplierSlider/supplierSlider";
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 
 
@@ -21,7 +22,11 @@ export default function Home() {
   return (
     <>
       <Hero/>
+
+      <SupplierSlider/>
+
       <CardsLink/>
+
       <SupplierCard/>
       <PlanWeddingCard/>
     </>
