@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import styles from "@/styles/main/Main.module.scss";
+import RegisterBtn from "@/components/main/registerBtn/registerBtn";
 
 
 function SupplierCard() {
@@ -16,11 +17,7 @@ function SupplierCard() {
                     <Col md={7} xxl={6} className='text-md-start text-center'>
                         <h2>Стань нашим исполнителем</h2>
                         <p className='pb-3 fs-lg'>Длинная подпись предоставляемой услуги на несколько небольших строчек</p>
-                        <Button size='lg' onClick={() => { }}>
-                            <Link href='#' className={styles.btn__link}>
-                                {'Регистрация\u00A0'}<img src='/img/arrow.png' />
-                            </Link>
-                        </Button>
+                        <RegisterBtn/>
                     </Col>
                     <Col md={5}>
                         <div className='d-flex justify-content-center mb-md-0 mb-4'>

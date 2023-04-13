@@ -49,7 +49,19 @@
     font-weight: 500;
     line-height: 30px;
 }
+.more_services {
+    &__description {
+        @include fz(9,18);
+        color: $grey;
+    }
+}
 
+.step {
+    &__title {}
+    &__description {
+        margin: 0;
+    }
+}
 .grid {
     display: grid;
     grid-template-columns: 0.75fr 1fr 0.5fr;
