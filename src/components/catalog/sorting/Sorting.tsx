@@ -19,6 +19,7 @@ function Sorting({ sortingCB }: SortingProps) {
                     Сортировать по:
                 </Form.Label>
                 <Form.Select size='sm' onChange={handleChoice}>
+                    <option value='none'>-----</option>
                     <option value='popularity'>Популярности</option>
                     <option value='lowPrice'>Цена (от низкой к высокой)</option>
                     <option value='hightPrice'>Цена (от высокой к низкой)</option>
