@@ -8,9 +8,26 @@ import Row from "react-bootstrap/Row";
 import Title from "@/components/catalog/title/Title";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
+import { URL } from "@/constant";
+import { GetServerSideProps } from 'next';
+import { Place } from "@/types/catalog";
 
 
-function CatalogSpaces() {
+export async function getServerSideProps (context: GetServerSideProps<{ data: Place[] }>) {
+  const response = await fetch(`${URL}/places/`);
+  const data: Place[] = await response.json();
+  console.log (data);
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
+
+
+
+function CatalogPlaces() {
 
   return (
     <Container>
@@ -28,7 +45,6 @@ function CatalogSpaces() {
           <SpaceFilters />
           <Sorting />
 
-
           <Pagination size='lg'>
             <Pagination.Item>
               <i className='fi-chevron-left'></i>
@@ -45,45 +61,8 @@ function CatalogSpaces() {
         </Col>
       </Row>
 
-
-
-
-
     </Container>
   )
 }
 
-export default CatalogSpaces;
-
-
-
-
-
-
-
-//Это специальная функция next для запросов на стороне сервере. Ее наличие обеспечивает ssr:
-export async function getServerSideProps() {
-  const url = 'https://jsonplaceholder.typicode.com/users';
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'application/json',
-    },
-  });
-  const data = await response.json();
-
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
-  // так можно обращаться к стору прямо из специальных функций Next, но это не рекомендуется
-  //Лучше получать данные в компоненте через props и затем диспатчить их в стор из самого компонета.
-  // store.dispatch(fetchUsers());
-
-  return {
-    props: {
-      items: data
-    },
-  };
-}
+export default CatalogPlaces;

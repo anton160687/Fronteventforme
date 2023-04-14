@@ -1,22 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../index';
 import { User } from '@/types/user';
-import { fetchAllUsers, fetchUserById } from './userAPI';
+import { fetchAllUsers } from './userAPI';
 
 
 type UserState = {
-  userData: User | undefined,
   userList: User[],
   status: 'idle' | 'loading' | 'failed',
+  value: number;
 }
 
 const initialState: UserState = {
-  userData: undefined,
   userList: [],
   status: 'idle',
+  value: 0,
 };
 
-export const fetchUsersWithThunk = createAsyncThunk(
+export const fetchUsers = createAsyncThunk(
   'user/fetchUsers',
   async () => {
     const response = await fetchAllUsers();
@@ -24,40 +24,33 @@ export const fetchUsersWithThunk = createAsyncThunk(
   }
 );
 
-export const fetchUserWithThunk = createAsyncThunk(
-  'user/fetchUser',
-  async (id: number) => {
-    const response = await fetchUserById(id);
-    return response;
-  }
-);
-
-
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setValue(state, action) {
+      state.value += 1;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsersWithThunk.pending, (state: UserState) => {
+      .addCase(fetchUsers.pending, (state: UserState) => {
         state.status = 'loading';
       })
-      .addCase(fetchUserWithThunk.fulfilled, (state: UserState, action: PayloadAction<User | undefined>) => {
+      .addCase(fetchUsers.fulfilled, (state: UserState, action: PayloadAction<User[] | undefined>) => {
         state.status = 'idle';
         if (action.payload) {
-          state.userData = action.payload;
+          state.userList = [...action.payload];
         }
       })
-      .addCase(fetchUserWithThunk.rejected, (state: UserState) => {
+      .addCase(fetchUsers.rejected, (state: UserState) => {
         state.status = 'failed';
       })
   },
 });
 
-export const { } = userSlice.actions;
+export const { setValue } = userSlice.actions;
 //кастомный селект
-export const selectUser = (state: RootState) => state.user.userData;
+export const selectValue = (state: RootState) => state.user.value;
 export const selectUsers = (state: RootState) => state.user.userList;
-export const selectUserReqStatus = (state: RootState) => state.user.status;
 export default userSlice.reducer;

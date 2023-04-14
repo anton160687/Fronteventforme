@@ -15,7 +15,7 @@ export default function Catalog() {
         <Breadcrumb.Item active>Каталог</Breadcrumb.Item>
       </Breadcrumb>
       <Row>
-        <h2>Корневая страница каталога</h2>
+        <Sidebar />
       </Row>
       
 
