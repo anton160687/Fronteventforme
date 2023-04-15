@@ -1,3 +1,3 @@
-export * from "./card-individual-approach"
+export * from "./cardIndividualApproach"
 export * from "./cardsLink"
-export * from "./convenient-ctlg"
+export * from "./convenientCtlg"

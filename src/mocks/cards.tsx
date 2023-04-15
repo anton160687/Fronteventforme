@@ -1,6 +1,6 @@
 export const cards ={ 
   cardsLinkArrey:[
-  {id: 1, title: "Приглашения", description: "Описание. We have the most comprehensive directory of estate agents to help you with all your property needs", pathImg: "/img/card/cards-link/wedding-invitations.png"},
+  {id: 1, title: "Свадебные приглашения", description: "Описание. We have the most comprehensive directory of estate agents to help you with all your property needs", pathImg: "/img/card/cards-link/wedding-invitations.png"},
   {id: 2, 
   title: "Свадебный сайт", 
   description: "We have the most comprehensive directory of estate agents to help you with all your property needs", 
