@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { FC } from "react";
+import { Button } from "react-bootstrap";
 import styles from "./convenientCatalog.module.scss";
+
 
 type cardType = {
   title: string,
@@ -9,11 +11,11 @@ type cardType = {
   color: string
 }
 export const CardConCat:FC<cardType>  = ({title, description, nameImg, color}) =>  (
-  <Link href="#" className={`${styles.icon} icon-box card card-body border-0 shadow col-xl-6 g-4`}>
-    <div className={`${styles.icon_img} shadow`}>
-      <i className={` ${nameImg} shadow`}></i>
-    </div>
-    <h3 className="icon-box-title fs-base mt-5 mb-2">{title}</h3>
-    <p className="text-dark">{description}</p>
+  <Link href="#" className={`${styles.icon} text-decoration-none border-0 shadow ps-4 col-sm-6 g-4`}>
+    <Button className={styles.icon_img} variant={`outline-${color} border-0 shadow`}>
+      <i className={`${nameImg}`}></i>
+    </Button>
+    <h3 className="fs-base mt-5 mb-2">{title}</h3>
+    <p className={styles.description}>{description}</p>
   </Link>
   )

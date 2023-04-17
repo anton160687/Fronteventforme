@@ -1,4 +1,4 @@
-
+@import '/src/styles/mixins';
 
 .icon{
   position: relative;
@@ -15,9 +15,9 @@
     left: 32px;
     margin-bottom: 24px;
   }
+}
 
-  &:hover &_img{
-    color: #ffffff !important;
-    background: #FE9589;
-  }
+.description {
+  @include fz(9,16);
+  color: $grey;
 }
