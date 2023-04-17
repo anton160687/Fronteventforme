@@ -9,8 +9,4 @@ module.exports = {
   images: {
     domains: ["picsum.photos", "dummyimage.com"],
   },
-
-  images: {
-    domains: ["picsum.photos", "dummyimage.com"],
-  },
 };

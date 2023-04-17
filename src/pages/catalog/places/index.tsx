@@ -1,33 +1,88 @@
-import Sidebar from "@/components/catalog/sidebar/Sidebar";
 import Link from "next/link";
+import Image from "next/image";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Container from "react-bootstrap/Container";
 import Pagination from 'react-bootstrap/Pagination';
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Title from "@/components/catalog/title/Title";
+import Sidebar from "@/components/catalog/sidebar/Sidebar";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
+import styles from '@/styles/catalog/places/Places.module.scss';
+//для SSR
 import { URL } from "@/constant";
-import { GetServerSideProps } from 'next';
-import { Place } from "@/types/catalog";
+import { Place, Area } from "@/types/catalog";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/store";
+import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 
+type CatalogPlacesProps = {
+  places: Place[],
+};
 
-export async function getServerSideProps (context: GetServerSideProps<{ data: Place[] }>) {
+//SSR
+export async function getServerSideProps() {
   const response = await fetch(`${URL}/places/`);
-  const data: Place[] = await response.json();
-  console.log (data);
+  const places: Place[] = await response.json();
   return {
     props: {
-      data,
+      places,
     },
   }
 }
 
+//сама страница
+function CatalogPlaces({ places }: CatalogPlacesProps) {
+  const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
+  const unsortedPlaces = useSelector(selectPlaces);
+  const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    dispatch(setPlaces(places));
+  }, [])
 
+  function sortPlacesByParam(param: string) {
+    switch (param) {
+      case 'popularity':
+        let sortedByRating = places.slice().sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
+        setSortedPlaces(sortedByRating);
+        break;
+      case 'lowPrice':
+        //здесь логика сортировки
+        break;
+      case 'hightPrice':
+        //здесь логика сортировки
+        break;
+    }
+  }
 
-function CatalogPlaces() {
+  function renderAllPlaces(places: Place[]) {
+    return places.map((place) => (
+      <article key={place.id}>
+        <h3>{place.title}</h3>
+        <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
+        <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
+        <p>Адрес: {place.address.full}</p>
+        <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
+        <p>Описание: {place.short_description}</p>
+        {renderAreasInOnePlace(place.area)}
+        <br />
+        <br />
+      </article>
+    ))
+  }
+
+  function renderAreasInOnePlace(areas: Area[]) {
+    return areas.map((area) => (
+      <div key={area.id}>
+        <h5>{area.title}</h5>
+        <p>Стоимость: {area.min_price}</p>
+        <Image src={area.image_area} alt='Фото локации' width={500} height={150} className={styles.catalog__smallimage} />
+      </div>
+    ))
+  }
 
   return (
     <Container>
@@ -41,9 +96,17 @@ function CatalogPlaces() {
       <Row>
         <Sidebar />
         <Col>
-          <Title title={'Банкетные залы'} quantity={184} />
+          <Title title={'Площадки'} quantity={places.length} />
           <SpaceFilters />
-          <Sorting />
+          <Sorting sortingCB={sortPlacesByParam} />
+
+          <section>
+            {sortedPlaces?
+              renderAllPlaces(sortedPlaces)
+              :
+              renderAllPlaces(places)
+            }
+          </section>
 
           <Pagination size='lg'>
             <Pagination.Item>

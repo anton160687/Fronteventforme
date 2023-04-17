@@ -21,3 +21,14 @@ if (response.ok) {
   console.log(response);
 }
 }
+
+//подставить API от бэка на топ-5 площадок
+export async function fetchTopPlaces(): Promise<Place[] | undefined> {
+  let response = await fetch(`${URL}places/`)
+if (response.ok) {
+  let result = await response.json();
+  return result.slice(0, 5);
+} else {
+  console.log(response);
+}
+}
