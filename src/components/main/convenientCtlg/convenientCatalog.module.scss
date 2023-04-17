@@ -1,0 +1,23 @@
+
+
+.icon{
+  position: relative;
+  padding-top: 50px;
+  &_img{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    width: 90px;
+    height: 90px;
+    top: -14px;
+    left: 32px;
+    margin-bottom: 24px;
+  }
+
+  &:hover &_img{
+    color: #ffffff !important;
+    background: #FE9589;
+  }
+}
