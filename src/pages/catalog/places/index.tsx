@@ -12,7 +12,6 @@ import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
 import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
 import { URL } from "@/constant";
-import { GetServerSideProps } from 'next';
 import { Place, Area } from "@/types/catalog";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
