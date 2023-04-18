@@ -6,21 +6,20 @@ import { Navigation, Pagination, EffectCube } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/bundle'
 import { CardConCat } from "./cardConCat";
-import Link from "next/link";
 
 export const ConvenientCatalog:FC = () => {
-const {CardsConCat} = cards || {};
-const {slidesCatalog} = cards || {};
+  const {CardsConCat} = cards || {};
+  const {slidesCatalog} = cards || {};
 
-if (!CardsConCat) {
-  
-}
+  if (!CardsConCat) {
+    
+  }
 
   return(
   <section>
     <Container style={{marginTop: "124px"}}>
       <Row> 
-        <Row className="col-lg-6 col-sm-12 mb-sm-5">
+        <Row className="col-xl-6 col-sm-12 g-4 p-0">
           {CardsConCat && CardsConCat.map(item =>
             ( <CardConCat
               key={item.id} 
@@ -33,7 +32,7 @@ if (!CardsConCat) {
           )}
         </Row>
         
-        <figure className="border-0 align-items-center col-lg-6 col-md-8 col-sm-10 ms-lg-3">
+        <figure className="border-0 align-items-center col-lg-6 col-md-8 col-sm-10 mt-sm-5 mt-xl-3">
           <figcaption>
             <h2>Удобный каталог</h2>
             <p className="mt-3 mb-5">Более подробное описание категории: важные фильтры, советы и др. We have the most comprehensive directory of estate agents to help you with all your property needs. Whether buying, selling or renting start your search.</p>
@@ -62,19 +61,24 @@ if (!CardsConCat) {
           </Swiper>
           <div id='bullets' className='swiper-pagination position-relative bottom-0 pt-2 mt-4 mb-lg-3'></div>
           <Row className="mt-lg-5 mt-sm-4">
-            <Link href='#' className="text-decoration-none col-xl-3 col-sm-4" >
-              <Button variant='primary' size='lg' onClick={() => { }}>
-                Попробовать
-              </Button>
-            </Link>
-            <Link href='#' className="text-decoration-none col-xl-3 col-sm-4 ms-xl-4 ms-lg-3" >
-              <Button variant='outline-primary' size='lg' onClick={() => { }}>
-                Подробнее
-              </Button>
-            </Link>  
+              <Button 
+                type="button" 
+                href="/catalog"
+                variant='primary'
+                className="text-decoration-none col-xl-3 col-sm-4"
+                size='lg'>
+                  Попробовать
+                </Button>
+              <Button 
+                type="button" 
+                href="/catalog" 
+                variant='outline-primary' 
+                className="text-decoration-none col-xl-3 col-sm-4 ms-xl-4 ms-lg-3"
+                size='lg'>
+                  Подробнее
+                </Button>
           </Row>
         </figure>
-        
       </Row>
     </Container>
   </section>
