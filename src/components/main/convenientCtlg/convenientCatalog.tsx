@@ -6,6 +6,7 @@ import { Navigation, Pagination, EffectCube } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/bundle'
 import { CardConCat } from "./cardConCat";
+import styles from "./convenientCatalog.module.scss";
 
 export const ConvenientCatalog:FC = () => {
   const {CardsConCat} = cards || {};
@@ -16,10 +17,10 @@ export const ConvenientCatalog:FC = () => {
   }
 
   return(
-  <section>
-    <Container style={{marginTop: "124px"}}>
-      <Row> 
-        <Row className="col-xl-6 col-sm-12 g-4 p-0">
+  <section className={styles.top}>
+    <Container>
+      <Row className="justify-content-center"> 
+        <Row className="col-xl-6 col-sm-12 g-4 p-0 justify-content-center">
           {CardsConCat && CardsConCat.map(item =>
             ( <CardConCat
               key={item.id} 
@@ -56,7 +57,7 @@ export const ConvenientCatalog:FC = () => {
             >            
               {slidesCatalog && slidesCatalog.map(slide =>
               (<SwiperSlide  key={slide.id}>
-                <ImageLoader src={slide.pathImg} width={636} height={462} alt={slide.title} />
+                <ImageLoader src={slide.pathImg} width={636} height={462} alt={slide.title} className="rounded-3" />
               </SwiperSlide>))}            
           </Swiper>
           <div id='bullets' className='swiper-pagination position-relative bottom-0 pt-2 mt-4 mb-lg-3'></div>
