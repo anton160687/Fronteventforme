@@ -7,33 +7,23 @@ import Container from "react-bootstrap/Container";
 import Pagination from 'react-bootstrap/Pagination';
 import Title from "@/components/catalog/title/Title";
 import Sidebar from "@/components/catalog/sidebar/Sidebar";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "@/store";
+import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
 import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
 import { URL } from "@/constant";
 import { Place, Area } from "@/types/catalog";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "@/store";
-import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
+import { GetStaticProps } from "next";
 
 type CatalogPlacesProps = {
   places: Place[],
 };
 
-//SSR
-export async function getServerSideProps() {
-  const response = await fetch(`${URL}/places/`);
-  const places: Place[] = await response.json();
-  return {
-    props: {
-      places,
-    },
-  }
-}
 
-//сама страница
 function CatalogPlaces({ places }: CatalogPlacesProps) {
   const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
   const unsortedPlaces = useSelector(selectPlaces);
@@ -61,7 +51,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   function renderAllPlaces(places: Place[]) {
     return places.map((place) => (
       <article key={place.id}>
-        <h3>{place.title}</h3>
+        <Link href={`/catalog/places/${place.id}`}><h3>{place.title}</h3></Link>
         <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
         <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
         <p>Адрес: {place.address.full}</p>
@@ -129,3 +119,32 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 }
 
 export default CatalogPlaces;
+
+export const getStaticProps:GetStaticProps = async() => {
+  const response = await fetch(`${URL}/places/`);
+  const places: Place[] = await response.json();
+  
+  if (!places) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      places,
+    }
+  }
+
+}
+
+//SSR
+// export async function getServerSideProps() {
+//   const response = await fetch(`${URL}/places/`);
+//   const places: Place[] = await response.json();
+//   return {
+//     props: {
+//       places,
+//     },
+//   }
+// }
