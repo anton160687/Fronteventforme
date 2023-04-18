@@ -6,10 +6,10 @@ import RegisterBtn from "@/components/main/registerBtn/registerBtn";
 import Card from 'react-bootstrap/Card'
 import {steps} from "@/mocks/moreServices";
 
- function MoreServices(): JSX.Element {
+function MoreServices(): JSX.Element {
     return (
         <Container as='section' className="mx-auto w-75">
-            <section href="#" className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
+            <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
 
                 <div className="row">
                     <div className="col">
@@ -23,7 +23,7 @@ import {steps} from "@/mocks/moreServices";
                     </div>
                     <div className="col">
                     <ImageLoader src='/img/group.png' width={701} height={380.41}
-                                 alt={'more services'}/>
+                                alt={'more services'}/>
                     </div>
                 </div>
                 <section className="row mt-3">
