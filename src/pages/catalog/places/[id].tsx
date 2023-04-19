@@ -7,6 +7,7 @@ import { Breadcrumb, Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import YaComments from "../../../components/catalog/catalogItem/yaComments/YaComments";
 import AnchorBtns from "@/components/catalog/catalogItem/anchorBtns/AnchorBtns";
+import { LocationPhotos } from "@/components/catalog/catalogItem/locationPhotos/locationsPhotos";
 
 type CatalogItemProps = {
   item?: Place,
@@ -29,7 +30,24 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         <p>Loading...</p>
         :
         <>
-          <Image src={item.image_vendor} width={150} height={150} alt='image' />
+          {/* тестовые данные для разных ситуаций, потом - удалить */}
+          <LocationPhotos photoUrls={[
+            'https://picsum.photos/369/224',
+            'https://picsum.photos/369/224',
+            'https://picsum.photos/369/224',
+            'https://picsum.photos/369/224',
+            'https://picsum.photos/369/224',
+          ]} />
+
+          <LocationPhotos photoUrls={[
+            'https://picsum.photos/369/224',
+            'https://picsum.photos/369/224',
+          ]} />
+
+          <LocationPhotos photoUrls={[
+            'https://picsum.photos/369/224',
+          ]} />
+
           <h3>{item.title}</h3>
           <div>
             <p>{item.address.full}</p>
@@ -45,18 +63,18 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           </p>
         </>
       }
-      
-      <AnchorBtns/>
+
+      <AnchorBtns />
 
 
       <div id="map">
         Здесь карта Яндекса с объектом
       </div>
-      
+
       <div id="comments">
         <YaComments />
       </div>
-      
+
     </Container>
   )
 }
