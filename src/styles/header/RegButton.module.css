@@ -7,15 +7,10 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 150%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   text-align: center;
   color: #FFFFFF;
   display: flex;
   gap: 10px;
 }
-/*# sourceMappingURL=RegButton.module.css.map */

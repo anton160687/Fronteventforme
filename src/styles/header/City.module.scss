@@ -1,3 +1,9 @@
+.city__form_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .city__form {
   display: flex;
 }
@@ -25,13 +31,36 @@
 
 .city__input {
   border: none;
-  max-width: 130px;
+  width: 250px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  padding-left: 12px;
   &::placeholder {
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 150%;
     color: #674FA3;
-    padding-left: 16px;
+    padding-left: 12px;
+  }
+}
+
+.city__dropdown{
+  top: 36px;
+  right: 0px;
+  position: absolute;
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  @media (max-width: 990px) {
+    top: 24px;
+  }
+}
+
+.checked {
+  &:hover {
+    color: #674FA3;
+    font-weight: 600;
   }
 }

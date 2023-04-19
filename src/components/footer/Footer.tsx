@@ -5,10 +5,11 @@ import Image from 'next/image';
 import SocialButton from '../_finder/SocialButton';
 import { SERVICES, PLACES, PAGES, ACTORS, FooterConst } from '@/constant';
 import styles from '@/styles/footer/Footer.module.scss';
+import Button from 'react-bootstrap/Button';
 
 export default function Footer() {
 
-  function renderRow(rowData: FooterConst): JSX.Element {
+  function renderRow(rowData: FooterConst, button: boolean): JSX.Element {
     return (
       <div className={styles.footer_row + ' mb-sm-0 mb-4'}>
         <h4 className='h5'>{rowData.title}</h4>
@@ -18,9 +19,12 @@ export default function Footer() {
               <Nav.Item className='mb-2' key={item.id}>
                 <Nav.Link as={Link} href={item.url} active={false} className='p-0 fw-normal'>{item.name}</Nav.Link>
               </Nav.Item>
-
             ))
           }
+          {button &&
+            <Nav.Link className={styles.footer__catalog_btn} as={Link} href='#' active={false}>
+              <Button>Хочу быть в каталоге</Button>
+            </Nav.Link>}
         </Nav>
       </div>
     )
@@ -35,7 +39,7 @@ export default function Footer() {
           {/* Logo + contacts */}
           <div className='mb-sm-0 mb-4 px-2'>
 
-            <Link href='/real-estate' className='d-inline-flex mb-4'>
+            <Link href='/' className='d-inline-flex mb-4'>
               <Image src='/img/header/logo.png' width={143} height={33} alt='EventForME' />
             </Link>
 
@@ -66,13 +70,13 @@ export default function Footer() {
           </div>
 
           <div className={styles.footer_rows}>
-            {renderRow(SERVICES)}
+            {renderRow(SERVICES, false)}
 
-            {renderRow(PAGES)}
+            {renderRow(PAGES, false)}
 
-            {renderRow(PLACES)}
+            {renderRow(PLACES, false)}
 
-            {renderRow(ACTORS)}
+            {renderRow(ACTORS, true)}
           </div>
         </div>
 
