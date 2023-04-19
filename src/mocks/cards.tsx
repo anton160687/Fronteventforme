@@ -68,7 +68,7 @@ slidesCatalog: [
   {id: 3, 
     title: "Photo", 
     description: "", 
-    pathImg: "/img/card/convenient-ctlg/city.png",
+    pathImg: "/img/card/convenient-ctlg/house.png",
   },
 ]
 }
