@@ -3,7 +3,7 @@ import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
 import SupplierSlider from "@/components/main/supplierSlider/supplierSlider";
 import MoreServices from "@/components/main/moreServices/moreServices";
-// import { Locations } from "@/components/main/locations/locations";
+import { Locations } from "@/components/main/locations/locations";
 import { Place } from '@/types/catalog';
 import { GetStaticProps } from "next";
 import { URL } from '@/constant';
