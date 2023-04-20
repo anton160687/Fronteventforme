@@ -15,12 +15,12 @@ export function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element 
             <Image src={photoUrls[0]} alt='photo' height={400} width={635} className={styles.location__photo_main_left} />
           </div>
           <div className={styles.location__photo_column}>
-            <Image src={photoUrls[1] || 'https://picsum.photos/369/224'} height={187} width={333} alt='photo' className={styles.location__photo_small} />
-            <Image src={photoUrls[2] || 'https://picsum.photos/369/224'} height={187} width={333} alt='photo' className={styles.location__photo_small} />
+            <Image src={photoUrls[1]} height={187} width={333} alt='photo' className={styles.location__photo_small} />
+            <Image src={photoUrls[2]} height={187} width={333} alt='photo' className={styles.location__photo_small} />
           </div>
           <div className={styles.location__photo_column}>
-            <Image src={photoUrls[3] || 'https://picsum.photos/369/224'} height={187} width={333} alt='photo' className={styles.location__photo_small_up} />
-            <Image src={photoUrls[4] || 'https://picsum.photos/369/224'} height={187} width={333} alt='photo' className={styles.location__photo_small_down} />
+            <Image src={photoUrls[3]} height={187} width={333} alt='photo' className={styles.location__photo_small_up} />
+            <Image src={photoUrls[4]} height={187} width={333} alt='photo' className={styles.location__photo_small_down} />
           </div>
         </section>
       )

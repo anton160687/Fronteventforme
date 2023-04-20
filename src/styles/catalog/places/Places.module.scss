@@ -96,6 +96,11 @@
     }
 }
 
+.right__container {
+    display: flex;
+    flex-direction: column;
+}
+
 .popular__container {
     display: flex;
     justify-content: space-between;

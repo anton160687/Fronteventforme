@@ -9,6 +9,7 @@ import AnchorBtns from "@/components/catalog/catalogItem/anchorBtns/AnchorBtns";
 import { LocationPhotos } from "@/components/catalog/catalogItem/locationPhotos/locationsPhotos";
 import styles from "@/styles/catalog/places/Places.module.scss";
 import RatingStars from "@/components/catalog/catalogItem/ratingStars/RatingStar";
+import BookingForm from "@/components/bookingForm/BookingForm";
 
 type CatalogItemProps = {
   item?: Place,
@@ -35,26 +36,33 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       ]} />
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
-      <div  className={styles.location__flex_container}>
+      <div className={styles.location__flex_container}>
 
-        
         {/* это - боковой контейнер справа на странице */}
-        <div>
-        
-        <div className={styles.popular__container}>
-          <RatingStars rating={3.7 } voices={58} />
-          {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-          <div className={styles.popular__text}>
-            <p className={styles.popular__par}>В избранном у&nbsp;<span>{234} человека </span></p>
-            <p className={styles.popular__par}>Забронировано&nbsp;<span>{12} раз </span></p>
+        <div className={styles.right__container}>
+
+          <div className={styles.popular__container}>
+            <RatingStars rating={3.7} voices={58} />
+            {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+            <div className={styles.popular__text}>
+              <p className={styles.popular__par}>В избранном у&nbsp;<span>{234} человека </span></p>
+              <p className={styles.popular__par}>Забронировано&nbsp;<span>{12} раз </span></p>
+            </div>
           </div>
 
-        </div>
+          {/* тестовые данные для разных ситуаций, потом - удалить */}
+          <BookingForm
+            avatar={'https://picsum.photos/100/100'}
+            first_name={"Имя"}
+            last_name={"Фамилия"}
+            phone={"12345678"}
+            email={"sshuahuash@mail.ru"}
+          />
 
-        
         </div>
+        
         {/* это - основной контейнер слева на странице */}
-        <div className={styles.left_container}>
+        <div className={styles.left__container}>
           <div className={styles.location__flex_container}>
             <h3>{item?.title}</h3>
             <p>3 зала 2 веранды 2 шатра</p>
