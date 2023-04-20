@@ -1,11 +1,13 @@
 import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ImageLoader from "@/components/_finder/ImageLoader";
 import { FC } from "react";
-// import { CatalogPlacesProps } from "../../../pages/catalog/places/index";
+import { Place } from "@/types/catalog";
 
+type propsPlace = {
+  place: Place
+}
 
-
-export const CatalogPlaceCard = ({place})=> {
+export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
 
   return(
     <Card className='card-horizontal card-hover my-5 ms-3'>
@@ -16,7 +18,6 @@ export const CatalogPlaceCard = ({place})=> {
           layout='fill'
           objectFit='cover'
           alt='Card image'
-          // className='card-img-bottom'
         />
       </div>
       <Card.Body className='py-0'>
