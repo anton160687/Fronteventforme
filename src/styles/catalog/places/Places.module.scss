@@ -87,7 +87,7 @@
 }
 
 .location__description_container_li {
-    & > span {
+    &>span {
         font-weight: 700;
         font-size: 16px;
         line-height: 150%;
@@ -96,9 +96,27 @@
     }
 }
 
+.popular__container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popular__par {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+    display: flex;
+    align-items: center;
+    color: #1F1B2D;
+    & > span {
+        color: #FE9589;
+    }
+}
+
 .rating__number {
     margin: 0;
 }
+
 .rating__stars {
     display: block;
     margin: 8px 0;

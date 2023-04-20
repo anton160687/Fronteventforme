@@ -37,11 +37,21 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
       <div  className={styles.location__flex_container}>
 
+        
         {/* это - боковой контейнер справа на странице */}
         <div>
-        <RatingStars rating={3.7 } voices={58} />
-        {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+        
+        <div className={styles.popular__container}>
+          <RatingStars rating={3.7 } voices={58} />
+          {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+          <div className={styles.popular__text}>
+            <p className={styles.popular__par}>В избранном у&nbsp;<span>{234} человека </span></p>
+            <p className={styles.popular__par}>Забронировано&nbsp;<span>{12} раз </span></p>
+          </div>
 
+        </div>
+
+        
         </div>
         {/* это - основной контейнер слева на странице */}
         <div className={styles.left_container}>
