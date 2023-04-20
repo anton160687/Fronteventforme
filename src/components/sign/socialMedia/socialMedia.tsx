@@ -1,29 +1,34 @@
 import Button from 'react-bootstrap/Button';
-import styles from '@/styles/main/Main.module.scss';
-import Image from 'next/image';
+import styles from '@/styles/sign/Sign.module.scss';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import YandexArrow from '../../../../public/img/icons/yandex.svg';
 
-export default function SocialMedia(): JSX.Element {
+interface SocialMediaProps {
+  setSignUpForm: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function SocialMedia({
+  setSignUpForm,
+}: SocialMediaProps): JSX.Element {
+  function handleClick(event: MouseEvent<HTMLButtonElement>): void {
+    event.preventDefault;
+  }
   return (
-    <div className="col-md-6 px-2 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+    <section>
       <Button variant="outline-primary w-100 mb-3">
         <i className="fi-vk fs-lg me-1"></i>
         Войти через Вконтакте
       </Button>
-      <Button variant="outline-primary w-100 mb-3">
+      <Button variant="outline-primary w-100 mb-3" onClick={handleClick}>
         <i className="fi-google fs-lg me-1"></i>
         Войти через Google
       </Button>
-      <Button variant="outline-primary w-100 mb-3">
-        {/* <i className="fi-yandex fs-lg me-1">
-          
-        </i> */}
-        <img
-          src="/img/icons/yandex.svg"
-          className={styles.icon_primary + ' fs-lg me-1'}
-          alt="yandex icon"
-          // width={18}
-          // height={21.31}
-        />
+      <Button
+        variant="outline-primary w-100 mb-3"
+        className={styles.btn_primary}
+      >
+        {/*//!Я так поняла, что react-native(?) не дает реднерить svg. Для решения это проблемы надо устанавливать доп библиотеку react-native-svg, поэтому пока опустила этот момент */}
+        {/* <YandexArrow /> */}
         Войти через Яндекс
       </Button>
 
@@ -33,9 +38,12 @@ export default function SocialMedia(): JSX.Element {
         <hr className="w-100" />
       </div>
 
-      <p className="text-center text-primary cursor-pointer">
+      <p
+        onClick={() => setSignUpForm((prev) => !prev)}
+        className="text-center text-primary cursor-pointer"
+      >
         Стандартная регистрация через почту
       </p>
-    </div>
+    </section>
   );
 }

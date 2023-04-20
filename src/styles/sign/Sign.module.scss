@@ -1,0 +1,11 @@
+@import '@/styles/_mixins';
+
+.btn_primary {
+  svg {
+    fill: $primary;
+  }
+}
+
+.link {
+  text-decoration: none;
+}
