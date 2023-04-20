@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
 import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
+import { CatalogPlaceCard } from "@/components/catalog/";
+
 
 type CatalogPlacesProps = {
   places: Place[],
@@ -59,8 +61,13 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   }
 
   function renderAllPlaces(places: Place[]) {
-    console.log("places", places);
-    return(<></>)
+    
+    return(
+      places.map((place) => (
+        <CatalogPlaceCard key={place.id} place={place} />
+      )
+    )
+    )
     // return places.map((place) => (
     //   <article key={place.id}>
     //     <h3>{place.title}</h3>
