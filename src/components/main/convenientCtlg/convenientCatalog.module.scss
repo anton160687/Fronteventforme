@@ -1,9 +1,9 @@
 @import '/src/styles/mixins';
 
-.icon{
+.icon {
   position: relative;
   padding-top: 50px;
-  &_img{
+  &_img {
     position: absolute;
     display: flex;
     align-items: center;
@@ -19,6 +19,6 @@
 }
 
 .description {
-  @include fz(9,16);
+  @include fz(9, 16);
   color: $grey;
 }
