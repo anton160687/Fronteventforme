@@ -18,6 +18,8 @@ import styles from '@/styles/catalog/places/Places.module.scss';
 import { URL } from "@/constant";
 import { Place, Area } from "@/types/catalog";
 import { GetStaticProps } from "next";
+import { CatalogPlaceCard } from "@/components/catalog/";
+
 
 type CatalogPlacesProps = {
   places: Place[],
@@ -48,20 +50,13 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
     }
   }
 
-  function renderAllPlaces(places: Place[]) {
-    return places.map((place) => (
-      <article key={place.id}>
-        <Link href={`/catalog/places/${place.id}`}><h3>{place.title}</h3></Link>
-        <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
-        <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
-        <p>Адрес: {place.address.full}</p>
-        <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
-        <p>Описание: {place.short_description}</p>
-        {renderAreasInOnePlace(place.area)}
-        <br />
-        <br />
-      </article>
-    ))
+  function renderAllPlaces(places: Place[]) {   
+    return(
+      places.map((place) => (
+        <CatalogPlaceCard key={place.id} place={place} />
+      )
+    )
+    )
   }
 
   function renderAreasInOnePlace(areas: Area[]) {
