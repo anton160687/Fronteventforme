@@ -96,7 +96,7 @@ function BookingForm({ avatar, first_name, last_name, phone, email }: BookingFor
                     <Form.Control
                         type='number'
                         name='guests'
-                        value={booking.guests}
+                        value={booking.guests? booking.guests : ''}
                         placeholder='Количество гостей'
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
                     />

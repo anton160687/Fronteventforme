@@ -96,14 +96,25 @@
     }
 }
 
+
+.left__container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 24px;
+}
+
+
 .right__container {
     display: flex;
     flex-direction: column;
 }
 
 .popular__container {
+    margin: 24px 0 48px;
+    padding: 24px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .popular__par {
