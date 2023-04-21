@@ -25,7 +25,7 @@ export const CardRepetition:FC<src> = ({src}) => {
 
 export const CardName:FC = () => {
   return(
-    <figure className="card card-hover border-0 align-items-center card-horizontal col-lg-12 col-md-4 col-sm-5">
+    <figure className="card card-hover border-0 align-items-center card-horizontal col-lg-12 col-md-4 col-sm-5 p-2">
         <Image  
           src="/img/card/cardsPersonServices/plug.png" 
           className="rounded-circle me-3"  
