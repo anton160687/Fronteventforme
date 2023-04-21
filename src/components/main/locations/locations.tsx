@@ -61,9 +61,9 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
             <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
                     <h3 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h3>
-                    </div>
+                </div>
+                <div className={styles.grid}>
                         {locations? renderLocations() : "Loading"}
-                    <div className={styles.grid}>
                 </div>
             </section>
         </Container>
