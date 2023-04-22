@@ -3,18 +3,12 @@ import styles from '@/styles/sign/Sign.module.scss';
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import YandexArrow from '../../../../public/img/icons/yandex.svg';
 
-interface SocialMediaProps {
-  setSignUpForm: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function SocialMedia({
-  setSignUpForm,
-}: SocialMediaProps): JSX.Element {
+export default function SocialMedia(): JSX.Element {
   function handleClick(event: MouseEvent<HTMLButtonElement>): void {
     event.preventDefault;
   }
   return (
-    <section>
+    <section style={{ marginLeft: '5rem' }}>
       <Button variant="outline-primary w-100 mb-3">
         <i className="fi-vk fs-lg me-1"></i>
         Войти через Вконтакте
@@ -37,13 +31,6 @@ export default function SocialMedia({
         <div className="px-3">Или</div>
         <hr className="w-100" />
       </div>
-
-      <p
-        onClick={() => setSignUpForm((prev) => !prev)}
-        className="text-center text-primary cursor-pointer"
-      >
-        Стандартная регистрация через почту
-      </p>
     </section>
   );
 }

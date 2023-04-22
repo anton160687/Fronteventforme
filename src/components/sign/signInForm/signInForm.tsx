@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
+import { PATHS } from '@/constant';
 
 export default function SignInForm(): JSX.Element {
   let path = useRouter().pathname;
@@ -22,28 +23,40 @@ export default function SignInForm(): JSX.Element {
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Form
+      validated={validated}
+      onSubmit={handleSubmit}
+      style={{ marginLeft: '5rem' }}
+    >
       <Form.Group controlId="si-email" className="mb-4">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter your email" required />
+        <Form.Label style={{ fontWeight: '500' }}>Электронная почта</Form.Label>
+        <Form.Control type="email" placeholder="primer@mail.ru" required />
       </Form.Group>
       <Form.Group className="mb-4">
         <div className="d-flex align-items-center justify-content-between mb-2">
-          <Form.Label htmlFor="si-password" className="mb-0">
-            Password
+          <Form.Label
+            htmlFor="si-password"
+            className="mb-0"
+            style={{ fontWeight: '500' }}
+          >
+            Пароль
           </Form.Label>
-          <Link href="#" className="fs-sm">
-            Forgot password?
+          <Link href={PATHS.forgotPassword} className={styles.link + ' fs-sm'}>
+            Забыли пароль?
           </Link>
         </div>
         <PasswordToggle
           id="si-password"
-          placeholder="Enter password"
+          placeholder="Введите пароль"
           required
+          style={{}}
+          light={false}
+          className=""
+          size=""
         />
       </Form.Group>
       <Button type="submit" size="lg" variant="primary w-100">
-        Sign in
+        Войти на портал
       </Button>
     </Form>
   );

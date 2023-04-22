@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { fetchUserWithThunk } from '@/store/user/userSlice';
+import { useRouter } from 'next/router';
+import { PATHS } from '@/constant';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -12,17 +14,22 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
-  const isAuth = false;
 
   useEffect(() => {
     dispatch(fetchUserWithThunk(11));
   }, []);
 
+  const router = useRouter().pathname;
+  const isSign =
+    router === PATHS.signUp ||
+    router === PATHS.signIn ||
+    router === PATHS.forgotPassword;
+
   return (
     <>
-      <Header />
+      {!isSign && <Header />}
       {children}
-      <Footer />
+      {!isSign && <Footer />}
     </>
   );
 }
