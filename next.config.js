@@ -7,7 +7,14 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["picsum.photos", "dummyimage.com"],
-
+    domains: ["picsum.photos", "dummyimage.com", "placekitten.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placekitten.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };

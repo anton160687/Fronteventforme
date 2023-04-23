@@ -13,11 +13,13 @@ import { AppDispatch } from "@/store";
 import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
+import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
 import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
 import { URL } from "@/constant";
 import { Place, Area } from "@/types/catalog";
 import { GetStaticProps } from "next";
+
 
 type CatalogPlacesProps = {
   places: Place[],
@@ -49,19 +51,26 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   }
 
   function renderAllPlaces(places: Place[]) {
-    return places.map((place) => (
-      <article key={place.id}>
-        <Link href={`/catalog/places/${place.id}`}><h3>{place.title}</h3></Link>
-        <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
-        <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
-        <p>Адрес: {place.address.full}</p>
-        <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
-        <p>Описание: {place.short_description}</p>
-        {renderAreasInOnePlace(place.area)}
-        <br />
-        <br />
-      </article>
-    ))
+    
+    return(
+      places.map((place) => (
+        <CatalogPlaceCard key={place.id} place={place} />
+      )
+    )
+    )
+    // return places.map((place) => (
+    //   <article key={place.id}>
+    //     <h3>{place.title}</h3>
+    //     <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
+    //     <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
+    //     <p>Адрес: {place.address.full}</p>
+    //     <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
+    //     <p>Описание: {place.short_description}</p>
+    //     {renderAreasInOnePlace(place.area)}
+    //     <br />
+    //     <br />
+    //   </article>
+    // ))
   }
 
   function renderAreasInOnePlace(areas: Area[]) {
@@ -84,34 +93,39 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
       </Breadcrumb>
 
       <Row>
-        <Sidebar />
-        <Col>
-          <Title title={'Площадки'} quantity={places.length} />
-          <SpaceFilters />
-          <Sorting sortingCB={sortPlacesByParam} />
+        <Title title={'Площадки'} quantity={places.length} />
+        <TopSlidersPlaces/>
+        <SpaceFilters />
+                
+        <Row className="p-0">
+          <Sidebar />
+          <Col className="ms-4 p-0">
+            <Sorting sortingCB={sortPlacesByParam} />
 
-          <section>
-            {sortedPlaces?
-              renderAllPlaces(sortedPlaces)
-              :
-              renderAllPlaces(places)
-            }
-          </section>
+            <section>
+              {sortedPlaces?
+                renderAllPlaces(sortedPlaces)
+                :
+                renderAllPlaces(places)
+              }
+            </section>
 
-          <Pagination size='lg'>
-            <Pagination.Item>
-              <i className='fi-chevron-left'></i>
-            </Pagination.Item>
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Item active>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Ellipsis />
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>
-              <i className='fi-chevron-right'></i>
-            </Pagination.Item>
-          </Pagination>
-        </Col>
+            <Pagination size='lg'>
+              <Pagination.Item>
+                <i className='fi-chevron-left'></i>
+              </Pagination.Item>
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Item active>{2}</Pagination.Item>
+              <Pagination.Item>{3}</Pagination.Item>
+              <Pagination.Ellipsis />
+              <Pagination.Item>{10}</Pagination.Item>
+              <Pagination.Item>
+                <i className='fi-chevron-right'></i>
+              </Pagination.Item>
+            </Pagination>
+          </Col>
+          
+        </Row>
       </Row>
 
     </Container>

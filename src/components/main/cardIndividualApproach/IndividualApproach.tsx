@@ -42,7 +42,7 @@ export const PersonServices:FC = () => {
 
       </Row>
       <Row className='mb-4'>
-        <figure className="card border-0 align-items-center col-lg-6 col-md-12 col-sm-12">
+        <figure className="card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12">
         <Image  
           src="/img/card/cardsPersonServices/sky.png" 
           className="rounded-2 mb-3" 
