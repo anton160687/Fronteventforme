@@ -103,10 +103,12 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
 export default CatalogPlaces;
 
+
 //SSR
 export async function getServerSideProps() {
   const response = await fetch(`${URL}/places/`);
   const places: Place[] = await response.json();
+
   if (!places) {
     return {
       notFound: true,
@@ -119,3 +121,4 @@ export async function getServerSideProps() {
     },
   }
 }
+

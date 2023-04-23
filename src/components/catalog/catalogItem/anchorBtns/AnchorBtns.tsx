@@ -31,7 +31,7 @@ export default function AnchorBtns() {
       anchor: "#map"
     },
     {
-      id: 5,
+      id: 6,
       text: "Отзывы",
       anchor: "#comments"
     }

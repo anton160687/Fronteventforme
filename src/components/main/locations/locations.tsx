@@ -40,7 +40,7 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
                                 className={`${styles.locations__icon} btn btn-icon btn-light btn-xs rounded-circle`}
                                 onClick={addToFav}
                             >
-                                <i className="fi-heart"/>
+                                <i className="fi-heart" />
                             </button>
                         </div>
                     </div>
@@ -63,7 +63,7 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
                     <h3 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h3>
                 </div>
                 <div className={styles.grid}>
-                        {locations? renderLocations() : "Loading"}
+                    {locations ? renderLocations() : "Loading"}
                 </div>
             </section>
         </Container>

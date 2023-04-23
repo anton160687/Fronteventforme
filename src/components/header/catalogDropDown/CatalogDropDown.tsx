@@ -56,7 +56,7 @@ function CatalogDropDown() {
 
     return (
         <Nav.Item as={Dropdown}>
-            <Dropdown.Toggle as={Nav.Link} href='/catalog'>Каталог</Dropdown.Toggle>
+            <Dropdown.Toggle as={Nav.Link}>Каталог</Dropdown.Toggle>
             <Dropdown.Menu renderOnMount>
                 {renderItems()}
             </Dropdown.Menu>
