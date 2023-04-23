@@ -13,6 +13,7 @@ import YaComments from "../../../components/catalog/catalogItem/yaComments/YaCom
 import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
 import styles from "@/styles/catalog/places/Places.module.scss";
 
+
 type CatalogItemProps = {
   item?: Place,
 }
@@ -131,7 +132,6 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           <ContactForm />
         </div>
-
       </div>
     </Container>
   )

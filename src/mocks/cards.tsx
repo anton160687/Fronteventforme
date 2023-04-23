@@ -41,7 +41,7 @@ CardsConCat: [
   {id: 4, 
     title: "Название категории", 
     description: "Длинное описание услуги на несколько строчек", 
-    nameImg: "fi-shop",
+    nameImg: "fi-calculator",
     color: "accent"},
   {id: 5, 
     title: "Площадки", 
