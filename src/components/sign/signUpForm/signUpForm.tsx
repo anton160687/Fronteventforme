@@ -1,12 +1,11 @@
 import Form from 'react-bootstrap/Form';
-import PasswordToggle from '../../_finder/PasswordToggle';
-import { useRouter } from 'next/router';
 import { FormEvent, useState, Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import PasswordToggle from '../../_finder/PasswordToggle';
 
 interface SignUpFormProps {
   signUpForm: boolean;
@@ -14,28 +13,47 @@ interface SignUpFormProps {
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
 }
 
+const formFields = {
+  userRole: 'userRole',
+  username: 'username',
+  email: 'email',
+  password: 'password',
+  confirmPassword: 'confirmPassword',
+};
+
 export default function SignUpForm({
   signUpForm,
   setSignUpForm,
   setSignUpIsDone,
 }: SignUpFormProps): JSX.Element {
-  // Router
-  const router = useRouter();
-
   // Form validation
   const [validated, setValidated] = useState(false);
+  const [userType, setUserType] = useState('');
 
+  //filled form data
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    let formValues: any = {};
+    const formData = new FormData(form);
+
+    if (
+      form.checkValidity() === false
+      // formData.get(formFields.confirmPassword) !==
+      //   formData.get(formFields.password)
+    ) {
       event.preventDefault();
       event.stopPropagation();
     }
+
+    // здесь хранятся данные из формы в виде массива объектов с полями из formFields
+    //! не придумала, какой тип должен быть
+    Object.values(formFields).map((el) => {
+      formValues[el] = formData.get(el);
+    });
+
     setSignUpIsDone(true);
     setValidated(true);
   };
-  const [userType, setUserType] = useState('');
-  console.log('userType', userType);
 
   return (
     <div className="page-wrapper" style={{ marginLeft: '5rem' }}>
@@ -48,47 +66,60 @@ export default function SignUpForm({
         </p>
       ) : (
         <>
+          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5"></div>
           <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
-            <ButtonGroup size="sm">
-              <ToggleButton
-                type="radio"
-                id={`user`}
-                name="userRole"
-                value="user"
-                checked={userType === 'user'}
-                onChange={(e) => setUserType(e.currentTarget.value)}
-                variant="outline-primary fw-normal"
-                className={styles.toggle_btn}
-              >
-                <i className="fi-user fs-lg me-1"></i>
-                <span className={styles.toggle_btn}>Я пользователь</span>
-              </ToggleButton>
-              <ToggleButton
-                type="radio"
-                id={`vendor`}
-                name="userRole"
-                value="vendor"
-                checked={userType === 'vendor'}
-                onChange={(e) => setUserType(e.currentTarget.value)}
-                variant="outline-primary fw-normal"
-              >
-                <i className="fi-briefcase  fs-lg me-1"></i>
-                <span className={styles.toggle_btn}>Я поставщик</span>
-              </ToggleButton>
-            </ButtonGroup>
-          </div>
-          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
-            {/* Sign in card */}
-
             <Form
               validated={validated}
               onSubmit={handleSubmit}
               style={{ fontWeight: '500' }}
               className="w-100"
             >
+              <Form.Group controlId="su-radio" className="mb-4">
+                <ButtonGroup
+                  className="w-100"
+                  size="lg"
+                  style={{ position: 'relative' }}
+                >
+                  <ToggleButton
+                    type="radio"
+                    id={`user`}
+                    name="userRole"
+                    value="user"
+                    checked={userType === 'user'}
+                    onChange={(e) => setUserType(e.currentTarget.value)}
+                    variant="outline-primary fw-normal"
+                    className={styles.toggle_btn}
+                  >
+                    <i className="fi-user fs-lg me-1"></i>
+                    <span className={styles.toggle_btn}>Я пользователь</span>
+                  </ToggleButton>
+                  <Form.Control
+                    required
+                    defaultValue={userType}
+                    style={{ position: 'absolute', zIndex: '-1' }}
+                  />
+                  <ToggleButton
+                    type="radio"
+                    id={`vendor`}
+                    name="userRole"
+                    value="vendor"
+                    checked={userType === 'vendor'}
+                    onChange={(e) => setUserType(e.currentTarget.value)}
+                    variant="outline-primary fw-normal"
+                  >
+                    <i className="fi-briefcase fs-lg me-1"></i>
+                    <span className={styles.toggle_btn}>Я поставщик</span>
+                  </ToggleButton>
+                </ButtonGroup>
+              </Form.Group>
+
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
-                <Form.Control placeholder="Введите свое имя" required />
+                <Form.Control
+                  placeholder="Введите свое имя"
+                  required
+                  name={formFields.username}
+                />
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">
                 <Form.Label>Электронная почта</Form.Label>
@@ -96,6 +127,7 @@ export default function SignUpForm({
                   type="email"
                   placeholder="primer@mail.ru"
                   required
+                  name={formFields.email}
                 />
               </Form.Group>
               <Form.Group className="mb-4">
@@ -104,7 +136,7 @@ export default function SignUpForm({
                   <span className="fs-sm text-muted">(макс. 50 символов)</span>
                 </Form.Label>
                 <PasswordToggle
-                  id="su-confirm-password"
+                  id="su-password"
                   minLength="8"
                   maxLength="50"
                   required
@@ -113,6 +145,7 @@ export default function SignUpForm({
                   className=""
                   style={{}}
                   placeholder="Введите пароль"
+                  name={formFields.password}
                 />
               </Form.Group>
               <Form.Group className="mb-4">
@@ -129,6 +162,7 @@ export default function SignUpForm({
                   className=""
                   style={{}}
                   placeholder="Повторите пароль"
+                  name={formFields.confirmPassword}
                 />
               </Form.Group>
               <Form.Check
