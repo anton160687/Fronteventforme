@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
 import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
+import { CatalogPlaceCard } from "@/components/catalog/";
+
 
 type CatalogPlacesProps = {
   places: Place[],
@@ -59,19 +61,26 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   }
 
   function renderAllPlaces(places: Place[]) {
-    return places.map((place) => (
-      <article key={place.id}>
-        <h3>{place.title}</h3>
-        <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
-        <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
-        <p>Адрес: {place.address.full}</p>
-        <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
-        <p>Описание: {place.short_description}</p>
-        {renderAreasInOnePlace(place.area)}
-        <br />
-        <br />
-      </article>
-    ))
+    
+    return(
+      places.map((place) => (
+        <CatalogPlaceCard key={place.id} place={place} />
+      )
+    )
+    )
+    // return places.map((place) => (
+    //   <article key={place.id}>
+    //     <h3>{place.title}</h3>
+    //     <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
+    //     <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
+    //     <p>Адрес: {place.address.full}</p>
+    //     <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
+    //     <p>Описание: {place.short_description}</p>
+    //     {renderAreasInOnePlace(place.area)}
+    //     <br />
+    //     <br />
+    //   </article>
+    // ))
   }
 
   function renderAreasInOnePlace(areas: Area[]) {
