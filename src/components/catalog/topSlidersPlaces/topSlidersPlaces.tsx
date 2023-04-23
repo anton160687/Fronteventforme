@@ -1,15 +1,16 @@
 import { FC } from "react"
-import IconBox from '@/components/_finder/IconBox'
+// import IconBox from '@/components/_finder/IconBox'
 import { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Button from 'react-bootstrap/Button'
 import 'swiper/css/bundle'
+import Link from "next/link"
 
 
 export const TopSlidersPlaces:FC =() => {
 
   return(
-  <div className='position-relative px-5'>
+  <div className='position-relative px-3'>
     <Swiper
       modules={[Navigation, Pagination]}
       slidesPerView={10}
@@ -22,7 +23,13 @@ export const TopSlidersPlaces:FC =() => {
     >
       {iconSlides && iconSlides.map(({icon, text}, index)=> (
         <SwiperSlide key={index} className='p-2'>
-          <IconBox
+          <Link href="#" className="icon-box card card-hover text-center border-0 p-2">
+            <div className="icon-box-media mx-auto  text-light-primary fs-5">
+              <i className={`${icon} text-dark`}></i>
+            </div>
+            <p className="fs-sm my-1 text-dark">{text}</p>
+          </Link>
+          {/* <IconBox
             href='#'
             media={`${icon} m-0`}
             mediaColor='outline-dark mb-1'
@@ -30,7 +37,7 @@ export const TopSlidersPlaces:FC =() => {
             type='card'
             align='center'
             className='mb-3 border-0 p-0'
-          />
+          /> */}
         </SwiperSlide>
       ))}      
     </Swiper>
