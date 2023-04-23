@@ -2,6 +2,7 @@ import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ImageLoader from "@/components/_finder/ImageLoader";
 import { FC } from "react";
 import { Place } from "@/types/catalog";
+// import { CatalogPlacesProps } from "../../../pages/catalog/places/index";
 
 type propsPlace = {
   place: Place
@@ -10,7 +11,7 @@ type propsPlace = {
 export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
 
   return(
-    <Card className='card-horizontal card-hover my-5 ms-3'>
+    <Card className='card-horizontal card-hover my-5'>
       <div className='card-img-top'>
         <ImageLoader
           src={place.image_vendor}
@@ -18,6 +19,7 @@ export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
           layout='fill'
           objectFit='cover'
           alt='Card image'
+          // className='card-img-bottom'
         />
       </div>
       <Card.Body className='py-0'>
@@ -55,6 +57,6 @@ type cardTextType = {
 const CardText:FC<cardTextType> = ({title , description})=> (
   <Card.Text className='d-flex align-items-center justify-content-between fs-6'>
     <span className='m-0'>{title}</span>
-    <span className='m-0'><strong>{description}</strong></span>
+    <span className='m-0 text-end'><strong>{description}</strong></span>
   </Card.Text>
 )
