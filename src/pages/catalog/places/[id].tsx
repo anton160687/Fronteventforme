@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GetServerSideProps } from 'next';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
-import { Breadcrumb } from "react-bootstrap";
+import { Breadcrumb, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import AnchorBtns from "@/components/catalog/catalogItem/anchorBtns/AnchorBtns";
 import BookingForm from "@/components/bookingForm/BookingForm";
@@ -12,6 +12,7 @@ import RatingStars from "@/components/catalog/catalogItem/ratingStars/RatingStar
 import YaComments from "../../../components/catalog/catalogItem/yaComments/YaComments";
 import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
 import styles from "@/styles/catalog/places/Places.module.scss";
+import {Card, Button} from 'react-bootstrap/'
 
 
 type CatalogItemProps = {
@@ -95,6 +96,45 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <h3>Детали о кухне площадки:</h3>
           <p>Европейская, русская, кавказская кухня</p>
           <p>Есть детское меню</p>
+
+{/*//! код Сергея - начало */}
+        
+          <Card className='border-0 mb-lg-5 mb-sm-3'>
+            <Card.Body className='p-0'>
+              <Card.Title as='h3' className='mb-3'>Детали площадки</Card.Title>
+              <Card.Text className='m-0'>Тип площадки: банкетный зал, веранда, гостиница/отель, летняя площадка, банкетный комплекс, терраса, загородный комплекс, шатер</Card.Text>
+              <Button href='#' variant='outline-primary' className='col-sm-2 border-0'>
+                Показать еще
+              </Button>
+            </Card.Body>
+          </Card>
+
+          <Row className='mb-lg-5 mb-sm-3'>
+            <h3>Особенности</h3>            
+            <Row className='d-flex justify-content-between'>
+              <ul className='list-unstyled w-auto'>
+                <li>Есть танцпол</li>
+                <li>Есть сцена</li>
+                <li>Welcome-зона</li>
+                <li>Своя парковка</li>
+              </ul>
+              <ul className='list-unstyled w-auto'>
+                <li>Номер для новобрачных</li>
+                <li>1 официант обслуживает 10 человек</li>
+                <li>Панорамный вид</li>
+                <li>С выездной регистрацией</li>
+              </ul>
+              <ul className='list-unstyled w-auto'>
+                <li>Фотозона</li>
+                <li>Отель для гостей</li>
+                <li>Есть примерочная</li>
+                <li>Панорамный вид</li>
+              </ul>
+            </Row>
+          </Row>
+          
+
+
 
 
           <div id="map">
