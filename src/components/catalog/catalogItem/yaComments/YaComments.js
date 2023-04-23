@@ -32,9 +32,6 @@ function YaComments () {
     return (
         <div style={divStyle1}>
             <iframe style={divStyle2} src="https://yandex.ru/maps-reviews-widget/242196928260?comments"></iframe>
-            {/* <a href="https://yandex.ru/maps/org/usadba_izmaylovo/226327670406/" target="_blank" style={divStyle3}>
-                Усадьба Измайлово на карте Москвы — Яндекс.Карты
-            </a> */}
         </div>
     )
 }

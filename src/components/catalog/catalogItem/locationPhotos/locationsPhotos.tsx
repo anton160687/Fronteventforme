@@ -5,7 +5,7 @@ type LocationPhotosProps = {
   photoUrls: string[],
 }
 
-export function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
+function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
 
   function renderPhotos() {
     if (photoUrls.length >= 5) {
@@ -40,3 +40,5 @@ export function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element 
 
   return <>{renderPhotos()} </>
 }
+
+export default LocationPhotos;

@@ -4,13 +4,14 @@ import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
 import { Breadcrumb } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import YaComments from "../../../components/catalog/catalogItem/yaComments/YaComments";
 import AnchorBtns from "@/components/catalog/catalogItem/anchorBtns/AnchorBtns";
-import { LocationPhotos } from "@/components/catalog/catalogItem/locationPhotos/locationsPhotos";
-import styles from "@/styles/catalog/places/Places.module.scss";
-import RatingStars from "@/components/catalog/catalogItem/ratingStars/RatingStar";
 import BookingForm from "@/components/bookingForm/BookingForm";
 import ContactForm from "@/components/bookingForm/ContactForm";
+import LocationPhotos from "@/components/catalog/catalogItem/locationPhotos/locationsPhotos";
+import RatingStars from "@/components/catalog/catalogItem/ratingStars/RatingStar";
+import YaComments from "../../../components/catalog/catalogItem/yaComments/YaComments";
+import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
+import styles from "@/styles/catalog/places/Places.module.scss";
 
 type CatalogItemProps = {
   item?: Place,
@@ -48,7 +49,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           <div className={styles.location__flex_container}>
             <p>{item?.address.full}</p>
-            <Link href='#' className={styles.location__map}>
+            <Link href='#map' className={styles.location__map}>
               <i className="fi-map" /> <p>На карте</p>
             </Link>
           </div>
@@ -93,8 +94,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <h3>Детали о кухне площадки:</h3>
           <p>Европейская, русская, кавказская кухня</p>
           <p>Есть детское меню</p>
+
+
           <div id="map">
             Здесь карта Яндекса с объектом
+            <YaMap/>
           </div>
 
           <div id="comments">
