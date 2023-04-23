@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
@@ -17,8 +16,7 @@ import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
 import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
 import { URL } from "@/constant";
-import { Place, Area } from "@/types/catalog";
-import { GetStaticProps } from "next";
+import { Place } from "@/types/catalog";
 
 
 type CatalogPlacesProps = {
@@ -51,36 +49,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   }
 
   function renderAllPlaces(places: Place[]) {
-    
-    return(
-      places.map((place) => (
-        <CatalogPlaceCard key={place.id} place={place} />
-      )
-    )
-    )
-    // return places.map((place) => (
-    //   <article key={place.id}>
-    //     <h3>{place.title}</h3>
-    //     <Image src={place.image_vendor} alt='Фото площадки' width={500} height={150} className={styles.catalog__image} />
-    //     <h5>Рейтинг: {place.rating.rating}, голосов {place.rating.votes}</h5>
-    //     <p>Адрес: {place.address.full}</p>
-    //     <p>Поставщик: {place.user.name + ' ' + place.user.surname}</p>
-    //     <p>Описание: {place.short_description}</p>
-    //     {renderAreasInOnePlace(place.area)}
-    //     <br />
-    //     <br />
-    //   </article>
-    // ))
-  }
-
-  function renderAreasInOnePlace(areas: Area[]) {
-    return areas.map((area) => (
-      <div key={area.id}>
-        <h5>{area.title}</h5>
-        <p>Стоимость: {area.min_price}</p>
-        <Image src={area.image_area} alt='Фото локации' width={500} height={150} className={styles.catalog__smallimage} />
-      </div>
-    ))
+    return (places.map((place) => (<CatalogPlaceCard key={place.id} place={place} />)))
   }
 
   return (
@@ -94,16 +63,16 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
       <Row>
         <Title title={'Площадки'} quantity={places.length} />
-        <TopSlidersPlaces/>
+        <TopSlidersPlaces />
         <SpaceFilters />
-                
+
         <Row className="p-0">
           <Sidebar />
           <Col className="ms-4 p-0">
             <Sorting sortingCB={sortPlacesByParam} />
 
             <section>
-              {sortedPlaces?
+              {sortedPlaces ?
                 renderAllPlaces(sortedPlaces)
                 :
                 renderAllPlaces(places)
@@ -124,7 +93,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
               </Pagination.Item>
             </Pagination>
           </Col>
-          
+
         </Row>
       </Row>
 
@@ -134,10 +103,10 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
 export default CatalogPlaces;
 
-export const getStaticProps:GetStaticProps = async() => {
+//SSR
+export async function getServerSideProps() {
   const response = await fetch(`${URL}/places/`);
   const places: Place[] = await response.json();
-  
   if (!places) {
     return {
       notFound: true,
@@ -147,18 +116,6 @@ export const getStaticProps:GetStaticProps = async() => {
   return {
     props: {
       places,
-    }
+    },
   }
-
 }
-
-//SSR
-// export async function getServerSideProps() {
-//   const response = await fetch(`${URL}/places/`);
-//   const places: Place[] = await response.json();
-//   return {
-//     props: {
-//       places,
-//     },
-//   }
-// }

@@ -1,8 +1,8 @@
+import { FC } from "react";
+import Link from "next/link";
 import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ImageLoader from "@/components/_finder/ImageLoader";
-import { FC } from "react";
 import { Place } from "@/types/catalog";
-// import { CatalogPlacesProps } from "../../../pages/catalog/places/index";
 
 type propsPlace = {
   place: Place
@@ -19,20 +19,21 @@ export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
           layout='fill'
           objectFit='cover'
           alt='Card image'
-          // className='card-img-bottom'
         />
       </div>
       <Card.Body className='py-0'>
+
         <Card.Title className='d-flex align-items-center justify-content-between my-4'>
-          <h5 className="m-0">{place.category}</h5>
+          <Link href={`/catalog/places/${place.id}`} ><h5 className="m-0">{place.title}</h5></Link>
           <OverlayTrigger
             placement='left'
-            overlay={<Tooltip>Add to Wishlist</Tooltip>}>
+            overlay={<Tooltip>Добавить в избранное</Tooltip>}>
               <Button href="#" variant='outline-danger btn-icon rounded-circle shadow border-0'>
                 <i className='fi-heart'></i>
               </Button>
           </OverlayTrigger>
         </Card.Title>
+
         <CardText title={place.title} description={place.description} />
         <CardText title='Схема оплаты' description='За аренду зала + за банкет' />
         <CardText title='Стоимость' description='Аренда 10 000 ₽ + от 4 000 ₽/ч' />
