@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
 import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import YandexArrow from '../../../../public/img/icons/yandex.svg';
+import Image from 'next/image';
 
 export default function SocialMedia(): JSX.Element {
   function handleClick(event: MouseEvent<HTMLButtonElement>): void {
@@ -18,11 +19,13 @@ export default function SocialMedia(): JSX.Element {
         Войти через Google
       </Button>
       <Button
-        variant="outline-primary w-100 mb-3"
+        variant={'outline-primary w-100 mb-3 ' + styles.yandex_btn}
         className={styles.btn_primary}
       >
-        {/*//!Я так поняла, что react-native(?) не дает реднерить svg. Для решения это проблемы надо устанавливать доп библиотеку react-native-svg, поэтому пока опустила этот момент */}
-        {/* <YandexArrow /> */}
+        <div
+          // src="/img/icons/yandex-pink.svg"
+          className={'fs-lg me-1 ' + styles.yandex_icon}
+        />
         Войти через Яндекс
       </Button>
 

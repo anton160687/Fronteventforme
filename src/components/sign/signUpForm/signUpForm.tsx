@@ -76,6 +76,8 @@ export default function SignUpForm({
               onSubmit={handleSubmit}
               style={{ fontWeight: '500' }}
               className="w-100"
+              method="post"
+              action="#"
             >
               <Form.Group controlId="su-radio" className="mb-4">
                 <ButtonGroup
