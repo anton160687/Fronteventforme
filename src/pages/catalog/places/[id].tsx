@@ -13,6 +13,8 @@ import YaComments from "../../../components/catalog/catalogItem/yaComments/YaCom
 import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
 import styles from "@/styles/catalog/places/Places.module.scss";
 import {Card, Button} from 'react-bootstrap/'
+import { ProviderCardSpecialBlock } from "@/components/catalog";
+import { cards } from "@/mocks/cards";
 
 
 type CatalogItemProps = {
@@ -20,6 +22,7 @@ type CatalogItemProps = {
 }
 
 export default function CatalogItem({ item }: CatalogItemProps) {
+  const {providerCards} = cards || {};
 
   return (
     <Container>
@@ -97,9 +100,9 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <p>Европейская, русская, кавказская кухня</p>
           <p>Есть детское меню</p>
 
-{/*//! код Сергея - начало */}
+          {/*//! код Сергея - начало */}
         
-          <Card className='border-0 mb-lg-5 mb-sm-3'>
+          <Card className='border-0 mb-xl-5 mb-md-4 mb-sm-3'>
             <Card.Body className='p-0'>
               <Card.Title as='h3' className='mb-3'>Детали площадки</Card.Title>
               <Card.Text className='m-0'>Тип площадки: банкетный зал, веранда, гостиница/отель, летняя площадка, банкетный комплекс, терраса, загородный комплекс, шатер</Card.Text>
@@ -109,7 +112,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             </Card.Body>
           </Card>
 
-          <Row className='mb-lg-5 mb-sm-3'>
+          <Row className='mb-xl-5 mb-md-4 mb-sm-3'>
             <h3>Особенности</h3>            
             <Row className='d-flex justify-content-between'>
               <ul className='list-unstyled w-auto'>
@@ -133,9 +136,17 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             </Row>
           </Row>
           
-
-
-
+          {providerCards && providerCards.map(item =>
+            ( <ProviderCardSpecialBlock
+              key={item.id}
+              id={item.id}
+              title={item.title} 
+              description={item.description} 
+              pathImg={item.pathImg}
+              />          
+            )
+          )}
+          {/*//! код Сергея - окончание */}
 
           <div id="map">
             Здесь карта Яндекса с объектом

@@ -1,4 +1,5 @@
 export const cards ={ 
+  //! карточки под header-ом
   cardsLinkArrey:[
   {id: 1, title: "Свадебные приглашения", description: "Описание. We have the most comprehensive directory of estate agents to help you with all your property needs", pathImg: "/img/card/cards-link/wedding-invitations.png"},
   {id: 2, 
@@ -22,6 +23,8 @@ export const cards ={
     description: "We have the most comprehensive directory of estate agents to help you with all your property needs", 
     pathImg: "/img/card/cards-link/check-lists.png"},
 ],
+
+  //! карточки "Удобный каталог" - слева
 CardsConCat: [
   {id: 1, 
     title: "Свадебные платья", 
@@ -54,21 +57,44 @@ CardsConCat: [
     nameImg: "fi-pie-chart",
     color: "warning"},
 ],
+
+  //! карточки "Удобный каталог"
 slidesCatalog: [
   {id: 1, 
     title: "Photo", 
-    description: "", 
     pathImg: "/img/card/convenient-ctlg/shoreSea.png",
     },
   {id: 2, 
     title: "Photo", 
-    description: "", 
     pathImg: "/img/card/convenient-ctlg/marriageProposal.png",
   },
   {id: 3, 
     title: "Photo", 
-    description: "", 
     pathImg: "/img/card/convenient-ctlg/house.png",
+  },
+],
+
+//! карта провайдера
+providerCards: [
+  {id: 1, 
+    title: "Территория", 
+    description: ["Красивые локации для выездной регистрации", "Зеленая территория с фонтаном и прудом", "Парковка для каждого зала (до 30 машин)", "Детская игровая зона", "Площадка для фаер-шоу и салюта", "Лаундж зона с кальянами"],
+    pathImg: ["/img/card/providerCards/1.png", "/img/card/providerCards/2.png", "/img/card/providerCards/3.png",]
+    },
+  {id: 2, 
+    title: "Выездная регистрация", 
+    description: ["Красивые локации для выездной регистрации", "Зеленая территория с фонтаном и прудом", "Парковка для каждого зала (до 30 машин)", "Детская игровая зона", "Площадка для фаер-шоу и салюта", "Лаундж зона с кальянами"],
+    pathImg: ["/img/card/providerCards/2.png", "/img/card/providerCards/1.png", "/img/card/providerCards/3.png",]
+  },
+  {id: 3, 
+    title: "Welcome-зона", 
+    description: ["Красивые локации для выездной регистрации", "Зеленая территория с фонтаном и прудом", "Парковка для каждого зала (до 30 машин)", "Детская игровая зона", "Площадка для фаер-шоу и салюта", "Лаундж зона с кальянами"],
+    pathImg: ["/img/card/providerCards/3.png", "/img/card/providerCards/1.png", "/img/card/providerCards/2.png",]
+  },
+  {id: 4, 
+    title: "Размещение гостей и молодоженов", 
+    description: ["Красивые локации для выездной регистрации", "Зеленая территория с фонтаном и прудом", "Парковка для каждого зала (до 30 машин)", "Детская игровая зона", "Площадка для фаер-шоу и салюта", "Лаундж зона с кальянами"],
+    pathImg: ["/img/card/providerCards/1.png", "/img/card/providerCards/2.png", "/img/card/providerCards/3.png",]
   },
 ]
 }
