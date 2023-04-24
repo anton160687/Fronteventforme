@@ -1,5 +1,11 @@
 import Form from 'react-bootstrap/Form';
-import { FormEvent, useState, Dispatch, SetStateAction } from 'react';
+import {
+  FormEvent,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+} from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
@@ -26,33 +32,30 @@ export default function SignUpForm({
   setSignUpForm,
   setSignUpIsDone,
 }: SignUpFormProps): JSX.Element {
-  // Form validation
   const [validated, setValidated] = useState(false);
   const [userType, setUserType] = useState('');
+  const [password, setPassword] = useState('');
+  const PassRequirements = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}';
 
-  //filled form data
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
+    //! не придумала, какой тип должен быть
     let formValues: any = {};
     const formData = new FormData(form);
 
-    if (
-      form.checkValidity() === false
-      // formData.get(formFields.confirmPassword) !==
-      //   formData.get(formFields.password)
-    ) {
+    if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
+      //! не придумала, какой тип должен быть
+      Object.keys(formFields).map((el) => {
+        formValues[el] = formData.get(el);
+      });
+
+      setSignUpIsDone(true);
+      setValidated(true);
     }
-
-    // здесь хранятся данные из формы в виде массива объектов с полями из formFields
-    //! не придумала, какой тип должен быть
-    Object.values(formFields).map((el) => {
-      formValues[el] = formData.get(el);
-    });
-
-    setSignUpIsDone(true);
-    setValidated(true);
   };
 
   return (
@@ -86,7 +89,9 @@ export default function SignUpForm({
                     name="userRole"
                     value="user"
                     checked={userType === 'user'}
-                    onChange={(e) => setUserType(e.currentTarget.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUserType(e.currentTarget.value)
+                    }
                     variant="outline-primary fw-normal"
                     className={styles.toggle_btn}
                   >
@@ -104,7 +109,9 @@ export default function SignUpForm({
                     name="userRole"
                     value="vendor"
                     checked={userType === 'vendor'}
-                    onChange={(e) => setUserType(e.currentTarget.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setUserType(e.currentTarget.value)
+                    }
                     variant="outline-primary fw-normal"
                   >
                     <i className="fi-briefcase fs-lg me-1"></i>
@@ -146,6 +153,13 @@ export default function SignUpForm({
                   style={{}}
                   placeholder="Введите пароль"
                   name={formFields.password}
+                  pattern={PassRequirements}
+                  title={
+                    'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.'
+                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setPassword(e.currentTarget.value)
+                  }
                 />
               </Form.Group>
               <Form.Group className="mb-4">
@@ -163,6 +177,8 @@ export default function SignUpForm({
                   style={{}}
                   placeholder="Повторите пароль"
                   name={formFields.confirmPassword}
+                  pattern={password}
+                  title={'Пароли должны совпадать.'}
                 />
               </Form.Group>
               <Form.Check
