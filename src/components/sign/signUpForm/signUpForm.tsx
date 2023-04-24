@@ -12,6 +12,7 @@ import styles from '@/styles/sign/Sign.module.scss';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import PasswordToggle from '../../_finder/PasswordToggle';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE } from '@/constant';
 
 interface SignUpFormProps {
   signUpForm: boolean;
@@ -35,7 +36,6 @@ export default function SignUpForm({
   const [validated, setValidated] = useState(false);
   const [userType, setUserType] = useState('');
   const [password, setPassword] = useState('');
-  const PassRequirements = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}';
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
@@ -155,13 +155,12 @@ export default function SignUpForm({
                   style={{}}
                   placeholder="Введите пароль"
                   name={formFields.password}
-                  pattern={PassRequirements}
-                  title={
-                    'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.'
-                  }
+                  pattern={PASSWORD_REQUIREMENTS}
+                  title={PASSWORD_TITLE}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setPassword(e.currentTarget.value)
                   }
+                  autoComplete="off"
                 />
               </Form.Group>
               <Form.Group className="mb-4">
@@ -181,6 +180,7 @@ export default function SignUpForm({
                   name={formFields.confirmPassword}
                   pattern={password}
                   title={'Пароли должны совпадать.'}
+                  autoComplete="off"
                 />
               </Form.Group>
               <Form.Check

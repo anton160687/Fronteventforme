@@ -1,25 +1,38 @@
-import { useRouter } from 'next/router';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import styles from '@/styles/sign/Sign.module.scss';
 import Button from 'react-bootstrap/Button';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE } from '@/constant';
+
+const formFields = {
+  password: 'password',
+  confirmPassword: 'confirmPassword',
+};
 
 export default function SetPassword(): JSX.Element {
-  // Router
-  const router = useRouter();
-
   // Form validation
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
+    //! не придумала, какой тип должен быть
+    let formValues: any = {};
+    const formData = new FormData(form);
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
+      //! не придумала, какой тип должен быть
+      Object.keys(formFields).map((el) => {
+        formValues[el] = formData.get(el);
+      });
+      setValidated(true);
     }
-    setValidated(true);
   };
+
+  const [password, setPassword] = useState('');
 
   return (
     <div className="col-md-6 px-2 pt-2 pb-4 px-sm-6 pb-sm-5 pt-md-5">
@@ -30,11 +43,11 @@ export default function SetPassword(): JSX.Element {
         className="w-100"
       >
         <Form.Group className="mb-4">
-          <Form.Label htmlFor="su-password">
+          <Form.Label htmlFor="password">
             Пароль <span className="fs-sm text-muted">(макс. 50 символов)</span>
           </Form.Label>
           <PasswordToggle
-            id="su-confirm-password"
+            id="confirm-password"
             minLength="8"
             maxLength="50"
             required
@@ -42,14 +55,20 @@ export default function SetPassword(): JSX.Element {
             light={false}
             className=""
             style=""
+            autoComplete="off"
+            placeholder="Введите пароль"
+            pattern={PASSWORD_REQUIREMENTS}
+            title={PASSWORD_TITLE}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.currentTarget.value)
+            }
+            name={formFields.password}
           />
         </Form.Group>
         <Form.Group className="mb-4">
-          <Form.Label htmlFor="su-confirm-password">
-            Подтвердите пароль
-          </Form.Label>
+          <Form.Label htmlFor="confirm-password">Подтвердите пароль</Form.Label>
           <PasswordToggle
-            id="su-confirm-password"
+            id="confirm-password"
             minLength="8"
             maxLength="50"
             required
@@ -57,6 +76,11 @@ export default function SetPassword(): JSX.Element {
             light={false}
             className=""
             style=""
+            autoComplete="off"
+            name={formFields.confirmPassword}
+            placeholder="Повторите пароль"
+            pattern={password}
+            title={'Пароли должны совпадать.'}
           />
         </Form.Group>
 
