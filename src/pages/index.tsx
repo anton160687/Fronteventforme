@@ -19,10 +19,10 @@ export default function Home({topLocations}: HomeProps) {
           <Hero/>
           <CardsLink/>
           <ConvenientCatalog/>
-          <Locations locations={topLocations} title={"ТОП-5 площадок разных категорий г. Москва"}/>
+          <Locations locations={topLocations} title={"ТОП-5 площадок разных категорий г. Москва"} isShowAll={false}/>
           <MoreServices/>
           <SupplierSlider/>
-           <Locations locations={topLocations} title={"Лучшие локации"}/>
+           <Locations locations={topLocations} title={"Лучшие локации"} isShowAll={true} showAllTxt='Показать все'/>
           <PersonServices/>
           <SupplierCard/>
           <PlanWeddingCard/>
