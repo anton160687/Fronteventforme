@@ -33,6 +33,7 @@ function ContactForm() {
                     value={phone}
                     placeholder={placeholder}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <Button className={styles.input__btn} onClick={handleSubmit}>Отправить</Button>
