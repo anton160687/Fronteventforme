@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { providerCards } from "@/types/cardsType";
-import ImageLoader from '../../../_finder/ImageLoader';
+import ImageLoader from "@/components/_finder/ImageLoader";
 import { Navigation} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/bundle'
@@ -8,8 +8,8 @@ import Link from "next/link";
 
 
 export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, description, pathImg}) => {
-  const [currentSlide, setCurrentSlide] = useState(Number)
-  const [totalSlides, setTotalSlides] = useState(pathImg.length)
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [totalSlides, setTotalSlides] = useState(0)
 
   const SlidesCount = () => (
     <div className='swiper-slides-count text-dark bg-light rounded-2 p-1'>

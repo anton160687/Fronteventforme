@@ -1,1 +1,1 @@
-export * from "./ProviderCardSpecialBlock"
+export * from "./providerCardSpecialBlock"

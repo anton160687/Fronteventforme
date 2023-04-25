@@ -1,1 +1,3 @@
-export * from "./ProviderCardSpecialBlock"
+export * from "./providerCardSpecialBlock"
+export * from "./photosWeddingsHeld"
+export * from "./articlesWeddings"

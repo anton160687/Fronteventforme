@@ -13,7 +13,7 @@ import YaComments from "../../../components/catalog/catalogItem/yaComments/YaCom
 import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
 import styles from "@/styles/catalog/places/Places.module.scss";
 import {Card, Button} from 'react-bootstrap/'
-import { ProviderCardSpecialBlock } from "@/components/catalog";
+import { ProviderCardSpecialBlock, PhotosWeddingsHeld, ArticlesWeddings } from "@/components/catalog";
 import { cards } from "@/mocks/cards";
 
 
@@ -23,6 +23,8 @@ type CatalogItemProps = {
 
 export default function CatalogItem({ item }: CatalogItemProps) {
   const {providerCards} = cards || {};
+  const {photosHeld} = cards || {};
+  const {articles} = cards || {};
 
   return (
     <Container>
@@ -146,6 +148,34 @@ export default function CatalogItem({ item }: CatalogItemProps) {
               />          
             )
           )}
+
+          <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
+            <Card.Title as='h3' className='mb-xl-4 mb-md-3 mb-sm-2'>Фото проведенных свадеб на площадке</Card.Title>
+            {photosHeld && photosHeld.map(item =>
+              ( <PhotosWeddingsHeld
+                key={item.id}
+                title={item.title} 
+                description={item.description} 
+                pathImg={item.pathImg}                
+                />          
+              )
+            )}
+          </Row>
+          
+          <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
+            <Card.Title as='h3' className='mb-xl-4 mb-md-3 mb-sm-2'>Статьи о свадьбах на площадке “Villa Arcobaleno”</Card.Title>
+            {articles && articles.map(item =>
+              ( <ArticlesWeddings
+                key={item.id}
+                title={item.title} 
+                description={item.description} 
+                pathImg={item.pathImg}
+                />          
+              )
+            )}
+          </Row>
+          
+
           {/*//! код Сергея - окончание */}
 
           <div id="map">
