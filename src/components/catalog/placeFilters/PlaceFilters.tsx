@@ -1,45 +1,44 @@
 import FormGroup from 'react-bootstrap/FormGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import DropdownSelect from '@/components/_finder/DropdownSelect';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownCB from './DropdownCheckbox';
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/catalog/Catalog.module.scss';
 
-function SpaceFilters() {
+function PlaceFilters() {
 
     return (
         <FormGroup className='d-block my-4'>
             <Row className='g-0 ms-sm-n2'>
                 <Col className='d-sm-flex align-items-center'>
-
-                    <DropdownSelect
-                        defaultValue='Город'
-                        icon='fi-map-pin'
-                        options={[
-                            [null, 'Москва'],
-                            [null, 'Санкт-Петербург'],
-                        ]}
-                        darkMenu={false}
-                        variant='link ps-2 ps-sm-3'
-                        className={styles.catalog__dropdown + ' w-sm-50 border-end-sm'}
-                    />
+                    <Dropdown>
+                        <Dropdown.Toggle variant='outline-secondary'>
+                            <i className={`fi-map-pin fs-lg opacity-60 me-2`}/>
+                            Город
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className='my-1'>
+                            
+                                <input
+                                    type='text'
+                                    placeholder="Введите город"
+                                />
+                            
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <hr className='d-sm-none my-2' />
 
-                    {/* подумать, как правильно получать районы - с городом или сами по себе? */}
-                    <DropdownSelect
-                        defaultValue='Район'
+                    <DropdownCB
+                        text='Районы'
                         icon='fi-building'
                         options={[
-                            [null, 'Васька'],
-                            [null, 'Черная речка']
+                            'Васька',
+                            'Черная речка'
                         ]}
-                        darkMenu={false}
-                        variant='link ps-2 ps-sm-3'
-                        className='w-sm-50 border-end-sm'
                     />
                     <hr className='d-sm-none my-2' />
 
-                    <DropdownSelect
+                    {/* <DropdownSelect
                         defaultValue='Тип площадки'
                         icon='fi-home'
                         options={[
@@ -83,7 +82,7 @@ function SpaceFilters() {
                         variant='link ps-2 ps-sm-3'
                         className='w-sm-50 border-end-md'
                     />
-                    <hr className='d-sm-none my-2' />
+                    <hr className='d-sm-none my-2' /> */}
 
                     <Button>Искать</Button>
 
@@ -93,4 +92,4 @@ function SpaceFilters() {
     )
 }
 
-export default SpaceFilters;
+export default PlaceFilters;

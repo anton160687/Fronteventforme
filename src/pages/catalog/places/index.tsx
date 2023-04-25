@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
 import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
-import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
+import PlaceFilters from "@/components/catalog/placeFilters/PlaceFilters";
 import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
 import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
@@ -64,7 +64,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
       <Row>
         <Title title={'Площадки'} quantity={places.length} />
         <TopSlidersPlaces />
-        <SpaceFilters />
+        <PlaceFilters />
 
         <Row className="p-0">
           <Sidebar />
