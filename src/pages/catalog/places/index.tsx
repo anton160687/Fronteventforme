@@ -66,7 +66,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
         <TopSlidersPlaces />
         <PlaceFilters />
 
-        <Row className="p-0">
+        <Row>
           <Sidebar />
           <Col className="ms-4 p-0">
             <Sorting sortingCB={sortPlacesByParam} />

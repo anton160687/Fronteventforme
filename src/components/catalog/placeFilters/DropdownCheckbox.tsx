@@ -1,51 +1,57 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
+import styles from '@/styles/catalog/Catalog.module.scss';
 
 type DropdownCBProps = {
+  name: string,
   text: string,
-  options: string[],
+  options: string[][],
   icon: string,
+  callback: (name: string, value: string[]) => void
 }
 
-const DropdownCB = ({ text, options, icon }: DropdownCBProps) => {
-  const [selected, setSelected] = useState('');
-  const iconEl = icon ? <i className={`${icon} me-2`}></i> : ''
+const DropdownCB = ({ name, text, options, icon, callback }: DropdownCBProps) => {
+  const initialState: string[] = [];
+  const [selectedArray, setSelectedArray] = useState(initialState);
+  
+  const iconEl = icon ? <i className={`${icon} fs-lg opacity-60 me-1`}></i> : ''
 
-  // const handleSelect = (eventKey, e) => {
-  //   setSelected(eventKey);
-  // }
-
-  function renderCB() {
-    return options.map((option, i) => (
-      <Dropdown.Item key={i} eventKey={option}>
-        <Form.Check
-          type='checkbox'
-          label={option}
-        />
-      </Dropdown.Item>)
-    )
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.checked) {
+      setSelectedArray([...selectedArray, e.target.value]);
+    }
+    if (!e.target.checked) {
+      let i = selectedArray.indexOf(e.target.value);
+      if (i >= 0) {
+        let copyArray = [...selectedArray];
+        copyArray.splice(i, 1);
+        setSelectedArray(copyArray);
+      }
+    }
   }
 
+  useEffect(()=> {
+    callback(name, selectedArray)
+  }, [selectedArray])
 
-  return (
-    // <Dropdown onSelect={handleSelect}>
-    <Dropdown>
-      <Dropdown.Toggle>
-        {iconEl}
-        {text}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {renderCB()}
-        {/* {options.map((option, indx) => 
-          <Dropdown.Item key={indx} eventKey={option[1]}>
-            {option[0] && <i className={`${option[0]} fs-lg opacity-60 me-2`}></i>}
-            {option[1]}
-          </Dropdown.Item>)
-        } */}
-      </Dropdown.Menu>
-    </Dropdown>
-  )
+function renderCB() {
+  return options.map((option, i) => (
+    <Form.Check key={i} type='checkbox' value={option[0]} label={option[1]} onChange={handleChange} />
+  ))
+}
+
+return (
+  <Dropdown>
+    <Dropdown.Toggle variant='outline-none'>
+      {iconEl}
+      <p className={styles.catalog__dropdown_text}>{text}</p>
+    </Dropdown.Toggle>
+    <Dropdown.Menu className={styles.catalog__dropdown_container}>
+      {renderCB()}
+    </Dropdown.Menu>
+  </Dropdown>
+)
 }
 
 export default DropdownCB
