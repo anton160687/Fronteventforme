@@ -1,38 +1,55 @@
-import Form from 'react-bootstrap/Form';
-import PasswordToggle from '../../_finder/PasswordToggle';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Link from 'next/link';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PasswordToggle from '../../_finder/PasswordToggle';
 import styles from '@/styles/sign/Sign.module.scss';
 import { PATHS } from '@/constant';
 
-const formFields = {
-  // username: 'username',
-  email: 'email',
-  password: 'password',
+type formDataType = {
+  email: string,
+  password: string,
 };
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
+  //создаем стэйт для нашей формы
+  const initialDataState: formDataType = {
+    email: '',
+    password: ''
+  }
+  const [data, setData] = useState<formDataType>(initialDataState);
+
+  console.log(data);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    //вполне можно оставить эту часть, чтобы использовать встроенную валидацию формы
     const form = event.currentTarget;
-    //! не придумала, какой тип должен быть
-    let formValues: any = {};
-    const formData = new FormData(form);
-
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
-      //! не придумала, какой тип должен быть
-      Object.keys(formFields).map((el) => {
-        formValues[el] = formData.get(el);
-      });
-
+    if (form.checkValidity()) {
       setValidated(true);
+      //здесь будут действия по отправке data на бэк
     }
   };
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    //а вот здесь, в зависимости от имени поля, можно вставить самые разнообразные проверки
+    if (e.target.name === 'email') {
+      //какая-нибудь проверка на regexp
+      setData({
+        ...data,
+        [e.target.name]: e.target.value
+      })
+    }
+
+    if (e.target.name === 'password') {
+      //какая-нибудь проверка на regexp
+      setData({
+        ...data,
+        [e.target.name]: e.target.value
+      })
+    }
+  }
 
   return (
     <Form
@@ -48,7 +65,10 @@ export default function SignInForm(): JSX.Element {
           type="email"
           placeholder="primer@mail.ru"
           required
-          name={formFields.email}
+          name="email"
+          //форма становится контролируемой - т.е., реакт - единственный источник данных для нее
+          value={data?.email}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group className="mb-4">
@@ -67,13 +87,16 @@ export default function SignInForm(): JSX.Element {
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
+          name="password"
+          //форма становится контролируемой - т.е., реакт - единственный источник данных для нее
+          value={data?.password}
+          onChange={handleChange}
           required
           style={{}}
           light={false}
           className=""
           size=""
           autoComplete="off"
-          name={formFields.password}
         />
       </Form.Group>
       <Button type="submit" size="lg" variant="primary w-100">
