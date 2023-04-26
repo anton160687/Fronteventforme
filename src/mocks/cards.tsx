@@ -134,5 +134,27 @@ export const cards ={
       description: "Imperdiet non scelerisque turpis sed etiam ultrices. Blandit mollis dignissim egestas consectetur portitor...",
       pathImg: "/img/card/photosWeddingsHeld/big.png"
     },
+  ],
+
+  //! иконки для слайдера в верхней части страницы "Площадки"
+  iconSlides: [
+    {src:'/img/card/topSlidersPlaces/hall.svg', text: 'Банкет. зал'},
+    {icon: 'fi-tent', text: 'Шатёр'},
+    {src:'/img/card/topSlidersPlaces/veranda.svg', text: 'Веранда'},
+    {icon: 'fi-sailboat', text: 'Яхт-клуб'},
+    {icon: 'fi-motor-ship', text: 'Теплоход'},
+    {icon: 'fi-disco-ball', text: 'Лофт'},
+    {icon: 'fi-real-estate-house', text: 'Усадьба'},
+    {icon: 'fi-cocktail', text: 'Ресторан'},
+    {icon: 'fi-bed', text: 'База отыха'},
+    {icon: 'fi-cafe', text: 'Кафе'},
+    {src:'/img/card/topSlidersPlaces/сottage.svg', text: 'Котедж'},
+    {src:'/img/card/topSlidersPlaces/hotel.svg', text: 'Отель'},
+    {icon: 'fi-castle', text: 'Замок'},
+    {icon: 'fi-glass', text: 'Банкет. зал'},
+    {icon: 'fi-tent', text: 'Шатёр'},
+    {icon: 'fi-umbrella', text: 'Веранда'},
+    {icon: 'fi-sailboat', text: 'Яхт-клуб'},
+    {icon: 'fi-motor-ship', text: 'Теплоход'}
   ]
 }

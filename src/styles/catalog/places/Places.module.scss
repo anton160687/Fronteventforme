@@ -141,3 +141,11 @@
 .rating__text {
     margin: 0;
 }
+
+// для верхнего слайдера
+.icon{
+    color: #9691A4;
+    &:hover{
+        color: #000000;
+    }
+}

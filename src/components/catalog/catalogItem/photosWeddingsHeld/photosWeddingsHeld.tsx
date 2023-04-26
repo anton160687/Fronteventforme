@@ -8,8 +8,8 @@ export const PhotosWeddingsHeld:FC<cardsType> = ({title, description, pathImg })
     <figure>
       <ImageLoader
         src={pathImg}
-        width={320}
-        height={150}
+        width={200}
+        height={100}
         quality={100}
         // objectFit='cover'
         layout='responsive'

@@ -24,7 +24,7 @@ export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
       <Card.Body className='py-0'>
 
         <Card.Title className='d-flex align-items-center justify-content-between my-4'>
-          <Link href={`/catalog/places/${place.id}`} ><h5 className="m-0">{place.title}</h5></Link>
+          <Link href={`/catalog/places/${place.id}`} ><h5 className="m-0 text-decoration-none">{place.title}</h5></Link>
           <OverlayTrigger
             placement='left'
             overlay={<Tooltip>Добавить в избранное</Tooltip>}>
