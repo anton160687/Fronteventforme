@@ -1,38 +1,46 @@
-import Form from 'react-bootstrap/Form';
-import PasswordToggle from '../../_finder/PasswordToggle';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Link from 'next/link';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PasswordToggle from '../../_finder/PasswordToggle';
 import styles from '@/styles/sign/Sign.module.scss';
-import { PATHS } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  PATHS,
+  formFields,
+} from '@/constant';
 
-const formFields = {
-  // username: 'username',
-  email: 'email',
-  password: 'password',
+type formDataType = {
+  email: string;
+  password: string;
 };
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
+  //создаем стэйт для нашей формы
+  const initialDataState: formDataType = {
+    email: '',
+    password: '',
+  };
+  const [data, setData] = useState<formDataType>(initialDataState);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    //вполне можно оставить эту часть, чтобы использовать встроенную валидацию формы
     const form = event.currentTarget;
-    //! не придумала, какой тип должен быть
-    let formValues: any = {};
-    const formData = new FormData(form);
-
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
-      //! не придумала, какой тип должен быть
-      Object.keys(formFields).map((el) => {
-        formValues[el] = formData.get(el);
-      });
-
+    if (form.checkValidity()) {
       setValidated(true);
+      //здесь будут действия по отправке data на бэк
     }
   };
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setData({
+      ...data,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  }
 
   return (
     <Form
@@ -49,6 +57,7 @@ export default function SignInForm(): JSX.Element {
           placeholder="primer@mail.ru"
           required
           name={formFields.email}
+          onChange={handleChange}
         />
       </Form.Group>
       <Form.Group className="mb-4">
@@ -60,20 +69,23 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={PATHS.forgotPassword} className={styles.link + ' fs-sm'}>
+          <Link href={PATHS.renew} className={styles.link + ' fs-sm'}>
             Забыли пароль?
           </Link>
         </div>
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
+          name={formFields.password}
+          onChange={handleChange}
           required
           style={{}}
           light={false}
           className=""
           size=""
           autoComplete="off"
-          name={formFields.password}
+          pattern={PASSWORD_REQUIREMENTS}
+          title={PASSWORD_TITLE}
         />
       </Form.Group>
       <Button type="submit" size="lg" variant="primary w-100">

@@ -2,37 +2,40 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import Button from 'react-bootstrap/Button';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
 
-const formFields = {
-  password: 'password',
-  confirmPassword: 'confirmPassword',
+type formDataType = {
+  password: string;
+  confirmPassword: string;
 };
 
 export default function SetPassword(): JSX.Element {
-  // Form validation
   const [validated, setValidated] = useState(false);
+  //создаем стэйт для нашей формы
+  const initialDataState: formDataType = {
+    password: '',
+    confirmPassword: '',
+  };
+  const [data, setData] = useState<formDataType>(initialDataState);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
-    //! не придумала, какой тип должен быть
-    let formValues: any = {};
-    const formData = new FormData(form);
 
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
-      //! не придумала, какой тип должен быть
-      Object.keys(formFields).map((el) => {
-        formValues[el] = formData.get(el);
-      });
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (form.checkValidity()) {
       setValidated(true);
+      //логика отправки на бэк
     }
   };
 
-  const [password, setPassword] = useState('');
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setData({
+      ...data,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  }
 
   return (
     <div className="col-md-6 px-2 pt-2 pb-4 px-sm-6 pb-sm-5 pt-md-5">
@@ -59,9 +62,7 @@ export default function SetPassword(): JSX.Element {
             placeholder="Введите пароль"
             pattern={PASSWORD_REQUIREMENTS}
             title={PASSWORD_TITLE}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.currentTarget.value)
-            }
+            onChange={handleChange}
             name={formFields.password}
           />
         </Form.Group>
@@ -79,8 +80,9 @@ export default function SetPassword(): JSX.Element {
             autoComplete="off"
             name={formFields.confirmPassword}
             placeholder="Повторите пароль"
-            pattern={password}
+            pattern={data.password}
             title={'Пароли должны совпадать.'}
+            onChange={handleChange}
           />
         </Form.Group>
 

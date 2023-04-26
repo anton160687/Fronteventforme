@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   const isSign =
     router === PATHS.signUp ||
     router === PATHS.signIn ||
-    router === PATHS.forgotPassword;
+    router === PATHS.renew;
 
   return (
     <>
