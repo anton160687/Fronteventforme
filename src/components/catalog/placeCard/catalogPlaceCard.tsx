@@ -12,7 +12,7 @@ export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
 
   return(
     <Card className='card-horizontal card-hover my-5'>
-      <div className='card-img-top'>
+      <Link href={`/catalog/places/${place.id}`} className='card-img-top'>
         <ImageLoader
           src={place.image_vendor}
           quality={100}
@@ -20,18 +20,18 @@ export const CatalogPlaceCard:FC<propsPlace> = ({place})=> {
           objectFit='cover'
           alt='Card image'
         />
-      </div>
+      </Link>
       <Card.Body className='py-0'>
 
         <Card.Title className='d-flex align-items-center justify-content-between my-4'>
-          <Link href={`/catalog/places/${place.id}`} ><h5 className="m-0 text-decoration-none">{place.title}</h5></Link>
-          <OverlayTrigger
+          <Link href={`/catalog/places/${place.id}`} className="m-0 text-decoration-none" ><h5>{place.title}</h5></Link>
+          {/* <OverlayTrigger
             placement='left'
-            overlay={<Tooltip>Добавить в избранное</Tooltip>}>
-              <Button href="#" variant='outline-danger btn-icon rounded-circle shadow border-0'>
+            overlay={<Tooltip>Добавить в избранное</Tooltip>}> */}
+              <Button href="#" title='Добавить в избранное' variant='outline-danger btn-icon rounded-circle shadow border-0'>
                 <i className='fi-heart'></i>
               </Button>
-          </OverlayTrigger>
+          {/* </OverlayTrigger> */}
         </Card.Title>
 
         <CardText title={place.title} description={place.description} />

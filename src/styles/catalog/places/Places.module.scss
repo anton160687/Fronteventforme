@@ -148,4 +148,9 @@
     &:hover{
         color: #000000;
     }
+    @media (max-width: 992px) {
+        p{
+            display: none;
+        }
+    }
 }
