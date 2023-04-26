@@ -17,6 +17,7 @@ import styles from '@/styles/catalog/places/Places.module.scss';
 //для SSR
 import { URL } from "@/constant";
 import { Place } from "@/types/catalog";
+import BotomFilters from "@/components/catalog/botomFilters/botomFilters";
 
 
 type CatalogPlacesProps = {
@@ -96,6 +97,8 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
         </Row>
       </Row>
+
+      <BotomFilters />
 
     </Container>
   )
