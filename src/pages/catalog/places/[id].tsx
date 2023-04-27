@@ -102,7 +102,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             </ul>
           </div>
 
-          <h3>Подходит для:</h3>
+          <h4 className="h4">Подходит для:</h4>
           <ul>
             <li>Свадьба</li>
             <li>День рождения</li>
@@ -118,7 +118,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             <li> Корпоратив</li>
             <li> Праздничный банкет</li>
           </ul>
-          <h3>Детали о кухне площадки:</h3>
+          <h4 className="h4">Детали о кухне площадки:</h4>
           <p>Европейская, русская, кавказская кухня</p>
           <p>Есть детское меню</p>
 

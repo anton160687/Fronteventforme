@@ -1,3 +1,5 @@
+@import '@/styles/_mixins';
+
 .catalog__image {
   height: 224px;
   width: 361px;
@@ -100,6 +102,8 @@
   display: flex;
   flex-direction: column;
   padding-right: 24px;
+  //иначе слайдеры разбегаются
+  max-width: 856px;
 }
 
 .right__container {
@@ -138,4 +142,78 @@
 
 .rating__text {
   margin: 0;
+}
+
+.rounded_left {
+  border-radius: 10px 0 0 10px;
+}
+
+.rounded_right {
+  border-radius: 0 10px 10px 0;
+}
+
+.catalog_item_slider {
+  @include fz(10, 14);
+}
+
+.slider_details {
+  flex-grow: 1;
+  margin-right: 3em;
+  @include fz(10, 14);
+}
+
+.slider_text {
+  display: flex;
+  @include fz(10, 14);
+  justify-content: space-between;
+  font-weight: 500;
+
+  &_bottom {
+    display: flex;
+    width: 100%;
+    @include fz(10, 14);
+  }
+
+  &_wrapper {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  &_data {
+    font-weight: 700;
+  }
+}
+
+.right_block,
+.left_block {
+  flex-grow: 1;
+}
+
+.left_block {
+  padding-right: 1.5rem;
+}
+
+.link_hover {
+  &:hover {
+    color: $primary;
+  }
+}
+
+.summary {
+  @include fz(12, 16);
+  font-weight: 500;
+}
+
+.badge {
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  @include fz(12, 14);
+}
+
+.sale {
+  margin: 1.5em 1em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  flex-grow: 1;
 }

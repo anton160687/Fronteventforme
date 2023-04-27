@@ -2,7 +2,7 @@ import SignInPic from '@/components/sign/signInPic/signInPic';
 import SignInText from '@/components/sign/signInText/signInText';
 import Container from 'react-bootstrap/Container';
 
-export default function forgotPassword(): JSX.Element {
+export default function renew(): JSX.Element {
   return (
     <Container as="section" className="mx-auto w-75">
       {/* Page wrapper */}

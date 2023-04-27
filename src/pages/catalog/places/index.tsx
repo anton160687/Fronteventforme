@@ -17,7 +17,7 @@ import { CatalogPlaceCard, TopSlidersPlaces } from '@/components/catalog/';
 //для SSR
 import { URL } from '@/constant';
 import { Place } from '@/types/catalog';
-import BotomFilters from '@/components/catalog/botomFilters/botomFilters';
+import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 
 type CatalogPlacesProps = {
   places: Place[];
