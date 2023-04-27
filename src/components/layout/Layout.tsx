@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
 
   return (
     <>
-      && <Header />
+      <Header />
       {children}
       <Footer />
     </>
