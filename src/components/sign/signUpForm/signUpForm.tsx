@@ -49,7 +49,6 @@ export default function SignUpForm({
     const form = event.currentTarget;
 
     event.preventDefault();
-    event.stopPropagation();
 
     if (form.checkValidity()) {
       setSignUpIsDone(true);

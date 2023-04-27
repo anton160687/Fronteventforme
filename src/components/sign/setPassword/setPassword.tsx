@@ -22,7 +22,6 @@ export default function SetPassword(): JSX.Element {
     const form = event.currentTarget;
 
     event.preventDefault();
-    event.stopPropagation();
 
     if (form.checkValidity()) {
       setValidated(true);
