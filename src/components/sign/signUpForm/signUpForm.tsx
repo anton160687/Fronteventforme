@@ -12,7 +12,7 @@ import styles from '@/styles/sign/Sign.module.scss';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import PasswordToggle from '../../_finder/PasswordToggle';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
 
 interface SignUpFormProps {
   signUpForm: boolean;
@@ -20,12 +20,12 @@ interface SignUpFormProps {
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
 }
 
-const formFields = {
-  userRole: 'userRole',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  confirmPassword: 'confirmPassword',
+type formDataType = {
+  userRole: string;
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 export default function SignUpForm({
@@ -33,30 +33,36 @@ export default function SignUpForm({
   setSignUpForm,
   setSignUpIsDone,
 }: SignUpFormProps): JSX.Element {
+  //создаем стэйт для нашей формы
+  const initialDataState: formDataType = {
+    userRole: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+  const [data, setData] = useState<formDataType>(initialDataState);
+
   const [validated, setValidated] = useState(false);
-  const [userType, setUserType] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
-    //! не придумала, какой тип должен быть
-    let formValues: any = {};
-    const formData = new FormData(form);
 
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      // здесь хранятся данные из формы в виде массива объектов с полями из formFields
-      //! не придумала, какой тип должен быть
-      Object.keys(formFields).map((el) => {
-        formValues[el] = formData.get(el);
-      });
+    event.preventDefault();
 
+    if (form.checkValidity()) {
       setSignUpIsDone(true);
       setValidated(true);
+      //логика отправки на бэк
     }
   };
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setData({
+      ...data,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+  }
 
   return (
     <div className="page-wrapper" style={{ marginLeft: '5rem' }}>
@@ -87,13 +93,11 @@ export default function SignUpForm({
                 >
                   <ToggleButton
                     type="radio"
-                    id={`user`}
-                    name="userRole"
-                    value="user"
-                    checked={userType === 'user'}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setUserType(e.currentTarget.value)
-                    }
+                    id="bride"
+                    name={formFields.userRole}
+                    value="bride"
+                    checked={data.userRole === 'bride'}
+                    onChange={handleChange}
                     variant="outline-primary fw-normal"
                     className={styles.toggle_btn}
                   >
@@ -102,18 +106,16 @@ export default function SignUpForm({
                   </ToggleButton>
                   <Form.Control
                     required
-                    defaultValue={userType}
+                    defaultValue={data.userRole}
                     style={{ position: 'absolute', zIndex: '-1' }}
                   />
                   <ToggleButton
                     type="radio"
-                    id={`vendor`}
-                    name="userRole"
+                    id="vendor"
+                    name={formFields.userRole}
                     value="vendor"
-                    checked={userType === 'vendor'}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setUserType(e.currentTarget.value)
-                    }
+                    checked={data.userRole === 'vendor'}
+                    onChange={handleChange}
                     variant="outline-primary fw-normal"
                   >
                     <i className="fi-briefcase fs-lg me-1"></i>
@@ -128,6 +130,7 @@ export default function SignUpForm({
                   placeholder="Введите свое имя"
                   required
                   name={formFields.username}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">
@@ -137,6 +140,7 @@ export default function SignUpForm({
                   placeholder="primer@mail.ru"
                   required
                   name={formFields.email}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group className="mb-4">
@@ -157,9 +161,7 @@ export default function SignUpForm({
                   name={formFields.password}
                   pattern={PASSWORD_REQUIREMENTS}
                   title={PASSWORD_TITLE}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setPassword(e.currentTarget.value)
-                  }
+                  onChange={handleChange}
                   autoComplete="off"
                 />
               </Form.Group>
@@ -178,9 +180,10 @@ export default function SignUpForm({
                   style={{}}
                   placeholder="Повторите пароль"
                   name={formFields.confirmPassword}
-                  pattern={password}
+                  pattern={data.password}
                   title={'Пароли должны совпадать.'}
                   autoComplete="off"
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Check

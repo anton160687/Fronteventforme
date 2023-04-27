@@ -155,11 +155,19 @@ export const ACTORS: FooterConst = {
 };
 
 export const PATHS = {
-  signUp: '/signUp',
-  signIn: '/signIn',
-  forgotPassword: '/forgotPassword',
+  signUp: '/signup',
+  signIn: '/signin',
+  renew: '/renew',
 };
 
 export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}';
 export const PASSWORD_TITLE =
   'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
+
+export const formFields = {
+  userRole: 'userRole',
+  username: 'username',
+  email: 'email',
+  password: 'password',
+  confirmPassword: 'confirmPassword',
+};
