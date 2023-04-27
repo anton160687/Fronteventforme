@@ -20,16 +20,12 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   }, []);
 
   const router = useRouter().pathname;
-  const isSign =
-    router === PATHS.signUp ||
-    router === PATHS.signIn ||
-    router === PATHS.renew;
 
   return (
     <>
-      {!isSign && <Header />}
+      && <Header />
       {children}
-      {!isSign && <Footer />}
+      <Footer />
     </>
   );
 }
