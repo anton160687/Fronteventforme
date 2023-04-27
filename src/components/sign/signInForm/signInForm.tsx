@@ -12,8 +12,8 @@ import {
 } from '@/constant';
 
 type formDataType = {
-  email: string;
-  password: string;
+  email: string,
+  password: string,
 };
 
 export default function SignInForm(): JSX.Element {
@@ -21,13 +21,12 @@ export default function SignInForm(): JSX.Element {
   //создаем стэйт для нашей формы
   const initialDataState: formDataType = {
     email: '',
-    password: '',
-  };
+    password: ''
+  }
   const [data, setData] = useState<formDataType>(initialDataState);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    //вполне можно оставить эту часть, чтобы использовать встроенную валидацию формы
     const form = event.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
