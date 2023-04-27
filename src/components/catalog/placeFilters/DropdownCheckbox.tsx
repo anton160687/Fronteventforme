@@ -8,10 +8,10 @@ type DropdownCBProps = {
   text: string,
   options: string[][],
   icon: string,
-  callback: (name: string, value: string[]) => void
+  setFilterParams: (name: string, value: string[]) => void
 }
 
-const DropdownCB = ({ name, text, options, icon, callback }: DropdownCBProps) => {
+const DropdownCB = ({ name, text, options, icon, setFilterParams }: DropdownCBProps) => {
   const initialState: string[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
   
@@ -20,8 +20,7 @@ const DropdownCB = ({ name, text, options, icon, callback }: DropdownCBProps) =>
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
       setSelectedArray([...selectedArray, e.target.value]);
-    }
-    if (!e.target.checked) {
+    } else {
       let i = selectedArray.indexOf(e.target.value);
       if (i >= 0) {
         let copyArray = [...selectedArray];
@@ -32,7 +31,7 @@ const DropdownCB = ({ name, text, options, icon, callback }: DropdownCBProps) =>
   }
 
   useEffect(()=> {
-    callback(name, selectedArray)
+    setFilterParams(name, selectedArray)
   }, [selectedArray])
 
 function renderCB() {

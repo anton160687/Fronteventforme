@@ -1,12 +1,11 @@
 import { ChangeEvent, useState } from 'react';
-import Row from 'react-bootstrap/Row';
+import { FormControl } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownCB from './DropdownCheckbox';
-import { FormControl } from 'react-bootstrap';
-import FormGroup from '@/components/_finder/FormGroup';
 import styles from '@/styles/catalog/Catalog.module.scss';
 import { filterParamsType } from '@/types/filter';
+import { OPTIONS_ADD, OPTIONS_CAPACITY, OPTIONS_MORE, OPTIONS_PRICE, OPTIONS_STYLE, OPTIONS_TERRITORY } from '@/constant';
 
 
 function PlaceFilters() {
@@ -25,7 +24,7 @@ function PlaceFilters() {
         setFilterParams({ ...filterParams, city: e.target.value })
     }
 
-    function setCBParams(name: string, value: string[]) {
+    function filterParamsCallback(name: string, value: string[]) {
         setFilterParams({ ...filterParams, [name]: value })
     }
 
@@ -49,81 +48,48 @@ function PlaceFilters() {
                         name='capacity'
                         text='Вместимость'
                         icon='fi-building'
-                        callback={setCBParams}
-                        options={[
-                            ['10-30', 'от 10 до 30'],
-                            ['30-60', 'от 30 до 60'],
-                            ['60-100', 'от 60 до 100'],
-                            ['100-150', 'от 100 до 150'],
-                            ['150', 'от 150'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_CAPACITY}
                     />
                     <hr className={styles.catalog__dropdown_hr} />
                     <DropdownCB
                         name='style'
                         text='Стиль площадки'
                         icon='fi-home'
-                        callback={setCBParams}
-                        options={[
-                            ['loft', 'Лофт'],
-                            ['rustik', 'Рустик'],
-                            ['classic', 'Классический'],
-                            ['other', 'Другое'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_STYLE}
                     />
                     <hr className={styles.catalog__dropdown_hr} />
                     <DropdownCB
                         name='price'
                         text='Средний чек'
                         icon='fi-wallet'
-                        callback={setCBParams}
-                        options={[
-                            ['1000', 'до 1000 ₽'],
-                            ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-                            ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-                            ['other', 'Другое'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_PRICE}
                     />
                     <hr className={styles.catalog__dropdown_hr} />
                     <DropdownCB
                         name='territory'
                         text='Территория'
                         icon='fi-grid'
-                        callback={setCBParams}
-                        options={[
-                            ['welcome', 'Welcome-зона'],
-                            ['photozone', 'Фотозона'],
-                            ['guesthouse', 'Проживание гостей'],
-                            ['parking', 'Своя парковка'],
-                            ['registration', 'С выездной регистрацией'],
-                            ['firework', 'Можно фейерверк'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_TERRITORY}
                     />
                     <hr className={styles.catalog__dropdown_hr} />
                     <DropdownCB
                         name='more'
                         text='Еще на площадке'
                         icon='fi-grid'
-                        callback={setCBParams}
-                        options={[
-                            ['1000', 'до 1000 ₽'],
-                            ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-                            ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-                            ['other', 'Другое'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_MORE}
                     />
                     <hr className={styles.catalog__dropdown_hr} />
                     <DropdownCB
                         name='additional'
                         text='Дополнительно'
                         icon='fi-grid'
-                        callback={setCBParams}
-                        options={[
-                            ['1000', 'Аренда без еды'],
-                            ['1000-2000', 'Свой алкоголь'],
-                            ['2000-3000', 'Без проб. сбора'],
-                            ['other', 'Можно праздновать после 23:00'],
-                        ]}
+                        setFilterParams={filterParamsCallback}
+                        options={OPTIONS_ADD}
                     />
                 </Col>
         </div >
