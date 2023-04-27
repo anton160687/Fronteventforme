@@ -4,7 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '../../_finder/PasswordToggle';
 import styles from '@/styles/sign/Sign.module.scss';
-import { PATHS } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  PATHS,
+  formFields,
+} from '@/constant';
 
 type formDataType = {
   email: string,
@@ -20,11 +25,8 @@ export default function SignInForm(): JSX.Element {
   }
   const [data, setData] = useState<formDataType>(initialDataState);
 
-  console.log(data);
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    //вполне можно оставить эту часть, чтобы использовать встроенную валидацию формы
     const form = event.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
@@ -33,22 +35,10 @@ export default function SignInForm(): JSX.Element {
   };
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    //а вот здесь, в зависимости от имени поля, можно вставить самые разнообразные проверки
-    if (e.target.name === 'email') {
-      //какая-нибудь проверка на regexp
-      setData({
-        ...data,
-        [e.target.name]: e.target.value
-      })
-    }
-
-    if (e.target.name === 'password') {
-      //какая-нибудь проверка на regexp
-      setData({
-        ...data,
-        [e.target.name]: e.target.value
-      })
-    }
+    setData({
+      ...data,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   }
 
   return (
@@ -65,9 +55,7 @@ export default function SignInForm(): JSX.Element {
           type="email"
           placeholder="primer@mail.ru"
           required
-          name="email"
-          //форма становится контролируемой - т.е., реакт - единственный источник данных для нее
-          value={data?.email}
+          name={formFields.email}
           onChange={handleChange}
         />
       </Form.Group>
@@ -80,16 +68,14 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={PATHS.forgotPassword} className={styles.link + ' fs-sm'}>
+          <Link href={PATHS.renew} className={styles.link + ' fs-sm'}>
             Забыли пароль?
           </Link>
         </div>
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
-          name="password"
-          //форма становится контролируемой - т.е., реакт - единственный источник данных для нее
-          value={data?.password}
+          name={formFields.password}
           onChange={handleChange}
           required
           style={{}}
@@ -97,6 +83,8 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
+          pattern={PASSWORD_REQUIREMENTS}
+          title={PASSWORD_TITLE}
         />
       </Form.Group>
       <Button type="submit" size="lg" variant="primary w-100">
