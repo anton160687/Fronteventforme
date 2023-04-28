@@ -3,15 +3,16 @@ import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '../../_finder/PasswordToggle';
-import styles from '@/styles/sign/Sign.module.scss';
+import styles from '../../../styles/sign/Sign.module.scss';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import {
   PASSWORD_REQUIREMENTS,
   PASSWORD_TITLE,
-  PATHS,
   formFields,
-} from '@/constant';
+  PATHS,
+} from '../../../constant';
+import React from 'react';
 
 type formDataType = {
   userRole: string;
