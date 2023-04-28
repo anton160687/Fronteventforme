@@ -83,12 +83,12 @@ export default function CatalogItemSlider(): JSX.Element {
           <h4 className="h4 text-weight-bold">{place.title}</h4>
 
           <div className="d-flex" style={{ fontWeight: '500' }}>
-            <span>
+            <button>
               <i className="fi-calculator fs-lg me-1"></i>Рассчитать стоимость
-            </span>
-            <span>
+            </button>
+            <button>
               <i className="fi-calendar fs-lg me-1"></i>Проверить занятость
-            </span>
+            </button>
           </div>
           <LightGallery
             selector=".gallery-item"
