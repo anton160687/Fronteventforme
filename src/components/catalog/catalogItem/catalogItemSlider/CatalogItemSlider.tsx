@@ -57,8 +57,7 @@ export default function CatalogItemSlider(): JSX.Element {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   function detailsRender(description: string): JSX.Element {
-    const new_description = description.slice(0, 100);
-    const rest = description.slice(100);
+    const new_description = description.slice(0, 100) + '...';
     return (
       <>
         <p style={isDetailsOpen ? { display: 'none' } : {}}>
