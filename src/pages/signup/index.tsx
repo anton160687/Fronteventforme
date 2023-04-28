@@ -1,9 +1,10 @@
 import Container from 'react-bootstrap/Container';
-import SocialMedia from '@/components/sign/socialMedia/socialMedia';
-import SignUpPic from '@/components/sign/signUpPic/signUpPic';
 import { useState } from 'react';
-import SignUpForm from '@/components/sign/signUpForm/signUpForm';
-import SignUpText from '@/components/sign/signUpText/signUpText';
+import React from 'react';
+import SignUpForm from '../../components/sign/signUpForm/signUpForm';
+import SignUpText from '../../components/sign/signUpText/signUpText';
+import SocialMedia from '../../components/sign/socialMedia/socialMedia';
+import SignUpPic from '../../components/sign/signUpPic/signUpPic';
 
 export default function SignUp(): JSX.Element {
   const [signUpForm, setSignUpForm] = useState(false);
