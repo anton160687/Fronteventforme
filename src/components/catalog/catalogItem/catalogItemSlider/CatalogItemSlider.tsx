@@ -4,8 +4,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import Link from 'next/link';
-
 import GalleryItem from '@/components/_finder/GalleryItem';
 import LightGallery from 'lightgallery/react';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
@@ -18,6 +16,10 @@ import 'lightgallery/css/lg-fullscreen.css';
 import 'lightgallery/css/lg-video.css';
 import { useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import Form from 'react-bootstrap/Form';
 
 const places = [
   {
@@ -52,8 +54,10 @@ const places = [
 
 export default function CatalogItemSlider(): JSX.Element {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
   function detailsRender(description: string): JSX.Element {
-    const new_description = description.slice(0, 100) + '...';
+    const new_description = description.slice(0, 100);
+    const rest = description.slice(100);
     return (
       <>
         <p style={isDetailsOpen ? { display: 'none' } : {}}>
@@ -69,6 +73,33 @@ export default function CatalogItemSlider(): JSX.Element {
       </>
     );
   }
+
+  //для отображения кол-ва фото и на какой фото находится пользователь
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [totalSlides, setTotalSlides] = useState(0);
+
+  const SlidesCount = () => (
+    <LightGallery
+      selector=".gallery-item"
+      licenseKey="D4194FDD-48924833-A54AECA3-D6F8E646"
+      plugins={[lgThumbnail, lgZoom, lgFullScreen]}
+      zoomFromOrigin={false}
+      exThumbImage="data-external-thumb-image"
+    >
+      <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
+        <i className="fi-image fs-lg me-2"></i>
+        <div className="fs-6 fw-bold ps-1 me-2">
+          <span>{currentSlide}</span>
+          <span>/</span>
+          <span>{totalSlides}</span>
+          <span className="mx-2">|</span>
+
+          <span>Все фото</span>
+        </div>
+      </div>
+    </LightGallery>
+  );
+  const [startDate, setStartDate] = useState(null);
 
   return (
     <>
@@ -86,9 +117,24 @@ export default function CatalogItemSlider(): JSX.Element {
             <button>
               <i className="fi-calculator fs-lg me-1"></i>Рассчитать стоимость
             </button>
-            <button>
+            <Form.Group controlId="date-min-max-input">
+              <Form.Label>
+                <i className="fi-calendar fs-lg me-1"></i>Проверить занятость
+              </Form.Label>
+              <Form.Control
+                style={{ display: 'none' }}
+                as={DatePicker}
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                minDate={new Date('02/01/2022')}
+                maxDate={new Date('02/29/2022')}
+                placeholderText="Select a date in Feb 2022"
+                className="rounded pe-5"
+              />
+            </Form.Group>
+            {/* <button>
               <i className="fi-calendar fs-lg me-1"></i>Проверить занятость
-            </button>
+            </button> */}
           </div>
           <LightGallery
             selector=".gallery-item"
@@ -111,6 +157,13 @@ export default function CatalogItemSlider(): JSX.Element {
                   850: { slidesPerView: 3 },
                 }}
                 data-carousel-options='{"loop": true}'
+                onSlideChange={(swiper) => {
+                  setCurrentSlide(swiper.realIndex + 1);
+                }}
+                onInit={(swiper) => {
+                  setCurrentSlide(swiper.realIndex + 1);
+                  setTotalSlides(swiper.slides.length - 2);
+                }}
               >
                 {place.imgSrc.map((img, indx) => (
                   <SwiperSlide key={indx}>
@@ -130,6 +183,7 @@ export default function CatalogItemSlider(): JSX.Element {
                     />
                   </SwiperSlide>
                 ))}
+                <SlidesCount />
               </Swiper>
 
               {/* External Prev/Next buttons */}
