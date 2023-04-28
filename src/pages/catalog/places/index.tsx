@@ -13,7 +13,7 @@ import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import PlaceFilters from "@/components/catalog/placeFilters/PlaceFilters";
 import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
-import styles from '@/styles/catalog/places/Places.module.scss';
+import BotomFilters from "@/components/catalog/botomFilters/botomFilters";
 //для SSR
 import { URL } from "@/constant";
 import { Place } from "@/types/catalog";
@@ -61,10 +61,12 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Row>
+      <Row className="p-0">
         <Title title={'Площадки'} quantity={places.length} />
         <TopSlidersPlaces />
         <PlaceFilters />
+      </Row>
+
 
         <Row>
           <Sidebar />
@@ -95,7 +97,8 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
           </Col>
 
         </Row>
-      </Row>
+        
+      <BotomFilters />
 
     </Container>
   )
