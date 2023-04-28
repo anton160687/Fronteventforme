@@ -20,24 +20,21 @@ import Badge from 'react-bootstrap/Badge';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Form from 'react-bootstrap/Form';
+import { Hall } from '@/types/catalog';
 
-const places = [
+const places: Hall[] = [
   {
-    href: '#',
     imgSrc: [
-      '/img/locations/1.png',
-      '/img/locations/2.png',
-      '/img/locations/3.png',
-      '/img/locations/1.png',
-      '/img/locations/2.png',
-      '/img/locations/3.png',
+      'https://picsum.photos/369/224',
+      'https://picsum.photos/350/200',
+      'https://picsum.photos/150/400',
+      'https://picsum.photos/500/250',
+      'https://picsum.photos/700/400',
     ],
     title: 'Berlin Business Hotel',
-    rating: [5.0, 48],
     price: 'Аренда 10 000 ₽ + от 4 000 ₽/чел',
-    location: '1.4 km from center',
     description:
-      'Минимальная стоимость банкета в Пт. 150 000 руб., Сб. 180 000 руб. Аренда зала в Пт. 15 000 руб., в Сб. 20 000 руб.Минимальная стоимость банкета в Пт. 150 000 руб., Сб. 180 000 руб. Аренда зала в Пт. 15 000 руб., в Сб. 20 000 руб.',
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt temporibus non, magnam praesentium eum assumenda ad ex doloremque, harum, vero eveniet numquam voluptatibus. Ipsa, enim ipsum provident iure veritatis laudantium totam eum eligendi laboriosam! Dolorem quam necessitatibus, unde laudantium ut, est, assumenda quasi expedita iure maiores deleniti repellendus? Earum sequi non rerum incidunt nostrum, architecto, autem doloribus assumenda quibusdam debitis ea corporis sint dolores nihil tenetur vitae odio necessitatibus reiciendis corrupti exercitationem. Tempora, ullam eius odio dolore, neque nesciunt nihil corrupti, excepturi ex sequi cumque culpa nisi in laborum sapiente minus distinctio ducimus necessitatibus quas quis ipsum. Hic culpa iusto ducimus, ipsum labore libero. Veniam eos quasi adipisci officia assumenda, vel qui voluptatibus atque odit deleniti iusto! Quasi aliquid animi laborum repellat illo quod temporibus, sunt atque at fugiat officiis delectus doloremque id consequatur qui impedit ipsa cumque earum consequuntur vitae exercitationem. Consectetur tenetur quasi beatae dignissimos porro explicabo dolorum aperiam, modi maiores molestiae corrupti maxime nobis architecto, ipsam necessitatibus, dolores hic. Excepturi, placeat. Hic ipsa nam molestiae nihil ullam nemo harum modi excepturi ad ex! Modi vitae hic ut ab corrupti sequi laboriosam officiis ex! Officia ex error, illo eum quisquam deleniti dignissimos quae molestiae in assumenda incidunt, veniam molestias voluptatum odit doloribus voluptatem numquam officiis dicta, soluta tenetur blanditiis voluptas vero repellat adipisci. Dolore ea dolor modi, vitae aperiam in consequuntur dicta eaque, amet iusto nisi voluptatum esse odit excepturi non laborum libero earum sed pariatur nobis, quia enim? Facilis odio expedita autem omnis unde aliquam iusto in.',
     capacity: '30-80 человек',
     payment: 'За аренду зала + еда и напитки',
     lightHall: true ? 'Да' : 'Нет',
@@ -79,31 +76,20 @@ export default function CatalogItemSlider(): JSX.Element {
   const [totalSlides, setTotalSlides] = useState(0);
 
   const SlidesCount = () => (
-    <LightGallery
-      selector=".gallery-item"
-      licenseKey="D4194FDD-48924833-A54AECA3-D6F8E646"
-      plugins={[lgThumbnail, lgZoom, lgFullScreen]}
-      zoomFromOrigin={false}
-      exThumbImage="data-external-thumb-image"
-    >
-      <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
-        <i className="fi-image fs-lg me-2"></i>
-        <div className="fs-6 fw-bold ps-1 me-2">
-          <span>{currentSlide}</span>
-          <span>/</span>
-          <span>{totalSlides}</span>
-          <span className="mx-2">|</span>
-
-          <span>Все фото</span>
-        </div>
+    <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
+      <i className="fi-image fs-lg me-2"></i>
+      <div className="fs-6 fw-bold ps-1 me-2">
+        <span>{currentSlide}</span>
+        <span>/</span>
+        <span>{totalSlides}</span>
       </div>
-    </LightGallery>
+    </div>
   );
   const [startDate, setStartDate] = useState(null);
 
   return (
     <>
-      {places.map((place, index) => (
+      {places.map((place: Hall, index) => (
         <section
           className={
             'card card-body h-100 border-0 shadow-sm card-hover' +
@@ -162,7 +148,7 @@ export default function CatalogItemSlider(): JSX.Element {
                 }}
                 onInit={(swiper) => {
                   setCurrentSlide(swiper.realIndex + 1);
-                  setTotalSlides(swiper.slides.length - 2);
+                  setTotalSlides(swiper.slides.length);
                 }}
               >
                 {place.imgSrc.map((img, indx) => (
