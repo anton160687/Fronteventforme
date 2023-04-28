@@ -171,3 +171,49 @@ export const formFields = {
   password: 'password',
   confirmPassword: 'confirmPassword',
 };
+
+// для фильтров (PlaceFilters) на странице каталога
+export const OPTIONS_CAPACITY = [
+  ['10-30', 'от 10 до 30'],
+  ['30-60', 'от 30 до 60'],
+  ['60-100', 'от 60 до 100'],
+  ['100-150', 'от 100 до 150'],
+  ['150', 'от 150'],
+]
+
+export const OPTIONS_STYLE = [
+  ['loft', 'Лофт'],
+  ['rustik', 'Рустик'],
+  ['classic', 'Классический'],
+  ['other', 'Другое'],
+]
+
+export const OPTIONS_PRICE = [
+  ['1000', 'до 1000 ₽'],
+  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
+  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
+  ['other', 'Другое'],
+]
+
+export const OPTIONS_TERRITORY = [
+  ['welcome', 'Welcome-зона'],
+  ['photozone', 'Фотозона'],
+  ['guesthouse', 'Проживание гостей'],
+  ['parking', 'Своя парковка'],
+  ['registration', 'С выездной регистрацией'],
+  ['firework', 'Можно фейерверк'],
+]
+
+export const OPTIONS_MORE = [
+  ['1000', 'до 1000 ₽'],
+  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
+  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
+  ['other', 'Другое'],
+]
+
+export const OPTIONS_ADD = [
+  ['1000', 'Аренда без еды'],
+  ['1000-2000', 'Свой алкоголь'],
+  ['2000-3000', 'Без проб. сбора'],
+  ['other', 'Можно праздновать после 23:00'],
+]

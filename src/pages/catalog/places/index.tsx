@@ -13,11 +13,10 @@ import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
 import PlaceFilters from "@/components/catalog/placeFilters/PlaceFilters";
 import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
-
+import BotomFilters from "@/components/catalog/botomFilters/botomFilters";
 //для SSR
 import { URL } from "@/constant";
 import { Place } from "@/types/catalog";
-import BotomFilters from "@/components/catalog/botomFilters/botomFilters";
 
 
 type CatalogPlacesProps = {
@@ -68,36 +67,37 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
         <PlaceFilters />
       </Row>
 
-      <Row className="p-0">
-        <Sidebar />
 
-        <Col className="ms-4 p-0">
-          <Sorting sortingCB={sortPlacesByParam} />
-          <section>
-            {sortedPlaces ?
-              renderAllPlaces(sortedPlaces)
-              :
-              renderAllPlaces(places)
-            }
-          </section>
+        <Row>
+          <Sidebar />
+          <Col className="ms-4 p-0">
+            <Sorting sortingCB={sortPlacesByParam} />
 
-          <Pagination size='lg'>
-            <Pagination.Item>
-              <i className='fi-chevron-left'></i>
-            </Pagination.Item>
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Item active>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Ellipsis />
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>
-              <i className='fi-chevron-right'></i>
-            </Pagination.Item>
-          </Pagination>
+            <section>
+              {sortedPlaces ?
+                renderAllPlaces(sortedPlaces)
+                :
+                renderAllPlaces(places)
+              }
+            </section>
 
-        </Col>
-      </Row>
+            <Pagination size='lg'>
+              <Pagination.Item>
+                <i className='fi-chevron-left'></i>
+              </Pagination.Item>
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Item active>{2}</Pagination.Item>
+              <Pagination.Item>{3}</Pagination.Item>
+              <Pagination.Ellipsis />
+              <Pagination.Item>{10}</Pagination.Item>
+              <Pagination.Item>
+                <i className='fi-chevron-right'></i>
+              </Pagination.Item>
+            </Pagination>
+          </Col>
 
+        </Row>
+        
       <BotomFilters />
 
     </Container>
