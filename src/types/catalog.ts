@@ -42,6 +42,16 @@ export type Place = {
       "min_price": number,
       "description": string,
       "short_description": string
+      capacity: string,
+      placement: string,
+      cuisine: string,
+      hours: string,
+      alcohol: string,
+      lease: string,
+      avg_price: string,
+      fee: string,
+      deposit: string,
+      continue: string,
     }
 
   export type Area = {

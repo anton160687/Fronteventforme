@@ -1,8 +1,10 @@
 import { FC, useState } from "react";
 import { providerCards } from "@/types/cardsType";
 import ImageLoader from "@/components/_finder/ImageLoader";
+import {Card, Button} from 'react-bootstrap/';
 import { Navigation} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import styles from "@/styles/catalog/places/Places.module.scss";
 import 'swiper/css/bundle'
 import Link from "next/link";
 
@@ -26,7 +28,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
 
   if (id % 2 == 0) {
     return(    
-      <figure className='d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover'>
+      <figure className='d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover rounded-3 card-horizontal'>
         <Swiper
           modules={[Navigation]}
           onSlideChange={(swiper) => {
@@ -40,7 +42,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
           spaceBetween={12}
           loop
           grabCursor
-          className='swiper-nav-onhover rounded-3 m-0'
+          className='swiper-nav-onhover m-0 card-img-top'
           style={{maxWidth: '26rem'}}
         >
           {pathImg && pathImg.map((path, index)=>
@@ -48,19 +50,18 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
               <ImageLoader 
                 src={path} 
                 quality={100} 
-                width={416} 
-                height={280} 
+                layout='fill'
                 objectFit='cover' 
                 alt='Image' 
-                className='rounded-3' />
+                />
             </SwiperSlide>)
           )}
           <SlidesCount />
         </Swiper>
-        <figcaption className='py-0 px-3 rounded-5'>
-          <h5>{title}</h5>
+        <figcaption className='py-0 px-3'>
+          <Card.Title as='h4' className='mb-3'>{title}</Card.Title>
           {description && description.map((text, index)=>(
-            <p key={index} className='fs-sm'>{text}</p>
+            <Card.Text key={index} className='mb-3'>{text}</Card.Text>
           ))}
         </figcaption>
     </figure>
@@ -68,11 +69,11 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
 }
 
   return(    
-  <figure className='d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover'>
-    <figcaption className='py-0 px-3 rounded-5'>
-      <h5>{title}</h5>
+  <figure id="territory" className={`d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover rounded-3 card-horizontal`}>
+    <figcaption className='py-0 px-3'>
+      <Card.Title as='h4' className='mb-3'>{title}</Card.Title>
       {description && description.map((text, index)=>(
-        <p key={index} className='fs-sm'>{text}</p>
+        <Card.Text key={index} className='mb-3'>{text}</Card.Text>
       ))}
     </figcaption>
 
@@ -89,7 +90,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
       spaceBetween={12}
       loop
       grabCursor
-      className='swiper-nav-onhover rounded-3 m-0'
+      className='swiper-nav-onhover m-0 card-img-bottom'
       style={{maxWidth: '26rem'}}
     >
       {pathImg && pathImg.map((path, index)=>
@@ -97,11 +98,10 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
           <ImageLoader 
             src={path} 
             quality={100} 
-            width={416} 
-            height={280} 
-            objectFit='cover' 
+            layout='fill'
+            // objectFit='cover'
             alt='Image' 
-            className='rounded-3' />
+          />
         </SwiperSlide>)
       )}
       <SlidesCount />

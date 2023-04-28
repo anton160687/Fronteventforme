@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GetServerSideProps } from 'next';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
-import { Breadcrumb, Row } from "react-bootstrap";
+import { Breadcrumb, Col, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import AnchorBtns from "@/components/catalog/catalogItem/anchorBtns/AnchorBtns";
 import BookingForm from "@/components/bookingForm/BookingForm";
@@ -13,7 +13,7 @@ import YaComments from "../../../components/catalog/catalogItem/yaComments/YaCom
 import YaMap from "../../../components/catalog/catalogItem/yaMap/yaMap";
 import styles from "@/styles/catalog/places/Places.module.scss";
 import {Card, Button} from 'react-bootstrap/'
-import { ProviderCardSpecialBlock, PhotosWeddingsHeld, ArticlesWeddings } from "@/components/catalog";
+import { ProviderCardSpecialBlock, PhotosWeddingsHeld, ArticlesWeddings, TextHeadingDescription, TextHeadingSuitableFor, TextHeadingDetailsKitchen, TextHeadingFeatures, TextHeadingSiteDetails } from "@/components/catalog";
 import { cards } from "@/mocks/cards";
 
 
@@ -45,13 +45,20 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       ]} />
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
-      <div className={styles.location__flex_container}>
-
+      {/* <div className={styles.location__flex_container}> */}
+      <Row className="d-flex justify-content-center">
         {/* это - основной контейнер слева на странице */}
-        <div className={styles.left__container}>
+        <Col xl={8} lg={10} className={styles.left__container}>
           <div className={styles.location__flex_container}>
             <h3>{item?.title}</h3>
-            <p>3 зала 2 веранды 2 шатра</p>
+            {/* <p>3 зала &nbsp;|&nbsp; 2 веранды &nbsp;|&nbsp; 2 шатра</p> */}
+            <Card.Footer className='d-flex align-items-center justify-content-evenly px-0'>
+              <span>3 зала</span>
+              <span className='fs-4 text-secondary mx-2'>|</span>
+              <span>2 шатра</span>
+              <span className='fs-4 text-secondary mx-2'>|</span>
+              <span>2 веранды</span>
+            </Card.Footer>
           </div>
 
           <div className={styles.location__flex_container}>
@@ -64,79 +71,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           <AnchorBtns />
           {/* все отсутстсвующие поля должны приходить с бэка */}
-          <h3>Описание:</h3>
-          <div className={styles.location__description_container}>
-            <ul className={styles.location__description_container_ul}>
-              <li className={styles.location__description_container_li}>Вместимость <span>{item?.capacity || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Расположение <span>{item?.placement || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Кухня <span>{item?.cuisine || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Время работы <span>{item?.hours || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Свой алкоголь <span>{item?.alcohol ? "Разрешено" : "Запрещено"}</span></li>
-            </ul>
-            <ul className={styles.location__description_container_ul}>
-              <li className={styles.location__description_container_li}>Аренда <span>{item?.lease || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Средний чек <span>{item?.avg_price || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Пробковый сбор <span>{item?.fee || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Депозит <span>{item?.deposit || 'нет информации'}</span></li>
-              <li className={styles.location__description_container_li}>Продление <span>{item?.continue || 'нет информации'}</span></li>
-            </ul>
-          </div>
-
-          <h3>Подходит для:</h3>
-          <ul>
-            <li>Свадьба</li>
-            <li>День рождения</li>
-            <li>Новый год</li>
-          </ul>
-          <ul>
-            <li>Фуршет</li>
-            <li>Мальчишник</li>
-            <li>Девичник</li>
-          </ul>
-          <ul>
-            <li> Выпускной</li>
-            <li> Корпоратив</li>
-            <li> Праздничный банкет</li>
-          </ul>
-          <h3>Детали о кухне площадки:</h3>
-          <p>Европейская, русская, кавказская кухня</p>
-          <p>Есть детское меню</p>
-
-          {/*//! код Сергея - начало */}
-        
-          <Card className='border-0 mb-xl-5 mb-md-4 mb-sm-3'>
-            <Card.Body className='p-0'>
-              <Card.Title as='h3' className='mb-3'>Детали площадки</Card.Title>
-              <Card.Text className='m-0'>Тип площадки: банкетный зал, веранда, гостиница/отель, летняя площадка, банкетный комплекс, терраса, загородный комплекс, шатер</Card.Text>
-              <Button href='#' variant='outline-primary' className='col-sm-2 border-0'>
-                Показать еще
-              </Button>
-            </Card.Body>
-          </Card>
-
-          <Row className='mb-xl-5 mb-md-4 mb-sm-3'>
-            <h3>Особенности</h3>            
-            <Row className='d-flex justify-content-between'>
-              <ul className='list-unstyled w-auto'>
-                <li>Есть танцпол</li>
-                <li>Есть сцена</li>
-                <li>Welcome-зона</li>
-                <li>Своя парковка</li>
-              </ul>
-              <ul className='list-unstyled w-auto'>
-                <li>Номер для новобрачных</li>
-                <li>1 официант обслуживает 10 человек</li>
-                <li>Панорамный вид</li>
-                <li>С выездной регистрацией</li>
-              </ul>
-              <ul className='list-unstyled w-auto'>
-                <li>Фотозона</li>
-                <li>Отель для гостей</li>
-                <li>Есть примерочная</li>
-                <li>Панорамный вид</li>
-              </ul>
-            </Row>
-          </Row>
+          <TextHeadingDescription item={item}/>
+          <TextHeadingSuitableFor/>
+          <TextHeadingDetailsKitchen/>
+          <TextHeadingSiteDetails/>
+          <TextHeadingFeatures/>
           
           {providerCards && providerCards.map(item =>
             ( <ProviderCardSpecialBlock
@@ -150,7 +89,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           )}
 
           <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
-            <Card.Title as='h3' className='mb-xl-4 mb-md-3 mb-sm-2'>Фото проведенных свадеб на площадке</Card.Title>
+            <Card.Title as='h4' className='mb-xl-4 mb-md-3 mb-sm-2'>Фото проведенных свадеб на площадке</Card.Title>
             {photosHeld && photosHeld.map(item =>
               ( <PhotosWeddingsHeld
                 key={item.id}
@@ -163,7 +102,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           </Row>
           
           <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
-            <Card.Title as='h3' className='mb-xl-4 mb-md-3 mb-sm-2'>Статьи о свадьбах на площадке “Villa Arcobaleno”</Card.Title>
+            <Card.Title as='h4' className='mb-xl-4 mb-md-3 mb-sm-2 w-100'>Статьи о свадьбах на площадке “Villa Arcobaleno”</Card.Title>
             {articles && articles.map(item =>
               ( <ArticlesWeddings
                 key={item.id}
@@ -175,9 +114,6 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             )}
           </Row>
           
-
-          {/*//! код Сергея - окончание */}
-
           <div id="map">
             Здесь карта Яндекса с объектом
             <YaMap/>
@@ -187,33 +123,34 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             <YaComments />
           </div>
 
-        </div>
+        </Col>
 
         {/* это - боковой контейнер справа на странице */}
-        <div className={styles.right__container}>
-
-          <div className={styles.popular__container}>
-            {/* тестовые данные, потом - удалить */}
-            <RatingStars rating={3.7} voices={58} />
-            {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-            <div className={styles.popular__text}>
-              <p className={styles.popular__par}>В избранном у&nbsp;<span>{234} человека </span></p>
-              <p className={styles.popular__par}>Забронировано&nbsp;<span>{12} раз </span></p>
+        <Col xl={4} sm={12} className='d-flex justify-content-center'>
+          <Col xl={12} sm={6}>
+            <div className={styles.popular__container}>
+              {/* тестовые данные, потом - удалить */}
+              <RatingStars rating={3.7} voices={58} />
+              {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+              <div className={styles.popular__text}>
+                <p className={styles.popular__par}>В избранном у&nbsp;<span>{234} человека </span></p>
+                <p className={styles.popular__par}>Забронировано&nbsp;<span>{12} раз </span></p>
+              </div>
             </div>
-          </div>
 
-          {/* тестовые данные, потом - удалить */}
-          <BookingForm
-            avatar={'https://picsum.photos/100/100'}
-            first_name={"Имя"}
-            last_name={"Фамилия"}
-            phone={"12345678"}
-            email={"sshuahuash@mail.ru"}
-          />
+            {/* тестовые данные, потом - удалить */}
+            <BookingForm
+              avatar={'https://picsum.photos/100/100'}
+              first_name={"Имя"}
+              last_name={"Фамилия"}
+              phone={"12345678"}
+              email={"sshuahuash@mail.ru"}
+            />
 
-          <ContactForm />
-        </div>
-      </div>
+            <ContactForm />
+          </Col>
+        </Col>
+      </Row>
     </Container>
   )
 }

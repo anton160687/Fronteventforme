@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { cardsType } from '@/types/cardsType'
 
 export const PhotosWeddingsHeld:FC<cardsType> = ({title, description, pathImg }) => (
-  <Link href="#" style={{maxWidth: '210px'}} className='text-center card-hover text-decoration-none text-dark rounded-3'>
+  <Link id="album" href="#" style={{maxWidth: '210px'}} className='text-center card-hover text-decoration-none text-dark rounded-3'>
     <figure>
       <ImageLoader
         src={pathImg}
