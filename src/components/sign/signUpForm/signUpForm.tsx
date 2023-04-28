@@ -9,8 +9,7 @@ import {
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+
 import PasswordToggle from '../../_finder/PasswordToggle';
 import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
 
@@ -21,7 +20,6 @@ interface SignUpFormProps {
 }
 
 type formDataType = {
-  userRole: string;
   username: string;
   email: string;
   password: string;
@@ -35,7 +33,6 @@ export default function SignUpForm({
 }: SignUpFormProps): JSX.Element {
   //создаем стэйт для нашей формы
   const initialDataState: formDataType = {
-    userRole: '',
     username: '',
     email: '',
     password: '',
@@ -85,45 +82,6 @@ export default function SignUpForm({
               method="post"
               action="#"
             >
-              <Form.Group controlId="su-radio" className="mb-4">
-                <ButtonGroup
-                  className="w-100"
-                  size="lg"
-                  style={{ position: 'relative' }}
-                >
-                  <ToggleButton
-                    type="radio"
-                    id="bride"
-                    name={formFields.userRole}
-                    value="bride"
-                    checked={data.userRole === 'bride'}
-                    onChange={handleChange}
-                    variant="outline-primary fw-normal"
-                    className={styles.toggle_btn}
-                  >
-                    <i className="fi-user fs-lg me-1"></i>
-                    <span className={styles.toggle_btn}>Я пользователь</span>
-                  </ToggleButton>
-                  <Form.Control
-                    required
-                    defaultValue={data.userRole}
-                    style={{ position: 'absolute', zIndex: '-1' }}
-                  />
-                  <ToggleButton
-                    type="radio"
-                    id="vendor"
-                    name={formFields.userRole}
-                    value="vendor"
-                    checked={data.userRole === 'vendor'}
-                    onChange={handleChange}
-                    variant="outline-primary fw-normal"
-                  >
-                    <i className="fi-briefcase fs-lg me-1"></i>
-                    <span className={styles.toggle_btn}>Я поставщик</span>
-                  </ToggleButton>
-                </ButtonGroup>
-              </Form.Group>
-
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
                 <Form.Control
