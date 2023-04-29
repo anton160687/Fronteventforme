@@ -57,6 +57,9 @@
 .anchor__btns {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 800px) {
+        display: none;
+    }
 }
 
 .anchor__btn {

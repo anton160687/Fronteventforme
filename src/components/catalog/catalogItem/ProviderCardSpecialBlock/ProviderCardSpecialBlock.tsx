@@ -26,7 +26,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
 
   if (id % 2 == 0) {
     return(    
-      <figure className='d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover rounded-3 card-horizontal'>
+      <figure className={styles.text_territory}>
         <Swiper
           modules={[Navigation]}
           onSlideChange={(swiper) => {
@@ -50,7 +50,8 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
                 quality={100} 
                 layout='fill'
                 // objectFit='cover'
-                alt='Image' 
+                alt='Image'
+                className={styles.photo_spec_block_left}
                 />
             </SwiperSlide>)
           )}
@@ -67,7 +68,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
 }
 
   return(    
-  <figure id="territory" className={`d-flex justify-content-between mb-xl-4 mb-md-3 mb-sm-2 card-hover rounded-3 card-horizontal`}>
+  <figure id="territory" className={styles.text_territory}>
     <figcaption className='py-0 px-3'>
       <Card.Title as='h4' className='mb-3'>{title}</Card.Title>
       {description && description.map((text, index)=>(

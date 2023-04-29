@@ -12,12 +12,11 @@ export const ArticlesWeddings:FC<cardsType> = ({title, description, pathImg }) =
 
   //* для заполнения даты
   const [startDate, setStartDate] = useState<Date>(new Date());
-  // const [isCalendarShown, setIsCalendarShown] = useState(false);
 
 return(
     <figure 
       style={{maxWidth: '430px'}} 
-      className=' card-hover text-decoration-none text-dark rounded-3'>
+      className=' card-hover text-decoration-none text-dark rounded-3 mx-2'>
       <ImageLoader
         src={pathImg}
         width={416}

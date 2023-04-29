@@ -52,7 +52,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <div className={styles.location__flex_container}>
             <h3>{item?.title}</h3>
             {/* <p>3 зала &nbsp;|&nbsp; 2 веранды &nbsp;|&nbsp; 2 шатра</p> */}
-            <Card.Footer className='d-flex align-items-center justify-content-evenly px-0'>
+            <Card.Footer className={styles.text_title}>
               <span>3 зала</span>
               <span className='fs-4 text-secondary mx-2'>|</span>
               <span>2 шатра</span>
@@ -88,30 +88,34 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             )
           )}
 
-          <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
+          <Row className='my-xl-4 my-md-3 my-sm-2'>
             <Card.Title as='h4' className='mb-xl-4 mb-md-3 mb-sm-2'>Фото проведенных свадеб на площадке</Card.Title>
-            {photosHeld && photosHeld.map(item =>
-              ( <PhotosWeddingsHeld
-                key={item.id}
-                title={item.title} 
-                description={item.description} 
-                pathImg={item.pathImg}                
-                />          
-              )
-            )}
+            <div className="d-flex justify-content-evenly">
+              {photosHeld && photosHeld.map(item =>
+                ( <PhotosWeddingsHeld
+                  key={item.id}
+                  title={item.title} 
+                  description={item.description} 
+                  pathImg={item.pathImg}                
+                  />          
+                )
+              )}
+            </div>
           </Row>
           
           <Row className='justify-content-between my-xl-4 my-md-3 my-sm-2'>
             <Card.Title as='h4' className='mb-xl-4 mb-md-3 mb-sm-2 w-100'>Статьи о свадьбах на площадке “Villa Arcobaleno”</Card.Title>
-            {articles && articles.map(item =>
-              ( <ArticlesWeddings
-                key={item.id}
-                title={item.title} 
-                description={item.description} 
-                pathImg={item.pathImg}
-                />          
-              )
-            )}
+            <div className="d-flex justify-content-evenly">
+              {articles && articles.map(item =>
+                ( <ArticlesWeddings
+                  key={item.id}
+                  title={item.title} 
+                  description={item.description} 
+                  pathImg={item.pathImg}
+                  />          
+                )
+              )}
+            </div>
           </Row>
           
           <div id="map">

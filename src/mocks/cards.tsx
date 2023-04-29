@@ -103,22 +103,22 @@ export const cards ={
     {id: 1, 
       title: "Екатерина и Андрей", 
       description: "14 фотографий",
-      pathImg: "/img/card/photosWeddingsHeld/big-1.png"
+      pathImg: "/img/card/photosWeddingsHeld/1.png"
       },
     {id: 2, 
       title: "Анна и Тимур", 
       description: "24 фотографии",
-      pathImg: "/img/card/photosWeddingsHeld/big.png"
+      pathImg: "/img/card/photosWeddingsHeld/2.png"
     },
     {id: 3, 
       title: "Солнце и Луна", 
       description: "30 фотографий",
-      pathImg: "/img/card/photosWeddingsHeld/small.png"
+      pathImg: "/img/card/photosWeddingsHeld/3.png"
     },
     {id: 4, 
       title: "Зима и Лето", 
       description: "5 фотографий",
-      pathImg: "/img/card/photosWeddingsHeld/big.png"
+      pathImg: "/img/card/photosWeddingsHeld/3.png"
     }
   ],
   
