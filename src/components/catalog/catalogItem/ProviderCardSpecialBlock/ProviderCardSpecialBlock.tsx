@@ -20,8 +20,6 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
         <span>{currentSlide}</span>
         <span>/</span>
         <span>{totalSlides}</span>
-        <span className='mx-2'>|</span>
-        <Link href='#' className='text-decoration-none text-dark'>Все фото</Link>
       </div>
     </div>
   )
@@ -51,7 +49,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
                 src={path} 
                 quality={100} 
                 layout='fill'
-                objectFit='cover' 
+                // objectFit='cover'
                 alt='Image' 
                 />
             </SwiperSlide>)
@@ -99,8 +97,8 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
             src={path} 
             quality={100} 
             layout='fill'
-            // objectFit='cover'
             alt='Image' 
+            className={styles.photo_spec_block}
           />
         </SwiperSlide>)
       )}
