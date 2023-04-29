@@ -103,10 +103,8 @@ export default function CatalogItemSlider(): JSX.Element {
   const [isCalendarShown, setIsCalendarShown] = useState(false);
   //для отображения формы "рассчитать стоимость"
   const [isCalcShown, setIsCalcShown] = useState(false);
-  // Property cost calculator modal
-  const [modalShow, setModalShow] = useState(false);
-  const handleModalClose = () => setModalShow(false);
-  const handleModalShow = () => setModalShow(true);
+  const handleModalClose = () => setIsCalcShown(false);
+  const handleModalShow = () => setIsCalcShown(true);
 
   // Form validation
   const [validated, setValidated] = useState(false);
@@ -114,7 +112,6 @@ export default function CatalogItemSlider(): JSX.Element {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
-      event.stopPropagation();
     }
     setValidated(true);
   };
@@ -135,7 +132,7 @@ export default function CatalogItemSlider(): JSX.Element {
               <i className="fi-calculator fs-lg me-1"></i>Рассчитать стоимость
             </button>
             {/* Property cost calculator modal */}
-            <Modal centered show={modalShow} onHide={handleModalClose}>
+            <Modal centered show={isCalcShown} onHide={handleModalClose}>
               <Modal.Header className="d-block position-relative border-0 pb-0 px-sm-5 px-4">
                 <Modal.Title as="h4" className="mt-4 text-center">
                   Рассчитать стоимость

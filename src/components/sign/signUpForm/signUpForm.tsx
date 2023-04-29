@@ -8,16 +8,14 @@ import {
 } from 'react';
 import Link from 'next/link';
 import Button from 'react-bootstrap/Button';
-import styles from '../../../styles/sign/Sign.module.scss';
-
-import PasswordToggle from '../../_finder/PasswordToggle';
-import React from 'react';
-// import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
+import PasswordToggle from '@/components/_finder/PasswordToggle';
+import styles from '@/styles/sign/Sign.module.scss';
 import {
   PASSWORD_REQUIREMENTS,
   PASSWORD_TITLE,
   formFields,
-} from '../../../constant';
+  PATHS,
+} from '@/constant';
 
 interface SignUpFormProps {
   signUpForm: boolean;
