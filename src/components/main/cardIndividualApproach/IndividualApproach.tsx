@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import { FC } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Card, Container, Row } from 'react-bootstrap';
 import { CardName, CardRepetition } from './cards';
 import { MainTitle } from '../title/title';
 import styles from '@/styles/main/Main.module.scss';
+import Link from 'next/link';
 
 export const PersonServices: FC = () => {
   return (
@@ -15,21 +16,29 @@ export const PersonServices: FC = () => {
         suptitle={'Индивидуальный подход'}
         title={'Персонализированные услуги и статьи под любой запрос'}
       />
-      <Row className="mb-3">
-        <h2 className="col-lg-12 col-xl-9 text-center">
+      <div className="d-sm-flex align-items-center justify-content-between mb-3">
+        <h2 className={styles.main__subtitle + ' h3 mb-sm-0'}>
           Статьи от свадебных экспертов и реальные свадьбы
         </h2>
-        <button
-          type="button"
-          className="btn btn-outline-secondary rounded-pill border-0 p-0 col-lg-12 col-xl-3"
+        <Link
+          href="#"
+          style={{
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
         >
-          Перейти в блог<i className="fi-arrow-long-right m-2"></i>
-        </button>
-      </Row>
+          Перейти в блог
+          <i className="fi-arrow-long-right ms-2"></i>
+        </Link>
+      </div>
+
       <Row className="mb-4">
         <CardRepetition src="/img/card/cardsPersonServices/hands.png" />
 
-        <figure className="card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12">
+        <figure
+          className="card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12"
+          style={{ padding: '1.25rem' }}
+        >
           <Image
             src="/img/card/cardsPersonServices/sky.png"
             className="rounded-2 mb-3"
@@ -49,7 +58,10 @@ export const PersonServices: FC = () => {
         <CardRepetition src="/img/card/cardsPersonServices/flowers.png" />
       </Row>
       <Row className="mb-4">
-        <figure className="card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12">
+        <figure
+          className="card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12"
+          style={{ padding: '1.25rem' }}
+        >
           <Image
             src="/img/card/cardsPersonServices/sky.png"
             className="rounded-2 mb-3"
