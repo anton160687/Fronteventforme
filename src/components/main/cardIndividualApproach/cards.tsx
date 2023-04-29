@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { FC } from 'react';
+import styles from '@/styles/main/Main.module.scss';
 
 type src = {
   src: string;
@@ -8,7 +9,10 @@ type src = {
 export const CardRepetition: FC<src> = ({ src }) => {
   return (
     <figure
-      className="card card-hover border-0 align-items-center col-lg-3 col-md-12"
+      className={
+        'card card-hover align-items-center border-0 col-lg-3 col-md-6 ' +
+        styles.card
+      }
       style={{ padding: '1.25rem' }}
     >
       <Image
@@ -19,8 +23,10 @@ export const CardRepetition: FC<src> = ({ src }) => {
         height={324}
       />
       <figcaption className="card-body p-0 col-auto">
-        <p className="card-text text-primary">подпись</p>
-        <h6 className="card-title">Название статьи из пяти слов</h6>
+        <p className={'card-text text-primary ' + styles.card_sign}>подпись</p>
+        <h6 className={'card-title ' + styles.card_title}>
+          Название статьи из пяти слов
+        </h6>
       </figcaption>
       <CardName />
     </figure>
@@ -29,7 +35,7 @@ export const CardRepetition: FC<src> = ({ src }) => {
 
 export const CardName: FC = () => {
   return (
-    <figure className="card border-0 align-items-center card-horizontal col-lg-12 col-md-4 col-sm-5">
+    <figure className="card border-0 align-items-center card-horizontal col-lg-12 col-md-12 my-2">
       <Image
         src="/img/card/cardsPersonServices/plug.png"
         className="rounded-circle me-3"
@@ -38,8 +44,12 @@ export const CardName: FC = () => {
         height={64}
       />
       <figcaption className="card-body p-0 col-auto">
-        <h6 className="card-title mb-2">Имя Фамилия</h6>
-        <p className="card-text ">
+        <h6
+          className={`card-title my-2 text-start' + ${styles.card_title} ${styles.card_name}`}
+        >
+          Имя Фамилия
+        </h6>
+        <p className={'card-text ' + styles.card_sign}>
           <i className="fi-calendar me-2"></i>24 ноября
         </p>
       </figcaption>

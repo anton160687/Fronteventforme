@@ -2,10 +2,13 @@
 
 .py64 {
   padding: 64px 0;
+  @include adaptiv-value(padding-top, 64, 15);
+  @include adaptiv-value(padding-bottom, 64, 15);
 }
 
 .my124 {
-  margin: 124px 0;
+  @include adaptiv-value(margin-top, 124, 30);
+  @include adaptiv-value(margin-bottom, 124, 30);
 }
 
 .btn__link {
@@ -177,4 +180,28 @@
 
 .supplierFZ {
   @include fz(20, 56);
+}
+
+.card {
+  &_title {
+    font-size: 16px;
+  }
+  &_sign {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card {
+    width: fit-content;
+    &_title {
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card_name {
+    text-align: center;
+  }
 }

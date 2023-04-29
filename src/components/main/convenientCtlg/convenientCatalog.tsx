@@ -18,9 +18,9 @@ export const ConvenientCatalog: FC = () => {
   return (
     <section className={styles.top}>
       <Container as="section" className="mx-auto w-75">
-        <Row className="m-0">
+        <Row className="m-0 justify-content-center">
           <Row
-            className="col-xl-6 col-sm-12 g-4 p-0 "
+            className="col-xl-6 col-sm-12 g-4 p-0 justify-content-center justify-content-xl-start"
             style={{ gap: '1.5rem' }}
           >
             {CardsConCat &&
@@ -35,7 +35,7 @@ export const ConvenientCatalog: FC = () => {
               ))}
           </Row>
 
-          <figure className="border-0 align-items-center col-lg-6 col-md-8 col-sm-10 g-4 px-0 mt-5">
+          <figure className="border-0 align-items-center col-lg-6 col-md-8 col-sm-10 g-4 px-0 mt-5 ">
             <figcaption>
               <h2>Удобный каталог</h2>
               <p className="mt-3 mb-5">
@@ -79,7 +79,7 @@ export const ConvenientCatalog: FC = () => {
               id="bullets"
               className="swiper-pagination position-relative bottom-0 pt-2 mt-4 mb-lg-3"
             ></div>
-            <Row className="mt-lg-5 mt-sm-4">
+            <Row className="mt-lg-5 mt-sm-4 justify-content-md-center">
               <Button
                 type="button"
                 href="/catalog"
