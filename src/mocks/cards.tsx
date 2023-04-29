@@ -126,12 +126,12 @@ export const cards ={
   articles: [
     {id: 1, 
       title: "Свадьба Екатерины и Андрея", 
-      description: "Imperdiet non scelerisque turpis sed etiam ultrices. Blandit mollis dignissim egestas consectetur portitor...",
+      description: "Imperdiet non scelerisque turpis sed etiam ultrices. Blandit mollis dignissim egestas consectetur portitor Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt temporibus non, magnam praesentium eum assumenda ad ex doloremque, harum, vero eveniet numquam voluptatibus. Ipsa, enim ipsum provident iure veritatis laudantium totam eum eligendi laboriosam! Dolorem quam necessitatibus, unde laudantium ut, est, assumenda quasi expedita iure maiores deleniti repellendus? Earum sequi non rerum incidunt nostrum, architecto, autem doloribus assumenda quibusdam debitis ea corporis sint dolores nihil tenetur vitae odio necessitatibus reiciendis",
       pathImg: "/img/card/photosWeddingsHeld/big-1.png"
       },
     {id: 2, 
       title: "Свадьба Анны и Тимура", 
-      description: "Imperdiet non scelerisque turpis sed etiam ultrices. Blandit mollis dignissim egestas consectetur portitor...",
+      description: "Imperdiet non scelerisque turpis sed etiam ultrices. Blandit mollis dignissim egestas consectetur portitor. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt temporibus non, magnam praesentium eum assumenda ad ex doloremque, harum, vero eveniet numquam voluptatibus. Ipsa, enim ipsum provident iure veritatis laudantium totam eum eligendi laboriosam! Dolorem quam necessitatibus, unde laudantium ut, est, assumenda quasi expedita iure maiores deleniti repellendus? Earum sequi non rerum incidunt nostrum, architecto, autem doloribus assumenda quibusdam debitis ea corporis sint dolores nihil tenetur vitae odio necessitatibus reiciendis",
       pathImg: "/img/card/photosWeddingsHeld/big.png"
     },
   ],
