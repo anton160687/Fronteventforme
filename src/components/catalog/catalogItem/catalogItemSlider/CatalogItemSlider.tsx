@@ -14,7 +14,7 @@ import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'lightgallery/css/lg-video.css';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
@@ -93,7 +93,7 @@ export default function CatalogItemSlider(): JSX.Element {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const onChange = (dates) => {
+  const onChange = (dates: any) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
@@ -108,7 +108,7 @@ export default function CatalogItemSlider(): JSX.Element {
 
   // Form validation
   const [validated, setValidated] = useState(false);
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -121,7 +121,7 @@ export default function CatalogItemSlider(): JSX.Element {
       {places.map((place: Hall, index) => (
         <section
           className={
-            'card card-body h-100 border-0 shadow-sm card-hover' +
+            'card card-body h-100 border-0 shadow-sm card-hover ' +
             styles.catalog_item_slider
           }
           key={index}
