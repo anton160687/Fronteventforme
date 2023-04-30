@@ -112,6 +112,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
                   title={item.title} 
                   description={item.description} 
                   pathImg={item.pathImg}
+                  dateText={item.dateText}
                   />          
                 )
               )}

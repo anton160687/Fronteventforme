@@ -1,17 +1,21 @@
 import ImageLoader from "@/components/_finder/ImageLoader"
 import { FC, useState } from 'react'
-import { cardsType } from '@/types/cardsType'
-import { Form, InputGroup } from 'react-bootstrap'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export const ArticlesWeddings:FC<cardsType> = ({title, description, pathImg }) =>{
+export type cardsType = {
+  title: string,
+  description: string,
+  pathImg: string
+  dateText: string
+}
+
+export const ArticlesWeddings:FC<cardsType> = ({
+  title, 
+  description, 
+  pathImg, dateText }) =>{
   //* для дополнительного текста
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const new_description = description.slice(0, 120) + '...';
-
-  //* для заполнения даты
-  const [startDate, setStartDate] = useState<Date>(new Date());
 
 return(
     <figure 
@@ -27,18 +31,10 @@ return(
         className='card-img-top'
       />
       <figcaption className='p-3'>
-        <Form.Group controlId='date-input'>
-          <InputGroup>
-            <Form.Control
-              as={DatePicker}
-              selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
-              dateFormat='d, MMMM, yyyy'
-              className='border-0 text-primary'
-            />
-            <i className='fi-calendar position-absolute top-50 start-0  translate-middle-y text-primary' />
-          </InputGroup>
-        </Form.Group>
+        <p className='border-0 text-primary my-1'>
+          <i className='fi-calendar text-primary me-2'/>
+          {dateText}
+        </p>
         <p className='fs-7 my-2'><strong>{title}</strong></p>
         <p className='fs-sm m-0' style={isDetailsOpen ? { display: 'none' } : {}}>     
           {new_description}
