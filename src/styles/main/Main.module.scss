@@ -54,7 +54,7 @@
 .more_services {
   &__description {
     @include fz(9, 18);
-    color: $grey;
+    color: $gray;
   }
 }
 
@@ -161,7 +161,7 @@
 
   &__text {
     @include fz(7, 12);
-    color: $grey;
+    color: $gray;
 
     p {
       margin: 0;

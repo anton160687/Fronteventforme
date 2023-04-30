@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
@@ -16,38 +16,48 @@ import {Card, Button} from 'react-bootstrap/'
 import { ProviderCardSpecialBlock, PhotosWeddingsHeld, ArticlesWeddings, TextHeadingDescription, TextHeadingSuitableFor, TextHeadingDetailsKitchen, TextHeadingFeatures, TextHeadingSiteDetails } from "@/components/catalog";
 import { cards } from "@/mocks/cards";
 
-
 type CatalogItemProps = {
-  item?: Place,
-}
+  item?: Place;
+};
 
 export default function CatalogItem({ item }: CatalogItemProps) {
+
   const {providerCards} = cards || {};
   const {photosHeld} = cards || {};
   const {articles} = cards || {};
 
+
   return (
     <Container>
-      <Breadcrumb className='breadcrumb'>
-        <Breadcrumb.Item linkAs={Link} href='/'>Главная</Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href='/catalog'>Каталог</Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href='/catalog'>Площадки</Breadcrumb.Item>
+      <Breadcrumb className="breadcrumb">
+        <Breadcrumb.Item linkAs={Link} href="/">
+          Главная
+        </Breadcrumb.Item>
+        <Breadcrumb.Item linkAs={Link} href="/catalog">
+          Каталог
+        </Breadcrumb.Item>
+        <Breadcrumb.Item linkAs={Link} href="/catalog">
+          Площадки
+        </Breadcrumb.Item>
         <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>
       </Breadcrumb>
 
       {/* тестовые данные для разных ситуаций, потом - удалить */}
-      <LocationPhotos photoUrls={[
-        'https://picsum.photos/369/224',
-        'https://picsum.photos/369/224',
-        'https://picsum.photos/369/224',
-        'https://picsum.photos/369/224',
-        'https://picsum.photos/369/224',
-      ]} />
+      <LocationPhotos
+        photoUrls={[
+          'https://picsum.photos/369/224',
+          'https://picsum.photos/369/224',
+          'https://picsum.photos/369/224',
+          'https://picsum.photos/369/224',
+          'https://picsum.photos/369/224',
+        ]}
+      />
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
+
       {/* <div className={styles.location__flex_container}> */}
       <Row className="d-flex justify-content-center">
-        {/* это - основной контейнер слева на странице */}
+      {/* это - основной контейнер слева на странице */}
         <Col xl={8} lg={10} className={styles.left__container}>
           <div className={styles.location__flex_container}>
             <h3>{item?.title}</h3>
@@ -63,14 +73,74 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           <div className={styles.location__flex_container}>
             <p>{item?.address.full}</p>
-            <Link href='#map' className={styles.location__map}>
+            <Link href="#map" className={styles.location__map}>
               <i className="fi-map" /> <p>На карте</p>
             </Link>
           </div>
 
-
           <AnchorBtns />
           {/* все отсутстсвующие поля должны приходить с бэка */}
+
+          <h3>Описание:</h3>
+          <div className={styles.location__description_container}>
+            <ul className={styles.location__description_container_ul}>
+              <li className={styles.location__description_container_li}>
+                Вместимость <span>{item?.capacity || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Расположение <span>{item?.placement || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Кухня <span>{item?.cuisine || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Время работы <span>{item?.hours || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Свой алкоголь{' '}
+                <span>{item?.alcohol ? 'Разрешено' : 'Запрещено'}</span>
+              </li>
+            </ul>
+            <ul className={styles.location__description_container_ul}>
+              <li className={styles.location__description_container_li}>
+                Аренда <span>{item?.lease || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Средний чек <span>{item?.avg_price || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Пробковый сбор <span>{item?.fee || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Депозит <span>{item?.deposit || 'нет информации'}</span>
+              </li>
+              <li className={styles.location__description_container_li}>
+                Продление <span>{item?.continue || 'нет информации'}</span>
+              </li>
+            </ul>
+          </div>
+
+          <h4 className="h4">Подходит для:</h4>
+          <ul>
+            <li>Свадьба</li>
+            <li>День рождения</li>
+            <li>Новый год</li>
+          </ul>
+          <ul>
+            <li>Фуршет</li>
+            <li>Мальчишник</li>
+            <li>Девичник</li>
+          </ul>
+          <ul>
+            <li> Выпускной</li>
+            <li> Корпоратив</li>
+            <li> Праздничный банкет</li>
+          </ul>
+          <h4 className="h4">Детали о кухне площадки:</h4>
+          <p>Европейская, русская, кавказская кухня</p>
+          <p>Есть детское меню</p>
+
+          <CatalogItemSlider />
           <TextHeadingDescription item={item}/>
           <TextHeadingSuitableFor/>
           <TextHeadingDetailsKitchen/>
@@ -121,7 +191,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           
           <div id="map">
             Здесь карта Яндекса с объектом
-            <YaMap/>
+            <YaMap />
           </div>
 
           <div id="comments">
@@ -157,9 +227,8 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
-
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
@@ -170,15 +239,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!result) {
       return {
         notFound: true,
-      }
+      };
     }
 
     return {
       props: { item: result },
-    }
+    };
   }
 
   return {
     props: {},
-  }
-}
+  };
+};

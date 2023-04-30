@@ -53,19 +53,45 @@ export type Place = {
       deposit: string,
       continue: string,
     }
+  ];
+  image_vendor: string;
+  title: string;
+  category: string;
+  min_price: number;
+  description: string;
+  short_description: string;
+};
 
-  export type Area = {
-    "id": number,
-    "rating": {
-      "id": number,
-      "rating": number,
-      "votes": number
-    },
-    "image_area": string,
-    "title": string,
-    "time_location": number,
-    "place_location": string,
-    "min_price": number,
-    "payment_scheme": string,
-    "capacity": string
-  }
+export type Area = {
+  id: number;
+  rating: {
+    id: number;
+    rating: number;
+    votes: number;
+  };
+  image_area: string;
+  title: string;
+  time_location: number;
+  place_location: string;
+  min_price: number;
+  payment_scheme: string;
+  capacity: string;
+};
+
+export type Hall = {
+  imgSrc: string[];
+  title: string;
+  price: string;
+  description: string;
+  capacity: string;
+  payment: string;
+  lightHall: boolean | string;
+  type: string;
+  addEntrance: boolean | string;
+  withoutFood: boolean | string;
+  minBanketPrice: string | number;
+  sale: {
+    btn: string;
+    condition: string;
+  };
+};

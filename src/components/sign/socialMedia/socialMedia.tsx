@@ -1,8 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import styles from '@/styles/sign/Sign.module.scss';
-import { Dispatch, MouseEvent, SetStateAction } from 'react';
-import YandexArrow from '../../../../public/img/icons/yandex.svg';
-import Image from 'next/image';
+import { MouseEvent } from 'react';
 
 export default function SocialMedia(): JSX.Element {
   function handleClick(event: MouseEvent<HTMLButtonElement>): void {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ImageLoader from '../../_finder/ImageLoader';
+import ImageLoader from '@/components/_finder/ImageLoader';
 import styles from '@/styles/sign/Sign.module.scss';
 import { PATHS } from '@/constant';
 
