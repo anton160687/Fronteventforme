@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
 import { selectPlaces, setPlaces } from "@/store/catalog/catalogSlice";
 import Sorting from "@/components/catalog/sorting/Sorting";
-import SpaceFilters from "@/components/catalog/spaceFilters/spaceFilters";
+import PlaceFilters from "@/components/catalog/placeFilters/PlaceFilters";
 import { CatalogPlaceCard, TopSlidersPlaces } from "@/components/catalog/";
-import styles from '@/styles/catalog/places/Places.module.scss';
+import BotomFilters from "@/components/catalog/botomFilters/botomFilters";
 //для SSR
 import { URL } from "@/constant";
 import { Place } from "@/types/catalog";
@@ -61,12 +61,14 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Row>
+      <Row className="p-0">
         <Title title={'Площадки'} quantity={places.length} />
         <TopSlidersPlaces />
-        <SpaceFilters />
+        <PlaceFilters />
+      </Row>
 
-        <Row className="p-0">
+
+        <Row>
           <Sidebar />
           <Col className="ms-4 p-0">
             <Sorting sortingCB={sortPlacesByParam} />
@@ -95,7 +97,8 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
           </Col>
 
         </Row>
-      </Row>
+        
+      <BotomFilters />
 
     </Container>
   )

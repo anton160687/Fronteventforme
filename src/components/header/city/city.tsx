@@ -1,9 +1,8 @@
 import { useEffect, useState, MouseEvent, useRef } from "react";
 import Image from 'next/image';
-import styles from '@/styles/header/City.module.scss';
-import { DaDataValue, DaDataValues } from "@/types/dadata";
+import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { Nullable } from "@/types/dadata";
+import styles from '@/styles/header/City.module.scss';
 
 
 function City(): JSX.Element {
@@ -82,7 +81,6 @@ function City(): JSX.Element {
   function handleClick(e: MouseEvent<HTMLParagraphElement>, city: Nullable<string>) {
     let input = e.target as HTMLElement;
     let chosenAddress: string = input.innerText;
-    console.log(city);
 
     setAddress(chosenAddress);
     if (city) {

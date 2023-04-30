@@ -7,6 +7,11 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ['picsum.photos', "dummyimage.com", "placekitten.com", 'jsonplaceholder.typicode.com' ]
+    domains: [
+      'picsum.photos',
+      'dummyimage.com',
+      'placekitten.com',
+      'jsonplaceholder.typicode.com',
+    ],
   },
 };
