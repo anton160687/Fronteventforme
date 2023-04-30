@@ -1,3 +1,5 @@
+@import '@/styles/_mixins';
+
 .sidebar__link {
     display: flex;
     justify-content: space-between;
@@ -79,56 +81,23 @@
 
 .anchor__btns {
     display: flex;
-    gap: 20px;
-}
-
-.anchor__btn {
-    border: none;
-    background-color: unset;
-    &:hover {
-        background-color: #fe9589;
+    justify-content: space-between;
+    @media (max-width: 800px) {
+        display: none;
     }
 }
 
-.anchor__btn_link {
+.anchor__btn {
+    border: transparent;
+    background: #F9F8FA;
+    border-radius: 8px;
     font-weight: 700;
     font-size: 18px;
     line-height: 150%;
     color: #9691A4;
-    text-decoration: none;
+    margin: 16px 0 48px;
     &:hover {
+        background-color: $primary;
         color: #ffffff;
     }
-}
-
-.catalog__btmfilters {
-    list-style-type: none;
-    &_header {
-        margin-bottom: 12px;
-    }
-    &_link {
-        text-decoration: none;
-        display: flex;
-        justify-content: space-between;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 150%;
-        display: flex;
-        align-items: center;
-        color: #9691A4;
-        & > p {
-            margin-bottom: 8px;
-        }
-    }
-}
-.catalog__btmfilters_row {
-    margin-bottom: 64px;
-}
-.catalog__btmfilters_container {
-    margin: 124px 0;
-}
-
-.active {
-    color: #FE9589;
-
 }
