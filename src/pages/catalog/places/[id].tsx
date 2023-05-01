@@ -7,12 +7,11 @@ import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
 import YaMap from '../../../components/catalog/catalogItem/yaMap/yaMap';
-import styles from '@/styles/catalog/places/Places.module.scss';
-import { Card, Button } from 'react-bootstrap/';
+import { Card } from 'react-bootstrap/';
 import {
   ProviderCardSpecialBlock,
   PhotosWeddingsHeld,
@@ -25,6 +24,8 @@ import {
 } from '@/components/catalog';
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
+import styles from '@/styles/catalog/places/Places.module.scss';
+import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 
 type CatalogItemProps = {
   item?: Place;
@@ -65,35 +66,23 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
       {/* <div className={styles.location__flex_container}> */}
       <Row className="d-flex justify-content-center">
+        
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} lg={10} className={styles.left__container}>
-          <div className={styles.location__flex_container}>
-            <h3>{item?.title}</h3>
-            {/* <p>3 зала &nbsp;|&nbsp; 2 веранды &nbsp;|&nbsp; 2 шатра</p> */}
-            <Card.Footer className={styles.text_title}>
-              <span>3 зала</span>
-              <span className="fs-4 text-secondary mx-2">|</span>
-              <span>2 шатра</span>
-              <span className="fs-4 text-secondary mx-2">|</span>
-              <span>2 веранды</span>
-            </Card.Footer>
-          </div>
-
-          <div className={styles.location__flex_container}>
-            <p>{item?.address.full}</p>
-            <Link href="#map" className={styles.location__map}>
-              <i className="fi-map" /> <p>На карте</p>
-            </Link>
-          </div>
+          <LocationDescription item={item}/>
 
           <AnchorBtns />
-          {/* все отсутстсвующие поля должны приходить с бэка */}
-
+          
           <TextHeadingDescription item={item} />
+          
           <TextHeadingSuitableFor />
+          
           <TextHeadingDetailsKitchen />
+          
           <CatalogItemSlider />
+          
           <TextHeadingSiteDetails />
+          
           <TextHeadingFeatures />
 
           {providerCards &&
