@@ -8,6 +8,7 @@ import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
+import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
 import YaMap from '../../../components/catalog/catalogItem/yaMap/yaMap';
@@ -25,7 +26,6 @@ import {
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 
 type CatalogItemProps = {
   item?: Place;
@@ -64,11 +64,10 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
 
-      {/* <div className={styles.location__flex_container}> */}
-      <Row className="d-flex justify-content-center">
+      <Row className={styles.main__container}>
         
         {/* это - основной контейнер слева на странице */}
-        <Col xl={8} lg={10} className={styles.left__container}>
+        <Col xl={8} className={styles.left__container}>
           <LocationDescription item={item}/>
 
           <AnchorBtns />
@@ -131,19 +130,18 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             </div>
           </Row>
 
-          <div id="map">
+          <div id="map" className={styles.map__container}>
             Здесь карта Яндекса с объектом
             <YaMap />
           </div>
 
-          <div id="comments">
+          <div id="comments" className={styles.comments__container}>
             <YaComments />
           </div>
         </Col>
 
         {/* это - боковой контейнер справа на странице */}
-        <Col xl={4} sm={12} className="d-flex justify-content-center">
-          <Col xl={12} sm={6}>
+        <Col xl={4} lg={8} className={styles.right__container}>
             <div className={styles.popular__container}>
               {/* тестовые данные, потом - удалить */}
               <RatingStars rating={3.7} voices={58} />
@@ -168,8 +166,8 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             />
 
             <ContactForm />
-          </Col>
         </Col>
+
       </Row>
     </Container>
   );
