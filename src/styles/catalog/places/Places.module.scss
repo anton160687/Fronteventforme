@@ -98,13 +98,61 @@
   font-size: 18px;
   line-height: 150%;
   color: #9691a4;
-  align-self: end;
   margin-bottom: 48px;
 
   &:hover {
     background-color: $primary;
     color: #ffffff;
   }
+}
+
+//адаптивы для текстовых блоков
+.text__description_container {
+  gap: 24px;
+}
+.text__description_column {
+  width: 50%;
+}
+@media (max-width: 650px) {
+  .text__description_container {
+    flex-direction: column;
+  }
+  .text__description_column {
+    width: 100%;
+  }
+  
+}
+
+.text__cuisine_btn {
+  border: transparent;
+  background: #f9f8fa;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
+  color: #9691a4;
+  margin-bottom: 48px;
+  align-self: flex-end;
+  &:hover {
+    background-color: $primary;
+    color: #ffffff;
+  }
+}
+
+@media (max-width: 600px) {
+  .text__cuisine_container {
+    flex-direction: column;
+  } 
+  .text__cuisine_btn {
+    align-self: flex-start;
+    margin-top: 12px;
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+.text__details_container {
+  margin-bottom: 40px;
 }
 
 //слайдеры
