@@ -166,6 +166,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
             />
 
             <ContactForm />
+            
         </Col>
 
       </Row>
