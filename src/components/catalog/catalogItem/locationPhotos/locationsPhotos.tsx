@@ -27,9 +27,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
           <div className={styles.location__photo_main}>
             <GalleryItem
               href={photoUrls[0] || '/img/emptyPhoto.png'}
-              thumb={[photoUrls[0] || '/img/emptyPhoto.png', 635, 400]}
+              thumb={[photoUrls[0] || '/img/emptyPhoto.png', 756, 400]}
               caption='Gallery image caption'
-              style={{ maxWidth: '635px' }}
+              style={{ maxWidth: '756px' }}
               light={false}
               video={false}
               imgAlt='Фото имущества'
@@ -43,9 +43,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                 <div className={styles.location__photo_column}>
                   <GalleryItem
                     href={photoUrls[1] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[1] || '/img/emptyPhoto.png', 333, 187]}
+                    thumb={[photoUrls[1] || '/img/emptyPhoto.png', 372, 187]}
                     caption='Gallery image caption'
-                    style={{ maxWidth: '333px' }}
+                    style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
                     imgAlt='Фото имущества'
@@ -53,9 +53,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                   />
                    <GalleryItem
                     href={photoUrls[2] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[2] || '/img/emptyPhoto.png', 333, 187]}
+                    thumb={[photoUrls[2] || '/img/emptyPhoto.png', 372, 187]}
                     caption='Gallery image caption'
-                    style={{ maxWidth: '333px' }}
+                    style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
                     imgAlt='Фото имущества'
@@ -65,9 +65,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                 <div className={styles.location__photo_column}>
                 <GalleryItem
                     href={photoUrls[3] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[3] || '/img/emptyPhoto.png', 333, 187]}
+                    thumb={[photoUrls[3] || '/img/emptyPhoto.png', 372, 187]}
                     caption='Gallery image caption'
-                    style={{ maxWidth: '333px' }}
+                    style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
                     imgAlt='Фото имущества'
@@ -75,9 +75,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                   />
                   <GalleryItem
                     href={photoUrls[4] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[4] || '/img/emptyPhoto.png', 333, 187]}
+                    thumb={[photoUrls[4] || '/img/emptyPhoto.png', 372, 187]}
                     caption='Gallery image caption'
-                    style={{ maxWidth: '333px' }}
+                    style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
                     imgAlt='Фото имущества'
@@ -88,9 +88,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
               :
               <GalleryItem
                 href={photoUrls[1] || '/img/emptyPhoto.png'}
-                thumb={[photoUrls[1] || '/img/emptyPhoto.png', 635, 400]}
+                thumb={[photoUrls[1] || '/img/emptyPhoto.png', 756, 400]}
                 caption='Gallery image caption'
-                style={{ maxWidth: '635px' }}
+                style={{ maxWidth: '765px' }}
                 light={false}
                 video={false}
                 imgAlt='Фото имущества'
