@@ -51,7 +51,7 @@
   color: #1f1b2d;
 
   &>span {
-    color: #fe9589;
+    color: $primary;
   }
 }
 
@@ -93,7 +93,25 @@
   border-radius: 0 10px 10px 0;
 }
 
+// кнопки-якоря
+.anchor__btn {
+  border: transparent;
+  background: #f9f8fa;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
+  color: #9691a4;
+  align-self: end;
+  margin-bottom: 48px;
 
+  &:hover {
+    background-color: $primary;
+    color: #ffffff;
+  }
+}
+
+//слайдеры
 .catalog_item_slider {
   @include fz(10, 14);
   @include adaptiv-value('margin-bottom', 40, 10);
@@ -208,23 +226,6 @@
     }
   }
 }
-
-.anchor__btn {
-  border: transparent;
-  background: #f9f8fa;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 150%;
-  color: #9691a4;
-  align-self: end;
-
-  &:hover {
-    background-color: $primary;
-    color: #ffffff;
-  }
-}
-
 
 // поменять на стиль Ксении .rounded_right
 .photo_spec_block {
