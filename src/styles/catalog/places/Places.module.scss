@@ -20,10 +20,6 @@
   display: flex;
   flex-direction: column;
   padding-right: 24px;
-  //иначе слайдеры разбегаются
-  // max-width: 856px;
-  // это мешает нормальной работе адаптива, т.к. не дает использовать всю доступную ширину контейнера
-  // если слайдерам нужна фикс. ширина, лучше задавать ее на компонентах самих слайдеров, но не на общем контейнере
 }
 
 .map__container {
@@ -226,7 +222,7 @@
     }
   }
 }
-
+//слайдеры "Территория" и далее
 // поменять на стиль Ксении .rounded_right
 .photo_spec_block {
   border-radius: 0 12px 12px 0;
@@ -243,6 +239,9 @@
 }
 
 .text_territory {
+  //для слайдеров: фикс. ширина и выравнивание по центру
+  max-width: 856px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   @include adaptiv-value('margin-bottom', 48, 10);
