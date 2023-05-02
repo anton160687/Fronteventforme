@@ -13,6 +13,7 @@ import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSi
 import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
+import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 
 const AddPropertyPage = () => {
     // Превью
@@ -102,23 +103,7 @@ const AddPropertyPage = () => {
                     </div>
 
                     {/* Базовая информация */}
-                    <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
-                        <h2 className='h4 mb-4'>
-                            <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
-                            Базовая информация
-                        </h2>
-                        <Form.Group controlId='ap-title' className='mb-3'>
-                            <Form.Label>Название <span className='text-danger'>*</span></Form.Label>
-                            <Form.Control
-                                placeholder='Напишите название площадки'
-                                maxLength={50}
-                                value={title}
-                                onChange={handleChange}
-                                required
-                            />
-                            <Form.Text>Осталось {lettersLeft} символов</Form.Text>
-                        </Form.Group>
-                    </section>
+                    <BasicForm title={title} lettersLeft={lettersLeft} handleChange={handleChange}/>
 
                     {/* Локация */}
                     <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
