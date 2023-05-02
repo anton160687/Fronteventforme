@@ -2,7 +2,7 @@ import { useEffect, useState, MouseEvent, useRef } from "react";
 import Image from 'next/image';
 import { Nav } from "react-bootstrap";
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { CITY_URL, SUG_URL } from "@/constant";
+import { CITY_URL, SUG_URL, TOKEN } from "@/constant";
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import styles from '@/styles/header/City.module.scss';
 
@@ -15,8 +15,6 @@ function City(): JSX.Element {
   const [address, setAddress] = useState<string>('');
   const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
   const [error, setError] = useState<string>('');
-
-  const token = 'de4ad3d540c15631e021ae284bf33aed8d0bedfb';
 
   const dropDownRef = useRef(null);
   const [openDropDown, setOpenDropdown] = useState<boolean>(false);
@@ -44,7 +42,7 @@ function City(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Authorization": "Token " + token
+          "Authorization": "Token " + TOKEN
         },
         body: JSON.stringify(data),
       })
@@ -64,7 +62,7 @@ function City(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Authorization": "Token " + token
+          "Authorization": "Token " + TOKEN
         },
         body: JSON.stringify(data),
       })

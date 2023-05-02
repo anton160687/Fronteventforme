@@ -32,8 +32,6 @@ const AddPropertyPage = () => {
     // Локация
     const [city, setCity] = useState<string>('Москва');
     const [address, setAddress] = useState<string>('');
-    // логи для тестов, потом - удалить
-    console.log("Это город " + city + " это адрес " + address);
 
     // Number of bedrooms radios buttons
     const [bedroomsValue, setBedroomsValue] = useState('4')

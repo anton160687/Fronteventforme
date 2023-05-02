@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
+import { SUG_URL, TOKEN } from '@/constant';
 
 type LocationFormProps = {
     setCity: Dispatch<SetStateAction<string>>,
@@ -13,23 +14,23 @@ type LocationFormProps = {
 }
 
 function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
-    const sugURL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
-    const token = 'de4ad3d540c15631e021ae284bf33aed8d0bedfb';
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
+    const [lat, setLat] = useState<number>(0);
+    const [lng, setLng] = useState<number>(0);
 
     // запрос версий адреса по введенной строке
     useEffect(() => {
         async function fetchAdress(query: string) {
             let data = { "query": query };
-            let response = await fetch(sugURL, {
+            let response = await fetch(SUG_URL, {
                 method: "POST",
                 mode: "cors",
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    "Authorization": "Token " + token
+                    "Authorization": "Token " + TOKEN
                 },
                 body: JSON.stringify(data),
             })
@@ -47,12 +48,21 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
         setOpenDropdown(true);
     }
 
-    function handleClick(e: MouseEvent<HTMLParagraphElement>, city: Nullable<string>) {
+    function handleClick(
+        e: MouseEvent<HTMLParagraphElement>,
+        city: Nullable<string>,
+        lat: Nullable<string>,
+        lng: Nullable<string>
+    ) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
         setAddress(chosenAddress);
         if (city) {
             setCity(city);
+        }
+        if (lat && lng) {
+            setLat(+lat);
+            setLng(+lng);
         }
     }
 
@@ -63,7 +73,13 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
 
     function renderClues(suggestions: DaDataValue[]) {
         return suggestions.map((suggestion, i) => (
-            <p key={i} className={styles.checked} onClick={(e) => handleClick(e, suggestion.data.city)}> {suggestion.value} </ p>
+            <p
+                key={i}
+                className={styles.checked}
+                onClick={(e) => handleClick(e, suggestion.data.city, suggestion.data.geo_lat, suggestion.data.geo_lon)}
+            >
+                {suggestion.value}
+            </ p>
         ))
     }
 

@@ -3,6 +3,7 @@ export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
 // для dadata
 export const CITY_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
 export const SUG_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
+export const TOKEN = '343619a9fc7c1a076f2d4bf1892321dabdb238a2';
 
 // для футера
 export type FooterConst = {
