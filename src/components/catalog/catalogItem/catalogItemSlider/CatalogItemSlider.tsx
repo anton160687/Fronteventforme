@@ -93,7 +93,7 @@ export default function CatalogItemSlider(): JSX.Element {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const onChange = (dates) => {
+  const onChange = (dates: any) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
@@ -108,7 +108,7 @@ export default function CatalogItemSlider(): JSX.Element {
 
   // Form validation
   const [validated, setValidated] = useState(false);
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -128,7 +128,10 @@ export default function CatalogItemSlider(): JSX.Element {
         >
           <h4 className="h4 text-weight-bold">{place.title}</h4>
           <div className="d-flex mb-3" style={{ fontWeight: '500' }}>
-            <button className={styles.calc_btn} onClick={handleModalShow}>
+            <button
+              className={styles.calc_btn + ' btn btn-primary'}
+              onClick={handleModalShow}
+            >
               <i className="fi-calculator fs-lg me-1"></i>Рассчитать стоимость
             </button>
             {/* Property cost calculator modal */}
