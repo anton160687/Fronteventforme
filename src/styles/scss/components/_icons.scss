@@ -269,6 +269,9 @@ $fi-sailboat: '\ea03';
 $fi-tent: '\ea04';
 $fi-umbrella: '\ea05';
 $fi-castle: '\ea06';
+$fi-party-popper: '\ea07';
+$fi-union: '\ea08';
+$fi-cake: '\ea09';
 
 
 // Icons styles
@@ -1605,5 +1608,17 @@ $fi-castle: '\ea06';
 .fi-castle {
   &:before {
     content: $fi-castle; 
+  }
+}.fi-party-popper {
+  &:before {
+    content: $fi-party-popper; 
+  }
+}.fi-union {
+  &:before {
+    content: $fi-union; 
+  }
+}.fi-cake {
+  &:before {
+    content: $fi-cake; 
   }
 }

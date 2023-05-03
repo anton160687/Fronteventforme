@@ -58,7 +58,7 @@ export const ConvenientCatalog:FC = () => {
               {slidesCatalog && slidesCatalog.map(slide =>
               (<SwiperSlide  key={slide.id}>
                 <ImageLoader src={slide.pathImg} width={636} height={462} alt={slide.title} className="rounded-3" />
-              </SwiperSlide>))}            
+              </SwiperSlide>))}
           </Swiper>
           <div id='bullets' className='swiper-pagination position-relative bottom-0 pt-2 mt-4 mb-lg-3'></div>
           <Row className="mt-lg-5 mt-sm-4">
