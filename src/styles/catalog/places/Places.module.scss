@@ -140,6 +140,10 @@
   
 }
 
+.text__cuisine_container {
+  margin-bottom: 40px;
+} 
+
 .text__cuisine_btn {
   border: transparent;
   background: #f9f8fa;
@@ -148,7 +152,6 @@
   font-size: 18px;
   line-height: 150%;
   color: #9691a4;
-  margin-bottom: 48px;
   align-self: flex-end;
   &:hover {
     background-color: $primary;
