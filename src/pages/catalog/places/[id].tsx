@@ -25,7 +25,9 @@ import {
 } from '@/components/catalog';
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
+import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 import styles from '@/styles/catalog/places/Places.module.scss';
+
 
 type CatalogItemProps = {
   item?: Place;
@@ -170,6 +172,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         </Col>
 
       </Row>
+      <SimilarItemsSlider />
     </Container>
   );
 }

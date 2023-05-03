@@ -205,7 +205,7 @@
 }
 
 .summary {
-  @include fz(12, 16);
+  @include fz(16, 16);
   font-weight: 500;
 }
 
@@ -325,3 +325,14 @@
     display: none;
   }
 }
+
+.similarItems {
+  &__title {
+    @include fz(20, 28);
+  }
+  &__text {
+    @include fz(14, 14);
+  }
+}
+
+
