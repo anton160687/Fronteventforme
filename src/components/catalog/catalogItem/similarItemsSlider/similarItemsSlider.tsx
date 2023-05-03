@@ -38,12 +38,13 @@ export function SimilarItemsSlider() {
             nextEl: '#nextProperties',
           }}
           autoHeight
-          slidesPerView={2}
+          slidesPerView={3}
           data-carousel-options='{"loop": true}'
           spaceBetween={12}
           breakpoints={{
             0: { slidesPerView: 1 },
-            600: { slidesPerView: 2 },
+            700: { slidesPerView: 2 },
+            850: { slidesPerView: 3 },
           }}
           className="pt-3 pb-4 mx-n2"
         >
@@ -53,7 +54,7 @@ export function SimilarItemsSlider() {
                 <CardImageHoverOverlay
                   img={{
                     src: place.image_vendor,
-                    size: [600, 350],
+                    size: [700, 400],
                     alt: place.title,
                   }}
                   light={false}

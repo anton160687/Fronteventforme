@@ -151,7 +151,6 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <div id="comments">
             <YaComments />
           </div>
-          <SimilarItemsSlider />
         </Col>
 
         {/* это - боковой контейнер справа на странице */}
@@ -184,6 +183,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           </Col>
         </Col>
       </Row>
+      <SimilarItemsSlider />
     </Container>
   );
 }
