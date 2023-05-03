@@ -1,31 +1,35 @@
-import PropertyCard from '@/components/_finder/PropertyCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import { Navigation } from 'swiper';
-import { Hall, Place } from '@/types/catalog';
-import { Button } from 'react-bootstrap';
+import { Place } from '@/types/catalog';
+import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
-import ImageLoader from '@/components/_finder/ImageLoader';
-import { selectPlaces } from '@/store/catalog/catalogSlice';
-import { useSelector } from 'react-redux';
+import CardImageHoverOverlay from '@/components/_finder/CardImageHoverOverlay';
+import { similarPlaces } from '@/mocks/similarItemsSlider';
+import { PATHS } from '@/constant';
+import styles from '@/styles/catalog/places/Places.module.scss';
 
 export function SimilarItemsSlider() {
-  const places = useSelector(selectPlaces);
-  console.log('places', places);
+  // если обновлять страницу, то places пустой, поэтому ничего не отображается. До решения проблемы заглушка
+  // const places = useSelector(selectPlaces);
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between mb-3">
-        <h2 className="h3 mb-0">Top offers</h2>
-        <Link href="/catalog" className="link fw-normal ms-sm-3 p-0">
+      <div className="d-sm-flex align-items-center justify-content-between mt-5 mb-2 ">
+        <h2 className={'h2 mb-0 ' + styles.similarItems__title}>
+          Похожие площадки
+        </h2>
+        <Link
+          href={PATHS.catalog + PATHS.places}
+          className={'btn btn-link ms-md-3 p-0 ' + styles.summary}
+        >
           Вернуться в каталог
-          <i className="fi-arrow-long-right ms-2"></i>
+          <i className="fi-arrow-long-right ms-2 align-self-center"></i>
         </Link>
       </div>
-      {/* Swiper slider */}
       <div className="position-relative">
         <Swiper
           modules={[Navigation]}
@@ -34,43 +38,51 @@ export function SimilarItemsSlider() {
             nextEl: '#nextProperties',
           }}
           autoHeight
-          slidesPerView={1}
+          slidesPerView={2}
           data-carousel-options='{"loop": true}'
-          spaceBetween={8}
+          spaceBetween={12}
           breakpoints={{
             0: { slidesPerView: 1 },
-            500: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            992: { slidesPerView: 4 },
+            600: { slidesPerView: 2 },
           }}
           className="pt-3 pb-4 mx-n2"
         >
-          {places.map((place, indx: number) => (
+          {similarPlaces.map((place: Place, indx: number) => (
             <SwiperSlide key={indx} className="h-auto">
-              <PropertyCard
-                // href={item.href}
-                href="#"
-                images={place.image_vendor}
-                title={place.title}
-                price={place.min_price}
-                wishlistButton=""
-                location=""
-                badges=""
-                category=""
-                footer=""
-                dropdown={false}
-                horizontal={true}
-                light={false}
-                className="h-100 mx-2"
-                width={416}
-                height={231}
-              />
-              {/* <ImageLoader src={place?.image_vendor} width={416} height={231} /> */}
+              <Card className="card-hover shadow-sm border-0 mx-2">
+                <CardImageHoverOverlay
+                  img={{
+                    src: place.image_vendor,
+                    size: [600, 350],
+                    alt: place.title,
+                  }}
+                  light={false}
+                  className=""
+                >
+                  {' '}
+                </CardImageHoverOverlay>
+                <Card.Body className="text-center">
+                  <Card.Title as="h6" className="h6 fs-base text-start mb-0">
+                    {place.title}
+                  </Card.Title>
+                  <CardText
+                    title="Вместимость"
+                    description={place.capacity + ' человек'}
+                  />
+                  <CardText
+                    title="Схема оплаты"
+                    description="Аренда 10 000 ₽ + от 4 000 ₽/ч"
+                  />
+                  <CardText
+                    title="Стоимость"
+                    description={place.avg_price + ' ₽'}
+                  />
+                </Card.Body>
+              </Card>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* External Prev/Next buttons */}
         <Button
           id="prevProperties"
           variant="prev"
@@ -85,3 +97,24 @@ export function SimilarItemsSlider() {
     </>
   );
 }
+
+type cardTextType = {
+  title: string;
+  description: string;
+};
+
+const CardText = ({ title, description }: cardTextType): JSX.Element => (
+  <Card.Text
+    className={
+      'd-flex align-items-center justify-content-between my-1  ' +
+      styles.similarItems__text
+    }
+  >
+    <span className="text-start">{title}</span>
+    <span className="text-end">
+      <small>
+        <strong>{description}</strong>
+      </small>
+    </span>
+  </Card.Text>
+);

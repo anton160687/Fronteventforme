@@ -25,6 +25,7 @@ import {
 } from '@/components/catalog';
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
+import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 
 type CatalogItemProps = {
   item?: Place;
@@ -150,6 +151,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
           <div id="comments">
             <YaComments />
           </div>
+          <SimilarItemsSlider />
         </Col>
 
         {/* это - боковой контейнер справа на странице */}

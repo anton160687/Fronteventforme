@@ -199,7 +199,7 @@
 }
 
 .summary {
-  @include fz(12, 16);
+  @include fz(16, 16);
   font-weight: 500;
 }
 
@@ -316,5 +316,14 @@
 @media (max-width: 800px) {
   .text_title {
     display: none;
+  }
+}
+
+.similarItems {
+  &__title {
+    @include fz(20, 28);
+  }
+  &__text {
+    @include fz(14, 14);
   }
 }
