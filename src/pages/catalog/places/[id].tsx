@@ -45,7 +45,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         <Breadcrumb.Item linkAs={Link} href="/catalog">
           Каталог
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog">
+        <Breadcrumb.Item linkAs={Link} href="/catalog/places">
           Площадки
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>

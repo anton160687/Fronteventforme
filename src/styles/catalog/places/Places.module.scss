@@ -1,4 +1,21 @@
 @import '@/styles/_mixins';
+.heart__icon {
+  color: $primary;
+  background: $white;
+
+  &:hover {
+    background: $primary;
+    color: $white;
+  }
+
+  &_wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: $transition;
+  }
+}
 
 .catalog__image {
   height: 224px;
