@@ -94,7 +94,7 @@ export default function CatalogItemSlider(): JSX.Element {
       {places.map((place: Hall, index) => (
         <section
           className={
-            'card card-body h-100 border-0 shadow-sm card-hover ' +
+            'card card-body border-0 shadow-sm card-hover ' +
             styles.catalog_item_slider
           }
           key={index}

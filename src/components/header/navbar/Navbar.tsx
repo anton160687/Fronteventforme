@@ -44,7 +44,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
 
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
-      <Nav.Item key={id}>
+      <Nav.Item key={id} className={styles.navbar__item}>
         <Nav.Link as={Link} href={path}>
           {text}
         </Nav.Link>
@@ -69,13 +69,12 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
         <Navbar.Toggle aria-controls="light-navbar-nav" className="ms-auto" />
 
         <Navbar.Collapse id="light-navbar-nav" className="order-lg-2">
-          <Nav>
+          <Nav className={styles.navbar__central_block}>
             <City />
-
             <CatalogDropDown />
-
-            {renderNavigation()}
-
+            {renderNavigation()}            
+          </Nav>
+          <Nav>
             {!isAuth && <Login />}
             {!isAuth && <RegButton />}
 

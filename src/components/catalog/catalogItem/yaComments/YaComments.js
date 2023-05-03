@@ -1,6 +1,6 @@
 function YaComments() {
   const divStyle1 = {
-    width: '560px',
+    maxWidth: '560px',
     height: '800px',
     overflow: 'hidden',
     position: 'relative',
