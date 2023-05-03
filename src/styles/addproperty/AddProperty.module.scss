@@ -15,3 +15,21 @@
     font-weight: 600;
   }
 }
+
+.firework {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+  .price{
+    max-width: 250px;
+    margin-bottom: 15px;
+    &_border{
+      border-radius: 10px 0 0 10px !important;
+      border-right: transparent;
+    }
+  }
+}
+
