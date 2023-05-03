@@ -1,12 +1,11 @@
 import { FC, useState } from "react";
-import { providerCards } from "@/types/cardsType";
-import ImageLoader from "@/components/_finder/ImageLoader";
-import {Card, Button} from 'react-bootstrap/';
+import {Card } from 'react-bootstrap/';
 import { Navigation} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { providerCards } from "@/types/cardsType";
+import ImageLoader from "@/components/_finder/ImageLoader";
 import styles from "@/styles/catalog/places/Places.module.scss";
-import 'swiper/css/bundle'
-import Link from "next/link";
+import 'swiper/css/bundle';
 
 
 export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, description, pathImg}) => {

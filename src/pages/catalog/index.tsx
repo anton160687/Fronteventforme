@@ -22,7 +22,6 @@ export default function Catalog() {
         </Col>
       </Row>
 
-
     </Container>
   )
 }

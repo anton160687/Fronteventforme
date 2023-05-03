@@ -35,7 +35,7 @@ function PlaceFilters() {
             
                 <Col md={4} className='d-sm-flex align-items-center'>
                     <Dropdown>
-                        <Dropdown.Toggle variant='outline-none'>
+                        <Dropdown.Toggle variant='outline-secondary' className={styles.catalog__dropdown_icon}>
                             <i className={`fi-map-pin fs-lg opacity-60 me-1`} />
                             <p className={styles.catalog__dropdown_text}>Город</p>
                         </Dropdown.Toggle>
