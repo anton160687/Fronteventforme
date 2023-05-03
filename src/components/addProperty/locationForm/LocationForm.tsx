@@ -19,6 +19,8 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
+    //для теста, пока не удалять
+    console.log("это из тела" + lat, lng);
 
     // запрос версий адреса по введенной строке
     useEffect(() => {
@@ -36,6 +38,15 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             })
             let result: DaDataValues = await response.json();
             setSuggestions(result.suggestions);
+            // этот код необходимо перенести сюда на случай, если адрес внесут, не используя подсказок
+            if (result?.suggestions[0]?.data.city) {
+                setCity(result.suggestions[0].data.city);
+            }
+            if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
+                setLat(+result.suggestions[0].data.geo_lat);
+                setLng(+result.suggestions[0].data.geo_lon);
+            }
+
         }
         fetchAdress(address);
     }, [address])
@@ -57,13 +68,6 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
         setAddress(chosenAddress);
-        if (city) {
-            setCity(city);
-        }
-        if (lat && lng) {
-            setLat(+lat);
-            setLng(+lng);
-        }
     }
 
     function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
