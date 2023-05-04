@@ -12,24 +12,21 @@ function SupplierCard() {
 
     return (
         <section className={styles.py64 + ' bg-secondary'}>
-            <Container as='section' className="mx-auto w-75">
-                <Row className='align-items-center'>
-                    <Col md={7} xxl={6} className='text-md-start text-center'>
+            <Container className="mx-auto">
+                <Row className={styles.mobile__column}>
+                    <Col className={styles.main__supplier_text}>
                         <h2>Стань нашим исполнителем</h2>
                         <p className='pb-3 fs-lg'>Длинная подпись предоставляемой услуги на несколько небольших строчек</p>
                         <RegisterBtn/>
                     </Col>
-                    <Col md={5}>
-                        <div className='d-flex justify-content-center mb-md-0 mb-4'>
+                    <Col>
                             <Image
                                 src='/img/photo.jpg'
-                                width={416}
-                                height={400}
+                                width={636}
+                                height={606}
                                 alt='Photo'
                             />
-                        </div>
                     </Col>
-
                 </Row>
             </Container>
         </section>

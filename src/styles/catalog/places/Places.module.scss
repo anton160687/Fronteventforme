@@ -1,4 +1,21 @@
 @import '@/styles/_mixins';
+.heart__icon {
+  color: $primary;
+  background: $white;
+
+  &:hover {
+    background: $primary;
+    color: $white;
+  }
+
+  &_wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: $transition;
+  }
+}
 
 .catalog__image {
   height: 224px;
@@ -123,6 +140,10 @@
   
 }
 
+.text__cuisine_container {
+  margin-bottom: 40px;
+} 
+
 .text__cuisine_btn {
   border: transparent;
   background: #f9f8fa;
@@ -131,7 +152,6 @@
   font-size: 18px;
   line-height: 150%;
   color: #9691a4;
-  margin-bottom: 48px;
   align-self: flex-end;
   &:hover {
     background-color: $primary;

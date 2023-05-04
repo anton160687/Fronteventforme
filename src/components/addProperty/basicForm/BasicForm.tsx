@@ -3,29 +3,29 @@ import Form from 'react-bootstrap/Form';
 
 type BasicFormProps = {
     title: string,
-    lettersLeft: number,
+    location: boolean,
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-function BasicForm({title, lettersLeft, handleChange}: BasicFormProps): JSX.Element {
+function BasicForm({title, handleChange, location}: BasicFormProps): JSX.Element {
+    const [lettersLeft, setLettersLeft] = useState<number>(50);
+    function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
+        handleChange(e);
+        setLettersLeft(50 - e.target.value.length);
+    }
+
     return (
-        <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
-        <h2 className='h4 mb-4'>
-            <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
-            Базовая информация
-        </h2>
         <Form.Group controlId='ap-title' className='mb-3'>
             <Form.Label>Название <span className='text-danger'>*</span></Form.Label>
             <Form.Control
-                placeholder='Напишите название площадки'
+                placeholder={location? 'Напишите название площадки' : 'Напишите название помещения'}
                 maxLength={50}
                 value={title}
-                onChange={handleChange}
+                onChange={handleChangeInsideForm}
                 required
             />
             <Form.Text>Осталось {lettersLeft} символов</Form.Text>
         </Form.Group>
-    </section>
     )
 }
 
