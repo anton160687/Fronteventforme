@@ -5,15 +5,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import Form from 'react-bootstrap/Form'
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
+import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 
 const AddPropertyPage = () => {
     // Превью
@@ -24,68 +22,14 @@ const AddPropertyPage = () => {
     const [gallery, setGallery] = useState<string[]>([]);
     // Базовая информация
     const [title, setTitle] = useState<string>('');
-    const [lettersLeft, setLettersLeft] = useState<number>(50);
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        let value = e.target.value;
-        setTitle(value);
-        setLettersLeft(50 - value.length);
+        setTitle(e.target.value);
     }
     // Локация
     const [city, setCity] = useState<string>('Москва');
     const [address, setAddress] = useState<string>('');
-
-    // Number of bedrooms radios buttons
-    const [bedroomsValue, setBedroomsValue] = useState('4')
-    const bedrooms = [
-        { name: 'Studio', value: 'studio' },
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' },
-        { name: '5+', value: '5+' }
-    ]
-    // Number of bathrooms radios buttons
-    const [bathroomsValue, setBathroomsValue] = useState('2')
-    const bathrooms = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Number of bathrooms radios buttons
-    const [parkingsValue, setParkingsValue] = useState('2')
-    const parkings = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Amenities (checkboxes)
-    const amenities = [
-        { value: 'WiFi', checked: true },
-        { value: 'Pets-friendly', checked: false },
-        { value: 'Dishwasher', checked: false },
-        { value: 'Air conditioning', checked: true },
-        { value: 'Pool', checked: false },
-        { value: 'Iron', checked: true },
-        { value: 'Balcony', checked: false },
-        { value: 'Bar', checked: false },
-        { value: 'Hair dryer', checked: true },
-        { value: 'Garage', checked: false },
-        { value: 'TV', checked: true },
-        { value: 'Kitchen', checked: true },
-        { value: 'Gym', checked: false },
-        { value: 'Linens', checked: true },
-        { value: 'Breakfast', checked: false },
-        { value: 'Free parking', checked: true },
-        { value: 'Heating', checked: true },
-        { value: 'Security cameras', checked: false }
-    ]
-    // Pets (checkboxes)
-    const pets = [
-        { value: 'Cats allowed', checked: false },
-        { value: 'Dogs allowed', checked: false }
-    ]
+    // Площадки
+    const [areaQuantity, setAreaQuantity] = useState<number>(1);
 
 
     return (<>
@@ -103,114 +47,22 @@ const AddPropertyPage = () => {
                     </div>
 
                     {/* Базовая информация */}
-                    <BasicForm title={title} lettersLeft={lettersLeft} handleChange={handleChange}/>
+                    <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
+                        <h2 className='h4 mb-4'>
+                            <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
+                            Базовая информация
+                        </h2>
+                        <BasicForm title={title} handleChange={handleChange} location />
+                    </section>
 
                     {/* Локация */}
-                    <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
-
-                    {/* Property details */}
-                    <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
-                        <h2 className='h4 mb-4'>
-                            <i className='fi-edit text-primary fs-5 mt-n1 me-2'></i>
-                            Property details
-                        </h2>
-                        <Form.Group controlId='ap-area' className='mb-4' style={{ maxWidth: '25rem' }}>
-                            <Form.Label>Total area, sq.m</Form.Label>
-                            <Form.Control type='number' defaultValue={56} min={20} placeholder='Enter your area' />
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Bedrooms</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {bedrooms.map((bedroom, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`bedrooms-${indx}`}
-                                        name='bedrooms'
-                                        value={bedroom.value}
-                                        checked={bedroomsValue === bedroom.value}
-                                        onChange={(e) => setBedroomsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{bedroom.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Bathrooms</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {bathrooms.map((bathroom, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`bathrooms-${indx}`}
-                                        name='bathrooms'
-                                        value={bathroom.value}
-                                        checked={bathroomsValue === bathroom.value}
-                                        onChange={(e) => setBathroomsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{bathroom.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Parking spots</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {parkings.map((parking, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`parkings-${indx}`}
-                                        name='parkings'
-                                        value={parking.value}
-                                        checked={parkingsValue === parking.value}
-                                        onChange={(e) => setParkingsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{parking.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Amenities</Form.Label>
-                            <Row xs={1} sm={3}>
-                                {amenities.map((amenity, indx) => (
-                                    <Col key={indx}>
-                                        <Form.Check
-                                            type='checkbox'
-                                            id={`amenities-${indx}`}
-                                            value={amenity.value}
-                                            label={amenity.value}
-                                            defaultChecked={amenity.checked}
-                                        />
-                                    </Col>
-                                ))}
-                            </Row>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Pets</Form.Label>
-                            <Row xs={1} sm={3}>
-                                <Col>
-                                    {pets.map((pet, indx) => (
-                                        <Form.Check
-                                            key={indx}
-                                            type='checkbox'
-                                            id={`pets-${indx}`}
-                                            value={pet.value}
-                                            label={pet.value}
-                                            defaultChecked={pet.checked}
-                                        />
-                                    ))}
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <Form.Group controlId='ap-description'>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as='textarea' rows={5} placeholder='Describe your property' />
-                            <Form.Text>1500 characters left</Form.Text>
-                        </Form.Group>
-                    </section>
+                    <LocationForm setCity={setCity} setAddress={setAddress} address={address} />
 
                     {/* Заливка фотографий*/}
                     <FileUploader gallery={gallery} setGallery={setGallery} />
+
+                    {/* Площадки */}
+                    <AreaForm index={areaQuantity}/>
 
                     {/* Контактная информация */}
                     < ContactsForm />
