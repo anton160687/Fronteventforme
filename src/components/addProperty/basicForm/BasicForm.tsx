@@ -7,7 +7,7 @@ type BasicFormProps = {
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
 }
 
-function BasicForm({title, handleChange, location}: BasicFormProps): JSX.Element {
+function BasicForm({ title, handleChange, location }: BasicFormProps): JSX.Element {
     const [lettersLeft, setLettersLeft] = useState<number>(50);
     function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
         handleChange(e);
@@ -16,9 +16,12 @@ function BasicForm({title, handleChange, location}: BasicFormProps): JSX.Element
 
     return (
         <Form.Group controlId='ap-title' className='mb-3'>
-            <Form.Label>Название <span className='text-danger'>*</span></Form.Label>
+            <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                Название <span className='text-danger'>*</span>
+            </Form.Label>
             <Form.Control
-                placeholder={location? 'Напишите название площадки' : 'Напишите название помещения'}
+                name='title'
+                placeholder={location ? 'Напишите название площадки' : 'Напишите название помещения'}
                 maxLength={50}
                 value={title}
                 onChange={handleChangeInsideForm}

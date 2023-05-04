@@ -95,7 +95,9 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             </h2>
             <Row>
                 <Form.Group as={Col} sm={12} controlId='ap-address' className='mb-3'>
-                    <Form.Label>Адрес <span className='text-danger'>*</span></Form.Label>
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                        Адрес <span className='text-danger'>*</span>
+                    </Form.Label>
                     <Form.Control
                         value={address}
                         onChange={handleChange}

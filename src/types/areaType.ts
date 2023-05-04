@@ -1,16 +1,19 @@
 export type Area = {
     title: string,
-    type_area: string[],
+    type_area: string,
     min_capacity: number,
     max_capacity: number,
     color_hall: string,
     separate_entrance: boolean,
-    sale: number,
+    sale: string,
     min_price_banquet: number,
     min_price_rent: number,
     deposit: number,
     detail_location: string,
-    place: number,
+    scheme_of_payment: string,
+    bare_lease: boolean,
+    reserved_dates: Date[],
+    // place: number
 }
 
 /* c бэка
