@@ -41,12 +41,12 @@ const AddPropertyPage = () => {
 
     function renderAreaForms() {
         return areaIndexArray.map((index) => (
-            <>
-                <AreaForm key={index} index={index} areas={areas} setAreas={setAreas} />
+            <section key={index} id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+                <AreaForm index={index} areas={areas} setAreas={setAreas} />
                 <p className="text-primary mb-3" onClick={addArea}>
                     <i className='fi-plus-circle me-3'></i> Добавить помещение
                 </p>
-            </>
+            </section>
         ))
     }
 

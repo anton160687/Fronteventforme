@@ -20,7 +20,7 @@ function AreaFormDatePicker({datesArray, handleDateChange}: AreaFormDatePickerPr
     function renderDateForm(index: number) {
         return (
             <>
-                <Form.Group key={index} controlId='date-input' className='mb-3'>
+                <Form.Group controlId='date-input' className='mb-3'>
                     <InputGroup>
                         <Form.Control
                             as={DatePicker}

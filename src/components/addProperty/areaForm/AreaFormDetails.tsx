@@ -21,6 +21,7 @@ function AreaFormDetails({ details, handleChange }: AreaFormDetailsProps) {
             <Form.Control
                 as='textarea'
                 rows={6}
+                name="detail_location"
                 maxLength={1000}
                 placeholder='Например, опишите минимальную стоимость банкета/аренды зала в пятницу и субботу'
                 onChange={handleChangeInsideForm}

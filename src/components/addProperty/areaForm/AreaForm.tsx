@@ -81,7 +81,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     }, [area])
 
     return (
-        <section id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+        <section >
             <h2 className='h4 mb-4'>
                 <i className='fi-party-popper text-primary fs-5 mt-n1 me-2'></i>
                 Помещения
