@@ -52,8 +52,6 @@ export default function CatalogItemSlider(): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
 
-  console.log('totalSlides', totalSlides);
-
   const SlidesCount = () => (
     <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
       <i className="fi-image fs-lg me-2"></i>
@@ -200,7 +198,6 @@ export default function CatalogItemSlider(): JSX.Element {
                   onChange={onChange}
                   minDate={new Date(Date.now())}
                   maxDate={new Date('02/29/2024')}
-                  placeholderText="Select a date in Feb 2022"
                   className="rounded-1 pe-5"
                   endDate={endDate}
                   startDate={startDate}
@@ -212,7 +209,6 @@ export default function CatalogItemSlider(): JSX.Element {
                     addDays(new Date(), 11),
                     addDays(new Date(), 12),
                   ]}
-                  selectsRange
                   inline
                 />
               </div>
