@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Col, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import BasicForm from '../basicForm/BasicForm';
@@ -11,10 +11,12 @@ import AreaFormDetails from './AreaFormDetails';
 import AreaFormDatePicker from './AreaFormDatePicker';
 
 type AreaFormProps = {
-    index: number
+    index: number,
+    areas: Area[],
+    setAreas: Dispatch<SetStateAction<Area[]>>
 }
 
-function AreaForm({ index }: AreaFormProps) {
+function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     let initialAreaFormState: Area = {
         title: '',
         type_area: '',
@@ -56,10 +58,27 @@ function AreaForm({ index }: AreaFormProps) {
         setArea({ ...area, ['scheme_of_payment']: eventKey });
         setSelectedScheme(e.target.name);
     }
+    // даты брони
+    function handleDateChange(date: Date, id: number) {
+        let newArr = [...area.reserved_dates];
+        if (newArr[id] && date === null) {
+            newArr.splice(id, 1);
+        } else {
+            newArr[id] = date;
+        }
+        setArea({ ...area, ['reserved_dates']: newArr })
+    }
     // Загрузка картинок
     const [gallery, setGallery] = useState<string[]>([]);
     //для тестов, не удалять
     console.log(area);
+
+    //при изменении объекта Площадки - прокидываем в общий спискок мест
+    useEffect(()=>{
+        let newAreasArr = [...areas];
+        newAreasArr[index] = area;
+        setAreas(newAreasArr);
+    }, [area])
 
     return (
         <section id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
@@ -68,7 +87,7 @@ function AreaForm({ index }: AreaFormProps) {
                 Помещения
             </h2>
             <BasicForm title={area.title} location={false} handleChange={handleChange} />
-            {/* <FileUploader gallery={gallery} setGallery={setGallery} /> */}
+            <FileUploader gallery={gallery} setGallery={setGallery} />
             <Form.Group>
                 {/* Тип, Вместимость, Цвет */}
                 <Row className={styles.group_container + ' mb-4'}>
@@ -182,7 +201,7 @@ function AreaForm({ index }: AreaFormProps) {
                                 placeholder='от 10 000'
                                 type='number'
                                 min="10000"
-                                value={area.min_capacity || undefined}
+                                value={area.min_price_banquet || undefined}
                                 onChange={handleNumberChange}
                                 className={styles.capacity__input}
                                 required
@@ -200,7 +219,7 @@ function AreaForm({ index }: AreaFormProps) {
                                 placeholder='от 10 000'
                                 type='number'
                                 min="10000"
-                                value={area.min_capacity || undefined}
+                                value={area.min_price_rent || undefined}
                                 onChange={handleNumberChange}
                                 className={styles.capacity__input}
                                 required
@@ -218,7 +237,7 @@ function AreaForm({ index }: AreaFormProps) {
                                 placeholder='от 10 000'
                                 type='number'
                                 min="10000"
-                                value={area.min_capacity || undefined}
+                                value={area.deposit || undefined}
                                 onChange={handleNumberChange}
                                 className={styles.capacity__input}
                                 required
@@ -268,7 +287,7 @@ function AreaForm({ index }: AreaFormProps) {
                     </div>
                 </Row>
                 <Row>
-                <AreaFormDatePicker />
+                <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange}/>
                 </Row>
                 {/* Детали */}
                 <AreaFormDetails details={area.detail_location} handleChange={handleChange} />
