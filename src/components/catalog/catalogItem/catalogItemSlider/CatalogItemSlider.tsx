@@ -52,6 +52,8 @@ export default function CatalogItemSlider(): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
 
+  console.log('totalSlides', totalSlides);
+
   const SlidesCount = () => (
     <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
       <i className="fi-image fs-lg me-2"></i>
