@@ -19,7 +19,7 @@ function AreaFormDatePicker({datesArray, handleDateChange}: AreaFormDatePickerPr
 
     function renderDateForm(index: number) {
         return (
-            <>
+            <div key={index}>
                 <Form.Group controlId='date-input' className='mb-3'>
                     <InputGroup>
                         <Form.Control
@@ -28,6 +28,7 @@ function AreaFormDatePicker({datesArray, handleDateChange}: AreaFormDatePickerPr
                             placeholderText="Дата мероприятия"
                             className='rounded pe-5'
                             dateFormat="dd/MM/yy"
+                            excludeDates={datesArray}
                             onChange={(e: any) => {
                                 handleDateChange(e, index);
                             }}
@@ -38,7 +39,7 @@ function AreaFormDatePicker({datesArray, handleDateChange}: AreaFormDatePickerPr
                 <p className="text-primary mb-3" onClick={handleClick}>
                     <i className='fi-plus-circle me-3'></i> Добавить дату
                 </p>
-            </>
+            </div>
         )
     }
 
