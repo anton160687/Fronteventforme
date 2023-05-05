@@ -13,7 +13,7 @@ import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSi
 import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
-import { AddPropertyDescriptionPlace } from '@/components/addProperty';
+import { DescriptionPlaceAddProperty, PropertyDetailsAddProperty } from '@/components/addProperty';
 
 const AddPropertyPage = () => {
     // Превью
@@ -126,8 +126,10 @@ const AddPropertyPage = () => {
                     {/* Локация */}
                     <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
 
-                    <AddPropertyDescriptionPlace/>
+                    <DescriptionPlaceAddProperty/>
 
+                    <PropertyDetailsAddProperty />
+                    
                     {/* Property details */}
                     <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
                         <h2 className='h4 mb-4'>

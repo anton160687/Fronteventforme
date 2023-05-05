@@ -1,42 +1,15 @@
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap"
 import styles from '@/styles/addProperty/AddProperty.module.scss';
+import { checkBoxes } from '@/mocks/checkBox';
+import { DescriptionPlaceElement } from "./descriptionPlaceElement";
+import { FC } from "react";
 
-const location = [
-  { value: 'Около моря', checked: false },
-  { value: 'В городе', checked: true },
-  { value: 'Около озера', checked: false },
-  { value: 'Около реки', checked: false },
-  { value: 'В центре города', checked: false },
-  { value: 'В горах', checked: false },
-  { value: 'За городом', checked: false },
-  { value: 'В лесу', checked: false },
-]
+export const DescriptionPlaceAddProperty:FC = () => {
+  const { location }  = checkBoxes || {};
+  const { kitchen } = checkBoxes || {};
+  const { suitableFor } = checkBoxes || {};
 
-const kitchen = [
-  { value: 'Европейская', checked: false },
-  { value: 'Итальянская', checked: false },
-  { value: 'Азиатская', checked: true },
-  { value: 'Японская', checked: false },
-  { value: 'Русская', checked: true },
-  { value: 'Корейская', checked: false },
-  { value: 'Кавказская', checked: false },
-  { value: 'Другая', checked: false },
-]
-
-const suitableFor = [
-  { value: 'Свадьба', checked: false },
-  { value: 'Фуршет', checked: false },
-  { value: 'Корпоратив', checked: false },
-  { value: 'День рождения', checked: true },
-  { value: 'Мальчишник', checked: false },
-  { value: 'Праздничный банкет', checked: false },
-  { value: 'Новый год', checked: true },
-  { value: 'Девичник', checked: false },
-  { value: 'Выпускной', checked: false },
-]
-
-export const AddPropertyDescriptionPlace = () => (
-
+return  (
 <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
   <h2 className='h4 mb-4'>
     <i className='fi-edit text-primary fs-5 mt-n1 me-2'></i>
@@ -44,19 +17,9 @@ export const AddPropertyDescriptionPlace = () => (
   </h2>
   <Form.Group className='mb-2'>
     <Form.Label className='d-block fw-bold mb-2 pb-1'>Расположение*</Form.Label>
-    <Row xs={1} sm={2} md={3}>
-      {location.map((item, indx) => (
-        <Col key={indx}>
-          <Form.Check
-            type='checkbox'
-            id={`location-${indx}`}
-            value={item.value}
-            label={item.value}
-            defaultChecked={item.checked}
-          />
-        </Col>
-      ))}
-    </Row>
+
+      <DescriptionPlaceElement location={location}/>
+
     <p className="mt-2 fs-sm">
       <i className='fi-alert-circle me-2'/>
       Не более 4-х функций.
@@ -143,21 +106,11 @@ export const AddPropertyDescriptionPlace = () => (
 
   <Form.Group className='mb-2'>
     <Form.Label className='d-block fw-bold mb-2 pb-1'>Подходит для:*</Form.Label>
-    <Row xs={1} sm={2} md={3}>
-      {suitableFor.map((item, indx) => (
-        <Col key={indx}>
-          <Form.Check
-            type='checkbox'
-            id={`suitableFor-${indx}`}
-            value={item.value}
-            label={item.value}
-            defaultChecked={item.checked}
-          />
-        </Col>
-      ))}
-    </Row>
+    
+    <DescriptionPlaceElement location={suitableFor}/>
+
   </Form.Group>
 </section>
-)
+)}
 
 
