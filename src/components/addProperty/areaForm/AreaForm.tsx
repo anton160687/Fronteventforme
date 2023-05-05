@@ -1,5 +1,5 @@
-import { ChangeEvent, SetStateAction, useState } from 'react';
-import { ButtonGroup, Col, Dropdown, Row, ToggleButton } from 'react-bootstrap';
+import { ChangeEvent, useState } from 'react';
+import { Col, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import BasicForm from '../basicForm/BasicForm';
 import FileUploader from '../fileUploader/FileUploader';
@@ -7,6 +7,8 @@ import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 import Image from 'next/image';
 import { Area } from '@/types/areaType';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
+import AreaFormDetails from './AreaFormDetails';
+import AreaFormDatePicker from './AreaFormDatePicker';
 
 type AreaFormProps = {
     index: number
@@ -75,7 +77,9 @@ function AreaForm({ index }: AreaFormProps) {
                             {'Тип\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
                         <Dropdown onSelect={handleTypeSelect}>
-                            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>{selectedType || "---"}</Dropdown.Toggle>
+                            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
+                                {selectedType || "-----"}
+                            </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {TYPE_AREA.map((option, indx) =>
                                     <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
@@ -119,7 +123,9 @@ function AreaForm({ index }: AreaFormProps) {
                             {'Цвет зала\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
                         <Dropdown onSelect={handleColorSelect}>
-                            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>{area.color_hall || "---"}</Dropdown.Toggle>
+                            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
+                                {area.color_hall || "---"}
+                            </Dropdown.Toggle>
                             <Dropdown.Menu >
                                 {COLOR_HALL.map((option, indx) =>
                                     <Dropdown.Item key={indx} eventKey={option}>
@@ -165,51 +171,60 @@ function AreaForm({ index }: AreaFormProps) {
                     />
                 </Row>
                 {/* Цены, депозит */}
-                <Row className='align-items-end'>
+                <Row className='align-items-end mb-4'>
                     <Col>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Минимальная цена банкета'}<span className='text-danger'>*</span>
                         </Form.Label>
-                        <Form.Control
-                            name='min_price_banquet'
-                            placeholder='от 10 000 ₽'
-                            type='number'
-                            min="10000"
-                            value={area.min_capacity || undefined}
-                            onChange={handleNumberChange}
-                            className={styles.capacity__input}
-                            required
-                        />
+                        <InputGroup>
+                            <Form.Control
+                                name='min_price_banquet'
+                                placeholder='от 10 000'
+                                type='number'
+                                min="10000"
+                                value={area.min_capacity || undefined}
+                                onChange={handleNumberChange}
+                                className={styles.capacity__input}
+                                required
+                            />
+                            <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
+                        </InputGroup>
                     </Col>
                     <Col>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Минимальная цена аренды\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
-                        <Form.Control
-                            name='min_price_rent'
-                            placeholder='от 10 000 ₽'
-                            type='number'
-                            min="10000"
-                            value={area.min_capacity || undefined}
-                            onChange={handleNumberChange}
-                            className={styles.capacity__input}
-                            required
-                        />
+                        <InputGroup>
+                            <Form.Control
+                                name='min_price_rent'
+                                placeholder='от 10 000'
+                                type='number'
+                                min="10000"
+                                value={area.min_capacity || undefined}
+                                onChange={handleNumberChange}
+                                className={styles.capacity__input}
+                                required
+                            />
+                            <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
+                        </InputGroup>
                     </Col>
                     <Col>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Депозит\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
-                        <Form.Control
-                            name='deposit'
-                            placeholder='от 10 000 ₽'
-                            type='number'
-                            min="10000"
-                            value={area.min_capacity || undefined}
-                            onChange={handleNumberChange}
-                            className={styles.capacity__input}
-                            required
-                        />
+                        <InputGroup>
+                            <Form.Control
+                                name='deposit'
+                                placeholder='от 10 000'
+                                type='number'
+                                min="10000"
+                                value={area.min_capacity || undefined}
+                                onChange={handleNumberChange}
+                                className={styles.capacity__input}
+                                required
+                            />
+                            <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
+                        </InputGroup>
                     </Col>
                 </Row>
                 {/* Схема оплаты */}
@@ -218,7 +233,9 @@ function AreaForm({ index }: AreaFormProps) {
                         {'Схема оплаты\u00a0'}<span className='text-danger'>*</span>
                     </Form.Label>
                     <Dropdown onSelect={handleSchemeSelect}>
-                        <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>{selectedScheme || "---"}</Dropdown.Toggle>
+                        <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
+                            {selectedScheme || "-----"}
+                        </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {SCHEME_OF_PAYMENT.map((option, indx) =>
                                 <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
@@ -250,9 +267,11 @@ function AreaForm({ index }: AreaFormProps) {
                         /> Нет
                     </div>
                 </Row>
-                {/* Детали */}
-                <Row className='mb-4'>
+                <Row>
+                <AreaFormDatePicker />
                 </Row>
+                {/* Детали */}
+                <AreaFormDetails details={area.detail_location} handleChange={handleChange} />
             </Form.Group>
         </section >
     )
