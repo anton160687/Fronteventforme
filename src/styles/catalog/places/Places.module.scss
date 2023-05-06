@@ -106,23 +106,6 @@
   border-radius: 0 10px 10px 0;
 }
 
-// кнопки-якоря
-.anchor__btn {
-  border: transparent;
-  background: #f9f8fa;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 150%;
-  color: #9691a4;
-  margin-bottom: 48px;
-
-  &:hover {
-    background-color: $primary;
-    color: #ffffff;
-  }
-}
-
 //адаптивы для текстовых блоков
 .text__description_container {
   gap: 24px;
