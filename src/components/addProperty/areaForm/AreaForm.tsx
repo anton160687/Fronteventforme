@@ -1,14 +1,14 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Col, Dropdown, FormControl, InputGroup, Row } from 'react-bootstrap';
+import Image from 'next/image';
+import { Col, Dropdown, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import BasicForm from '../basicForm/BasicForm';
 import FileUploader from '../fileUploader/FileUploader';
-import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
-import Image from 'next/image';
-import { Area } from '@/types/areaType';
-import styles from '@/styles/addproperty/AreaForm.module.scss';
-import AreaFormDetails from './AreaFormDetails';
 import AreaFormDatePicker from './AreaFormDatePicker';
+import DetailsTextarea from '../detailsTextarea/detailsTextarea';
+import { Area } from '@/types/areaType';
+import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
+import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
     index: number,
@@ -294,7 +294,14 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                     <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange} />
                 </Row>
                 {/* Детали */}
-                <AreaFormDetails details={area.detail_location} handleChange={handleChange} />
+                <DetailsTextarea
+                    details={area.detail_location}
+                    handleChange={handleChange}
+                    name='detail_location'
+                    header='Детали'
+                    placeholder='Например, опишите минимальную стоимость банкета/аренды зала в пятницу и субботу'
+                    required
+                />
             </Form.Group>
         </section >
     )

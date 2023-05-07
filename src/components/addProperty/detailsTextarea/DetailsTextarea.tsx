@@ -1,12 +1,16 @@
 import { useState, ChangeEvent } from "react";
 import { Form, Row } from "react-bootstrap";
 
-type AreaFormDetailsProps = {
+type DetailsTextareaProps = {
     details: string,
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
+    name: string,
+    header: string,
+    placeholder: string,
+    required: boolean,
 }
 
-function AreaFormDetails({ details, handleChange }: AreaFormDetailsProps) {
+function DetailsTextarea({ details, handleChange, name, header, placeholder, required }: DetailsTextareaProps) {
     const [lettersLeft, setLettersLeft] = useState<number>(1000);
     function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
         handleChange(e);
@@ -15,15 +19,22 @@ function AreaFormDetails({ details, handleChange }: AreaFormDetailsProps) {
 
     return (
         <Row className='mb-4'>
-            <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                {'Детали\u00a0'}<span className='text-danger'>*</span>
-            </Form.Label>
+            {header !== '' ?
+                <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                    {`${header}\u00a0`}
+                    {required ? <span className='text-danger'>*</span> : null}
+                </Form.Label>
+                :
+                null
+            }
+
             <Form.Control
                 as='textarea'
                 rows={6}
-                name="detail_location"
+                name={name}
+                value={details}
                 maxLength={1000}
-                placeholder='Например, опишите минимальную стоимость банкета/аренды зала в пятницу и субботу'
+                placeholder={placeholder}
                 onChange={handleChangeInsideForm}
             />
             <Form.Text>Осталось {lettersLeft} символов</Form.Text>
@@ -31,4 +42,4 @@ function AreaFormDetails({ details, handleChange }: AreaFormDetailsProps) {
     )
 }
 
-export default AreaFormDetails;
+export default DetailsTextarea;
