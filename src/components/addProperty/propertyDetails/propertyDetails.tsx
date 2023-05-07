@@ -1,9 +1,8 @@
-import { FC } from "react";
 import { Form } from "react-bootstrap";
-import { DescriptionPlaceElement } from "../descriptionPlace";
 import { checkBoxes } from '@/mocks/checkBox';
+import { DescriptionPlaceElement } from "../descriptionPlace/descriptionPlaceElement";
 
-export const PropertyDetailsAddProperty:FC = () => {
+function PropertyDetails () {
   const { features }  = checkBoxes || {};
 
   return(
@@ -53,3 +52,5 @@ export const PropertyDetailsAddProperty:FC = () => {
       </Form.Group>
     </section>
 )}
+
+export default PropertyDetails;

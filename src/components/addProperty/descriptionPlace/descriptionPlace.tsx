@@ -2,9 +2,9 @@ import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap"
 import styles from '@/styles/addProperty/AddProperty.module.scss';
 import { checkBoxes } from '@/mocks/checkBox';
 import { DescriptionPlaceElement } from "./descriptionPlaceElement";
-import { FC } from "react";
 
-export const DescriptionPlaceAddProperty:FC = () => {
+
+function DescriptionPlace () {
   const { location }  = checkBoxes || {};
   const { kitchen } = checkBoxes || {};
   const { suitableFor } = checkBoxes || {};
@@ -113,4 +113,4 @@ return  (
 </section>
 )}
 
-
+export default DescriptionPlace;
