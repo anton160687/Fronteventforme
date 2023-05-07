@@ -9,12 +9,12 @@ function Login() {
     <Nav.Item className={styles.login}>
       <Link
         href={PATHS.signIn}
-        style={{ whiteSpace: 'nowrap', textDecoration: 'none' }}
+        className={styles.login__link}
       >
         <Image
           src="/img/header/user.svg"
           width={9}
-          height={13}
+          height={14}
           alt="login"
           className="fs-lg me-1"
         />

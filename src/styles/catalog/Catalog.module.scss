@@ -49,6 +49,10 @@
   }
 }
 
+.catalog__dropdown_icon {
+  border: none;
+}
+
 .catalog__dropdown_text {
   font-weight: 500;
   font-size: 14px;
@@ -100,4 +104,39 @@
     background-color: $primary;
     color: #ffffff;
   }
+}
+
+.catalog__btmfilters {
+  list-style-type: none;
+  &_header {
+      margin-bottom: 12px;
+      &:hover {
+        color:#FE9589;
+      }
+  }
+  &_link {
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 150%;
+      display: flex;
+      align-items: center;
+      color: #9691A4;
+      & > p {
+          margin-bottom: 8px;
+      }
+  }
+}
+.catalog__btmfilters_row {
+  margin-bottom: 64px;
+}
+.catalog__btmfilters_container {
+  margin: 124px 0;
+}
+
+.active {
+  color: #FE9589;
+
 }

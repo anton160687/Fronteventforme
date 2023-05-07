@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
+import { SUG_URL, TOKEN } from '@/constant';
 
 type LocationFormProps = {
     setCity: Dispatch<SetStateAction<string>>,
@@ -13,28 +14,39 @@ type LocationFormProps = {
 }
 
 function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
-    const sugURL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
-    const token = 'de4ad3d540c15631e021ae284bf33aed8d0bedfb';
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
+    const [lat, setLat] = useState<number>(0);
+    const [lng, setLng] = useState<number>(0);
+    //для теста, пока не удалять
+    console.log("это из тела" + lat, lng);
 
     // запрос версий адреса по введенной строке
     useEffect(() => {
         async function fetchAdress(query: string) {
             let data = { "query": query };
-            let response = await fetch(sugURL, {
+            let response = await fetch(SUG_URL, {
                 method: "POST",
                 mode: "cors",
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    "Authorization": "Token " + token
+                    "Authorization": "Token " + TOKEN
                 },
                 body: JSON.stringify(data),
             })
             let result: DaDataValues = await response.json();
             setSuggestions(result.suggestions);
+            // этот код необходимо перенести сюда на случай, если адрес внесут, не используя подсказок
+            if (result?.suggestions[0]?.data.city) {
+                setCity(result.suggestions[0].data.city);
+            }
+            if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
+                setLat(+result.suggestions[0].data.geo_lat);
+                setLng(+result.suggestions[0].data.geo_lon);
+            }
+
         }
         fetchAdress(address);
     }, [address])
@@ -47,13 +59,15 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
         setOpenDropdown(true);
     }
 
-    function handleClick(e: MouseEvent<HTMLParagraphElement>, city: Nullable<string>) {
+    function handleClick(
+        e: MouseEvent<HTMLParagraphElement>,
+        city: Nullable<string>,
+        lat: Nullable<string>,
+        lng: Nullable<string>
+    ) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
         setAddress(chosenAddress);
-        if (city) {
-            setCity(city);
-        }
     }
 
     function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
@@ -63,7 +77,13 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
 
     function renderClues(suggestions: DaDataValue[]) {
         return suggestions.map((suggestion, i) => (
-            <p key={i} className={styles.checked} onClick={(e) => handleClick(e, suggestion.data.city)}> {suggestion.value} </ p>
+            <p
+                key={i}
+                className={styles.checked}
+                onClick={(e) => handleClick(e, suggestion.data.city, suggestion.data.geo_lat, suggestion.data.geo_lon)}
+            >
+                {suggestion.value}
+            </ p>
         ))
     }
 
@@ -75,7 +95,9 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             </h2>
             <Row>
                 <Form.Group as={Col} sm={12} controlId='ap-address' className='mb-3'>
-                    <Form.Label>Адрес <span className='text-danger'>*</span></Form.Label>
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                        Адрес <span className='text-danger'>*</span>
+                    </Form.Label>
                     <Form.Control
                         value={address}
                         onChange={handleChange}

@@ -1,19 +1,22 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import Form from 'react-bootstrap/Form'
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
+
 import { DescriptionPlaceAddProperty, PropertyDetailsAddProperty } from '@/components/addProperty';
+
+import BasicForm from '@/components/addProperty/basicForm/BasicForm';
+import AreaForm from '@/components/addProperty/areaForm/AreaForm';
+import { Area } from '@/types/areaType';
+
 
 const AddPropertyPage = () => {
     // Превью
@@ -24,71 +27,32 @@ const AddPropertyPage = () => {
     const [gallery, setGallery] = useState<string[]>([]);
     // Базовая информация
     const [title, setTitle] = useState<string>('');
-    const [lettersLeft, setLettersLeft] = useState<number>(50);
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        let value = e.target.value;
-        setTitle(value);
-        setLettersLeft(50 - value.length);
+        setTitle(e.target.value);
     }
     // Локация
     const [city, setCity] = useState<string>('Москва');
     const [address, setAddress] = useState<string>('');
-    // логи для тестов, потом - удалить
-    console.log("Это город " + city + " это адрес " + address);
+    // Площадки
+    const [areas, setAreas] = useState<Area[]>([]);
+    const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
+    
+    function addArea(e: MouseEvent<HTMLParagraphElement>) {
+        e.preventDefault;
+        let last = areaIndexArray[areaIndexArray.length - 1];
+        setAreaIndexArray([...areaIndexArray, ++last]);
+    }
 
-    // Number of bedrooms radios buttons
-    const [bedroomsValue, setBedroomsValue] = useState('4')
-    const bedrooms = [
-        { name: 'Studio', value: 'studio' },
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' },
-        { name: '5+', value: '5+' }
-    ]
-    // Number of bathrooms radios buttons
-    const [bathroomsValue, setBathroomsValue] = useState('2')
-    const bathrooms = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Number of bathrooms radios buttons
-    const [parkingsValue, setParkingsValue] = useState('2')
-    const parkings = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Amenities (checkboxes)
-    const amenities = [
-        { value: 'WiFi', checked: true },
-        { value: 'Pets-friendly', checked: false },
-        { value: 'Dishwasher', checked: false },
-        { value: 'Air conditioning', checked: true },
-        { value: 'Pool', checked: false },
-        { value: 'Iron', checked: true },
-        { value: 'Balcony', checked: false },
-        { value: 'Bar', checked: false },
-        { value: 'Hair dryer', checked: true },
-        { value: 'Garage', checked: false },
-        { value: 'TV', checked: true },
-        { value: 'Kitchen', checked: true },
-        { value: 'Gym', checked: false },
-        { value: 'Linens', checked: true },
-        { value: 'Breakfast', checked: false },
-        { value: 'Free parking', checked: true },
-        { value: 'Heating', checked: true },
-        { value: 'Security cameras', checked: false }
-    ]
-    // Pets (checkboxes)
-    const pets = [
-        { value: 'Cats allowed', checked: false },
-        { value: 'Dogs allowed', checked: false }
-    ]
-
+    function renderAreaForms() {
+        return areaIndexArray.map((index) => (
+            <section key={index} id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+                <AreaForm index={index} areas={areas} setAreas={setAreas} />
+                <p className="text-primary mb-3" onClick={addArea}>
+                    <i className='fi-plus-circle me-3'></i> Добавить помещение
+                </p>
+            </section>
+        ))
+    }
 
     return (<>
         {/* Модальное окно превью */}
@@ -110,20 +74,11 @@ const AddPropertyPage = () => {
                             <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
                             Базовая информация
                         </h2>
-                        <Form.Group controlId='ap-title' className='mb-3'>
-                            <Form.Label>Название <span className='text-danger'>*</span></Form.Label>
-                            <Form.Control
-                                placeholder='Напишите название площадки'
-                                maxLength={50}
-                                value={title}
-                                onChange={handleChange}
-                                required
-                            />
-                            <Form.Text>Осталось {lettersLeft} символов</Form.Text>
-                        </Form.Group>
+                        <BasicForm title={title} handleChange={handleChange} location />
                     </section>
 
                     {/* Локация */}
+
                     <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
 
                     <DescriptionPlaceAddProperty/>
@@ -231,8 +186,14 @@ const AddPropertyPage = () => {
                         </Form.Group>
                     </section>
 
+                    <LocationForm setCity={setCity} setAddress={setAddress} address={address} />
+
+
                     {/* Заливка фотографий*/}
                     <FileUploader gallery={gallery} setGallery={setGallery} />
+
+                    {/* Площадки */}
+                    {renderAreaForms()}
 
                     {/* Контактная информация */}
                     < ContactsForm />

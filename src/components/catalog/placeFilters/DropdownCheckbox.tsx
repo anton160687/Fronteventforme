@@ -42,7 +42,7 @@ function renderCB() {
 
 return (
   <Dropdown>
-    <Dropdown.Toggle variant='outline-none'>
+    <Dropdown.Toggle variant='outline-secondary' className={styles.catalog__dropdown_icon}>
       {iconEl}
       <p className={styles.catalog__dropdown_text}>{text}</p>
     </Dropdown.Toggle>
