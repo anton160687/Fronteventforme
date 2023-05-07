@@ -19,25 +19,26 @@ function DetailsTextarea({ details, handleChange, name, header, placeholder, req
 
     return (
         <Row className='mb-4'>
-            {header !== '' ?
-                <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                    {`${header}\u00a0`}
-                    {required ? <span className='text-danger'>*</span> : null}
-                </Form.Label>
-                :
-                null
-            }
-
-            <Form.Control
-                as='textarea'
-                rows={6}
-                name={name}
-                value={details}
-                maxLength={1000}
-                placeholder={placeholder}
-                onChange={handleChangeInsideForm}
-            />
-            <Form.Text>Осталось {lettersLeft} символов</Form.Text>
+            <Form.Group controlId={ name || header }>
+                {required ?
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                        {`${header}\u00a0`}
+                        {required ? <span className='text-danger'>*</span> : null}
+                    </Form.Label>
+                    :
+                    <Form.Label className='d-block mb-2 mt-2 pb-1'>{header}</Form.Label>
+                }
+                <Form.Control
+                    as='textarea'
+                    rows={6}
+                    name={name}
+                    value={details}
+                    maxLength={1000}
+                    placeholder={placeholder}
+                    onChange={handleChangeInsideForm}
+                />
+                <Form.Text>Осталось {lettersLeft} символов</Form.Text>
+            </Form.Group>
         </Row>
     )
 }

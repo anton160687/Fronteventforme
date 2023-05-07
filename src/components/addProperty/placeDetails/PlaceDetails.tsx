@@ -1,7 +1,7 @@
-import { Row, Form } from "react-bootstrap";
+import { Row, Form, Col, InputGroup } from "react-bootstrap";
 import RenderCheckbox from "../renderChekbox/RenderCheckBox";
 import { FEATURES, TERRITORY } from "@/constant";
-import DetailsTextarea from "../detailsTextarea/detailsTextarea";
+import DetailsTextarea from "../detailsTextarea/DetailsTextarea";
 import { ChangeEvent } from "react";
 
 function PlaceDetails() {
@@ -27,7 +27,7 @@ function PlaceDetails() {
 
       <Row className='mb-4'>
         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-        {'Особенности\u00a0'}
+          {'Особенности\u00a0'}
           <span className='text-danger'>*</span>
         </Form.Label>
         <RenderCheckbox options={FEATURES} />
@@ -72,14 +72,13 @@ function PlaceDetails() {
           Welcome-зона
           <i className='fi-eye-on fs-sm ms-2' />
         </Form.Label>
-        <Form.Label className='d-block mb-2 mt-2 pb-1'>Описание welcome-зоны</Form.Label>
         <DetailsTextarea
           details={""}
           handleChange={function (e: ChangeEvent<HTMLInputElement>): void {
             throw new Error("Function not implemented.");
           }}
           name={""}
-          header={""}
+          header={"Описание welcome-зоны"}
           placeholder={"Описание welcome-зоны"}
           required={false}
         />
@@ -90,14 +89,45 @@ function PlaceDetails() {
           Выездная регистрация
           <i className='fi-eye-on fs-sm ms-2' />
         </Form.Label>
-        <Form.Label className='d-block mb-2 mt-2 pb-1'>Условия выездной регистрации</Form.Label>
+        <Row className="align-items-end mb-3">
+          <Col xs={12} sm={12} md={5} lg={5} xl={5}>
+            <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+              {'Стоимость выезд. регистрации\u00a0'}<span className='text-danger'>*</span>
+            </Form.Label>
+            <InputGroup>
+              <Form.Control
+                name='min_price_banquet'
+                placeholder='1000'
+                type='number'
+                value={undefined}
+                // onChange={handleNumberChange}
+                // className={styles.capacity__input}
+                required
+              />
+              <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
+            </InputGroup>
+          </Col>
+          <Col>
+            <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+              {'Что входит в стоимость?\u00a0'}<span className='text-danger'>*</span>
+            </Form.Label>
+            <Form.Control
+              name='min_price_banquet'
+              type='text'
+              value={undefined}
+              // onChange={handleNumberChange}
+              // className={styles.capacity__input}
+              required
+            />
+          </Col>
+        </Row>
         <DetailsTextarea
           details={""}
           handleChange={function (e: ChangeEvent<HTMLInputElement>): void {
             throw new Error("Function not implemented.");
           }}
           name={""}
-          header={""}
+          header={"Условия выездной регистрации"}
           placeholder={"Описание условий"}
           required={false}
         />

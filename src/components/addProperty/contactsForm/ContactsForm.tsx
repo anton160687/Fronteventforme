@@ -21,23 +21,20 @@ function ContactsForm() {
                     <Form.Label>Second name <span className='text-danger'>*</span></Form.Label>
                     <Form.Control defaultValue='Black' placeholder='Enter your second name' required />
                 </Form.Group>
+
                 <Form.Group as={Col} sm={6} controlId='ab-email' className='mb-3'>
                     <Form.Label>Email <span className='text-danger'>*</span></Form.Label>
                     <Form.Control type='email' defaultValue='annette_black@email.com' placeholder='Enter your email address' required />
                 </Form.Group>
+                
                 <Form.Group as={Col} sm={6} controlId='ab-phone' className='mb-3'>
                     <Form.Label>Phone number <span className='text-danger'>*</span></Form.Label>
                     <Form.Control
                         as={NumberFormat}
-                        format='+1(##) ###-####'
-                        defaultValue='+1(39) 555-0107'
-                        placeholder='+1(00) 000-0000'
+                        format='+7 ###-###-##-##'
+                        placeholder='+7 999 999 99 99'
                         required
                     />
-                </Form.Group>
-                <Form.Group as={Col} xs={12} controlId='ab-company' className='mb-3'>
-                    <Form.Label>Company</Form.Label>
-                    <Form.Control placeholder='Enter company name' />
                 </Form.Group>
             </Row>
         </section>

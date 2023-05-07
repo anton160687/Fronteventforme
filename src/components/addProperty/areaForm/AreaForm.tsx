@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import BasicForm from '../basicForm/BasicForm';
 import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
-import DetailsTextarea from '../detailsTextarea/detailsTextarea';
+import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
 import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
@@ -88,10 +88,10 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
             </h2>
             <BasicForm title={area.title} location={false} handleChange={handleChange} />
             <FileUploader gallery={gallery} setGallery={setGallery} />
-            <Form.Group>
+                
                 {/* Тип, Вместимость, Цвет */}
                 <Row className={styles.group_container + ' mb-4'}>
-                    <Col>
+                    <Form.Group as={Col} controlId='type_area'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Тип\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -106,8 +106,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                                     </Dropdown.Item>)}
                             </Dropdown.Menu>
                         </Dropdown>
-                    </Col>
-                    <Col className='col-xl-6 col-lg-6 col-md-6 col-sm-6'>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId='min_capacity' className='col-xl-6 col-lg-6 col-md-6 col-sm-6'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Вместимость\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -136,8 +137,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                                 required
                             />
                         </div>
-                    </Col>
-                    <Col>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId='color_hall'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Цвет зала\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -152,46 +154,53 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                                     </Dropdown.Item>)}
                             </Dropdown.Menu>
                         </Dropdown>
-                    </Col>
+                    </Form.Group>
                 </Row>
+
                 {/* Отдельный вход */}
                 <Row className='mb-4'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                        {'Есть отдельный вход\u00a0'}<span className='text-danger'>*</span>
-                    </Form.Label>
-                    <div className={styles.radio__item}>
-                        <Form.Check
-                            type='radio'
-                            name='separate_entrance'
-                            value={1}
-                            checked={area.separate_entrance}
-                            onChange={(e) => setArea({ ...area, ['separate_entrance']: true })}
-                        /> Да
-                    </div>
-                    <div className={styles.radio__item}>
-                        <Form.Check
-                            type='radio'
-                            value={0}
-                            checked={!area.separate_entrance}
-                            onChange={(e) => setArea({ ...area, ['separate_entrance']: false })}
-                        /> Нет
-                    </div>
+                    <Form.Group controlId='separate_entrance' >
+                        <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                            {'Есть отдельный вход\u00a0'}<span className='text-danger'>*</span>
+                        </Form.Label>
+                        <div className={styles.radio__item}>
+                            <Form.Check
+                                type='radio'
+                                name='separate_entrance'
+                                value={1}
+                                checked={area.separate_entrance}
+                                onChange={(e) => setArea({ ...area, ['separate_entrance']: true })}
+                            /> Да
+                        </div>
+                        <div className={styles.radio__item}>
+                            <Form.Check
+                                type='radio'
+                                value={0}
+                                checked={!area.separate_entrance}
+                                onChange={(e) => setArea({ ...area, ['separate_entrance']: false })}
+                            /> Нет
+                        </div>
+                    </Form.Group>
                 </Row>
+
                 {/* Скидка, подарок */}
                 <Row className='mb-4'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>{'Подарок/скидка за аренду помещения\u00a0'}<span className='text-danger'>*</span></Form.Label>
-                    <Form.Control
-                        name='sale'
-                        placeholder={'Например, номер для молодоженов'}
-                        maxLength={100}
-                        value={area.sale}
-                        onChange={handleChange}
-                        required
-                    />
+                    <Form.Group controlId='sale'>
+                        <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>{'Подарок/скидка за аренду помещения\u00a0'}<span className='text-danger'>*</span></Form.Label>
+                        <Form.Control
+                            name='sale'
+                            placeholder={'Например, номер для молодоженов'}
+                            maxLength={100}
+                            value={area.sale}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
                 </Row>
+
                 {/* Цены, депозит */}
                 <Row className='align-items-end mb-4'>
-                    <Col>
+                    <Form.Group as={Col} controlId='min_price_banquet'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Минимальная цена банкета'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -208,8 +217,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                             />
                             <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
                         </InputGroup>
-                    </Col>
-                    <Col>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId='min_price_rent'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Минимальная цена аренды\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -226,8 +236,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                             />
                             <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
                         </InputGroup>
-                    </Col>
-                    <Col>
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId='deposit'>
                         <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                             {'Депозит\u00a0'}<span className='text-danger'>*</span>
                         </Form.Label>
@@ -244,54 +255,62 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                             />
                             <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
                         </InputGroup>
-                    </Col>
+                    </Form.Group>
                 </Row>
+
                 {/* Схема оплаты */}
                 <Row className='mb-4'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                        {'Схема оплаты\u00a0'}<span className='text-danger'>*</span>
-                    </Form.Label>
-                    <Dropdown onSelect={handleSchemeSelect}>
-                        <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
-                            {selectedScheme || "-----"}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {SCHEME_OF_PAYMENT.map((option, indx) =>
-                                <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
-                                    {option[1]}
-                                </Dropdown.Item>)}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <Form.Group controlId='scheme_of_payment'>
+                        <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                            {'Схема оплаты\u00a0'}<span className='text-danger'>*</span>
+                        </Form.Label>
+                        <Dropdown onSelect={handleSchemeSelect}>
+                            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
+                                {selectedScheme || "-----"}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {SCHEME_OF_PAYMENT.map((option, indx) =>
+                                    <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
+                                        {option[1]}
+                                    </Dropdown.Item>)}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Form.Group>
                 </Row>
+
                 {/* Аренда без еды */}
                 <Row className='mb-4'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                        {'Возможна аренда без еды\u00a0'}<span className='text-danger'>*</span>
-                    </Form.Label>
-                    <div className={styles.radio__item}>
-                        <Form.Check
-                            type='radio'
-                            name='bare_lease'
-                            value={1}
-                            checked={area.bare_lease}
-                            onChange={(e) => setArea({ ...area, ['bare_lease']: true })}
-                        /> Да
-                    </div>
-                    <div className={styles.radio__item}>
-                        <Form.Check
-                            type='radio'
-                            value={0}
-                            checked={!area.bare_lease}
-                            onChange={(e) => setArea({ ...area, ['bare_lease']: false })}
-                        /> Нет
-                    </div>
+                    <Form.Group controlId='bare_lease'>
+                        <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                            {'Возможна аренда без еды\u00a0'}<span className='text-danger'>*</span>
+                        </Form.Label>
+                        <div className={styles.radio__item}>
+                            <Form.Check
+                                type='radio'
+                                name='bare_lease'
+                                value={1}
+                                checked={area.bare_lease}
+                                onChange={(e) => setArea({ ...area, ['bare_lease']: true })}
+                            /> Да
+                        </div>
+                        <div className={styles.radio__item}>
+                            <Form.Check
+                                type='radio'
+                                value={0}
+                                checked={!area.bare_lease}
+                                onChange={(e) => setArea({ ...area, ['bare_lease']: false })}
+                            /> Нет
+                        </div>
+                    </Form.Group>
                 </Row>
                 {/* Недоступные даты */}
                 <Row>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                        Отметьте даты, на которые бронь зала уже недоступна
-                    </Form.Label>
-                    <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange} />
+                    <Form.Group controlId='reserved_dates'>
+                        <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                            Отметьте даты, на которые бронь зала уже недоступна
+                        </Form.Label>
+                        <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange} />
+                    </Form.Group>
                 </Row>
                 {/* Детали */}
                 <DetailsTextarea
@@ -302,7 +321,6 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                     placeholder='Например, опишите минимальную стоимость банкета/аренды зала в пятницу и субботу'
                     required
                 />
-            </Form.Group>
         </section >
     )
 }

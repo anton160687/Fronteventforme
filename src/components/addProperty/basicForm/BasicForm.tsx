@@ -15,7 +15,7 @@ function BasicForm({ title, handleChange, location }: BasicFormProps): JSX.Eleme
     }
 
     return (
-        <Form.Group controlId='ap-title' className='mb-3'>
+        <Form.Group controlId={location? 'place_title' : 'area_title'} className='mb-3'>
             <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
                 Название <span className='text-danger'>*</span>
             </Form.Label>
