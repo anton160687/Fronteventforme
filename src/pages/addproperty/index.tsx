@@ -13,8 +13,8 @@ import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import { Area } from '@/types/areaType';
-import DescriptionPlace from '@/components/addProperty/descriptionPlace/descriptionPlace';
-import PropertyDetails from '@/components/addProperty/propertyDetails/propertyDetails';
+import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
+import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 
 
 const AddPropertyPage = () => {
@@ -77,18 +77,19 @@ const AddPropertyPage = () => {
                     </section>
 
                     {/* Локация */}
-
                     <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
 
-                    <DescriptionPlace />
-
-                    <PropertyDetails />
+                    {/* Описание площадки */}
+                    <PlaceDescription />
                     
                     {/* Заливка фотографий*/}
                     <FileUploader gallery={gallery} setGallery={setGallery} />
 
-                    {/* Площадки */}
+                    {/* Помещения */}
                     {renderAreaForms()}
+
+                    {/*Детали площадки */}
+                    <PlaceDetails />
 
                     {/* Контактная информация */}
                     < ContactsForm />

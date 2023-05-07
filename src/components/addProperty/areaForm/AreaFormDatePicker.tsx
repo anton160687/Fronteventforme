@@ -25,7 +25,7 @@ function AreaFormDatePicker({datesArray, handleDateChange}: AreaFormDatePickerPr
                         <Form.Control
                             as={DatePicker}
                             selected={datesArray[index]}
-                            placeholderText="Дата мероприятия"
+                            placeholderText="Выберите недоступную дату"
                             className='rounded pe-5'
                             dateFormat="dd/MM/yy"
                             excludeDates={datesArray}

@@ -74,7 +74,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     console.log(area);
 
     //при изменении объекта Площадки - прокидываем в общий спискок мест
-    useEffect(()=>{
+    useEffect(() => {
         let newAreasArr = [...areas];
         newAreasArr[index] = area;
         setAreas(newAreasArr);
@@ -286,8 +286,12 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                         /> Нет
                     </div>
                 </Row>
+                {/* Недоступные даты */}
                 <Row>
-                <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange}/>
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                        Отметьте даты, на которые бронь зала уже недоступна
+                    </Form.Label>
+                    <AreaFormDatePicker datesArray={area.reserved_dates} handleDateChange={handleDateChange} />
                 </Row>
                 {/* Детали */}
                 <AreaFormDetails details={area.detail_location} handleChange={handleChange} />

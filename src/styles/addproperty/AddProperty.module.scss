@@ -16,14 +16,13 @@
   }
 }
 
-.firework {
+.numbers_input__row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
   @media (max-width: 768px) {
     flex-wrap: wrap;
   }
-  .price{
+  .numbers_input__col{
     max-width: 250px;
     margin-bottom: 15px;
     &_border{
