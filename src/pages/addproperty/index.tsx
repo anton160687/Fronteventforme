@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,7 @@ import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
+import { Area } from '@/types/areaType';
 
 const AddPropertyPage = () => {
     // Превью
@@ -29,8 +30,25 @@ const AddPropertyPage = () => {
     const [city, setCity] = useState<string>('Москва');
     const [address, setAddress] = useState<string>('');
     // Площадки
-    const [areaQuantity, setAreaQuantity] = useState<number>(1);
+    const [areas, setAreas] = useState<Area[]>([]);
+    const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
+    
+    function addArea(e: MouseEvent<HTMLParagraphElement>) {
+        e.preventDefault;
+        let last = areaIndexArray[areaIndexArray.length - 1];
+        setAreaIndexArray([...areaIndexArray, ++last]);
+    }
 
+    function renderAreaForms() {
+        return areaIndexArray.map((index) => (
+            <section key={index} id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+                <AreaForm index={index} areas={areas} setAreas={setAreas} />
+                <p className="text-primary mb-3" onClick={addArea}>
+                    <i className='fi-plus-circle me-3'></i> Добавить помещение
+                </p>
+            </section>
+        ))
+    }
 
     return (<>
         {/* Модальное окно превью */}
@@ -62,7 +80,7 @@ const AddPropertyPage = () => {
                     <FileUploader gallery={gallery} setGallery={setGallery} />
 
                     {/* Площадки */}
-                    <AreaForm index={areaQuantity}/>
+                    {renderAreaForms()}
 
                     {/* Контактная информация */}
                     < ContactsForm />

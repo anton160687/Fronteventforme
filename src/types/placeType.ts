@@ -10,7 +10,6 @@ export type Place = {
     kitchen: string[],
     children_kitchen: boolean,
     alco: boolean,
-    scheme_of_payment: string,
     corkage_fee: boolean,
     payment_of_alco: number,
     lease_extension: boolean,
