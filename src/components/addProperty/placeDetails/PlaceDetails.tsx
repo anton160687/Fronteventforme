@@ -4,7 +4,20 @@ import { FEATURES, TERRITORY } from "@/constant";
 import DetailsTextarea from "../detailsTextarea/DetailsTextarea";
 import { ChangeEvent } from "react";
 
-function PlaceDetails() {
+type PlaceDetailsProps = {
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleCheckBox: (name: string, array: string[]) => void;
+  handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleRadio: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+
+function PlaceDetails({
+  handleChange,
+  handleCheckBox,
+  handleNumberChange,
+  handleRadio,
+}: PlaceDetailsProps) {
   return (
     <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
       <h2 className='h4 mb-4'>
@@ -30,7 +43,11 @@ function PlaceDetails() {
           {'Особенности\u00a0'}
           <span className='text-danger'>*</span>
         </Form.Label>
-        <RenderCheckbox options={FEATURES} />
+        <RenderCheckbox options={FEATURES}
+          name='features'
+          max={100}
+          handleCheckBox={handleCheckBox}
+        />
       </Row>
 
       <Row className='mb-4'>
@@ -46,7 +63,10 @@ function PlaceDetails() {
           Территория
           <i className='fi-eye-on fs-sm ms-2' />
         </Form.Label>
-        <RenderCheckbox options={TERRITORY} />
+        <RenderCheckbox options={TERRITORY}
+          name='territory'
+          max={6}
+          handleCheckBox={handleCheckBox} />
       </Row>
 
       <Row className='mb-4'>

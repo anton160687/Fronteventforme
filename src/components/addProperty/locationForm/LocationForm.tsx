@@ -8,19 +8,18 @@ import styles from '@/styles/addProperty/AddProperty.module.scss';
 import { SUG_URL, TOKEN } from '@/constant';
 
 type LocationFormProps = {
-    setCity: Dispatch<SetStateAction<string>>,
-    setAddress: Dispatch<SetStateAction<string>>,
+    setCity: (data: string) => void,
+    setAddress: (data: string) => void,
+    setGeodata: (lat: number, lon: number) => void,
+    setYaId: (e: ChangeEvent<HTMLInputElement>) => void;
     address: string,
+    ya_id?: number;
 }
 
-function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
+function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id }: LocationFormProps) {
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
-    const [lat, setLat] = useState<number>(0);
-    const [lng, setLng] = useState<number>(0);
-    //для теста, пока не удалять
-    console.log("это из тела" + lat, lng);
 
     // запрос версий адреса по введенной строке
     useEffect(() => {
@@ -38,15 +37,13 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             })
             let result: DaDataValues = await response.json();
             setSuggestions(result.suggestions);
-            // этот код необходимо перенести сюда на случай, если адрес внесут, не используя подсказок
+            // этот код необходимо здесь на случай, если адрес внесут, не используя подсказок
             if (result?.suggestions[0]?.data.city) {
                 setCity(result.suggestions[0].data.city);
             }
             if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
-                setLat(+result.suggestions[0].data.geo_lat);
-                setLng(+result.suggestions[0].data.geo_lon);
+                setGeodata(+result.suggestions[0].data.geo_lat, +result.suggestions[0].data.geo_lon);
             }
-
         }
         fetchAdress(address);
     }, [address])
@@ -100,6 +97,7 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
                     </Form.Label>
                     <Form.Control
                         value={address}
+                        name='address'
                         onChange={handleChange}
                         placeholder='Введите адрес'
                         required
@@ -115,8 +113,11 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
                 <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
                     <Form.Label>ID организации на Яндекс.Картах <span className='text-danger'>*</span></Form.Label>
                     <Form.Control
+                        name='ya_id'
                         placeholder='Введите id организации'
                         title='Id необходимо для отображения отзывов Яндекс'
+                        value={ya_id}
+                        onChange={setYaId}
                         required
                     />
                 </Form.Group>
