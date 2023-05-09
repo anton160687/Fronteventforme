@@ -85,7 +85,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                 Помещения
             </h2>
             <BasicForm title={area.title} location={false} handleChange={handleChange} />
-            <FileUploader gallery={gallery} setGallery={setGallery} />
+            <FileUploader name={'filepond'} gallery={gallery} setGallery={setGallery} />
 
             {/* Тип, Вместимость, Цвет */}
             <Row className={styles.group_container + ' mb-4'}>

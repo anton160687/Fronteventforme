@@ -153,7 +153,7 @@ const AddPropertyPage = () => {
                     />
 
                     {/* Заливка фотографий*/}
-                    <FileUploader gallery={gallery} setGallery={setGallery} />
+                    <FileUploader name='filepond' gallery={gallery} setGallery={setGallery} />
 
                     {/* Помещения */}
                     {renderAreaForms()}
