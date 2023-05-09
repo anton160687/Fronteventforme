@@ -9,49 +9,96 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { FilePondFile } from 'filepond';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
-    FilePondPluginFileValidateType,
-    FilePondPluginFileValidateSize,
-    FilePondPluginImagePreview,
-    FilePondPluginImageCrop,
-    FilePondPluginImageResize,
-    FilePondPluginImageTransform
-)
+  FilePondPluginFileValidateType,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImagePreview,
+  FilePondPluginImageCrop,
+  FilePondPluginImageResize,
+  FilePondPluginImageTransform
+);
 
 type FileUploaderProps = {
-    gallery: string[],
-    setGallery: Dispatch<SetStateAction<string[]>>
-}
+  gallery: FilePondFile[];
+  setGallery: Dispatch<SetStateAction<FilePondFile[]>>;
+  warning?: string;
+  maxFiles: number;
+};
 
-function FileUploader({gallery, setGallery}: FileUploaderProps) {
+function FileUploader({
+  gallery,
+  setGallery,
+  maxFiles,
+  warning,
+}: FileUploaderProps) {
+  console.log('gallery', gallery);
 
-    return (
-        <section id='photos' className='card card-body border-0 shadow-sm p-4 mb-4'>
-            <h2 className='h4 mb-4'>
-                <i className='fi-image text-primary fs-5 mt-n1 me-2'></i>
-                Photos / video
-            </h2>
-            <Alert variant='info' className='d-flex mb-4'>
-                <i className='fi-alert-circle me-2 me-sm-3'></i>
-                <p className='fs-sm mb-1'>The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main picture first.<br />
-                    The maximum video size is 10 MB. Formats: mp4, mov.</p>
-            </Alert>
-            <FilePond
-                files={gallery}
-                onupdatefiles={setGallery}
-                // server='/api' {/* Configure your server here. See plugin docs */}
-                name='gallery'
-                labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos / video</div><div>or drag them in</div>'
-                acceptedFileTypes={['image/png', 'image/jpeg', 'video/mp4', 'video/mov']}
-                allowMultiple={true}
-                maxFiles={4}
-                maxFileSize='2MB'
-                className='file-uploader file-uploader-grid'
-            />
-        </section>
-    )
+  const [file, setFile] = useState<string>();
+
+  const onChange = (e: FilePondFile[]) => {
+    e.map((item) => {
+      console.log('item', item.file);
+      setFile(URL.createObjectURL(item.file));
+    });
+  };
+
+  console.log('file', file);
+
+  return (
+    <div className="mb-4">
+      <Alert variant="info" className="d-flex mb-4">
+        <i className="fi-alert-circle me-2 me-sm-3"></i>
+        <p className="fs-sm mb-1">{warning}</p>
+      </Alert>
+
+      <img src={file} />
+
+      <FilePond
+        //files={gallery}
+        onupdatefiles={onChange}
+        server="http://188.225.24.70:8080/fp"
+        // server={{
+        //   process: {
+        //     url: 'http://188.225.24.70:8080/fp/process/',
+        //     method: 'POST',
+        //     withCredentials: false,
+        //     headers: {
+        //       'Access-Control-Expose-Headers':
+        //         'Content-Disposition, Content-Length, X-Content-Transfer-Id',
+        //       'Acess-Control-Allow-Origin': '*',
+        //     },
+        //     // timeout: 7000,
+        //     // onload: null,
+        //     // onerror: null,
+        //     // ondata: null,
+        //   },
+        //   // revert: 'http://188.225.24.70:8080/fp/revert/',
+        //   // restore: 'http://188.225.24.70:8080/fp/restore/',
+        //   // load: 'http://188.225.24.70:8080/fp/load/',
+        //   // fetch: 'http://188.225.24.70:8080/fp/fetch/',
+        // }}
+        name="gallery"
+        labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i>Загрузите фото / видео</div><div>или перетащите их сюда</div>'
+        acceptedFileTypes={[
+          'image/png',
+          'image/jpeg',
+          'image/jpg',
+          'video/mp4',
+          'video/mov',
+        ]}
+        allowMultiple={maxFiles > 1 ? true : false}
+        maxFiles={maxFiles}
+        maxFileSize="5MB"
+        className="file-uploader file-uploader-grid"
+        checkValidity={true}
+        instantUpload={true}
+        // onChange={onChangeFiles}
+      />
+    </div>
+  );
 }
 
 export default FileUploader;

@@ -8,10 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
-import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
+import { FilePondFile } from 'filepond';
+import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
 
 const AddPropertyPage = () => {
   // Превью
@@ -19,7 +20,8 @@ const AddPropertyPage = () => {
   const handlePreviewClose = () => setPreviewShow(false);
   const handlePreviewShow = () => setPreviewShow(true);
   // Загрузка картинок
-  const [gallery, setGallery] = useState<string[]>([]);
+  const [gallery, setGallery] = useState<FilePondFile[]>([]);
+
   // Базовая информация
   const [title, setTitle] = useState<string>('');
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -73,10 +75,11 @@ const AddPropertyPage = () => {
               address={address}
             />
 
-            {/* Заливка фотографий*/}
-            <FileUploader gallery={gallery} setGallery={setGallery} />
+            {/* Заливка фотографий
+            <FileUploader /> */}
+            <MainPhotos gallery={gallery} setGallery={setGallery} />
 
-            {/* Площадки */}
+            {/* Помещения */}
             <AreaForm index={areaQuantity} />
 
             {/* Контактная информация */}

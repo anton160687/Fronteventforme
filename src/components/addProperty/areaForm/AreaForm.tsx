@@ -7,75 +7,82 @@ import { COLOR_HALL, TYPE_AREA } from '@/constant';
 import Image from 'next/image';
 
 type AreaFormProps = {
-    index: number
-}
+  index: number;
+};
 
 function AreaForm({ index }: AreaFormProps) {
-    //название помещения
-    const [title, setTitle] = useState<string>('');
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setTitle(e.target.value);
-    }
-    // Загрузка картинок
-    const [gallery, setGallery] = useState<string[]>([]);
+  //название помещения
+  const [title, setTitle] = useState<string>('');
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+  }
+  // Загрузка картинок
+  const [gallery, setGallery] = useState<string[]>([]);
 
-    return (
-        <section id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
-            <h2 className='h4 mb-4'>
-                <i className='fi-party-popper text-primary fs-5 mt-n1 me-2'></i>
-                Помещения
-            </h2>
-            <BasicForm title={title} location={false} handleChange={handleChange} />
+  return (
+    <section
+      id={`area-${index}`}
+      className="card card-body border-0 shadow-sm p-4 mb-4"
+    >
+      <h2 className="h4 mb-4">
+        <i className="fi-party-popper text-primary fs-5 mt-n1 me-2"></i>
+        Помещения
+      </h2>
+      <BasicForm title={title} location={false} handleChange={handleChange} />
+      {/* <FileUploader gallery={gallery} setGallery={setGallery} /> */}
+      <Form.Group className="mb-4">
+        <Form.Label>
+          Тип <span className="text-danger">*</span>
+        </Form.Label>
+        <Dropdown>
+          <Dropdown.Toggle variant="outline-secondary">
+            {TYPE_AREA[0][1]}
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="my-1">
+            {TYPE_AREA.map((option, indx) => (
+              <Dropdown.Item key={indx}>{option[1]}</Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
 
-            <FileUploader gallery={gallery} setGallery={setGallery} />
+        <Form.Label>
+          Вместимость <span className="text-danger">*</span>
+        </Form.Label>
+        <Form.Control
+          placeholder="от 30"
+          type="number"
+          min="30"
+          max="60"
+          value={0}
+          onChange={() => {}}
+          required
+        />
+        <Image src={'/Line.png'} alt={'inbetween'} width={29} height={1} />
+        <Form.Control
+          placeholder="от 30"
+          type="number"
+          min="30"
+          max="60"
+          value={0}
+          onChange={() => {}}
+          required
+        />
 
-            <Form.Group className='mb-4'>
-                <Form.Label>Тип <span className='text-danger'>*</span></Form.Label>
-                <Dropdown>
-                    <Dropdown.Toggle variant='outline-secondary'>{TYPE_AREA[0][1]}</Dropdown.Toggle>
-                    <Dropdown.Menu className='my-1'>
-                        {TYPE_AREA.map((option, indx) =>
-                            <Dropdown.Item key={indx}>
-                                {option[1]}
-                            </Dropdown.Item>)}
-                    </Dropdown.Menu>
-                </Dropdown>
-
-                <Form.Label>Вместимость <span className='text-danger'>*</span></Form.Label>
-                <Form.Control
-                    placeholder='от 30'
-                    type='number'
-                    min="30"
-                    max="60"
-                    value={0}
-                    onChange={() => { }}
-                    required
-                />
-                <Image src={'/Line.png'} alt={'inbetween'} width={29} height={1}/>
-                <Form.Control
-                    placeholder='от 30'
-                    type='number'
-                    min="30"
-                    max="60"
-                    value={0}
-                    onChange={() => { }}
-                    required
-                />
-
-                <Form.Label>Цвет зала <span className='text-danger'>*</span></Form.Label>
-                <Dropdown>
-                    <Dropdown.Toggle variant='outline-secondary'>{COLOR_HALL[0]}</Dropdown.Toggle>
-                    <Dropdown.Menu className='my-1'>
-                        {COLOR_HALL.map((option, indx) =>
-                            <Dropdown.Item key={indx}>
-                                {option}
-                            </Dropdown.Item>)}
-                    </Dropdown.Menu>
-                </Dropdown>
-
-            </Form.Group>
-
-            {/* <Form.Group className='mb-4'>
+        <Form.Label>
+          Цвет зала <span className="text-danger">*</span>
+        </Form.Label>
+        <Dropdown>
+          <Dropdown.Toggle variant="outline-secondary">
+            {COLOR_HALL[0]}
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="my-1">
+            {COLOR_HALL.map((option, indx) => (
+              <Dropdown.Item key={indx}>{option}</Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Form.Group>
+      {/* <Form.Group className='mb-4'>
                 <Form.Label>Расположение <span className='text-danger'>*</span></Form.Label>
                 <ButtonGroup size='sm'>
                     {bedrooms.map((bedroom, indx) => (
@@ -164,8 +171,8 @@ function AreaForm({ index }: AreaFormProps) {
                 <Form.Control as='textarea' rows={5} placeholder='Describe your property' />
                 <Form.Text>1500 characters left</Form.Text>
             </Form.Group> */}
-        </section>
-    )
+    </section>
+  );
 }
 
 export default AreaForm;

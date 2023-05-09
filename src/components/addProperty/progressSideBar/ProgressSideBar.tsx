@@ -6,9 +6,12 @@ function ProgressSideBar() {
   const anchors = [
     { to: 'basic-info', label: 'Базовая информация', completed: true },
     { to: 'location', label: 'Локация', completed: true },
-    { to: 'details', label: 'Детали площадки', completed: true },
+    { to: 'descritrion', label: 'Описание площадки', completed: true },
+    { to: 'photos', label: 'Фото площадки', completed: false },
+    { to: 'area-1', label: 'Помещения', completed: false },
+    { to: 'details', label: 'Детали площадки', completed: false },
     { to: 'price', label: 'Стоимость', completed: false },
-    { to: 'photos', label: 'Фото / видео', completed: false },
+    { to: 'wedding', label: 'Альбомы проведенных свабед', completed: false },
     { to: 'contacts', label: 'Контакты', completed: true },
   ];
 
@@ -23,7 +26,7 @@ function ProgressSideBar() {
       />
       <ul className="list-unstyled">
         {anchors.map((anchor, indx) => (
-          <li key={indx} className="d-flex align-items-center">
+          <li key={indx} className="d-flex align-items-center  btn-link">
             <i
               className={`fi-check text-${
                 anchor.completed ? 'primary' : 'muted'
