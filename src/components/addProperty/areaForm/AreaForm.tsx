@@ -70,8 +70,6 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     }
     // Загрузка картинок
     const [gallery, setGallery] = useState<string[]>([]);
-    //для тестов, не удалять
-    console.log(area);
 
     //при изменении объекта Площадки - прокидываем в общий спискок мест
     useEffect(() => {
@@ -81,7 +79,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     }, [area])
 
     return (
-        <section >
+        <>
             <h2 className='h4 mb-4'>
                 <i className='fi-party-popper text-primary fs-5 mt-n1 me-2'></i>
                 Помещения
@@ -321,7 +319,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                 placeholder='Например, опишите минимальную стоимость банкета/аренды зала в пятницу и субботу'
                 required
             />
-        </section >
+        </>
     )
 }
 

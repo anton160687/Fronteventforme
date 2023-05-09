@@ -71,18 +71,19 @@ const AddPropertyPage = () => {
         setPlace({ ...place, [e.target.name]: !!e.target.value });
     }
     // Специальные обработчики формы "Локация"
-    function setCity(data: string) {
-        setPlace({ ...place, ['city']: data });
-    }
     function setAddress(data: string) {
         setPlace({ ...place, ['address']: data });
     }
     function setGeodata(lat: number, lon: number,) {
         setPlace({ ...place, ['geodata']: [lat, lon] });
     }
+    function setCity(data: string) {
+        setPlace({ ...place, ['city']: data });
+    }
 
     // Загрузка картинок
     const [gallery, setGallery] = useState<string[]>([]);
+    
     // Площадки
     const [areas, setAreas] = useState<Area[]>([]);
     const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
@@ -163,6 +164,12 @@ const AddPropertyPage = () => {
                         handleCheckBox={handleCheckBox}
                         handleNumberChange={handleNumberChange}
                         handleRadio={handleRadio}
+                        description={place.description}
+                        territory_desc = {place.territory_desc}
+                        welcome_desc = {place.welcome_desc}
+                        outreg_price ={place.outreg_price}
+                        outreg_desc={place.outreg_desc}
+                        outreg_conditions={place.outreg_conditions}
                     />
 
                     {/* Контактная информация */}

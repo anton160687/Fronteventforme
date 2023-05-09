@@ -20,6 +20,7 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
+    const [cityFromRes, setCityFromRes] = useState<string>('');
 
     // запрос версий адреса по введенной строке
     useEffect(() => {
@@ -37,9 +38,9 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
             })
             let result: DaDataValues = await response.json();
             setSuggestions(result.suggestions);
-            // этот код необходимо здесь на случай, если адрес внесут, не используя подсказок
-            if (result?.suggestions[0]?.data.city) {
-                setCity(result.suggestions[0].data.city);
+            // код необходим здесь на случай, если адрес внесут, не используя подсказок
+            if (result?.suggestions[0]?.data.city && result?.suggestions[0]?.data.city !== '') {
+                setCityFromRes(result.suggestions[0].data.city);
             }
             if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
                 setGeodata(+result.suggestions[0].data.geo_lat, +result.suggestions[0].data.geo_lon);
@@ -47,6 +48,12 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
         }
         fetchAdress(address);
     }, [address])
+
+    //  setCityName некорректно срабатывает внутри предыдущего UseEffet, пришлось решить проблему так:
+    useEffect(() => {
+        setCity(cityFromRes);
+    }, [cityFromRes]);
+
 
     //кастомный хук для закрытия дропдауна по клику в другом месте
     useOutsideClick(dropDownRef, handleOutsideClick, openDropDown);
