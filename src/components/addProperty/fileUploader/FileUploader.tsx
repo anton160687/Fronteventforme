@@ -9,6 +9,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { FilePondErrorDescription, FilePondFile } from 'filepond';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
@@ -28,6 +29,12 @@ type FileUploaderProps = {
 
 function FileUploader({ name, gallery, setGallery }: FileUploaderProps) {
     console.log(gallery);
+    
+    function onProcessFile (error: FilePondErrorDescription | null, file: FilePondFile) {
+        console.log("onProcessFile serverId", file.serverId);
+      };
+
+    
     return (
         <section id='photos' className='card card-body border-0 shadow-sm p-4 mb-4'>
             <h2 className='h4 mb-4'>
@@ -42,6 +49,7 @@ function FileUploader({ name, gallery, setGallery }: FileUploaderProps) {
             <FilePond
                 files={gallery}
                 onupdatefiles={setGallery}
+                onprocessfile={onProcessFile}
                 server={{
                     process: {
                         url: 'http://188.225.24.70:8080/fp/process/',
