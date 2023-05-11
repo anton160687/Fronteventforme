@@ -1,5 +1,4 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +6,6 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
-import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
@@ -20,7 +18,6 @@ import { FilePondFile } from 'filepond';
 
 
 const AddPropertyPage = () => {
-    // первоначальный стейт пустого объекта Площадки
     const initialPlaceState: Place = {
         title: '',
         city: '',
@@ -81,10 +78,8 @@ const AddPropertyPage = () => {
     function setCity(data: string) {
         setPlace({ ...place, ['city']: data });
     }
-
     // Загрузка картинок
     const [gallery, setGallery] = useState<FilePondFile[]>([]);
-    
     // Площадки
     const [areas, setAreas] = useState<Area[]>([]);
     const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
@@ -105,7 +100,6 @@ const AddPropertyPage = () => {
             </section>
         ))
     }
-
     // Превью
     const [previewShow, setPreviewShow] = useState(false);
     const handlePreviewClose = () => setPreviewShow(false);
@@ -123,7 +117,6 @@ const AddPropertyPage = () => {
                         <ProgressBar variant='warning' now={65} style={{ height: '.25rem' }} className='d-lg-none mb-4' />
                     </div>
 
-                    {/* Базовая информация */}
                     <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
                         <h2 className='h4 mb-4'>
                             <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
@@ -132,7 +125,6 @@ const AddPropertyPage = () => {
                         <BasicForm title={place.title} handleChange={handleChange} location />
                     </section>
 
-                    {/* Локация */}
                     <LocationForm
                         setCity={setCity}
                         setAddress={setAddress}
@@ -142,7 +134,6 @@ const AddPropertyPage = () => {
                         ya_id={place.ya_id}
                     />
 
-                    {/* Описание площадки */}
                     <PlaceDescription
                         handleChange={handleChange}
                         handleCheckBox={handleCheckBox}
@@ -153,52 +144,43 @@ const AddPropertyPage = () => {
                         alco={place.alco}
                     />
 
-                    {/* Заливка фотографий*/}
                     <FileUploader name='filepond' gallery={gallery} setGallery={setGallery} />
 
-                    {/* Помещения */}
                     {renderAreaForms()}
 
-                    {/*Детали площадки */}
                     <PlaceDetails
                         handleChange={handleChange}
                         handleCheckBox={handleCheckBox}
                         handleNumberChange={handleNumberChange}
                         handleRadio={handleRadio}
                         description={place.description}
-                        territory_desc = {place.territory_desc}
-                        welcome_desc = {place.welcome_desc}
-                        outreg_price ={place.outreg_price}
+                        territory_desc={place.territory_desc}
+                        welcome_desc={place.welcome_desc}
+                        outreg_price={place.outreg_price}
                         outreg_desc={place.outreg_desc}
                         outreg_conditions={place.outreg_conditions}
                     />
 
-                    {/* Контактная информация */}
-                    < ContactsForm />
-
-                    {/* Action buttons */}
                     <section className='d-sm-flex justify-content-between pt-2'>
                         <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
                             <i className='fi-eye-on ms-n1 me-2'></i>
-                            Preview
+                            Предпросмотр
                         </Button>
-                        <Link href='/real-estate/property-promotion' passHref>
-                            <Button size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Save and continue</Button>
-                        </Link>
+
+                        <Button size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Сохранить</Button>
+
                     </section>
                 </Col>
 
-                {/* Боковая панель с прогрессом заполнения */}
                 <Col lg={{ span: 3, offset: 1 }} className='d-none d-lg-block'>
                     <ProgressSideBar />
                 </Col>
             </Row>
         </Container>
 
-        {/* Модальное окно превью */}
         <Preview previewShow={previewShow} handlePreviewClose={handlePreviewClose} />
     </>
     )
 }
 
-export default AddPropertyPage
+export default AddPropertyPage;
