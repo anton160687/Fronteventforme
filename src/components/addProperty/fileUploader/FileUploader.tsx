@@ -21,12 +21,13 @@ registerPlugin(
 )
 
 type FileUploaderProps = {
+    name: string,
     gallery: string[],
     setGallery: Dispatch<SetStateAction<string[]>>
 }
 
-function FileUploader({gallery, setGallery}: FileUploaderProps) {
-
+function FileUploader({ name, gallery, setGallery }: FileUploaderProps) {
+    console.log(gallery);
     return (
         <section id='photos' className='card card-body border-0 shadow-sm p-4 mb-4'>
             <h2 className='h4 mb-4'>
@@ -41,8 +42,18 @@ function FileUploader({gallery, setGallery}: FileUploaderProps) {
             <FilePond
                 files={gallery}
                 onupdatefiles={setGallery}
-                // server='/api' {/* Configure your server here. See plugin docs */}
-                name='gallery'
+                server={{
+                    process: {
+                        url: 'http://188.225.24.70:8080/fp/process/',
+                        method: 'POST',
+                        ondata: (formData) => {
+                            return formData;
+                        },
+                        onerror: (response) => { console.log(response.data); },
+                    }
+                }
+                }
+                name={name}
                 labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i>Upload photos / video</div><div>or drag them in</div>'
                 acceptedFileTypes={['image/png', 'image/jpeg', 'video/mp4', 'video/mov']}
                 allowMultiple={true}

@@ -1,9 +1,28 @@
+import { ChangeEvent } from "react";
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
+import RenderCheckbox from "../renderChekbox/RenderCheckBox";
 import { LOCATION, KITCHEN, EVENT } from '@/constant';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
-import RenderCheckbox from "../renderChekbox/RenderCheckBox";
 
-function PlaceDescription() {
+type PlaceDescriptionProps = {
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleCheckBox: (name: string, array: string[]) => void;
+  handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleRadio: (e: ChangeEvent<HTMLInputElement>) => void;
+  children_kitchen: boolean;
+  fireworks: boolean;
+  alco: boolean;
+}
+
+function PlaceDescription({
+  handleChange,
+  handleCheckBox,
+  handleNumberChange,
+  handleRadio,
+  children_kitchen,
+  fireworks,
+  alco
+}: PlaceDescriptionProps) {
   return (
     <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
       <h2 className='h4 mb-4'>
@@ -13,91 +32,178 @@ function PlaceDescription() {
 
       {/* Расположение */}
       <Row className='mb-4'>
-        <Form.Label className='d-block fw-bold mb-2 pb-1'>
-          Расположение
-          <span className='text-danger'>*</span>
-        </Form.Label>
-        <RenderCheckbox options={LOCATION} />
-        <p className="mt-2 mb-0 fs-sm">
-          <i className='fi-alert-circle me-2' />
-          Не более 4-х опций.
-        </p>
+        <Form.Group controlId='location'>
+          <Form.Label className='d-block fw-bold mb-2 pb-1'>
+            Расположение
+            <span className='text-danger'>*</span>
+          </Form.Label>
+          <RenderCheckbox
+            options={LOCATION}
+            name='location'
+            max={4}
+            handleCheckBox={handleCheckBox}
+          />
+          <p className="mt-2 mb-0 fs-sm"><i className='fi-alert-circle me-2' />Не более 4-х опций.</p>
+        </Form.Group>
       </Row>
 
       {/* Кухня */}
       <Row className='mb-4'>
-        <Form.Label className='d-block fw-bold mb-2 pb-1'>
-          Кухня <span className='text-danger'>*</span>
-        </Form.Label>
-        <RenderCheckbox options={KITCHEN} />
-        <p className="mt-2 fs-sm">
-          <i className='fi-alert-circle me-2' />
-          Не более 3-х опций.
-        </p>
+        <Form.Group controlId='kitchen'>
+          <Form.Label className='d-block fw-bold mb-2 pb-1'>
+            Кухня <span className='text-danger'>*</span>
+          </Form.Label>
+          <RenderCheckbox
+            options={KITCHEN}
+            name='kitchen'
+            max={3}
+            handleCheckBox={handleCheckBox}
+          />
+          <p className="mt-2 fs-sm"><i className='fi-alert-circle me-2' />Не более 3-х опций.</p>
+        </Form.Group>
         <Row>
-          <Col>
+          <Form.Group controlId='children_kitchen' as={Col}>
             <Form.Label className='d-block fw-bold mb-3 p-0'>Есть детское меню?</Form.Label>
-            <Form.Check type='radio' id='radio-1' name='radio' label='Да' defaultChecked />
-            <Form.Check type='radio' id='radio-2' name='radio' label='Нет' />
-          </Col>
+            <Form.Check
+              type='radio'
+              name='children_kitchen'
+              label='Да'
+              value={1}
+              checked={children_kitchen}
+              onChange={handleRadio}
+            />
+            <Form.Check
+              type='radio'
+              name='children_kitchen'
+              label='Нет'
+              value={undefined}
+              checked={!children_kitchen}
+              onChange={handleRadio}
+            />
+          </Form.Group>
         </Row>
       </Row>
 
       {/* Время работы */}
       <Row className='mb-4'>
-        <Form.Label className="form-label fw-bold mb-2 p-0">Время работы <span className='text-danger'>*</span></Form.Label>
-        <Form.Group className='mb-4 d-flex justify-content-between align-items-center col-md-6 col-sm-8'>
-          <FormControl type='time' defaultValue='10:00' aria-describedby='addon1' />
-          <div className='text-muted mx-4 fs-lg'>—</div>
-          <FormControl type='time' defaultValue='23:00' aria-describedby='addon2' />
+        <Form.Group controlId='time'>
+          <Form.Label className="form-label fw-bold mb-2 p-0">
+            Время работы <span className='text-danger'>*</span>
+          </Form.Label>
+          <div className='d-flex justify-content-between align-items-center col-md-6 col-sm-8'>
+            <FormControl
+              type='time'
+              name='start_time'
+              onChange={handleChange}
+            />
+            <div className='text-muted mx-4 fs-lg'>—</div>
+            <FormControl
+              type='time'
+              name='finish_time'
+              onChange={handleChange}
+            />
+          </div>
         </Form.Group>
       </Row>
 
       {/* Алкоголь, фейерверки */}
       <Row className='mb-4'>
-        <Col>
+        <Form.Group as={Col} controlId='fireworks'>
           <Form.Label className='d-block fw-bold mb-3 p-0'>Разрешено запускать фейерверки? <span className='text-danger'>*</span></Form.Label>
-          <Form.Check type='radio' id='radio-3' name='firework' label='Да' defaultChecked />
-          <Form.Check type='radio' id='radio-4' name='firework' label='Нет' />
-        </Col>
-        <Col>
+          <Form.Check
+            type='radio'
+            name='fireworks'
+            label='Да'
+            value={1}
+            checked={fireworks}
+            onChange={handleRadio}
+          />
+          <Form.Check
+            type='radio'
+            name='fireworks'
+            label='Нет'
+            value={undefined}
+            checked={!fireworks}
+            onChange={handleRadio}
+          />
+        </Form.Group>
+        <Form.Group as={Col} controlId='alco'>
           <Form.Label className='d-block fw-bold mb-3 p-0'>Разрешено приносить свой алкоголь? <span className='text-danger'>*</span></Form.Label>
-          <Form.Check type='radio' id='radio-5' name='alcohol' label='Да' />
-          <Form.Check type='radio' id='radio-6' name='alcohol' label='Нет' defaultChecked />
-        </Col>
+          <Form.Check
+            type='radio'
+            name='alco'
+            label='Да'
+            value={1}
+            checked={alco}
+            onChange={handleRadio}
+          />
+          <Form.Check
+            type='radio'
+            name='alco'
+            label='Нет'
+            value={undefined}
+            checked={!alco}
+            onChange={handleRadio}
+          />
+        </Form.Group>
       </Row>
 
       {/* Пробковый сбор, аренда, чек */}
       <Row className={`${styles.numbers_input__row} mb-4`}>
-        <div className={styles.numbers_input__col}>
+        <Form.Group controlId='payment_of_alco' className={styles.numbers_input__col}>
+          <Form.Label className='d-block fw-bold mb-3 p-0'>Пробковый сбор</Form.Label>
           <InputGroup>
-            <h6 className="fw-bold mb-3 p-0 w-100">Пробковый сбор</h6>
-            <FormControl type='number' placeholder='250' aria-label='Amount' className={styles.price_border} />
+            <FormControl
+              type='number'
+              name='payment_of_alco'
+              placeholder='250'
+              className={styles.price_border}
+              onChange={handleNumberChange}
+            />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>
-        </div>
+        </Form.Group>
 
-        <div className={styles.numbers_input__col}>
+        <Form.Group controlId='lease_extension' className={styles.numbers_input__col}>
+          <Form.Label className='d-block fw-bold mb-3 p-0'>Продление аренды</Form.Label>
           <InputGroup>
-            <h6 className="fw-bold mb-3 p-0 w-100">Продление аренды</h6>
-            <FormControl type='number' placeholder='250' aria-label='Amount' className={styles.price_border} />
+            <FormControl
+              type='number'
+              name='lease_extension_price'
+              placeholder='250'
+              className={styles.price_border}
+              onChange={handleNumberChange}
+            />
             <InputGroup.Text className="border-start-0">₽/час</InputGroup.Text>
           </InputGroup>
-        </div>
+        </Form.Group>
 
-        <div className={styles.numbers_input__col}>
+        <Form.Group controlId='average_check' className={styles.numbers_input__col}>
+          <Form.Label className='d-block fw-bold mb-3 p-0'>
+            Средний чек <span className='text-danger'>*</span>
+          </Form.Label>
           <InputGroup>
-            <h6 className="fw-bold mb-3 p-0 w-100">Средний чек <span className='text-danger'>*</span></h6>
-            <FormControl type='number' placeholder='250' aria-label='Amount' className={styles.price_border} />
+            <FormControl
+              type='number'
+              name='average_check'
+              placeholder='250'
+              className={styles.price_border}
+              onChange={handleNumberChange}
+            />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>
-        </div>
+        </Form.Group>
       </Row>
 
       {/* Подходит для: */}
-      <Form.Group className='mb-2'>
+      <Form.Group controlId='event' className='mb-2'>
         <Form.Label className='d-block fw-bold mb-2 pb-1'>Подходит для: <span className='text-danger'>*</span></Form.Label>
-        <RenderCheckbox options={EVENT} />
+        <RenderCheckbox
+          options={EVENT}
+          name='event'
+          max={100}
+          handleCheckBox={handleCheckBox}
+        />
       </Form.Group>
     </section>
   )
