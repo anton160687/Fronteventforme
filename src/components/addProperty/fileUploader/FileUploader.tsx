@@ -40,9 +40,9 @@ function FileUploader({
 
   const onChange = (e: FilePondFile[]) => {
     e.map((item) => {
-      console.log('item', item.file);
       setFile(URL.createObjectURL(item.file));
     });
+    setGallery(e);
   };
 
   console.log('file', file);
@@ -54,33 +54,23 @@ function FileUploader({
         <p className="fs-sm mb-1">{warning}</p>
       </Alert>
 
-      <img src={file} />
-
       <FilePond
         //files={gallery}
-        onupdatefiles={onChange}
-        server="http://188.225.24.70:8080/fp"
-        // server={{
-        //   process: {
-        //     url: 'http://188.225.24.70:8080/fp/process/',
-        //     method: 'POST',
-        //     withCredentials: false,
-        //     headers: {
-        //       'Access-Control-Expose-Headers':
-        //         'Content-Disposition, Content-Length, X-Content-Transfer-Id',
-        //       'Acess-Control-Allow-Origin': '*',
-        //     },
-        //     // timeout: 7000,
-        //     // onload: null,
-        //     // onerror: null,
-        //     // ondata: null,
-        //   },
-        //   // revert: 'http://188.225.24.70:8080/fp/revert/',
-        //   // restore: 'http://188.225.24.70:8080/fp/restore/',
-        //   // load: 'http://188.225.24.70:8080/fp/load/',
-        //   // fetch: 'http://188.225.24.70:8080/fp/fetch/',
-        // }}
-        name="gallery"
+        onupdatefiles={setGallery}
+        server={{
+          url: 'http://188.225.24.70:8080/fp',
+          //  process: '/process/',
+          process: {
+            url: '/process/',
+            method: 'POST',
+            withCredentials: false,
+          },
+          revert: '/revert/',
+          restore: '/restore/',
+          load: '/load/',
+          fetch: '/fetch/',
+        }}
+        name="upload_field_name"
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i>Загрузите фото / видео</div><div>или перетащите их сюда</div>'
         acceptedFileTypes={[
           'image/png',
@@ -91,10 +81,11 @@ function FileUploader({
         ]}
         allowMultiple={maxFiles > 1 ? true : false}
         maxFiles={maxFiles}
-        maxFileSize="5MB"
+        maxFileSize="2MB"
         className="file-uploader file-uploader-grid"
         checkValidity={true}
         instantUpload={true}
+        chunkUploads={true}
         // onChange={onChangeFiles}
       />
     </div>

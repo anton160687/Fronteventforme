@@ -271,7 +271,6 @@ $fi-castle: '\ea06';
 $fi-party-popper: '\ea07';
 $fi-union: '\ea08';
 $fi-cake: '\ea09';
-$fi-yandex: '\e900';
 
 // Icons styles
 
@@ -1627,12 +1626,6 @@ $fi-yandex: '\e900';
   }
 }
 
-.fi-yandex {
-  &:before {
-    content: $fi-yandex;
-  }
-}
-
 @font-face {
   font-family: 'icons';
   src: url('#{$icons-font-path}/yandex.ttf?1s10zs') format('truetype'),
@@ -1661,6 +1654,6 @@ $fi-yandex: '\e900';
 
 .icon-yandex {
   &:before {
-    content: $fi-yandex;
+    content: '\e900';
   }
 }
