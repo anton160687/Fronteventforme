@@ -19,11 +19,15 @@ function BasicForm({
   }
 
   return (
-    <Form.Group controlId="ap-title" className="mb-3">
-      <Form.Label>
+    <Form.Group
+      controlId={location ? 'place_title' : 'area_title'}
+      className="mb-3"
+    >
+      <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
         Название <span className="text-danger">*</span>
       </Form.Label>
       <Form.Control
+        name="title"
         placeholder={
           location
             ? 'Напишите название площадки'
@@ -34,14 +38,7 @@ function BasicForm({
         onChange={handleChangeInsideForm}
         required
       />
-      <Form.Text>
-        Осталось {lettersLeft}{' '}
-        {lettersLeft === 1
-          ? 'символ'
-          : lettersLeft < 1 || lettersLeft > 4
-          ? 'символов'
-          : 'символа'}
-      </Form.Text>
+      <Form.Text>Осталось {lettersLeft} символов</Form.Text>
     </Form.Group>
   );
 }
