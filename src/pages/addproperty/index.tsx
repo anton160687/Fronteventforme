@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
 import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
@@ -100,6 +100,16 @@ const AddPropertyPage = () => {
     const [previewShow, setPreviewShow] = useState(false);
     const handlePreviewClose = () => setPreviewShow(false);
     const handlePreviewShow = () => setPreviewShow(true);
+    //Валидация, отправка формы
+    const [validated, setValidated] = useState(false);
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity()) {
+          setValidated(true);
+          //здесь будут действия по отправке data на бэк
+        }
+    }
 
     console.log(place);
 
@@ -107,66 +117,67 @@ const AddPropertyPage = () => {
         <Container className='py-5'>
             <Row>
                 <Col lg={8}>
-                    <Form>
-                    <div className='mb-4'>
-                        <h1 className='h2 mb-0'>Добавить площадку</h1>
-                        <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
-                        <ProgressBar variant='warning' now={65} style={{ height: '.25rem' }} className='d-lg-none mb-4' />
-                    </div>
+                    <Form onSubmit={handleSubmit}>
+                        <div className='mb-4'>
+                            <h1 className='h2 mb-0'>Добавить площадку</h1>
+                            <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
+                            <ProgressBar variant='warning' now={65} style={{ height: '.25rem' }} className='d-lg-none mb-4' />
+                        </div>
 
-                    <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
-                        <h2 className='h4 mb-4'>
-                            <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
-                            Базовая информация
-                        </h2>
-                        <BasicForm title={place.title} handleChange={handleChange} location />
-                    </section>
+                        <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
+                            <h2 className='h4 mb-4'>
+                                <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
+                                Базовая информация
+                            </h2>
+                            <BasicForm title={place.title} handleChange={handleChange} location />
+                        </section>
 
-                    <LocationForm
-                        setCity={setCity}
-                        setAddress={setAddress}
-                        setGeodata={setGeodata}
-                        setYaId={handleChange}
-                        address={place.address}
-                        ya_id={place.ya_id}
-                    />
+                        <LocationForm
+                            setCity={setCity}
+                            setAddress={setAddress}
+                            setGeodata={setGeodata}
+                            setYaId={handleChange}
+                            address={place.address}
+                            ya_id={place.ya_id}
+                        />
 
-                    <PlaceDescription
-                        handleChange={handleChange}
-                        handleCheckBox={handleCheckBox}
-                        handleNumberChange={handleNumberChange}
-                        handleRadio={handleRadio}
-                        children_kitchen={place.children_kitchen}
-                        fireworks={place.fireworks}
-                        alco={place.alco}
-                    />
+                        <PlaceDescription
+                            handleChange={handleChange}
+                            handleCheckBox={handleCheckBox}
+                            handleNumberChange={handleNumberChange}
+                            handleRadio={handleRadio}
+                            children_kitchen={place.children_kitchen}
+                            fireworks={place.fireworks}
+                            alco={place.alco}
+                        />
 
-                    <FileUploader name='filepond' gallery={gallery} setGallery={setGallery} />
+                        <FileUploader name='filepond' gallery={gallery} setGallery={setGallery} />
 
-                    {renderAreaForms()}
+                        {renderAreaForms()}
 
-                    <PlaceDetails
-                        handleChange={handleChange}
-                        handleCheckBox={handleCheckBox}
-                        handleNumberChange={handleNumberChange}
-                        handleRadio={handleRadio}
-                        description={place.description}
-                        territory_desc={place.territory_desc}
-                        welcome_desc={place.welcome_desc}
-                        outreg_price={place.outreg_price}
-                        outreg_desc={place.outreg_desc}
-                        outreg_conditions={place.outreg_conditions}
-                    />
+                        <PlaceDetails
+                            handleChange={handleChange}
+                            handleCheckBox={handleCheckBox}
+                            handleNumberChange={handleNumberChange}
+                            description={place.description}
+                            territory_desc={place.territory_desc}
+                            welcome_desc={place.welcome_desc}
+                            outreg_price={place.outreg_price}
+                            outreg_desc={place.outreg_desc}
+                            outreg_conditions={place.outreg_conditions}
+                        />
 
-                    <section className='d-sm-flex justify-content-between pt-2'>
-                        <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
-                            <i className='fi-eye-on ms-n1 me-2'></i>
-                            Предпросмотр
-                        </Button>
+                        <section className='d-sm-flex justify-content-between pt-2'>
+                            <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
+                                <i className='fi-eye-on ms-n1 me-2'></i>
+                                Предпросмотр
+                            </Button>
 
-                        <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Сохранить</Button>
+                            <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>
+                                Сохранить
+                            </Button>
 
-                    </section>
+                        </section>
                     </Form>
                 </Col>
 

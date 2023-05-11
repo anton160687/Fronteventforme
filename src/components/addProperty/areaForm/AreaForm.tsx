@@ -185,14 +185,13 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
             {/* Скидка, подарок */}
             <Row className='mb-4'>
                 <Form.Group controlId='sale'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>{'Подарок/скидка за аренду помещения\u00a0'}<span className='text-danger'>*</span></Form.Label>
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>{'Подарок/скидка за аренду помещения\u00a0'}</Form.Label>
                     <Form.Control
                         name='sale'
                         placeholder={'Например, номер для молодоженов'}
                         maxLength={100}
                         value={area.sale}
                         onChange={handleChange}
-                        required
                     />
                 </Form.Group>
             </Row>

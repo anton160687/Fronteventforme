@@ -36,6 +36,7 @@ function DetailsTextarea({ details, handleChange, name, header, placeholder, req
                     maxLength={1000}
                     placeholder={placeholder}
                     onChange={handleChangeInsideForm}
+                    required={required}
                 />
                 <Form.Text>Осталось {lettersLeft} символов</Form.Text>
             </Form.Group>

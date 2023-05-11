@@ -110,14 +110,13 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
                 </Form.Group>
 
                 <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
-                    <Form.Label>ID организации на Яндекс.Картах <span className='text-danger'>*</span></Form.Label>
+                    <Form.Label>ID организации на Яндекс.Картах </Form.Label>
                     <Form.Control
                         name='ya_id'
                         placeholder='Введите id организации'
                         title='Id необходимо для отображения отзывов Яндекс'
                         value={ya_id}
                         onChange={setYaId}
-                        required
                     />
                 </Form.Group>
             </Row>

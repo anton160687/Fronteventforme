@@ -8,7 +8,6 @@ type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleCheckBox: (name: string, array: string[]) => void;
   handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleRadio: (e: ChangeEvent<HTMLInputElement>) => void;
   description: string;
   territory_desc: string;
   welcome_desc: string;
@@ -22,7 +21,6 @@ function PlaceDetails({
   handleChange,
   handleCheckBox,
   handleNumberChange,
-  handleRadio,
   description,
   territory_desc,
   welcome_desc,
@@ -75,6 +73,7 @@ function PlaceDetails({
             className="w-md-50 w-sm-75 w-xs-100"
             placeholder='10 человек или 1 стол'
             onChange={handleNumberChange}
+            required
           />
         </Form.Group>
       </Row>
