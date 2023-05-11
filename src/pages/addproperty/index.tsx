@@ -16,6 +16,7 @@ import { Area } from '@/types/areaType';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import { Place } from '@/types/placeType';
+import { FilePondFile } from 'filepond';
 
 
 const AddPropertyPage = () => {
@@ -82,7 +83,7 @@ const AddPropertyPage = () => {
     }
 
     // Загрузка картинок
-    const [gallery, setGallery] = useState<string[]>([]);
+    const [gallery, setGallery] = useState<FilePondFile[]>([]);
     
     // Площадки
     const [areas, setAreas] = useState<Area[]>([]);

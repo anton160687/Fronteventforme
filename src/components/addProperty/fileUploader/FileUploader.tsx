@@ -23,12 +23,11 @@ registerPlugin(
 
 type FileUploaderProps = {
     name: string,
-    gallery: string[],
-    setGallery: Dispatch<SetStateAction<string[]>>
+    gallery: FilePondFile[],
+    setGallery: Dispatch<SetStateAction<FilePondFile[]>>
 }
 
 function FileUploader({ name, gallery, setGallery }: FileUploaderProps) {
-    console.log(gallery);
     
     function onProcessFile (error: FilePondErrorDescription | null, file: FilePondFile) {
         console.log("onProcessFile serverId", file.serverId);

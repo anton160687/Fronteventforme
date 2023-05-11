@@ -9,6 +9,7 @@ import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
 import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
+import { FilePondFile } from 'filepond';
 
 type AreaFormProps = {
     index: number,
@@ -69,7 +70,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
         setArea({ ...area, ['reserved_dates']: newArr })
     }
     // Загрузка картинок
-    const [gallery, setGallery] = useState<string[]>([]);
+    const [gallery, setGallery] = useState<FilePondFile[]>([]);
 
     //при изменении объекта Площадки - прокидываем в общий спискок мест
     useEffect(() => {
