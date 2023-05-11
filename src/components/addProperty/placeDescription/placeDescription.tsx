@@ -95,12 +95,14 @@ function PlaceDescription({
               type='time'
               name='start_time'
               onChange={handleChange}
+              required
             />
             <div className='text-muted mx-4 fs-lg'>—</div>
             <FormControl
               type='time'
               name='finish_time'
               onChange={handleChange}
+              required
             />
           </div>
         </Form.Group>
@@ -189,6 +191,7 @@ function PlaceDescription({
               placeholder='250'
               className={styles.price_border}
               onChange={handleNumberChange}
+              required
             />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>

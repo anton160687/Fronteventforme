@@ -1,9 +1,5 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import Button from 'react-bootstrap/Button'
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
@@ -111,6 +107,7 @@ const AddPropertyPage = () => {
         <Container className='py-5'>
             <Row>
                 <Col lg={8}>
+                    <Form>
                     <div className='mb-4'>
                         <h1 className='h2 mb-0'>Добавить площадку</h1>
                         <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
@@ -167,9 +164,10 @@ const AddPropertyPage = () => {
                             Предпросмотр
                         </Button>
 
-                        <Button size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Сохранить</Button>
+                        <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Сохранить</Button>
 
                     </section>
+                    </Form>
                 </Col>
 
                 <Col lg={{ span: 3, offset: 1 }} className='d-none d-lg-block'>

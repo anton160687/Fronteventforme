@@ -1,11 +1,9 @@
 import { ChangeEvent, MouseEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import {Row, Col, Form} from 'react-bootstrap';
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
-import styles from '@/styles/addProperty/AddProperty.module.scss';
 import { SUG_URL, TOKEN } from '@/constant';
+import styles from '@/styles/addProperty/AddProperty.module.scss';
 
 type LocationFormProps = {
     setCity: (data: string) => void,
@@ -20,9 +18,13 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
-    const [cityFromRes, setCityFromRes] = useState<string>('');
+    //кастомный хук для закрытия дропдауна по клику в другом месте
+    useOutsideClick(dropDownRef, handleOutsideClick, openDropDown);
 
-    // запрос версий адреса по введенной строке
+    if (suggestions && suggestions.length!==0 && suggestions[0].data.city) {
+        console.log(suggestions[0].data.city);
+    }
+    
     useEffect(() => {
         async function fetchAdress(query: string) {
             let data = { "query": query };
@@ -38,10 +40,6 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
             })
             let result: DaDataValues = await response.json();
             setSuggestions(result.suggestions);
-            // код необходим здесь на случай, если адрес внесут, не используя подсказок
-            if (result?.suggestions[0]?.data.city && result?.suggestions[0]?.data.city !== '') {
-                setCityFromRes(result.suggestions[0].data.city);
-            }
             if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
                 setGeodata(+result.suggestions[0].data.geo_lat, +result.suggestions[0].data.geo_lon);
             }
@@ -49,26 +47,19 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
         fetchAdress(address);
     }, [address])
 
-    //  setCityName некорректно срабатывает внутри предыдущего UseEffet, пришлось решить проблему так:
+    //автоматическое определение города
     useEffect(() => {
-        setCity(cityFromRes);
-    }, [cityFromRes]);
-
-
-    //кастомный хук для закрытия дропдауна по клику в другом месте
-    useOutsideClick(dropDownRef, handleOutsideClick, openDropDown);
+        if (suggestions && suggestions.length!==0 && suggestions[0].data.city) {
+            setCity(suggestions[0].data.city);
+        }
+    }, [suggestions]);
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setAddress(e.target.value);
         setOpenDropdown(true);
     }
 
-    function handleClick(
-        e: MouseEvent<HTMLParagraphElement>,
-        city: Nullable<string>,
-        lat: Nullable<string>,
-        lng: Nullable<string>
-    ) {
+    function handleClick(e: MouseEvent<HTMLParagraphElement>) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
         setAddress(chosenAddress);
@@ -84,7 +75,7 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
             <p
                 key={i}
                 className={styles.checked}
-                onClick={(e) => handleClick(e, suggestion.data.city, suggestion.data.geo_lat, suggestion.data.geo_lon)}
+                onClick={(e) => handleClick(e)}
             >
                 {suggestion.value}
             </ p>
@@ -107,6 +98,7 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
                         name='address'
                         onChange={handleChange}
                         placeholder='Введите адрес'
+                        title='При вводе адреса вы можете воспользоваться автоматическими подсказками. Выбрать подсказку можно, кликнув на нее.'
                         required
                     />
                     {openDropDown && suggestions &&
