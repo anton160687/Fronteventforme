@@ -1,6 +1,7 @@
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { FC, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import styles from "@/styles/catalog/places/Places.module.scss";
 
 export type cardsType = {
   title: string;
@@ -20,9 +21,8 @@ export const ArticlesWeddings: FC<cardsType> = ({
   const new_description = description.slice(0, 120) + '...';
 
   return (
-    <figure
-      style={{ maxWidth: '430px' }}
-      className=" card-hover text-decoration-none text-dark rounded-3 mx-2"
+    <figure 
+      className={`${styles.articlesWeddings_figure} text-dark card-hover rounded-3`}
     >
       <ImageLoader
         src={pathImg}

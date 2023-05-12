@@ -66,7 +66,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
 
-      <Row className={styles.main__container}>
+      <Row className={`${styles.main__container} mx-auto w-xl-100 w-lg-75`}>
         
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
@@ -97,11 +97,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
               />
             ))}
 
-          <Row className="my-xl-4 my-md-3 my-sm-2">
-            <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
+          <Row>
+            <Card.Title as="h4" className="text-sm-center text-md-start">
               Фото проведенных свадеб на площадке
             </Card.Title>
-            <div className="d-flex justify-content-evenly">
+            <Row>
               {photosHeld &&
                 photosHeld.map((item) => (
                   <PhotosWeddingsHeld
@@ -111,14 +111,14 @@ export default function CatalogItem({ item }: CatalogItemProps) {
                     pathImg={item.pathImg}
                   />
                 ))}
-            </div>
+            </Row>
           </Row>
 
-          <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
-            <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
+          <Row>
+            <Card.Title as="h4" className="text-sm-center text-lg-start">
               Статьи о свадьбах на площадке “Villa Arcobaleno”
             </Card.Title>
-            <div className="d-flex justify-content-evenly">
+            <Row className="d-flex flex-lg-nowrap justify-content-evenly">
               {articles &&
                 articles.map((item) => (
                   <ArticlesWeddings
@@ -129,17 +129,10 @@ export default function CatalogItem({ item }: CatalogItemProps) {
                     dateText={item.dateText}
                   />
                 ))}
-            </div>
+            </Row>
           </Row>
 
-          <div id="map" className={styles.map__container}>
-            Здесь карта Яндекса с объектом
-            <YaMap />
-          </div>
-
-          <div id="comments" className={styles.comments__container}>
-            <YaComments />
-          </div>
+          
         </Col>
 
         {/* это - боковой контейнер справа на странице */}
@@ -172,6 +165,14 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         </Col>
 
       </Row>
+      <div id="map" className={styles.map__container}>
+        Здесь карта Яндекса с объектом
+        <YaMap />
+      </div>
+
+      <div id="comments" className={styles.comments__container}>
+        <YaComments />
+      </div>
       <SimilarItemsSlider />
     </Container>
   );

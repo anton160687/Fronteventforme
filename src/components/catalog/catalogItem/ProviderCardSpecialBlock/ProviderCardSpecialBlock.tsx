@@ -59,7 +59,7 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
         spaceBetween={12}
         loop
         grabCursor
-        className='swiper-nav-onhover m-0'
+        className='swiper-nav-onhover my-1'
         style={{maxWidth: '24rem'}}
       >
         {pathImg && pathImg.map((path, index)=>

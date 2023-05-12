@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
-import styles from '@/styles/addProperty/AddProperty.module.scss';
+import styles from '@/styles/addproperty/AddProperty.module.scss';
 import { SUG_URL, TOKEN } from '@/constant';
 
 type LocationFormProps = {

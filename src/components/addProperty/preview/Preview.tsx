@@ -4,9 +4,15 @@ import styles from '@/styles/addproperty/AddProperty.module.scss';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
-import { ArticlesWeddings, PhotosWeddingsHeld, ProviderCardSpecialBlock, TextHeadingDescription, TextHeadingDetailsKitchen, TextHeadingFeatures, TextHeadingSiteDetails, TextHeadingSuitableFor } from '@/components/catalog';
+import { PhotosWeddingsHeld, ProviderCardSpecialBlock, TextHeadingDescription, TextHeadingDetailsKitchen, TextHeadingFeatures, TextHeadingSiteDetails, TextHeadingSuitableFor } from '@/components/catalog';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { cards } from '@/mocks/cards';
+import LightGallery from 'lightgallery/react'
+import 'lightgallery/css/lightgallery.css'
+import 'lightgallery/css/lg-thumbnail.css'
+import 'lightgallery/css/lg-zoom.css'
+import 'lightgallery/css/lg-fullscreen.css'
+import ImageLoader from '@/components/_finder/ImageLoader';
 
 type PreviewProps = {
     previewShow: boolean,
@@ -104,11 +110,11 @@ return (
                             />
                     ))}
 
-                    <Row className="my-xl-4 my-md-3 my-sm-2">
-                        <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
+                    <Row>
+                        <Card.Title as="h4" className="text-sm-center text-md-start">
                             Фото проведенных свадеб на площадке
                         </Card.Title>
-                        <div className="d-flex justify-content-evenly">
+                        <Row>
                             {photosHeld &&
                             photosHeld.map((item) => (
                                 <PhotosWeddingsHeld
@@ -118,25 +124,30 @@ return (
                                     pathImg={item.pathImg}
                                 />
                             ))}
-                        </div>
+                        </Row>
                     </Row>
-
-                    <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
-                        <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
-                            Статьи о свадьбах на площадке “Villa Arcobaleno”
-                        </Card.Title>
-                        <div className="d-flex justify-content-evenly">
-                            {articles && articles.map((item) => (
-                                <ArticlesWeddings
-                                    key={item.id}
-                                    title={item.title}
-                                    description={item.description}
-                                    pathImg={item.pathImg}
-                                    dateText={item.dateText}
-                                />
-                            ))}
-                        </div>
-                    </Row>
+                    <Col md={12} className='my-5'>
+                        <h4>Расположение</h4>
+                        <LightGallery
+                        selector='#map'
+                        zoomFromOrigin={false}
+                        elementClassNames='position-relative d-flex flex-column h-100'
+                        >
+                            <ImageLoader src='/img/map_preveiw.png' layout='fill' objectFit='cover'/>
+                            <div className='position-relative d-flex h-100 flex-column align-items-center justify-content-center' style={{minHeight: '300px'}}>
+                                <Button
+                                    id='map'
+                                    href='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2423.924340088787!2d13.428504251724927!3d52.58906113876177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a85284201593ab%3A0x28af69e02ce0e2fc!2sBusinesshotel%20Berlin!5e0!3m2!1sru!2sua!4v1618908622013!5m2!1sru!2sua'
+                                    variant='primary rounded-3 stretched-link'
+                                    data-iframe={true}
+                                >
+                                    <i className='fi-route me-2'></i>
+                                    Get directions
+                                </Button>
+                            </div>
+                        </LightGallery>
+                    </Col>
+                    
                 </Col>
                 
             </Container>

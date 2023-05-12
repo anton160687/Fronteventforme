@@ -1,6 +1,6 @@
 import { Col, Form, FormControl, InputGroup, Row } from "react-bootstrap";
 import { LOCATION, KITCHEN, EVENT } from '@/constant';
-import styles from '@/styles/addProperty/AddProperty.module.scss';
+import styles from '@/styles/addproperty/AddProperty.module.scss';
 import RenderCheckbox from "../renderChekbox/RenderCheckBox";
 
 function PlaceDescription() {
