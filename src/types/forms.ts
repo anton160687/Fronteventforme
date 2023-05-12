@@ -1,20 +1,27 @@
 export type BookingData = {
-    name: string,
-    guests: number,
-    date: Date,
-    comments: string,
+  name: string,
+  guests: number,
+  date: Date,
+  comments: string,
 }
 
 export type CreateUserData = {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  };
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
-  
 export type SigninUserData = {
-    role: string;
-    email: string;
-    password: string;
-  };
+  role: string;
+  email: string;
+  password: string;
+}
+
+export type ContactsFormData = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+}

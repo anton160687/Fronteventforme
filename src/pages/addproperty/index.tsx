@@ -117,7 +117,7 @@ const AddPropertyPage = () => {
         <Container className='py-5'>
             <Row>
                 <Col lg={8}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} validated={validated}>
                         <div className='mb-4'>
                             <h1 className='h2 mb-0'>Добавить площадку</h1>
                             <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
