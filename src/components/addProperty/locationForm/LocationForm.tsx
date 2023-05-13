@@ -1,8 +1,8 @@
-import { ChangeEvent, MouseEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import {Row, Col, Form} from 'react-bootstrap';
-import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
+import { ChangeEvent, MouseEvent, ClipboardEvent, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Row, Col, Form } from 'react-bootstrap';
+import { DaDataValue } from "@/types/dadata";
+import { fetchAddress } from './locationAPI';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { SUG_URL, TOKEN } from '@/constant';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
 
 type LocationFormProps = {
@@ -18,50 +18,58 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
-    //кастомный хук для закрытия дропдауна по клику в другом месте
+    const [preliminaryAddress, setPreliminaryAddress] = useState<string>('');
+
     useOutsideClick(dropDownRef, handleOutsideClick, openDropDown);
 
-    if (suggestions && suggestions.length!==0 && suggestions[0].data.city) {
-        console.log(suggestions[0].data.city);
-    }
-    
     useEffect(() => {
-        async function fetchAdress(query: string) {
-            let data = { "query": query };
-            let response = await fetch(SUG_URL, {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token " + TOKEN
-                },
-                body: JSON.stringify(data),
-            })
-            let result: DaDataValues = await response.json();
-            setSuggestions(result.suggestions);
-            if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
-                setGeodata(+result.suggestions[0].data.geo_lat, +result.suggestions[0].data.geo_lon);
-            }
-        }
-        fetchAdress(address);
+        fetchAddress(address, setSuggestions, setGeodata);
     }, [address])
 
     //автоматическое определение города
     useEffect(() => {
-        if (suggestions && suggestions.length!==0 && suggestions[0].data.city) {
+        if (suggestions && suggestions.length !== 0 && suggestions[0].data.city) {
             setCity(suggestions[0].data.city);
         }
     }, [suggestions]);
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setAddress(e.target.value);
+        const prevValue = preliminaryAddress;
+        const value = e.target.value;
+        const changedValue = value.slice(prevValue.length - 1);
+        console.log(changedValue.length);
+        setPreliminaryAddress(value);
+        if (changedValue.length === 2 &&
+            changedValue[0] === " " ||
+            changedValue[0] === "," ||
+            changedValue[0] === "."
+        ) {
+            setAddress(value);
+            setOpenDropdown(true);
+            console.log('Обработчик на пробелы и прочее')
+        }
+        if (changedValue[0] && changedValue[0].match(/[А-ЯЁ]/g)) {
+            setAddress(value);
+            setOpenDropdown(true);
+            console.log('Обработчик на заглавную букву')
+        } else if (changedValue.length === 1) {
+            setAddress(value);
+            setOpenDropdown(true);
+            console.log('Обработчик на 1 символ')
+        }
+    }
+
+    function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
+        const clipboardData = e.clipboardData;
+        const pastedData = clipboardData.getData('Text');
+        setAddress(pastedData);
         setOpenDropdown(true);
     }
 
     function handleClick(e: MouseEvent<HTMLParagraphElement>) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
+        setPreliminaryAddress(chosenAddress);
         setAddress(chosenAddress);
     }
 
@@ -94,19 +102,21 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
                         Адрес <span className='text-danger'>*</span>
                     </Form.Label>
                     <Form.Control
-                        value={address}
+                        value={preliminaryAddress}
                         name='address'
+                        onFocus={() => { setOpenDropdown(true) }}
                         onChange={handleChange}
+                        onPaste={handlePaste}
                         placeholder='Введите адрес'
                         title='При вводе адреса вы можете воспользоваться автоматическими подсказками. Выбрать подсказку можно, кликнув на нее.'
                         required
                     />
-                    {openDropDown && suggestions &&
+                    {openDropDown && suggestions ?
                         <div ref={dropDownRef} className={styles.address__dropdown}>
                             {renderClues(suggestions)}
                         </div>
+                        : null
                     }
-
                 </Form.Group>
 
                 <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>

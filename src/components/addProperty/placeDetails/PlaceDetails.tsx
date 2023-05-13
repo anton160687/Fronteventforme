@@ -147,7 +147,6 @@ function PlaceDetails({
                   name='outreg_price'
                   placeholder='1000'
                   type='number'
-                  value={outreg_price}
                   onChange={handleNumberChange}
                   required
                 />
