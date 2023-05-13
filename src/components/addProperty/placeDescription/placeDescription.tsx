@@ -78,6 +78,7 @@ function PlaceDescription({
             <Form.Check
               type="radio"
               name="children_kitchen"
+              id="children_kitchen-Да"
               label="Да"
               value={1}
               checked={children_kitchen}
@@ -87,6 +88,7 @@ function PlaceDescription({
               type="radio"
               name="children_kitchen"
               label="Нет"
+              id="children_kitchen-Нет"
               value={undefined}
               checked={!children_kitchen}
               onChange={handleRadio}
@@ -129,6 +131,7 @@ function PlaceDescription({
           <Form.Check
             type="radio"
             name="fireworks"
+            id="fireworks-Да"
             label="Да"
             value={1}
             checked={fireworks}
@@ -137,6 +140,7 @@ function PlaceDescription({
           <Form.Check
             type="radio"
             name="fireworks"
+            id="fireworks-Нет"
             label="Нет"
             value={undefined}
             checked={!fireworks}
@@ -152,6 +156,7 @@ function PlaceDescription({
             type="radio"
             name="alco"
             label="Да"
+            id="alco-Да"
             value={1}
             checked={alco}
             onChange={handleRadio}
@@ -160,6 +165,7 @@ function PlaceDescription({
             type="radio"
             name="alco"
             label="Нет"
+            id="alco-Нет"
             value={undefined}
             checked={!alco}
             onChange={handleRadio}

@@ -5,6 +5,7 @@ import { Place } from '@/types/placeType';
 import { ADD_PLACE_NAMES } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Anchor } from '@/types/anchor';
+import { addPlaceNameElement } from '@/types/addPlaceNames';
 
 type ProgressSideBarProps = {
   place: Place;
@@ -12,7 +13,6 @@ type ProgressSideBarProps = {
   setPercent: Dispatch<SetStateAction<number>>;
   percent: number;
   setIsFormFilled: Dispatch<SetStateAction<boolean>>;
-  //  anchors: Anchor[];
 };
 
 const initialAnchors: Anchor[] = [
@@ -59,13 +59,7 @@ function ProgressSideBar({
   percent,
   setPercent,
   setIsFormFilled,
-}: // anchors,
-ProgressSideBarProps) {
-  useMemo(() => {}, []);
-
-  //const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
-
-  //TODO переделать все изменяющиеся anchors
+}: ProgressSideBarProps) {
   const [anchors, setAnchors] = useState<Anchor[]>(initialAnchors);
 
   const calculatePercent = () => {
@@ -83,24 +77,35 @@ ProgressSideBarProps) {
     return anchors.findIndex((anchor) => anchor.label === name);
   };
 
-  //TODO переделать чек-боксы и кнопки "Добавить"
+  const changeAnchor = (element: addPlaceNameElement, isCompleted: boolean) => {
+    const index = findAnchor(element.name);
+
+    setAnchors((prev) => [
+      ...prev.slice(0, index),
+      {
+        ...prev[index],
+        completed: isCompleted,
+      },
+      ...prev.slice(index + 1),
+    ]);
+  };
 
   const isCompleted = () => {
     //Базовая информация
     if (place.title) {
-      anchors[findAnchor(ADD_PLACE_NAMES.basic.name)].completed = true;
-    } else {
-      anchors[findAnchor(ADD_PLACE_NAMES.basic.name)].completed = false;
+      changeAnchor(ADD_PLACE_NAMES.basic, true);
     }
-    console.log('Базовая информация', Boolean(place.title));
+    if (!place.title) {
+      changeAnchor(ADD_PLACE_NAMES.basic, false);
+    }
 
     //Локация
     if (place.city && place.address && place.ya_id) {
-      anchors[findAnchor(ADD_PLACE_NAMES.location.name)].completed = true;
-    } else {
-      anchors[findAnchor(ADD_PLACE_NAMES.location.name)].completed = false;
+      changeAnchor(ADD_PLACE_NAMES.location, true);
     }
-    console.log('Локация', Boolean(place.city && place.address && place.ya_id));
+    if (!(place.city && place.address && place.ya_id)) {
+      changeAnchor(ADD_PLACE_NAMES.location, false);
+    }
 
     //Описание площадки
     if (
@@ -111,21 +116,20 @@ ProgressSideBarProps) {
       place.average_check &&
       place.event.length
     ) {
-      anchors[findAnchor(ADD_PLACE_NAMES.description.name)].completed = true;
-    } else {
-      anchors[findAnchor(ADD_PLACE_NAMES.description.name)].completed = false;
+      changeAnchor(ADD_PLACE_NAMES.description, true);
     }
-    console.log(
-      'Описание площадки',
-      Boolean(
+    if (
+      !(
         place.location.length &&
-          place.kitchen.length &&
-          place.start_time &&
-          place.finish_time &&
-          place.average_check &&
-          place.event.length
+        place.kitchen.length &&
+        place.start_time &&
+        place.finish_time &&
+        place.average_check &&
+        place.event.length
       )
-    );
+    ) {
+      changeAnchor(ADD_PLACE_NAMES.description, false);
+    }
 
     //Фото площадки
     //TODO
@@ -147,26 +151,12 @@ ProgressSideBarProps) {
       ) {
         areasFilledCount++;
       }
-      console.log(
-        'Помещения',
-        Boolean(
-          area.title &&
-            area.type_area &&
-            area.min_capacity &&
-            area.max_capacity &&
-            area.color_hall &&
-            area.min_price_banquet &&
-            area.min_price_rent &&
-            area.deposit &&
-            area.scheme_of_payment &&
-            area.detail_location
-        )
-      );
     });
-    if (areasFilledCount === areas.length) {
-      anchors[findAnchor(ADD_PLACE_NAMES.area.name)].completed = true;
-    } else {
-      anchors[findAnchor(ADD_PLACE_NAMES.area.name)].completed = false;
+    if (areasFilledCount === areas.length && areas.length) {
+      changeAnchor(ADD_PLACE_NAMES.area, true);
+    }
+    if (!(areasFilledCount === areas.length && areas.length)) {
+      changeAnchor(ADD_PLACE_NAMES.area, false);
     }
 
     //Детали площадки
@@ -177,32 +167,32 @@ ProgressSideBarProps) {
       place.outreg_price &&
       place.outreg_desc
     ) {
-      anchors[findAnchor(ADD_PLACE_NAMES.details.name)].completed = true;
-    } else {
-      anchors[findAnchor(ADD_PLACE_NAMES.details.name)].completed = false;
+      changeAnchor(ADD_PLACE_NAMES.details, true);
     }
-    console.log(
-      'Детали площадки',
-      Boolean(
+    if (
+      !(
         place.description &&
-          place.features.length &&
-          place.max_serving &&
-          place.outreg_price &&
-          place.outreg_desc
+        place.features.length &&
+        place.max_serving &&
+        place.outreg_price &&
+        place.outreg_desc
       )
-    );
+    ) {
+      changeAnchor(ADD_PLACE_NAMES.details, false);
+    }
+
     //Альбомы проведенных свадеб
     //TODO
-
-    calculatePercent();
   };
 
   useEffect(() => {
     isCompleted();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [place]);
+  }, [place, areas]);
 
   useEffect(() => {
+    calculatePercent();
+
     let completedCount = 0;
     anchors.map((anchor) => {
       if (anchor.completed) {
@@ -211,29 +201,16 @@ ProgressSideBarProps) {
     });
 
     if (completedCount === anchors.length) {
-      //setPercent(100);
+      setPercent(100);
       setIsFormFilled(true);
     } else {
       setIsFormFilled(false);
     }
 
-    console.log('anchors', anchors);
-
-    console.log('completedCount', completedCount);
-    console.log('place', place);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchors]);
 
-  const checkRender = (anchor: Anchor) => {
-    return (
-      <i
-        className={`fi-check text-${
-          anchor.completed ? 'primary' : 'muted'
-        } me-2`}
-      ></i>
-    );
-  };
+  console.log('anchors', anchors);
 
   return (
     <div className="sticky-top pt-5">

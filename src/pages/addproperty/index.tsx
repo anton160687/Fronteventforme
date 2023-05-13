@@ -102,7 +102,7 @@ const AddPropertyPage = () => {
         className="card card-body border-0 shadow-sm p-4 mb-4"
       >
         <AreaForm index={index} areas={areas} setAreas={setAreas} />
-        <p className="text-primary mb-3" onClick={addArea}>
+        <p className="cursor-pointer text-primary mb-3" onClick={addArea}>
           <i className="fi-plus-circle me-3"></i> Добавить помещение
         </p>
       </section>
@@ -129,45 +129,6 @@ const AddPropertyPage = () => {
   //
   const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
   console.log('isFormFilled', isFormFilled);
-
-  //т.к. помещения - отдельный компонент, то при ее заполнении anchors сбрасываются на изначальный стейт
-  // const anchors: Anchor[] = [
-  //   {
-  //     to: ADD_PLACE_NAMES.basic.id,
-  //     label: ADD_PLACE_NAMES.basic.name,
-  //     completed: false,
-  //   },
-  //   {
-  //     to: ADD_PLACE_NAMES.location.id,
-  //     label: ADD_PLACE_NAMES.location.name,
-  //     completed: false,
-  //   },
-  //   {
-  //     to: ADD_PLACE_NAMES.description.id,
-  //     label: ADD_PLACE_NAMES.description.name,
-  //     completed: false,
-  //   },
-  //   {
-  //     to: ADD_PLACE_NAMES.mainPhotos.id,
-  //     label: ADD_PLACE_NAMES.mainPhotos.name,
-  //     completed: true,
-  //   },
-  //   {
-  //     to: `${ADD_PLACE_NAMES.area.id}0`,
-  //     label: ADD_PLACE_NAMES.area.name,
-  //     completed: false,
-  //   },
-  //   {
-  //     to: ADD_PLACE_NAMES.details.id,
-  //     label: ADD_PLACE_NAMES.details.name,
-  //     completed: false,
-  //   },
-  //   {
-  //     to: ADD_PLACE_NAMES.weddingAlbum.id,
-  //     label: ADD_PLACE_NAMES.weddingAlbum.name,
-  //     completed: true,
-  //   },
-  // ];
 
   return (
     <>
@@ -273,7 +234,6 @@ const AddPropertyPage = () => {
               setPercent={setPercent}
               percent={percent}
               setIsFormFilled={setIsFormFilled}
-              //   anchors={anchors}
             />
           </Col>
         </Row>

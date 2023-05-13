@@ -210,23 +210,25 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               type="radio"
               name="separate_entrance"
               value={1}
+              label={' Да'}
+              id={'separate_entrance-Да'}
               checked={area.separate_entrance}
               onChange={(e) =>
                 setArea({ ...area, ['separate_entrance']: true })
               }
-            />{' '}
-            Да
+            />
           </div>
           <div className={styles.radio__item}>
             <Form.Check
               type="radio"
               value={0}
               checked={!area.separate_entrance}
+              label={' Нет'}
+              id={'separate_entrance-Нет'}
               onChange={(e) =>
                 setArea({ ...area, ['separate_entrance']: false })
               }
-            />{' '}
-            Нет
+            />
           </div>
         </Form.Group>
       </Row>
@@ -347,19 +349,21 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               type="radio"
               name="bare_lease"
               value={1}
+              label={' Да'}
+              id={'bare_lease-Да'}
               checked={area.bare_lease}
               onChange={(e) => setArea({ ...area, ['bare_lease']: true })}
-            />{' '}
-            Да
+            />
           </div>
           <div className={styles.radio__item}>
             <Form.Check
               type="radio"
+              label={' Нет'}
+              id={'bare_lease-Нет'}
               value={0}
               checked={!area.bare_lease}
               onChange={(e) => setArea({ ...area, ['bare_lease']: false })}
-            />{' '}
-            Нет
+            />
           </div>
         </Form.Group>
       </Row>
