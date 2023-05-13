@@ -210,8 +210,6 @@ function ProgressSideBar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchors]);
 
-  console.log('anchors', anchors);
-
   return (
     <div className="sticky-top pt-5">
       <h6 className="pt-5 mt-3 mb-2">{percent}% профиля заполнено</h6>

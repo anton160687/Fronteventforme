@@ -38,7 +38,7 @@ function FileUploader({
   warning,
   name,
 }: FileUploaderProps) {
-  console.log('gallery', gallery);
+  // console.log('gallery', gallery);
 
   return (
     <div className="mb-4">

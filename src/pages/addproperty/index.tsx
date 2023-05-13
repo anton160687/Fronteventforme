@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 import {
   Form,
   Row,
@@ -123,12 +123,17 @@ const AddPropertyPage = () => {
     }
   }
 
-  console.log('Площадка', place);
+  useEffect(() => {
+    console.log('Площадка', place);
+  }, [place]);
+  useEffect(() => {
+    console.log('Помещение', areas);
+  }, [areas]);
+
   //чтобы можно было использовать в обоих ProgressBar
   const [percent, setPercent] = useState<number>(0);
   //
   const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
-  console.log('isFormFilled', isFormFilled);
 
   return (
     <>

@@ -88,9 +88,8 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     let newAreasArr = [...areas];
     newAreasArr[index] = area;
     setAreas(newAreasArr);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
-
-  console.log('Помещение', area);
 
   return (
     <>
