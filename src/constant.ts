@@ -1,10 +1,12 @@
-import { Col } from "react-bootstrap";
+import { Col } from 'react-bootstrap';
 
 export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
 
 // для dadata
-export const CITY_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
-export const SUG_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
+export const CITY_URL =
+  'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
+export const SUG_URL =
+  'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 export const TOKEN = '343619a9fc7c1a076f2d4bf1892321dabdb238a2';
 
 // для футера
@@ -231,7 +233,6 @@ export const OPTIONS_ADD = [
   ['other', 'Можно праздновать после 23:00'],
 ];
 
-
 //add-property
 export const TYPE_AREA = [
   ['bqh', 'Банкетный зал'],
@@ -249,7 +250,7 @@ export const TYPE_AREA = [
   ['cst', 'Замок'],
   ['cntc', 'Загородный клуб'],
   ['cntn', 'Столовая'],
-]
+];
 
 export const EVENT = [
   ['wed', 'Свадьба'],
@@ -261,8 +262,7 @@ export const EVENT = [
   ['cmp', 'Корпоратив'],
   ['fest', 'Праздничный банкет'],
   ['grd', 'Выпускной'],
-
-]
+];
 
 export const KITCHEN = [
   ['eur', 'Европейская'],
@@ -273,7 +273,7 @@ export const KITCHEN = [
   ['jap', 'Японская'],
   ['kor', 'Корейская'],
   ['other', 'Другая'],
-]
+];
 
 export const LOCATION = [
   ['sea', 'Около моря'],
@@ -284,7 +284,7 @@ export const LOCATION = [
   ['forest', 'В лесу'],
   ['lake', 'Около озера'],
   ['imt', 'В горах'],
-]
+];
 
 //для помещения
 
@@ -301,7 +301,7 @@ export const COLOR_HALL = [
   'Бежевый',
   'Золотой',
   'Серебряный',
-]
+];
 
 export const TERRITORY = [
   ['park', 'Своя парковка'],
@@ -314,7 +314,7 @@ export const TERRITORY = [
   ['reg', 'С выездной регистрацией'],
   ['pan', 'Панорамный вид'],
   ['guesth', 'Отель для гостей'],
-]
+];
 
 export const FEATURES = [
   ['guestr', 'Номер для гостей'],
@@ -327,10 +327,21 @@ export const FEATURES = [
   ['dress', 'Есть примерочная'],
   ['pan', 'Панорамный вид'],
   ['phot', 'Фотозона'],
-]
+];
 
 export const SCHEME_OF_PAYMENT = [
-  ['l+b', "Аренда зала + банкет"],
-  ['l', "Только аренда зала"],
-  ['b', "Только банкет"],
-]
+  ['l+b', 'Аренда зала + банкет'],
+  ['l', 'Только аренда зала'],
+  ['b', 'Только банкет'],
+];
+
+//names для формы добавления площадки - для progressbar
+export const ADD_PLACE_NAMES = {
+  basic: { id: 'basic-info', name: 'Базовая информация' },
+  location: { id: 'location', name: 'Локация' },
+  description: { id: 'description', name: 'Описание площадки' },
+  mainPhotos: { id: 'photos', name: 'Фото площадки' },
+  area: { id: 'area-', name: 'Помещения' },
+  details: { id: 'details', name: 'Детали площадки' },
+  weddingAlbum: { id: 'wedding', name: 'Альбомы проведенных свадеб' },
+};

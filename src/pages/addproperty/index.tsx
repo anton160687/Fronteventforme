@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
-import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
@@ -18,6 +17,9 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import { Place } from '@/types/placeType';
 import { FilePondFile } from 'filepond';
+import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
+import { ADD_PLACE_NAMES } from '@/constant';
+import { Anchor } from '@/types/anchor';
 
 const AddPropertyPage = () => {
   const initialPlaceState: Place = {
@@ -96,7 +98,7 @@ const AddPropertyPage = () => {
     return areaIndexArray.map((index) => (
       <section
         key={index}
-        id={`area${index}`}
+        id={`${ADD_PLACE_NAMES.area.id}${index}`}
         className="card card-body border-0 shadow-sm p-4 mb-4"
       >
         <AreaForm index={index} areas={areas} setAreas={setAreas} />
@@ -121,7 +123,51 @@ const AddPropertyPage = () => {
     }
   }
 
-  console.log(place);
+  console.log('Площадка', place);
+  //чтобы можно было использовать в обоих ProgressBar
+  const [percent, setPercent] = useState<number>(0);
+  //
+  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+  console.log('isFormFilled', isFormFilled);
+
+  //т.к. помещения - отдельный компонент, то при ее заполнении anchors сбрасываются на изначальный стейт
+  // const anchors: Anchor[] = [
+  //   {
+  //     to: ADD_PLACE_NAMES.basic.id,
+  //     label: ADD_PLACE_NAMES.basic.name,
+  //     completed: false,
+  //   },
+  //   {
+  //     to: ADD_PLACE_NAMES.location.id,
+  //     label: ADD_PLACE_NAMES.location.name,
+  //     completed: false,
+  //   },
+  //   {
+  //     to: ADD_PLACE_NAMES.description.id,
+  //     label: ADD_PLACE_NAMES.description.name,
+  //     completed: false,
+  //   },
+  //   {
+  //     to: ADD_PLACE_NAMES.mainPhotos.id,
+  //     label: ADD_PLACE_NAMES.mainPhotos.name,
+  //     completed: true,
+  //   },
+  //   {
+  //     to: `${ADD_PLACE_NAMES.area.id}0`,
+  //     label: ADD_PLACE_NAMES.area.name,
+  //     completed: false,
+  //   },
+  //   {
+  //     to: ADD_PLACE_NAMES.details.id,
+  //     label: ADD_PLACE_NAMES.details.name,
+  //     completed: false,
+  //   },
+  //   {
+  //     to: ADD_PLACE_NAMES.weddingAlbum.id,
+  //     label: ADD_PLACE_NAMES.weddingAlbum.name,
+  //     completed: true,
+  //   },
+  // ];
 
   return (
     <>
@@ -131,22 +177,24 @@ const AddPropertyPage = () => {
             <Form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <h1 className="h2 mb-0">Добавить площадку</h1>
-                <div className="d-lg-none pt-3 mb-2">65% content filled</div>
+                <div className="d-lg-none pt-3 mb-2">
+                  {percent}% профиля заполнено
+                </div>
                 <ProgressBar
                   variant="warning"
-                  now={65}
+                  now={percent}
                   style={{ height: '.25rem' }}
                   className="d-lg-none mb-4"
                 />
               </div>
 
               <section
-                id="basic-info"
+                id={ADD_PLACE_NAMES.basic.id}
                 className="card card-body border-0 shadow-sm p-4 mb-4"
               >
                 <h2 className="h4 mb-4">
                   <i className="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>
-                  Базовая информация
+                  {ADD_PLACE_NAMES.basic.name}
                 </h2>
                 <BasicForm
                   title={place.title}
@@ -174,11 +222,11 @@ const AddPropertyPage = () => {
                 alco={place.alco}
               />
 
-              {/* <FileUploader
+              <MainPhotos
                 name="filepond"
                 gallery={gallery}
                 setGallery={setGallery}
-              /> */}
+              />
 
               {renderAreaForms()}
 
@@ -194,6 +242,8 @@ const AddPropertyPage = () => {
                 outreg_conditions={place.outreg_conditions}
               />
 
+              {/* //TODO: свадебные альбомы */}
+
               <section className="d-sm-flex justify-content-between pt-2">
                 <Button
                   size="lg"
@@ -208,6 +258,7 @@ const AddPropertyPage = () => {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
+                  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
@@ -216,7 +267,14 @@ const AddPropertyPage = () => {
           </Col>
 
           <Col lg={{ span: 3, offset: 1 }} className="d-none d-lg-block">
-            <ProgressSideBar />
+            <ProgressSideBar
+              place={place}
+              areas={areas}
+              setPercent={setPercent}
+              percent={percent}
+              setIsFormFilled={setIsFormFilled}
+              //   anchors={anchors}
+            />
           </Col>
         </Row>
       </Container>

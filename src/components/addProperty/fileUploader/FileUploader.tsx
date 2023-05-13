@@ -26,6 +26,7 @@ type FileUploaderProps = {
   setGallery: Dispatch<SetStateAction<FilePondFile[]>>;
   warning?: string;
   maxFiles: number;
+  name: string;
 };
 
 function FileUploader({
@@ -33,19 +34,9 @@ function FileUploader({
   setGallery,
   maxFiles,
   warning,
+  name,
 }: FileUploaderProps) {
   console.log('gallery', gallery);
-
-  const [file, setFile] = useState<string>();
-
-  const onChange = (e: FilePondFile[]) => {
-    e.map((item) => {
-      setFile(URL.createObjectURL(item.file));
-    });
-    setGallery(e);
-  };
-
-  console.log('file', file);
 
   return (
     <div className="mb-4">
@@ -55,22 +46,16 @@ function FileUploader({
       </Alert>
 
       <FilePond
-        //files={gallery}
         onupdatefiles={setGallery}
         server={{
           url: 'http://188.225.24.70:8080/fp',
-          //  process: '/process/',
-          process: {
-            url: '/process/',
-            method: 'POST',
-            withCredentials: false,
-          },
+          process: '/process/',
           revert: '/revert/',
           restore: '/restore/',
           load: '/load/',
           fetch: '/fetch/',
         }}
-        name="upload_field_name"
+        name={name}
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i>Загрузите фото / видео</div><div>или перетащите их сюда</div>'
         acceptedFileTypes={[
           'image/png',

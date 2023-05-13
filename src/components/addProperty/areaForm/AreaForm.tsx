@@ -13,7 +13,12 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
+import {
+  ADD_PLACE_NAMES,
+  COLOR_HALL,
+  SCHEME_OF_PAYMENT,
+  TYPE_AREA,
+} from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 import { FilePondFile } from 'filepond';
 
@@ -85,11 +90,13 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     setAreas(newAreasArr);
   }, [area]);
 
+  console.log('Помещение', area);
+
   return (
     <>
       <h2 className="h4 mb-4">
         <i className="fi-party-popper text-primary fs-5 mt-n1 me-2"></i>
-        Помещения
+        {ADD_PLACE_NAMES.area.name}
       </h2>
       <BasicForm
         title={area.title}

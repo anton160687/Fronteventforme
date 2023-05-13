@@ -9,7 +9,6 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
-import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import { FilePondFile } from 'filepond';
 import { useState } from 'react';
 
@@ -23,7 +22,6 @@ export default function Home({ topLocations }: HomeProps) {
     <>
       <Hero />
       <CardsLink />
-      <FileUploader gallery={gallery} setGallery={setGallery} maxFiles={1} />
       <ConvenientCatalog />
       <Locations
         locations={topLocations}
