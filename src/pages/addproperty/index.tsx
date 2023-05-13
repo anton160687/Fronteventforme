@@ -62,7 +62,8 @@ const AddPropertyPage = () => {
     }
     //обработчик радио
     function handleRadio(e: ChangeEvent<HTMLInputElement>) {
-        setPlace({ ...place, [e.target.name]: !!e.target.value });
+        let value = +e.target.value;
+        setPlace({ ...place, [e.target.name]: !!value });
     }
     // Специальные обработчики формы "Локация"
     function setAddress(data: string) {
