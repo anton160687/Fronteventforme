@@ -11,7 +11,6 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import { Place } from '@/types/placeType';
 import { FilePondFile } from 'filepond';
-import LocationFormWitEL from '@/components/addProperty/locationForm/LocationFormWitEL';
 
 
 const AddPropertyPage = () => {

@@ -46,16 +46,13 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
         ) {
             setAddress(value);
             setOpenDropdown(true);
-            console.log('Обработчик на пробелы и прочее')
         }
         if (changedValue[0] && changedValue[0].match(/[А-ЯЁ]/g)) {
             setAddress(value);
             setOpenDropdown(true);
-            console.log('Обработчик на заглавную букву')
         } else if (changedValue.length === 1) {
             setAddress(value);
             setOpenDropdown(true);
-            console.log('Обработчик на 1 символ')
         }
     }
 
