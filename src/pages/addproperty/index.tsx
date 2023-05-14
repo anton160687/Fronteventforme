@@ -17,11 +17,11 @@ const AddPropertyPage = () => {
     const initialPlaceState: Place = {
         title: '',
         city: '',
-        metro: '', //сделать поле необязательным? вообще убрать?
+        metro: '',
         address: '',
-        geodata: [], //нет на бэке, обязательно для работы карт
+        geodata: [],
         location: [],
-        ya_id: undefined, //нет на бэке, обязательно для работы виджета отзывов
+        id_yandex: '',
         kitchen: [],
         event: [],
         features: [],
@@ -30,9 +30,7 @@ const AddPropertyPage = () => {
         finish_time: new Date,
         fireworks: false,
         children_kitchen: false,
-        //чем alco и corkage_fee отличаются?
         alco: false,
-        corkage_fee: false,
         payment_of_alco: 0,
         lease_extension: false,
         lease_extension_price: 0,
@@ -62,7 +60,8 @@ const AddPropertyPage = () => {
     }
     //обработчик радио
     function handleRadio(e: ChangeEvent<HTMLInputElement>) {
-        setPlace({ ...place, [e.target.name]: !!e.target.value });
+        let value = +e.target.value;
+        setPlace({ ...place, [e.target.name]: !!value });
     }
     // Специальные обработчики формы "Локация"
     function setAddress(data: string) {
@@ -136,9 +135,10 @@ const AddPropertyPage = () => {
                             setCity={setCity}
                             setAddress={setAddress}
                             setGeodata={setGeodata}
-                            setYaId={handleChange}
+                            setInputFields={handleChange}
                             address={place.address}
-                            ya_id={place.ya_id}
+                            metro={place.metro}
+                            id_yandex={place.id_yandex}
                         />
 
                         <PlaceDescription
