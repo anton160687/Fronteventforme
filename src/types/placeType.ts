@@ -1,10 +1,10 @@
 export type Place = {
     title: string;
     city: string;
-    metro: string;
+    metro?: string;
     address: string;
     geodata: number [];
-    ya_id?: number;
+    id_yandex?: string;
     start_time: Date;
     finish_time: Date;
     location: string[];
@@ -15,7 +15,6 @@ export type Place = {
     territory: string[];
     children_kitchen: boolean;
     alco: boolean;
-    corkage_fee: boolean;
     payment_of_alco: number;
     lease_extension: boolean;
     lease_extension_price: number;

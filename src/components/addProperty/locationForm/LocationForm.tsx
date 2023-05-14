@@ -9,12 +9,13 @@ type LocationFormProps = {
     setCity: (data: string) => void,
     setAddress: (data: string) => void,
     setGeodata: (lat: number, lon: number) => void,
-    setYaId: (e: ChangeEvent<HTMLInputElement>) => void;
+    setInputFields: (e: ChangeEvent<HTMLInputElement>) => void;
     address: string,
-    ya_id?: number;
+    metro?: string,
+    id_yandex?: string;
 }
 
-function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id }: LocationFormProps) {
+function LocationForm({ setCity, setAddress, setGeodata, setInputFields, address, metro, id_yandex }: LocationFormProps) {
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
@@ -68,6 +69,7 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
         let chosenAddress: string = input.innerText;
         setPreliminaryAddress(chosenAddress);
         setAddress(chosenAddress);
+        setOpenDropdown(false);
     }
 
     function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
@@ -115,15 +117,23 @@ function LocationForm({ setCity, setAddress, setGeodata, address, setYaId, ya_id
                         : null
                     }
                 </Form.Group>
-
-                <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
-                    <Form.Label>ID организации на Яндекс.Картах </Form.Label>
+                <Form.Group as={Col} sm={12} controlId='ap-metro' className='mb-3'>
+                    <Form.Label>Метро</Form.Label>
                     <Form.Control
-                        name='ya_id'
+                        name='metro'
+                        placeholder='Укажите ближайшие станции метро'
+                        value={metro}
+                        onChange={setInputFields}
+                    />
+                </Form.Group>
+                <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
+                    <Form.Label>ID организации в Яндекс.Бизнес </Form.Label>
+                    <Form.Control
+                        name='id_yandex'
                         placeholder='Введите id организации'
-                        title='Id необходимо для отображения отзывов Яндекс'
-                        value={ya_id}
-                        onChange={setYaId}
+                        title='Заполнение этого поля необходимо для отображения отзывов Яндекс'
+                        value={id_yandex}
+                        onChange={setInputFields}
                     />
                 </Form.Group>
             </Row>
