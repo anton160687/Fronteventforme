@@ -6,7 +6,7 @@ import styles from '@/styles/addProperty/AddProperty.module.scss';
 
 type PlaceDescriptionProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleCheckBox: (name: string, array: string[]) => void;
+  handleCheckBox: (name: string, array: number[]) => void;
   handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleRadio: (e: ChangeEvent<HTMLInputElement>) => void;
   children_kitchen: boolean;

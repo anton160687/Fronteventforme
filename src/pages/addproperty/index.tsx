@@ -15,16 +15,18 @@ import { FilePondFile } from 'filepond';
 
 const AddPropertyPage = () => {
     const initialPlaceState: Place = {
+        type_place: 1,
         title: '',
         city: '',
         metro: '',
         address: '',
-        geodata: [],
+        longitude: 0,
+        width: 0,
         location: [],
         id_yandex: '',
         kitchen: [],
         event: [],
-        features: [],
+        type_feature: [],
         territory: [],
         start_time: new Date,
         finish_time: new Date,
@@ -36,7 +38,6 @@ const AddPropertyPage = () => {
         lease_extension_price: 0,
         average_check: 0,
         description: '',
-        //этих полей на бэке вообще нет, кажется
         max_serving: 0,
         parking: 0,
         territory_desc: '',
@@ -55,7 +56,7 @@ const AddPropertyPage = () => {
         setPlace({ ...place, [e.target.name]: +e.target.value });
     }
     //обработчик чекбоксов
-    function handleCheckBox(name: string, array: string[]) {
+    function handleCheckBox(name: string, array: number[]) {
         setPlace({ ...place, [name]: array });
     }
     //обработчик радио
@@ -68,7 +69,7 @@ const AddPropertyPage = () => {
         setPlace({ ...place, ['address']: data });
     }
     function setGeodata(lat: number, lon: number,) {
-        setPlace({ ...place, ['geodata']: [lat, lon] });
+        setPlace({ ...place, ['longitude']: lon, ['width']: lat });
     }
     function setCity(data: string) {
         setPlace({ ...place, ['city']: data });

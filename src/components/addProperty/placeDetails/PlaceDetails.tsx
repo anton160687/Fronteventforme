@@ -6,14 +6,14 @@ import { ChangeEvent } from "react";
 
 type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleCheckBox: (name: string, array: string[]) => void;
+  handleCheckBox: (name: string, array: number[]) => void;
   handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
   description: string;
-  territory_desc: string;
-  welcome_desc: string;
-  outreg_price: number;
-  outreg_desc: string;
-  outreg_conditions: string;
+  territory_desc?: string;
+  welcome_desc?: string;
+  outreg_price?: number;
+  outreg_desc?: string;
+  outreg_conditions?: string;
 }
 
 
@@ -53,7 +53,7 @@ function PlaceDetails({
             <span className='text-danger'>*</span>
           </Form.Label>
           <RenderCheckbox options={FEATURES}
-            name='features'
+            name='type_feature'
             max={100}
             handleCheckBox={handleCheckBox}
           />

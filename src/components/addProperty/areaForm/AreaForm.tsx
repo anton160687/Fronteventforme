@@ -50,8 +50,10 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
         setSelectedType(e.target.name);
     }
     // цвет
-    function handleColorSelect(eventKey: any) {
+    const [selectedColor, setSelectedColor] = useState<string>('');
+    function handleColorSelect(eventKey: any, e: any) {
         setArea({ ...area, ['color_hall']: eventKey });
+        setSelectedColor(e.target.name);
     }
     // схема оплаты
     const [selectedScheme, setSelectedScheme] = useState<string>('');
@@ -144,12 +146,12 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
                     </Form.Label>
                     <Dropdown onSelect={handleColorSelect}>
                         <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
-                            {area.color_hall || "---"}
+                            {selectedColor || "---"}
                         </Dropdown.Toggle>
                         <Dropdown.Menu >
                             {COLOR_HALL.map((option, indx) =>
-                                <Dropdown.Item key={indx} eventKey={option}>
-                                    {option}
+                                <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
+                                     {option[1]}
                                 </Dropdown.Item>)}
                         </Dropdown.Menu>
                     </Dropdown>
