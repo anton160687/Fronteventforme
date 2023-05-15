@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { FilePond, registerPlugin } from 'react-filepond';
+import { FilePondErrorDescription, FilePondFile } from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -9,7 +10,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { FilePondErrorDescription, FilePondFile } from 'filepond';
+import { TEST_URL } from '@/constant';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
@@ -51,7 +52,7 @@ function FileUploader({ name, gallery, setGallery }: FileUploaderProps) {
                 onprocessfile={onProcessFile}
                 server={{
                     process: {
-                        url: 'http://188.225.24.70:8080/fp/process/',
+                        url: `${TEST_URL}fp/process/`,
                         method: 'POST',
                         ondata: (formData) => {
                             return formData;

@@ -76,7 +76,7 @@ function PlaceDescription({
               type='radio'
               name='children_kitchen'
               label='Нет'
-              value={undefined}
+              value={0}
               checked={!children_kitchen}
               onChange={handleRadio}
             />

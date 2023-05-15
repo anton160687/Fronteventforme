@@ -1,6 +1,5 @@
-import { Col } from "react-bootstrap";
-
 export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
+export const TEST_URL = 'http://188.225.24.70:8080/';
 
 // для dadata
 export const CITY_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
@@ -174,7 +173,7 @@ export const PASSWORD_TITLE =
   'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
 
 export const formFields = {
-  userRole: 'userRole',
+  role: 'role',
   username: 'username',
   email: 'email',
   password: 'password',

@@ -17,7 +17,7 @@ const AddPropertyPage = () => {
     const initialPlaceState: Place = {
         title: '',
         city: '',
-        metro: '', //сделать поле необязательным? вообще убрать?
+        metro: '',
         address: '',
         geodata: [], //нет на бэке, обязательно для работы карт
         location: [], //! описание площадки - расположение
@@ -62,7 +62,8 @@ const AddPropertyPage = () => {
     }
     //обработчик радио
     function handleRadio(e: ChangeEvent<HTMLInputElement>) {
-        setPlace({ ...place, [e.target.name]: !!e.target.value });
+        let value = +e.target.value;
+        setPlace({ ...place, [e.target.name]: !!value });
     }
     // Специальные обработчики формы "Локация"
     function setAddress(data: string) {
@@ -117,7 +118,7 @@ const AddPropertyPage = () => {
         <Container className='py-5'>
             <Row>
                 <Col lg={8}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} validated={validated}>
                         <div className='mb-4'>
                             <h1 className='h2 mb-0'>Добавить площадку</h1>
                             <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
@@ -136,9 +137,10 @@ const AddPropertyPage = () => {
                             setCity={setCity}
                             setAddress={setAddress}
                             setGeodata={setGeodata}
-                            setYaId={handleChange}
+                            setInputFields={handleChange}
                             address={place.address}
-                            ya_id={place.ya_id}
+                            metro={place.metro}
+                            id_yandex={place.id_yandex}
                         />
 
                         <PlaceDescription
