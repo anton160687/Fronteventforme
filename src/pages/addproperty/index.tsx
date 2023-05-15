@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
@@ -11,10 +11,14 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import { Place } from '@/types/placeType';
 import { FilePondFile } from 'filepond';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/store/user/userSlice';
 
 
 const AddPropertyPage = () => {
+    const user = useSelector(selectUser);
     const initialPlaceState: Place = {
+        user: user?.id,
         type_place: 1,
         title: '',
         city: '',
@@ -102,12 +106,14 @@ const AddPropertyPage = () => {
     const handlePreviewShow = () => setPreviewShow(true);
     //Валидация, отправка формы
     const [validated, setValidated] = useState(false);
+
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
+        let token = localStorage.getItem('token');
         if (form.checkValidity()) {
           setValidated(true);
-          //здесь будут действия по отправке data на бэк
+        
         }
     }
 

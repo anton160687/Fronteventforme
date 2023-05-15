@@ -13,7 +13,7 @@ export type CreateUserData = {
 }
 
 export type SigninUserData = {
-  role: string;
+  is_bride: boolean;
   email: string;
   password: string;
 }

@@ -16,7 +16,6 @@ export default function finishRegistrationPage() {
             uid: uid,
             token: token
         }
-        console.log(data);
         let response = await fetch(`${TEST_URL}auth/users/activation/`, {
             method: 'POST',
             headers: {
@@ -39,12 +38,9 @@ export default function finishRegistrationPage() {
 
     useEffect(() => {
         if (uid && token) {
-            //сохраняем токен в localStorage
-            localStorage.setItem("token", token);
-            // здесь - отправка данных на бэк
             sendAuthData();
             //перенаправляем на главную или иную страницу, пока отключено
-            // handleRedirect();
+            handleRedirect();
         }
     }, [uid, token])
 
