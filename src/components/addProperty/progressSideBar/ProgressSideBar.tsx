@@ -13,6 +13,7 @@ type ProgressSideBarProps = {
   setPercent: Dispatch<SetStateAction<number>>;
   percent: number;
   setIsFormFilled: Dispatch<SetStateAction<boolean>>;
+  mainPhotos: string[];
 };
 
 const initialAnchors: Anchor[] = [
@@ -34,7 +35,7 @@ const initialAnchors: Anchor[] = [
   {
     to: ADD_PLACE_NAMES.mainPhotos.id,
     label: ADD_PLACE_NAMES.mainPhotos.name,
-    completed: true,
+    completed: false,
   },
   {
     to: `${ADD_PLACE_NAMES.area.id}0`,
@@ -46,11 +47,12 @@ const initialAnchors: Anchor[] = [
     label: ADD_PLACE_NAMES.details.name,
     completed: false,
   },
-  {
-    to: ADD_PLACE_NAMES.weddingAlbum.id,
-    label: ADD_PLACE_NAMES.weddingAlbum.name,
-    completed: true,
-  },
+  //! пока закомментировала, т.к. свадебные альбомы необязательны (и проверку не делала)
+  // {
+  //   to: `$ADD_PLACE_NAMES.weddingAlbum.id}0`,
+  //   label: ADD_PLACE_NAMES.weddingAlbum.name,
+  //   completed: false,
+  // },
 ];
 
 function ProgressSideBar({
@@ -59,18 +61,21 @@ function ProgressSideBar({
   percent,
   setPercent,
   setIsFormFilled,
+  mainPhotos,
 }: ProgressSideBarProps) {
   const [anchors, setAnchors] = useState<Anchor[]>(initialAnchors);
+  const step = Math.round(100 / anchors.length);
 
   const calculatePercent = () => {
-    setPercent(0);
-    const step = Math.round(100 / anchors.length);
+    let percent = 0;
 
     anchors.map((anchor) => {
       if (anchor.completed) {
-        setPercent((prev) => prev + step);
+        percent += step;
       }
     });
+
+    setPercent(percent);
   };
 
   const findAnchor = (name: string) => {
@@ -90,7 +95,7 @@ function ProgressSideBar({
     ]);
   };
 
-  const isCompleted = () => {
+  const isCompletedPlace = () => {
     //Базовая информация
     if (place.title) {
       changeAnchor(ADD_PLACE_NAMES.basic, true);
@@ -131,9 +136,30 @@ function ProgressSideBar({
       changeAnchor(ADD_PLACE_NAMES.description, false);
     }
 
-    //Фото площадки
-    //TODO
+    //Детали площадки
+    if (
+      place.description &&
+      place.features.length &&
+      place.max_serving &&
+      place.outreg_price &&
+      place.outreg_desc
+    ) {
+      changeAnchor(ADD_PLACE_NAMES.details, true);
+    }
+    if (
+      !(
+        place.description &&
+        place.features.length &&
+        place.max_serving &&
+        place.outreg_price &&
+        place.outreg_desc
+      )
+    ) {
+      changeAnchor(ADD_PLACE_NAMES.details, false);
+    }
+  };
 
+  const isCompletedAreas = () => {
     //Помещения
     let areasFilledCount = 0;
     areas.map((area) => {
@@ -158,37 +184,33 @@ function ProgressSideBar({
     if (!(areasFilledCount === areas.length && areas.length)) {
       changeAnchor(ADD_PLACE_NAMES.area, false);
     }
+  };
 
-    //Детали площадки
-    if (
-      place.description &&
-      place.features.length &&
-      place.max_serving &&
-      place.outreg_price &&
-      place.outreg_desc
-    ) {
-      changeAnchor(ADD_PLACE_NAMES.details, true);
+  const isCompletedPhotos = () => {
+    //Фото площадки
+    if (mainPhotos.length) {
+      changeAnchor(ADD_PLACE_NAMES.mainPhotos, true);
     }
-    if (
-      !(
-        place.description &&
-        place.features.length &&
-        place.max_serving &&
-        place.outreg_price &&
-        place.outreg_desc
-      )
-    ) {
-      changeAnchor(ADD_PLACE_NAMES.details, false);
+    if (mainPhotos.length === 0) {
+      changeAnchor(ADD_PLACE_NAMES.mainPhotos, false);
     }
-
-    //Альбомы проведенных свадеб
-    //TODO
   };
 
   useEffect(() => {
-    isCompleted();
+    isCompletedPlace();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [place, areas]);
+  }, [place]);
+
+  useEffect(() => {
+    isCompletedAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areas]);
+
+  useEffect(() => {
+    isCompletedPhotos();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainPhotos]);
 
   useEffect(() => {
     calculatePercent();

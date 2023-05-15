@@ -44,6 +44,8 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     scheme_of_payment: '',
     bare_lease: false,
     reserved_dates: [],
+    area_img: [],
+    cover_area: '',
   };
   const [area, setArea] = useState<Area>(initialAreaFormState);
   //обработчик для стандартных инпутов type=text
@@ -80,10 +82,8 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     }
     setArea({ ...area, ['reserved_dates']: newArr });
   }
-  // Загрузка картинок
-  const [gallery, setGallery] = useState<FilePondFile[]>([]);
 
-  //при изменении объекта Площадки - прокидываем в общий спискок мест
+  //при изменении объекта Площадки - прокидываем в общий список мест
   useEffect(() => {
     let newAreasArr = [...areas];
     newAreasArr[index] = area;
@@ -91,6 +91,19 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
 
+  // Загрузка картинок
+  const [areaImg, setAreaImg] = useState<string[]>([]);
+
+  useEffect(() => {
+    const cover = areaImg.slice(1);
+    setArea((prev) => ({
+      ...prev,
+      cover_area: areaImg[0],
+      area_img: cover,
+    }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areaImg]);
   return (
     <>
       <h2 className="h4 mb-4">
@@ -102,11 +115,22 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
         location={false}
         handleChange={handleChange}
       />
-      {/* <FileUploader
-        name={'filepond'}
-        gallery={gallery}
-        setGallery={setGallery}
-      /> */}
+
+      <Row className="mb-4">
+        <Form.Group>
+          <Form.Label className="d-block mb-2 mt-2 pb-1">
+            Загрузите фотографии/видео зала{' '}
+            <span className="text-danger">*</span>
+          </Form.Label>
+
+          <FileUploader
+            setGallery={setAreaImg}
+            required={true}
+            maxFiles={5}
+            warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
+          />
+        </Form.Group>
+      </Row>
 
       {/* Тип, Вместимость, Цвет */}
       <Row className={styles.group_container + ' mb-4'}>

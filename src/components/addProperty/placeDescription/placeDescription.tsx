@@ -37,8 +37,7 @@ function PlaceDescription({
       <Row className="mb-4">
         <Form.Group controlId="location">
           <Form.Label className="d-block fw-bold mb-2 pb-1">
-            Расположение
-            <span className="text-danger">*</span>
+            Расположение <span className="text-danger">*</span>
           </Form.Label>
           <RenderCheckbox
             options={LOCATION}

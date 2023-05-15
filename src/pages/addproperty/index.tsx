@@ -15,11 +15,10 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import { Area } from '@/types/areaType';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
-import { Place } from '@/types/placeType';
-import { FilePondFile } from 'filepond';
+import { Album, Place } from '@/types/placeType';
 import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
 import { ADD_PLACE_NAMES } from '@/constant';
-import { Anchor } from '@/types/anchor';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 
 const AddPropertyPage = () => {
   const initialPlaceState: Place = {
@@ -54,6 +53,12 @@ const AddPropertyPage = () => {
     outreg_price: 0,
     outreg_desc: '',
     outreg_conditions: '',
+    cover_place: '',
+    place_img: [],
+    welcome_img: [],
+    territory_img: [],
+    outreg_img: [],
+    wedding_albums: [],
   };
   const [place, setPlace] = useState<Place>(initialPlaceState);
   //обработчик для стандартных инпутов type=text
@@ -72,6 +77,7 @@ const AddPropertyPage = () => {
   function handleRadio(e: ChangeEvent<HTMLInputElement>) {
     setPlace({ ...place, [e.target.name]: !!e.target.value });
   }
+
   // Специальные обработчики формы "Локация"
   function setAddress(data: string) {
     setPlace({ ...place, ['address']: data });
@@ -82,8 +88,7 @@ const AddPropertyPage = () => {
   function setCity(data: string) {
     setPlace({ ...place, ['city']: data });
   }
-  // Загрузка картинок
-  const [gallery, setGallery] = useState<FilePondFile[]>([]);
+
   // Площадки
   const [areas, setAreas] = useState<Area[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
@@ -132,8 +137,74 @@ const AddPropertyPage = () => {
 
   //чтобы можно было использовать в обоих ProgressBar
   const [percent, setPercent] = useState<number>(0);
-  //
+  //флаг для блокиварования кнопки формы
   const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+  // Загрузка картинок
+  const [mainPhotos, setMainPhotos] = useState<string[]>([]);
+  const [territoryImg, setTerritoryImg] = useState<string[]>([]);
+  const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
+  const [outregImg, setOutregImg] = useState<string[]>([]);
+
+  useEffect(() => {
+    const placeImg = mainPhotos.slice(1);
+    setPlace((prev) => ({
+      ...prev,
+      cover_place: mainPhotos[0],
+      place_img: placeImg,
+    }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainPhotos]);
+
+  //!не придумала, как это оптимизировать
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [welcomeImg]);
+
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [territoryImg]);
+
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [outregImg]);
+
+  //Свадебные альбомы
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
+
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, wedding_albums: albums }));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [albums]);
+
+  function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
+    e.preventDefault;
+    let last = albumIndexArr[albumIndexArr.length - 1];
+    setAlbumIndexArr([...albumIndexArr, ++last]);
+  }
+
+  function renderWeddingAlbum() {
+    return albumIndexArr.map((index) => (
+      <section
+        key={index}
+        id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
+        className="card card-body border-0 shadow-sm p-4 mb-4"
+      >
+        <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
+        <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
+          <i className="fi-plus-circle me-3"></i> Добавить альбом
+        </p>
+      </section>
+    ));
+  }
 
   return (
     <>
@@ -188,11 +259,7 @@ const AddPropertyPage = () => {
                 alco={place.alco}
               />
 
-              <MainPhotos
-                name="filepond"
-                gallery={gallery}
-                setGallery={setGallery}
-              />
+              <MainPhotos setMainPhotos={setMainPhotos} />
 
               {renderAreaForms()}
 
@@ -206,9 +273,12 @@ const AddPropertyPage = () => {
                 outreg_price={place.outreg_price}
                 outreg_desc={place.outreg_desc}
                 outreg_conditions={place.outreg_conditions}
+                setTerritoryImg={setTerritoryImg}
+                setWelcomeImg={setWelcomeImg}
+                setOutregImg={setOutregImg}
               />
 
-              {/* //TODO: свадебные альбомы */}
+              {renderWeddingAlbum()}
 
               <section className="d-sm-flex justify-content-between pt-2">
                 <Button
@@ -239,6 +309,7 @@ const AddPropertyPage = () => {
               setPercent={setPercent}
               percent={percent}
               setIsFormFilled={setIsFormFilled}
+              mainPhotos={mainPhotos}
             />
           </Col>
         </Row>

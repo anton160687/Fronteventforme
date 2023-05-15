@@ -1,15 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 import FileUploader from '../fileUploader/FileUploader';
-import { FilePondFile } from 'filepond';
 import { ADD_PLACE_NAMES } from '@/constant';
 
 type MainPhotosProps = {
-  gallery: FilePondFile[];
-  setGallery: Dispatch<SetStateAction<FilePondFile[]>>;
-  name: string;
+  setMainPhotos: Dispatch<SetStateAction<string[]>>;
 };
 
-export function MainPhotos({ gallery, setGallery, name }: MainPhotosProps) {
+export function MainPhotos({ setMainPhotos }: MainPhotosProps) {
   return (
     <section
       id={ADD_PLACE_NAMES.mainPhotos.id}
@@ -20,10 +17,9 @@ export function MainPhotos({ gallery, setGallery, name }: MainPhotosProps) {
         {ADD_PLACE_NAMES.mainPhotos.name}
       </h2>
       <FileUploader
-        gallery={gallery}
-        setGallery={setGallery}
-        name={name}
+        setGallery={setMainPhotos}
         maxFiles={5}
+        required={true}
         warning={
           'Макс. размер фото 5 МБ. Форматы: jpeg, jpg, png. Не более 5 фотографий. Сначала загрузите обложку.'
         }

@@ -1,34 +1,45 @@
 export type Place = {
-    title: string;
-    city: string;
-    metro: string;
-    address: string;
-    geodata: number [];
-    ya_id?: number;
-    start_time: Date;
-    finish_time: Date;
-    location: string[];
-    fireworks: boolean;
-    kitchen: string[];
-    event: string[];
-    features: string[];
-    territory: string[];
-    children_kitchen: boolean;
-    alco: boolean;
-    corkage_fee: boolean;
-    payment_of_alco: number;
-    lease_extension: boolean;
-    lease_extension_price: number;
-    average_check: number;
-    description: string;
-    max_serving: number;
-    parking: number;
-    territory_desc: string;
-    welcome_desc: string;
-    outreg_price: number;
-    outreg_desc: string;
-    outreg_conditions: string;
-}
+  title: string;
+  city: string;
+  metro: string;
+  address: string;
+  geodata: number[];
+  ya_id?: number;
+  start_time: Date;
+  finish_time: Date;
+  location: string[];
+  fireworks: boolean;
+  kitchen: string[];
+  event: string[];
+  features: string[];
+  territory: string[];
+  children_kitchen: boolean;
+  alco: boolean;
+  corkage_fee: boolean;
+  payment_of_alco: number;
+  lease_extension: boolean;
+  lease_extension_price: number;
+  average_check: number;
+  description: string;
+  max_serving: number;
+  parking: number;
+  territory_desc: string;
+  welcome_desc: string;
+  outreg_price: number;
+  outreg_desc: string;
+  outreg_conditions: string;
+  cover_place: string;
+  place_img: string[];
+  welcome_img: string[];
+  territory_img: string[];
+  outreg_img: string[];
+  wedding_albums: Album[];
+};
+
+export type Album = {
+  title: string;
+  album_img: string[];
+};
 
 /* с бэка
 title - строка; максимальная длина 50

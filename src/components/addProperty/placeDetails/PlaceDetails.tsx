@@ -2,7 +2,9 @@ import { Row, Form, Col, InputGroup } from 'react-bootstrap';
 import RenderCheckbox from '../renderChekbox/RenderCheckBox';
 import { ADD_PLACE_NAMES, FEATURES, TERRITORY } from '@/constant';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import FileUploader from '../fileUploader/FileUploader';
+import { FilePondFile } from 'filepond';
 
 type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +16,9 @@ type PlaceDetailsProps = {
   outreg_price: number;
   outreg_desc: string;
   outreg_conditions: string;
+  setTerritoryImg: Dispatch<SetStateAction<string[]>>;
+  setWelcomeImg: Dispatch<SetStateAction<string[]>>;
+  setOutregImg: Dispatch<SetStateAction<string[]>>;
 };
 
 function PlaceDetails({
@@ -26,7 +31,29 @@ function PlaceDetails({
   outreg_price,
   outreg_desc,
   outreg_conditions,
+  setTerritoryImg,
+  setWelcomeImg,
+  setOutregImg,
 }: PlaceDetailsProps) {
+  const uploaderRender = (setPhotos: Dispatch<SetStateAction<string[]>>) => {
+    return (
+      <Row className="mb-4">
+        <Form.Group>
+          <Form.Label className="d-block mb-2 mt-2 pb-1">
+            Загрузите фото <span className="text-danger">*</span>
+          </Form.Label>
+
+          <FileUploader
+            setGallery={setPhotos}
+            required={true}
+            maxFiles={1}
+            warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
+          />
+        </Form.Group>
+      </Row>
+    );
+  };
+
   return (
     <section
       id={ADD_PLACE_NAMES.details.id}
@@ -36,7 +63,6 @@ function PlaceDetails({
         <i className="fi-party-popper text-primary fs-5 mt-n1 me-2"></i>
         {ADD_PLACE_NAMES.details.name}
       </h2>
-
       <Row className="mb-4">
         <DetailsTextarea
           details={description}
@@ -47,7 +73,6 @@ function PlaceDetails({
           required
         />
       </Row>
-
       <Row className="mb-4">
         <Form.Group controlId="features">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
@@ -62,11 +87,10 @@ function PlaceDetails({
           />
         </Form.Group>
       </Row>
-
       <Row className="mb-4">
         <Form.Group controlId="max_serving">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-            Сколько человек обслуживает 1 официант?
+            Сколько человек обслуживает 1 официант?{' '}
             <span className="text-danger">*</span>
           </Form.Label>
           <Form.Control
@@ -80,7 +104,6 @@ function PlaceDetails({
           />
         </Form.Group>
       </Row>
-
       <Row className="mb-4">
         <Form.Group controlId="territory">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
@@ -99,7 +122,6 @@ function PlaceDetails({
           </p>
         </Form.Group>
       </Row>
-
       <Row className="mb-4">
         <Form.Group controlId="parking">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
@@ -115,7 +137,6 @@ function PlaceDetails({
           />
         </Form.Group>
       </Row>
-
       <Row className="mb-4">
         <DetailsTextarea
           details={territory_desc}
@@ -125,6 +146,7 @@ function PlaceDetails({
           placeholder={'Опишите территорию'}
           required={false}
         />
+        {uploaderRender(setTerritoryImg)}
       </Row>
 
       <Row className="mb-4">
@@ -140,6 +162,7 @@ function PlaceDetails({
           placeholder={'Описание welcome-зоны'}
           required={false}
         />
+        {uploaderRender(setWelcomeImg)}
       </Row>
 
       <Row className="mb-4">
@@ -187,6 +210,7 @@ function PlaceDetails({
           placeholder={'Описание условий'}
           required={false}
         />
+        {uploaderRender(setOutregImg)}
       </Row>
     </section>
   );
