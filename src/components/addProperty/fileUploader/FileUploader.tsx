@@ -14,13 +14,13 @@ import { TEST_URL } from '@/constant';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
-    FilePondPluginFileValidateType,
-    FilePondPluginFileValidateSize,
-    FilePondPluginImagePreview,
-    FilePondPluginImageCrop,
-    FilePondPluginImageResize,
-    FilePondPluginImageTransform
-)
+  FilePondPluginFileValidateType,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImagePreview,
+  FilePondPluginImageCrop,
+  FilePondPluginImageResize,
+  FilePondPluginImageTransform
+);
 
 type FileUploaderProps = {
     name: string,
