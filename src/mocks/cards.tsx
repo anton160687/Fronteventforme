@@ -158,5 +158,19 @@ export const cards ={
     {icon: 'fi-umbrella', text: 'Веранда'},
     {icon: 'fi-sailboat', text: 'Яхт-клуб'},
     {icon: 'fi-motor-ship', text: 'Теплоход'}
+  ],
+
+// сделал массив для отображения "предпросмотра"
+// добавил в него сокращения из массивва place
+  festivEvents: [
+    { alt: 'wed', icon: 'fi-friends', action: 'Свадьба'},
+    { alt: 'birth', icon: 'fi-gift', action: 'День рождения'},
+    { alt: 'nyr', icon: 'fi-bell', action: 'Новый год'},
+    { alt: 'buf', icon: 'fi-glass', action: 'Фуршет'},
+    { alt: 'bach', icon: 'fi-man', action: 'Мальчишник'},
+    { alt: 'bclt', icon: 'fi-woman', action: 'Девичник'},
+    { alt: 'cmp', icon: 'fi-party-popper', action: 'Выпускной'},
+    { alt: 'fest', icon: 'fi-briefcase', action: 'Корпоратив'},
+    { alt: 'grd', icon: 'fi-cake', action: 'Праздничный банкет'},
   ]
 }

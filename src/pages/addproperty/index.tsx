@@ -20,32 +20,32 @@ const AddPropertyPage = () => {
         metro: '', //сделать поле необязательным? вообще убрать?
         address: '',
         geodata: [], //нет на бэке, обязательно для работы карт
-        location: [],
+        location: [], //! описание площадки - расположение
         ya_id: undefined, //нет на бэке, обязательно для работы виджета отзывов
-        kitchen: [],
-        event: [],
-        features: [],
-        territory: [],
-        start_time: new Date,
+        kitchen: [], //! описание площадки - кухня
+        event: [], //! описание площадки - подходит для
+        features: [], //todo детали площадки - особенности
+        territory: [], //todo детали площадки - территория
+        start_time: new Date, //! время работы
         finish_time: new Date,
-        fireworks: false,
-        children_kitchen: false,
+        fireworks: false, //todo феерверки
+        children_kitchen: false, //todo детское меню
         //чем alco и corkage_fee отличаются?
-        alco: false,
+        alco: false, //! алкоголь
         corkage_fee: false,
-        payment_of_alco: 0,
+        payment_of_alco: 0, //! пробковый сбор
         lease_extension: false,
-        lease_extension_price: 0,
-        average_check: 0,
-        description: '',
+        lease_extension_price: 0, //! продление аренды
+        average_check: 0, //! средний чек
+        description: '', //todo детали площадки - описание
         //этих полей на бэке вообще нет, кажется
-        max_serving: 0,
-        parking: 0,
-        territory_desc: '',
-        welcome_desc: '',
-        outreg_price: 0,
-        outreg_desc: '',
-        outreg_conditions: '',
+        max_serving: 0, //todo детали площадки - обслуживает официант
+        parking: 0, //todo детали площадки - Вместимость парковки
+        territory_desc: '', //todo детали площадки - Описание территории
+        welcome_desc: '', //todo детали площадки - Описание Welcome-зона
+        outreg_price: 0, //todo детали площадки - Стоимость выезд. регистрации
+        outreg_desc: '', //todo детали площадки - Что входит в стоимость? 
+        outreg_conditions: '', //todo дет пл - Условия выездной регистрации
     }
     const [place, setPlace] = useState<Place>(initialPlaceState);
     //обработчик для стандартных инпутов type=text
@@ -187,7 +187,10 @@ const AddPropertyPage = () => {
             </Row>
         </Container>
 
-        <Preview previewShow={previewShow} handlePreviewClose={handlePreviewClose} />
+        <Preview 
+            previewShow={previewShow} 
+            handlePreviewClose={handlePreviewClose} 
+            place={place}/>
     </>
     )
 }

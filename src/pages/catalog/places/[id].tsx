@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Place } from '@/types/catalog';
+import { Place } from "@/types/placeType"
 import { URL } from '@/constant';
 import { Breadcrumb, Col, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -30,7 +30,7 @@ import styles from '@/styles/catalog/places/Places.module.scss';
 
 
 type CatalogItemProps = {
-  item?: Place;
+  item: Place;
 };
 
 export default function CatalogItem({ item }: CatalogItemProps) {
@@ -70,11 +70,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
-          <LocationDescription item={item}/>
+          <LocationDescription />
 
           <AnchorBtns />
           
-          <TextHeadingDescription item={item} />
+          <TextHeadingDescription place={item}/>
           
           <TextHeadingSuitableFor />
           

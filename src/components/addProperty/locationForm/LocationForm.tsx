@@ -3,7 +3,7 @@ import {Row, Col, Form} from 'react-bootstrap';
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { SUG_URL, TOKEN } from '@/constant';
-import styles from '@/styles/addProperty/AddProperty.module.scss';
+import styles from '@/styles/addproperty/AddProperty.module.scss';
 
 type LocationFormProps = {
     setCity: (data: string) => void,

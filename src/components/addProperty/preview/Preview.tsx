@@ -1,57 +1,31 @@
-import { useState } from 'react'
-import { Button, Card, Col, Container, Modal, Row} from 'react-bootstrap';
+import { Card, Col, Container, Modal, Row} from 'react-bootstrap';
 import styles from '@/styles/addproperty/AddProperty.module.scss';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
-import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
-import { PhotosWeddingsHeld, ProviderCardSpecialBlock, TextHeadingDescription, TextHeadingDetailsKitchen, TextHeadingFeatures, TextHeadingSiteDetails, TextHeadingSuitableFor } from '@/components/catalog';
+import { 
+    PhotosWeddingsHeld,
+    ProviderCardSpecialBlock, 
+    TextHeadingDescription, 
+    TextHeadingDetailsKitchen, 
+    TextHeadingFeatures, 
+    TextHeadingSiteDetails 
+} from '@/components/catalog';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { cards } from '@/mocks/cards';
-import LightGallery from 'lightgallery/react'
-import 'lightgallery/css/lightgallery.css'
-import 'lightgallery/css/lg-thumbnail.css'
-import 'lightgallery/css/lg-zoom.css'
-import 'lightgallery/css/lg-fullscreen.css'
-import ImageLoader from '@/components/_finder/ImageLoader';
+import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
+import { Place } from '@/types/placeType';
 
 type PreviewProps = {
     previewShow: boolean,
     handlePreviewClose: () => void
+    place: Place
 }
 
-function Preview({ previewShow, handlePreviewClose }: PreviewProps) {
+function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
     const { providerCards } = cards || {};
     const { photosHeld } = cards || {};
-    const { articles } = cards || {};
-    
-    // Overview collapse state
-    const [overviewOpen, setOverviewOpen] = useState(false);
-
-    // Amenities collapse state
-    const [amenitiesOpen, setAmenitiesOpen] = useState(false)
-
-    // Amenities array
-    const amenitiesPreview = [
-        [
-            { icon: 'fi-wifi', title: 'Free WiFi' },
-            { icon: 'fi-thermometer', title: 'Heating' },
-            { icon: 'fi-dish', title: 'Dishwasher' },
-            { icon: 'fi-parking', title: 'Parking place' },
-            { icon: 'fi-snowflake', title: 'Air conditioning' },
-            { icon: 'fi-iron', title: 'Iron' },
-            { icon: 'fi-tv', title: 'TV' },
-            { icon: 'fi-laundry', title: 'Laundry' },
-            { icon: 'fi-cctv', title: 'Security cameras' }
-        ],
-        [
-            { icon: 'fi-no-smoke', title: 'No smocking' },
-            { icon: 'fi-pet', title: 'Cats' },
-            { icon: 'fi-swimming-pool', title: 'Swimming pool' },
-            { icon: 'fi-double-bed', title: 'Double bed' },
-            { icon: 'fi-bed', title: 'Single bed' }
-        ]
-    ]
-
+    const { festivEvents } = cards || {};
+    const { event } = place || [];
 
 return (
     <Modal
@@ -63,12 +37,8 @@ return (
             <h3 className='h5 text-muted fw-normal modal-title d-none d-sm-block text-nowrap'>
                 {'Предпросмотр\u00a0'}<span>площадки</span>
             </h3>
-            <div className='d-flex align-items-center justify-content-sm-end w-100 ms-sm-auto'>
-                <Button href='#' size='sm' variant='outline-primary' className='me-4'>
-                    {'Сохранить\u00a0'}<span>и продолжить</span>
-                </Button>
-            </div>
         </Modal.Header>
+
         <Modal.Body className="d-flex flex-column p-0">
             <Container  className='mt-2 mt-sm-0 py-4 py-sm-5'>
 
@@ -83,13 +53,25 @@ return (
                 />
 
                 <Col className='w-lg-75 m-auto px-3'>
-                    <LocationDescription />
+                    <LocationDescription title={place.title} address={place.address} />
 
-                    <AnchorBtns />
+                    <TextHeadingDescription place={place}/>
 
-                    <TextHeadingDescription  />
+                    <Row className='mb-xl-5 mb-md-4 mb-sm-3'>
+                        <h4>Подходит для:</h4>
+                        <Row xs={1} sm={2} md={3}>
+                            {event?.map((item, i) => {
+                            // отображаем только то, что кликнул поставщик
+                            const renderEvent = festivEvents.find(festivEvent => festivEvent.alt == item)
 
-                    <TextHeadingSuitableFor />
+                            return(
+                                <Col key={i}>
+                                    <i className= {`${renderEvent?.icon} me-2 fs-sm`}/>
+                                    {renderEvent?.action}
+                                </Col>
+                            )})}
+                        </Row>
+                    </Row>
 
                     <TextHeadingDetailsKitchen />
 
@@ -126,28 +108,11 @@ return (
                             ))}
                         </Row>
                     </Row>
-                    <Col md={12} className='my-5'>
+
+                    <Col md={12} className='my-5' id="map">
                         <h4>Расположение</h4>
-                        <LightGallery
-                        selector='#map'
-                        zoomFromOrigin={false}
-                        elementClassNames='position-relative d-flex flex-column h-100'
-                        >
-                            <ImageLoader src='/img/map_preveiw.png' layout='fill' objectFit='cover'/>
-                            <div className='position-relative d-flex h-100 flex-column align-items-center justify-content-center' style={{minHeight: '300px'}}>
-                                <Button
-                                    id='map'
-                                    href='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2423.924340088787!2d13.428504251724927!3d52.58906113876177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a85284201593ab%3A0x28af69e02ce0e2fc!2sBusinesshotel%20Berlin!5e0!3m2!1sru!2sua!4v1618908622013!5m2!1sru!2sua'
-                                    variant='primary rounded-3 stretched-link'
-                                    data-iframe={true}
-                                >
-                                    <i className='fi-route me-2'></i>
-                                    Get directions
-                                </Button>
-                            </div>
-                        </LightGallery>
+                        <YaMap />
                     </Col>
-                    
                 </Col>
                 
             </Container>
