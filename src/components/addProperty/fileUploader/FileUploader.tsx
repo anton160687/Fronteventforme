@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import { FilePond, FilePondProps, registerPlugin } from 'react-filepond';
+import { FilePond, registerPlugin } from 'react-filepond';
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
@@ -10,7 +10,6 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { FilePondInitialFile } from 'filepond';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
