@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/store';
+import { selectPlaces, setPlaces } from '@/store/catalog/catalogSlice';
 import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -6,18 +10,14 @@ import Container from 'react-bootstrap/Container';
 import Pagination from 'react-bootstrap/Pagination';
 import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/store';
-import { selectPlaces, setPlaces } from '@/store/catalog/catalogSlice';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
-import { CatalogPlaceCard, TopSlidersPlaces } from '@/components/catalog/';
-
+import CatalogPlaceCard from '@/components/catalog/placeCard/catalogPlaceCard';
+import { TopSlidersPlaces } from '@/components/catalog/';
 //для SSR
 import { URL } from '@/constant';
 import { Place } from '@/types/catalog';
-import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
+import BotomFilters from '@/components/catalog/botomFilters/botomFilters';
 
 type CatalogPlacesProps = {
   places: Place[];

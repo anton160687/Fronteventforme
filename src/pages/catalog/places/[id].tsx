@@ -12,6 +12,9 @@ import LocationDescription from '@/components/catalog/catalogItem/locationPhotos
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
 import YaMap from '../../../components/catalog/catalogItem/yaMap/yaMap';
+
+import styles from '@/styles/catalog/places/Places.module.scss';
+
 import { Card } from 'react-bootstrap/';
 import {
   ProviderCardSpecialBlock,
@@ -47,7 +50,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         <Breadcrumb.Item linkAs={Link} href="/catalog">
           Каталог
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog">
+        <Breadcrumb.Item linkAs={Link} href="/catalog/places">
           Площадки
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>

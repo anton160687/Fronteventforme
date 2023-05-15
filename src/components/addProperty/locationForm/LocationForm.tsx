@@ -1,73 +1,75 @@
-import { ChangeEvent, MouseEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
+import { ChangeEvent, MouseEvent, ClipboardEvent, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Row, Col, Form } from 'react-bootstrap';
+import { DaDataValue } from "@/types/dadata";
+import { fetchAddress } from './locationAPI';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
-import { SUG_URL, TOKEN } from '@/constant';
 
 type LocationFormProps = {
-    setCity: Dispatch<SetStateAction<string>>,
-    setAddress: Dispatch<SetStateAction<string>>,
+    setCity: (data: string) => void,
+    setAddress: (data: string) => void,
+    setGeodata: (lat: number, lon: number) => void,
+    setInputFields: (e: ChangeEvent<HTMLInputElement>) => void;
     address: string,
+    metro?: string,
+    id_yandex?: string;
 }
 
-function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
+function LocationForm({ setCity, setAddress, setGeodata, setInputFields, address, metro, id_yandex }: LocationFormProps) {
     const dropDownRef = useRef(null);
     const [openDropDown, setOpenDropdown] = useState<boolean>(false);
     const [suggestions, setSuggestions] = useState<DaDataValue[] | undefined>();
-    const [lat, setLat] = useState<number>(0);
-    const [lng, setLng] = useState<number>(0);
-    //для теста, пока не удалять
-    console.log("это из тела" + lat, lng);
+    const [preliminaryAddress, setPreliminaryAddress] = useState<string>('');
 
-    // запрос версий адреса по введенной строке
-    useEffect(() => {
-        async function fetchAdress(query: string) {
-            let data = { "query": query };
-            let response = await fetch(SUG_URL, {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token " + TOKEN
-                },
-                body: JSON.stringify(data),
-            })
-            let result: DaDataValues = await response.json();
-            setSuggestions(result.suggestions);
-            // этот код необходимо перенести сюда на случай, если адрес внесут, не используя подсказок
-            if (result?.suggestions[0]?.data.city) {
-                setCity(result.suggestions[0].data.city);
-            }
-            if (result?.suggestions[0]?.data.geo_lat && result?.suggestions[0]?.data.geo_lon) {
-                setLat(+result.suggestions[0].data.geo_lat);
-                setLng(+result.suggestions[0].data.geo_lon);
-            }
-
-        }
-        fetchAdress(address);
-    }, [address])
-
-    //кастомный хук для закрытия дропдауна по клику в другом месте
     useOutsideClick(dropDownRef, handleOutsideClick, openDropDown);
 
+    useEffect(() => {
+        fetchAddress(address, setSuggestions, setGeodata);
+    }, [address])
+
+    //автоматическое определение города
+    useEffect(() => {
+        if (suggestions && suggestions.length !== 0 && suggestions[0].data.city) {
+            setCity(suggestions[0].data.city);
+        }
+    }, [suggestions]);
+
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setAddress(e.target.value);
+        const prevValue = preliminaryAddress;
+        const value = e.target.value;
+        const changedValue = value.slice(prevValue.length - 1);
+        console.log(changedValue.length);
+        setPreliminaryAddress(value);
+        if (changedValue.length === 2 &&
+            changedValue[0] === " " ||
+            changedValue[0] === "," ||
+            changedValue[0] === "."
+        ) {
+            setAddress(value);
+            setOpenDropdown(true);
+        }
+        if (changedValue[0] && changedValue[0].match(/[А-ЯЁ]/g)) {
+            setAddress(value);
+            setOpenDropdown(true);
+        } else if (changedValue.length === 1) {
+            setAddress(value);
+            setOpenDropdown(true);
+        }
+    }
+
+    function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
+        const clipboardData = e.clipboardData;
+        const pastedData = clipboardData.getData('Text');
+        setAddress(pastedData);
         setOpenDropdown(true);
     }
 
-    function handleClick(
-        e: MouseEvent<HTMLParagraphElement>,
-        city: Nullable<string>,
-        lat: Nullable<string>,
-        lng: Nullable<string>
-    ) {
+    function handleClick(e: MouseEvent<HTMLParagraphElement>) {
         let input = e.target as HTMLElement;
         let chosenAddress: string = input.innerText;
+        setPreliminaryAddress(chosenAddress);
         setAddress(chosenAddress);
+        setOpenDropdown(false);
     }
 
     function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
@@ -80,7 +82,7 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             <p
                 key={i}
                 className={styles.checked}
-                onClick={(e) => handleClick(e, suggestion.data.city, suggestion.data.geo_lat, suggestion.data.geo_lon)}
+                onClick={(e) => handleClick(e)}
             >
                 {suggestion.value}
             </ p>
@@ -95,27 +97,43 @@ function LocationForm({ setCity, setAddress, address }: LocationFormProps) {
             </h2>
             <Row>
                 <Form.Group as={Col} sm={12} controlId='ap-address' className='mb-3'>
-                    <Form.Label>Адрес <span className='text-danger'>*</span></Form.Label>
+                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                        Адрес <span className='text-danger'>*</span>
+                    </Form.Label>
                     <Form.Control
-                        value={address}
+                        value={preliminaryAddress}
+                        name='address'
+                        onFocus={() => { setOpenDropdown(true) }}
                         onChange={handleChange}
+                        onPaste={handlePaste}
                         placeholder='Введите адрес'
+                        title='При вводе адреса вы можете воспользоваться автоматическими подсказками. Выбрать подсказку можно, кликнув на нее.'
                         required
                     />
-                    {openDropDown && suggestions &&
+                    {openDropDown && suggestions ?
                         <div ref={dropDownRef} className={styles.address__dropdown}>
                             {renderClues(suggestions)}
                         </div>
+                        : null
                     }
-
                 </Form.Group>
-
-                <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
-                    <Form.Label>ID организации на Яндекс.Картах <span className='text-danger'>*</span></Form.Label>
+                <Form.Group as={Col} sm={12} controlId='ap-metro' className='mb-3'>
+                    <Form.Label>Метро</Form.Label>
                     <Form.Control
+                        name='metro'
+                        placeholder='Укажите ближайшие станции метро'
+                        value={metro}
+                        onChange={setInputFields}
+                    />
+                </Form.Group>
+                <Form.Group as={Col} sm={12} controlId='ap-yaid' className='mb-3'>
+                    <Form.Label>ID организации в Яндекс.Бизнес </Form.Label>
+                    <Form.Control
+                        name='id_yandex'
                         placeholder='Введите id организации'
-                        title='Id необходимо для отображения отзывов Яндекс'
-                        required
+                        title='Заполнение этого поля необходимо для отображения отзывов Яндекс'
+                        value={id_yandex}
+                        onChange={setInputFields}
                     />
                 </Form.Group>
             </Row>

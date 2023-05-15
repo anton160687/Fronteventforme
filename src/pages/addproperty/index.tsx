@@ -1,240 +1,195 @@
-import { ChangeEvent, useState } from 'react';
-import Link from 'next/link';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import Form from 'react-bootstrap/Form'
+import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview'
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
-import ContactsForm from '@/components/addProperty/contactsForm/ContactsForm';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
+import AreaForm from '@/components/addProperty/areaForm/AreaForm';
+import { Area } from '@/types/areaType';
+import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
+import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
+import { Place } from '@/types/placeType';
+import { FilePondFile } from 'filepond';
+
 
 const AddPropertyPage = () => {
+    const initialPlaceState: Place = {
+        title: '',
+        city: '',
+        metro: '',
+        address: '',
+        geodata: [],
+        location: [],
+        id_yandex: '',
+        kitchen: [],
+        event: [],
+        features: [],
+        territory: [],
+        start_time: new Date,
+        finish_time: new Date,
+        fireworks: false,
+        children_kitchen: false,
+        alco: false,
+        payment_of_alco: 0,
+        lease_extension: false,
+        lease_extension_price: 0,
+        average_check: 0,
+        description: '',
+        //этих полей на бэке вообще нет, кажется
+        max_serving: 0,
+        parking: 0,
+        territory_desc: '',
+        welcome_desc: '',
+        outreg_price: 0,
+        outreg_desc: '',
+        outreg_conditions: '',
+    }
+    const [place, setPlace] = useState<Place>(initialPlaceState);
+    //обработчик для стандартных инпутов type=text
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        setPlace({ ...place, [e.target.name]: e.target.value });
+    }
+    //обработчик для стандартных инпутов type=number
+    function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
+        setPlace({ ...place, [e.target.name]: +e.target.value });
+    }
+    //обработчик чекбоксов
+    function handleCheckBox(name: string, array: string[]) {
+        setPlace({ ...place, [name]: array });
+    }
+    //обработчик радио
+    function handleRadio(e: ChangeEvent<HTMLInputElement>) {
+        let value = +e.target.value;
+        setPlace({ ...place, [e.target.name]: !!value });
+    }
+    // Специальные обработчики формы "Локация"
+    function setAddress(data: string) {
+        setPlace({ ...place, ['address']: data });
+    }
+    function setGeodata(lat: number, lon: number,) {
+        setPlace({ ...place, ['geodata']: [lat, lon] });
+    }
+    function setCity(data: string) {
+        setPlace({ ...place, ['city']: data });
+    }
+    // Загрузка картинок
+    const [gallery, setGallery] = useState<FilePondFile[]>([]);
+    // Площадки
+    const [areas, setAreas] = useState<Area[]>([]);
+    const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
+
+    function addArea(e: MouseEvent<HTMLParagraphElement>) {
+        e.preventDefault;
+        let last = areaIndexArray[areaIndexArray.length - 1];
+        setAreaIndexArray([...areaIndexArray, ++last]);
+    }
+
+    function renderAreaForms() {
+        return areaIndexArray.map((index) => (
+            <section key={index} id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+                <AreaForm index={index} areas={areas} setAreas={setAreas} />
+                <p className="text-primary mb-3" onClick={addArea}>
+                    <i className='fi-plus-circle me-3'></i> Добавить помещение
+                </p>
+            </section>
+        ))
+    }
     // Превью
     const [previewShow, setPreviewShow] = useState(false);
     const handlePreviewClose = () => setPreviewShow(false);
     const handlePreviewShow = () => setPreviewShow(true);
-    // Загрузка картинок
-    const [gallery, setGallery] = useState<string[]>([]);
-    // Базовая информация
-    const [title, setTitle] = useState<string>('');
-    const [lettersLeft, setLettersLeft] = useState<number>(50);
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        let value = e.target.value;
-        setTitle(value);
-        setLettersLeft(50 - value.length);
+    //Валидация, отправка формы
+    const [validated, setValidated] = useState(false);
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity()) {
+          setValidated(true);
+          //здесь будут действия по отправке data на бэк
+        }
     }
-    // Локация
-    const [city, setCity] = useState<string>('Москва');
-    const [address, setAddress] = useState<string>('');
 
-    // Number of bedrooms radios buttons
-    const [bedroomsValue, setBedroomsValue] = useState('4')
-    const bedrooms = [
-        { name: 'Studio', value: 'studio' },
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' },
-        { name: '5+', value: '5+' }
-    ]
-    // Number of bathrooms radios buttons
-    const [bathroomsValue, setBathroomsValue] = useState('2')
-    const bathrooms = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Number of bathrooms radios buttons
-    const [parkingsValue, setParkingsValue] = useState('2')
-    const parkings = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' }
-    ]
-    // Amenities (checkboxes)
-    const amenities = [
-        { value: 'WiFi', checked: true },
-        { value: 'Pets-friendly', checked: false },
-        { value: 'Dishwasher', checked: false },
-        { value: 'Air conditioning', checked: true },
-        { value: 'Pool', checked: false },
-        { value: 'Iron', checked: true },
-        { value: 'Balcony', checked: false },
-        { value: 'Bar', checked: false },
-        { value: 'Hair dryer', checked: true },
-        { value: 'Garage', checked: false },
-        { value: 'TV', checked: true },
-        { value: 'Kitchen', checked: true },
-        { value: 'Gym', checked: false },
-        { value: 'Linens', checked: true },
-        { value: 'Breakfast', checked: false },
-        { value: 'Free parking', checked: true },
-        { value: 'Heating', checked: true },
-        { value: 'Security cameras', checked: false }
-    ]
-    // Pets (checkboxes)
-    const pets = [
-        { value: 'Cats allowed', checked: false },
-        { value: 'Dogs allowed', checked: false }
-    ]
-
+    console.log(place);
 
     return (<>
-        {/* Модальное окно превью */}
-        <Preview previewShow={previewShow} handlePreviewClose={handlePreviewClose} />
-
         <Container className='py-5'>
             <Row>
-                {/* Основное содержание */}
                 <Col lg={8}>
-                    <div className='mb-4'>
-                        <h1 className='h2 mb-0'>Добавить площадку</h1>
-                        <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
-                        <ProgressBar variant='warning' now={65} style={{ height: '.25rem' }} className='d-lg-none mb-4' />
-                    </div>
+                    <Form onSubmit={handleSubmit} validated={validated}>
+                        <div className='mb-4'>
+                            <h1 className='h2 mb-0'>Добавить площадку</h1>
+                            <div className='d-lg-none pt-3 mb-2'>65% content filled</div>
+                            <ProgressBar variant='warning' now={65} style={{ height: '.25rem' }} className='d-lg-none mb-4' />
+                        </div>
 
-                    {/* Базовая информация */}
-                    <BasicForm title={title} lettersLeft={lettersLeft} handleChange={handleChange}/>
+                        <section id='basic-info' className='card card-body border-0 shadow-sm p-4 mb-4'>
+                            <h2 className='h4 mb-4'>
+                                <i className='fi-info-circle text-primary fs-5 mt-n1 me-2'></i>
+                                Базовая информация
+                            </h2>
+                            <BasicForm title={place.title} handleChange={handleChange} location />
+                        </section>
 
-                    {/* Локация */}
-                    <LocationForm setCity={setCity} setAddress={setAddress} address={address}/>
+                        <LocationForm
+                            setCity={setCity}
+                            setAddress={setAddress}
+                            setGeodata={setGeodata}
+                            setInputFields={handleChange}
+                            address={place.address}
+                            metro={place.metro}
+                            id_yandex={place.id_yandex}
+                        />
 
-                    {/* Property details */}
-                    <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
-                        <h2 className='h4 mb-4'>
-                            <i className='fi-edit text-primary fs-5 mt-n1 me-2'></i>
-                            Property details
-                        </h2>
-                        <Form.Group controlId='ap-area' className='mb-4' style={{ maxWidth: '25rem' }}>
-                            <Form.Label>Total area, sq.m</Form.Label>
-                            <Form.Control type='number' defaultValue={56} min={20} placeholder='Enter your area' />
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Bedrooms</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {bedrooms.map((bedroom, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`bedrooms-${indx}`}
-                                        name='bedrooms'
-                                        value={bedroom.value}
-                                        checked={bedroomsValue === bedroom.value}
-                                        onChange={(e) => setBedroomsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{bedroom.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Bathrooms</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {bathrooms.map((bathroom, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`bathrooms-${indx}`}
-                                        name='bathrooms'
-                                        value={bathroom.value}
-                                        checked={bathroomsValue === bathroom.value}
-                                        onChange={(e) => setBathroomsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{bathroom.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Parking spots</Form.Label>
-                            <ButtonGroup size='sm'>
-                                {parkings.map((parking, indx) => (
-                                    <ToggleButton
-                                        key={indx}
-                                        type='radio'
-                                        id={`parkings-${indx}`}
-                                        name='parkings'
-                                        value={parking.value}
-                                        checked={parkingsValue === parking.value}
-                                        onChange={(e) => setParkingsValue(e.currentTarget.value)}
-                                        variant='outline-secondary fw-normal'
-                                    >{parking.name}</ToggleButton>
-                                ))}
-                            </ButtonGroup>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Amenities</Form.Label>
-                            <Row xs={1} sm={3}>
-                                {amenities.map((amenity, indx) => (
-                                    <Col key={indx}>
-                                        <Form.Check
-                                            type='checkbox'
-                                            id={`amenities-${indx}`}
-                                            value={amenity.value}
-                                            label={amenity.value}
-                                            defaultChecked={amenity.checked}
-                                        />
-                                    </Col>
-                                ))}
-                            </Row>
-                        </Form.Group>
-                        <Form.Group className='mb-4'>
-                            <Form.Label className='d-block fw-bold mb-2 pb-1'>Pets</Form.Label>
-                            <Row xs={1} sm={3}>
-                                <Col>
-                                    {pets.map((pet, indx) => (
-                                        <Form.Check
-                                            key={indx}
-                                            type='checkbox'
-                                            id={`pets-${indx}`}
-                                            value={pet.value}
-                                            label={pet.value}
-                                            defaultChecked={pet.checked}
-                                        />
-                                    ))}
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                        <Form.Group controlId='ap-description'>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as='textarea' rows={5} placeholder='Describe your property' />
-                            <Form.Text>1500 characters left</Form.Text>
-                        </Form.Group>
-                    </section>
+                        <PlaceDescription
+                            handleChange={handleChange}
+                            handleCheckBox={handleCheckBox}
+                            handleNumberChange={handleNumberChange}
+                            handleRadio={handleRadio}
+                            children_kitchen={place.children_kitchen}
+                            fireworks={place.fireworks}
+                            alco={place.alco}
+                        />
 
-                    {/* Заливка фотографий*/}
-                    <FileUploader gallery={gallery} setGallery={setGallery} />
+                        <FileUploader name='filepond' gallery={gallery} setGallery={setGallery} />
 
-                    {/* Контактная информация */}
-                    < ContactsForm />
+                        {renderAreaForms()}
 
-                    {/* Action buttons */}
-                    <section className='d-sm-flex justify-content-between pt-2'>
-                        <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
-                            <i className='fi-eye-on ms-n1 me-2'></i>
-                            Preview
-                        </Button>
-                        <Link href='/real-estate/property-promotion' passHref>
-                            <Button size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>Save and continue</Button>
-                        </Link>
-                    </section>
+                        <PlaceDetails
+                            handleChange={handleChange}
+                            handleCheckBox={handleCheckBox}
+                            handleNumberChange={handleNumberChange}
+                            description={place.description}
+                            territory_desc={place.territory_desc}
+                            welcome_desc={place.welcome_desc}
+                            outreg_price={place.outreg_price}
+                            outreg_desc={place.outreg_desc}
+                            outreg_conditions={place.outreg_conditions}
+                        />
+
+                        <section className='d-sm-flex justify-content-between pt-2'>
+                            <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
+                                <i className='fi-eye-on ms-n1 me-2'></i>
+                                Предпросмотр
+                            </Button>
+
+                            <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>
+                                Сохранить
+                            </Button>
+
+                        </section>
+                    </Form>
                 </Col>
 
-                {/* Боковая панель с прогрессом заполнения */}
                 <Col lg={{ span: 3, offset: 1 }} className='d-none d-lg-block'>
                     <ProgressSideBar />
                 </Col>
             </Row>
         </Container>
+
+        <Preview previewShow={previewShow} handlePreviewClose={handlePreviewClose} />
     </>
     )
 }
 
-export default AddPropertyPage
+export default AddPropertyPage;

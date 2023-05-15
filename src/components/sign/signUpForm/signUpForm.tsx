@@ -1,60 +1,37 @@
-import Form from 'react-bootstrap/Form';
-import {
-  FormEvent,
-  useState,
-  Dispatch,
-  SetStateAction,
-  ChangeEvent,
-} from 'react';
+import { FormEvent, useState, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import Link from 'next/link';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
-import {
-  PASSWORD_REQUIREMENTS,
-  PASSWORD_TITLE,
-  formFields,
-  PATHS,
-} from '@/constant';
+import { CreateUserData } from '@/types/forms';
+import { createUser } from '@/store/user/userAPI';
 
-interface SignUpFormProps {
+type SignUpFormProps = {
   signUpForm: boolean;
   setSignUpForm: Dispatch<SetStateAction<boolean>>;
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
 }
 
-type formDataType = {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-export default function SignUpForm({
-  signUpForm,
-  setSignUpForm,
-  setSignUpIsDone,
-}: SignUpFormProps): JSX.Element {
-  //создаем стэйт для нашей формы
-  const initialDataState: formDataType = {
+export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone }: SignUpFormProps): JSX.Element {
+  const initialDataState: CreateUserData = {
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
-  const [data, setData] = useState<formDataType>(initialDataState);
-
+  const [data, setData] = useState<CreateUserData>(initialDataState);
   const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    const form = event.currentTarget;
-
-    event.preventDefault();
-
+  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    
     if (form.checkValidity()) {
       setSignUpIsDone(true);
       setValidated(true);
-      //логика отправки на бэк
+      createUser(data);
     }
   };
 

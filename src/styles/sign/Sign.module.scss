@@ -15,23 +15,6 @@
   @include fz(10, 14);
 }
 
-.yandex {
-  &_icon {
-    background-image: url('/img/icons/yandex-pink.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 1em;
-    height: 1em;
-    transition: $transition;
-  }
-
-  &_btn:hover {
-    .yandex_icon {
-      background-image: url('/img/icons/yandex-white.svg');
-    }
-  }
-}
-
 .auth__container {
   height: 30vh;
   text-align: center;
