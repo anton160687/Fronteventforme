@@ -4,14 +4,11 @@ import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
 import SupplierSlider from '@/components/main/supplierSlider/supplierSlider';
 import MoreServices from '@/components/main/moreServices/moreServices';
 import { Locations } from '@/components/main/locations/locations';
+import { ConvenientCatalog } from '@/components/main/convenientCtlg/convenientCatalog';
+import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
+import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { Place } from '@/types/catalog';
-import { GetStaticProps } from 'next';
 import { URL } from '@/constant';
-import {
-  PersonServices,
-  CardsLink,
-  ConvenientCatalog,
-} from '@/components/main';
 
 type HomeProps = {
   topLocations: Place[];
@@ -43,7 +40,7 @@ export default function Home({ topLocations }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps = async () => {
   const response = await fetch(`${URL}/places/`);
   const result: Place[] = await response.json();
   const locations: Place[] = result?.slice(0, 5);
