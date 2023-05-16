@@ -37,10 +37,8 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
                     className={`${styles.description__star} fi-star-filled me-1`}
                   ></i>
                   <p>
-                    <span className={styles.fw_bold}>
-                      {location.rating.rating}
-                    </span>{' '}
-                    ({location.rating.votes})
+                    <span className="fw-bold">{location.rating.rating}</span> (
+                    {location.rating.votes})
                   </p>
                 </div>
                 <div className="d-flex align-items-center my-1">
@@ -49,7 +47,7 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
                 </div>
                 <div className="d-flex align-items-center my-1">
                   <i className={`fi-credit-card me-1`}></i>
-                  <p className={styles.fw_bold}>от {location.min_price} ₽</p>
+                  <p className="fw-bold">от {location.min_price} ₽</p>
                 </div>
               </div>
             </div>

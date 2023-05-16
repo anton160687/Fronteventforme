@@ -66,7 +66,7 @@ export default function SignUpForm({
   }
 
   return (
-    <div className="page-wrapper" style={{ marginLeft: '5rem' }}>
+    <div className="page-wrapper">
       {!signUpForm ? (
         <p
           onClick={() => setSignUpForm((prev) => !prev)}
@@ -76,8 +76,7 @@ export default function SignUpForm({
         </p>
       ) : (
         <>
-          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5"></div>
-          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
+          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4">
             <Form
               validated={validated}
               onSubmit={handleSubmit}

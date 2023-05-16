@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -28,6 +28,7 @@ export default function SignInForm(): JSX.Element {
     password: '',
   };
   const [data, setData] = useState<formDataType>(initialDataState);
+  const ref = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -45,19 +46,28 @@ export default function SignInForm(): JSX.Element {
     });
   }
 
+  const [widthForm, setWidthForm] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      setWidthForm(ref.current.clientWidth);
+    }
+  }, []);
+
   return (
     <Form
       validated={validated}
       onSubmit={handleSubmit}
-      style={{ marginLeft: '5rem' }}
       method="post"
       action="#"
+      ref={ref}
     >
       <Form.Group controlId="su-radio" className="mb-4">
         <ButtonGroup
           className="w-100"
           size="lg"
           style={{ position: 'relative' }}
+          //работает только при монтировании, т.к. на не нужны лишние исчисления, а люди редко сильно меняют размеры экрана
+          vertical={widthForm < 350 ? true : false}
         >
           <ToggleButton
             type="radio"

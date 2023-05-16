@@ -23,3 +23,7 @@
 .auth__spinner {
   margin-top: 36px;
 }
+
+.socialMedia {
+  @include fz(12, 16);
+}
