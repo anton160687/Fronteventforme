@@ -28,7 +28,7 @@ export default function SignInForm(): JSX.Element {
   }
 
   function handleToggle(e: ChangeEvent<HTMLInputElement>) {
-    let value = + e.target.value;
+    let value = +e.target.value;
     setData({
       ...data,
       [e.target.name]: !!value,

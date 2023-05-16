@@ -318,3 +318,9 @@ export const ACTORS: FooterConst = {
     },
   ],
 };
+
+//для авторизации
+export const TOKEN_TYPES = {
+  default: 'token',
+  bearer: 'bearer_token',
+};

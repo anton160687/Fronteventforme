@@ -14,6 +14,7 @@ import { FilePondFile } from 'filepond';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
 import { createPlace } from '@/store/place/placeAPI';
+import { TOKEN_TYPES } from '@/constant';
 
 
 const AddPropertyPage = () => {
@@ -110,7 +111,7 @@ const AddPropertyPage = () => {
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.currentTarget;
-        let token = localStorage.getItem('token');
+        let token = localStorage.getItem(TOKEN_TYPES.default);
         if (form.checkValidity() && token) {
           setValidated(true);
           createPlace(place, token);
