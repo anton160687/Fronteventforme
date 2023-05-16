@@ -1,32 +1,35 @@
 export type Place = {
+    type_place: number,
+    cover_place?: string,
     title: string;
     city: string;
     metro?: string;
     address: string;
-    geodata: number [];
+    longitude: number;
+    width: number;
     id_yandex?: string;
     start_time: Date;
     finish_time: Date;
-    location: string[];
+    location: number[];
     fireworks: boolean;
-    kitchen: string[];
-    event: string[];
-    features: string[];
-    territory: string[];
+    kitchen: number[];
     children_kitchen: boolean;
+    event: number[];
+    territory: number[];
     alco: boolean;
     payment_of_alco: number;
     lease_extension: boolean;
     lease_extension_price: number;
     average_check: number;
     description: string;
-    max_serving: number;
     parking: number;
-    territory_desc: string;
-    welcome_desc: string;
-    outreg_price: number;
-    outreg_desc: string;
-    outreg_conditions: string;
+    type_feature: number[];
+    max_serving: number;
+    territory_desc?: string;
+    welcome_desc?: string;
+    outreg_price?: number;
+    outreg_desc?: string;
+    outreg_conditions?: string;
 }
 
 export type Album = {

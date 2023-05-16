@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from "react";
 import { Form, Row } from "react-bootstrap";
 
 type DetailsTextareaProps = {
-    details: string,
+    details?: string,
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
     name: string,
     header: string,

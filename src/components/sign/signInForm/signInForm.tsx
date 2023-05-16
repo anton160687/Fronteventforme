@@ -9,24 +9,16 @@ import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/cons
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
+import router from 'next/router';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
   const initialDataState: SigninUserData = {
-    role: 'bride',
+    is_bride: true,
     email: '',
     password: '',
   };
   const [data, setData] = useState<SigninUserData>(initialDataState);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity()) {
-      setValidated(true);
-      signinUser(data);
-    }
-  };
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -34,6 +26,24 @@ export default function SignInForm(): JSX.Element {
       [e.currentTarget.name]: e.currentTarget.value,
     });
   }
+
+  function handleToggle(e: ChangeEvent<HTMLInputElement>) {
+    let value = +e.target.value;
+    setData({
+      ...data,
+      [e.target.name]: !!value,
+    });
+  }
+
+  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      setValidated(true);
+      signinUser(data);
+      router.push('/');
+    }
+  };
 
   return (
     <Form
@@ -52,10 +62,10 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="bride"
-            name={formFields.role}
-            value="bride"
-            checked={data.role === 'bride'}
-            onChange={handleChange}
+            name={formFields.is_bride}
+            value={1}
+            checked={data.is_bride}
+            onChange={handleToggle}
             variant="outline-primary fw-normal"
             className={styles.toggle_btn}
           >
@@ -63,17 +73,15 @@ export default function SignInForm(): JSX.Element {
             <span className={styles.toggle_btn}>Я пользователь</span>
           </ToggleButton>
           <Form.Control
-            required
-            defaultValue={data.role}
             style={{ position: 'absolute', zIndex: '-1' }}
           />
           <ToggleButton
             type="radio"
             id="vendor"
-            name={formFields.role}
-            value="vendor"
-            checked={data.role === 'vendor'}
-            onChange={handleChange}
+            name={formFields.is_bride}
+            value={0}
+            checked={!data.is_bride}
+            onChange={handleToggle}
             variant="outline-primary fw-normal"
           >
             <i className="fi-briefcase fs-lg me-1"></i>
@@ -115,7 +123,7 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
-          pattern={PASSWORD_REQUIREMENTS}
+          // pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
         />
       </Form.Group>

@@ -5,115 +5,117 @@ import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSi
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
 import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
-import { Area } from '@/types/areaType';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
-import { Album, Place } from '@/types/placeType';
 import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
-import { ADD_PLACE_NAMES } from '@/constant';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
+import { FilePondFile } from 'filepond';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@/store/user/userSlice';
+import { createPlace } from '@/store/place/placeAPI';
+import { Area } from '@/types/areaType';
+import { Album, Place } from '@/types/placeType';
+import { ADD_PLACE_NAMES, TOKEN_TYPES } from '@/constant';
+
 
 const AddPropertyPage = () => {
-  const initialPlaceState: Place = {
-    title: '',
-    city: '',
-    metro: '',
-    address: '',
-    geodata: [],
-    location: [],
-    id_yandex: '',
-    kitchen: [],
-    event: [],
-    features: [],
-    territory: [],
-    start_time: new Date,
-    finish_time: new Date,
-    fireworks: false,
-    children_kitchen: false,
-    alco: false,
-    payment_of_alco: 0,
-    lease_extension: false,
-    lease_extension_price: 0,
-    average_check: 0,
-    description: '',
-    //этих полей на бэке вообще нет, кажется
-    max_serving: 0,
-    parking: 0,
-    territory_desc: '',
-    welcome_desc: '',
-    outreg_price: 0,
-    outreg_desc: '',
-    outreg_conditions: '',
-  }
-  const [place, setPlace] = useState<Place>(initialPlaceState);
-  //обработчик для стандартных инпутов type=text
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setPlace({ ...place, [e.target.name]: e.target.value });
-  }
-  //обработчик для стандартных инпутов type=number
-  function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
-    setPlace({ ...place, [e.target.name]: +e.target.value });
-  }
-  //обработчик чекбоксов
-  function handleCheckBox(name: string, array: string[]) {
-    setPlace({ ...place, [name]: array });
-  }
-  //обработчик радио
-  function handleRadio(e: ChangeEvent<HTMLInputElement>) {
-    let value = +e.target.value;
-    setPlace({ ...place, [e.target.name]: !!value });
-  }
-  // Специальные обработчики формы "Локация"
-  function setAddress(data: string) {
-    setPlace({ ...place, ['address']: data });
-  }
-  function setGeodata(lat: number, lon: number,) {
-    setPlace({ ...place, ['geodata']: [lat, lon] });
-  }
-  function setCity(data: string) {
-    setPlace({ ...place, ['city']: data });
-  }
-
-  // Площадки
-  const [areas, setAreas] = useState<Area[]>([]);
-  const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
-
-  function addArea(e: MouseEvent<HTMLParagraphElement>) {
-    e.preventDefault;
-    let last = areaIndexArray[areaIndexArray.length - 1];
-    setAreaIndexArray([...areaIndexArray, ++last]);
-  }
-
-  function renderAreaForms() {
-    return areaIndexArray.map((index) => (
-      <section
-        key={index}
-        id={`${ADD_PLACE_NAMES.area.id}${index}`}
-        className="card card-body border-0 shadow-sm p-4 mb-4"
-      >
-        <AreaForm index={index} areas={areas} setAreas={setAreas} />
-        <p className="cursor-pointer text-primary mb-3" onClick={addArea}>
-          <i className="fi-plus-circle me-3"></i> Добавить помещение
-        </p>
-      </section>
-    ));
-  }
-
-  // Превью
-  const [previewShow, setPreviewShow] = useState(false);
-  const handlePreviewClose = () => setPreviewShow(false);
-  const handlePreviewShow = () => setPreviewShow(true);
-
-  //Валидация, отправка формы
-  const [validated, setValidated] = useState(false);
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity()) {
-      setValidated(true);
-      //здесь будут действия по отправке data на бэк
+    const user = useSelector(selectUser);
+    const initialPlaceState: Place = {
+        type_place: 1,
+        title: '',
+        city: '',
+        metro: '',
+        address: '',
+        longitude: 0,
+        width: 0,
+        location: [],
+        id_yandex: '',
+        kitchen: [],
+        event: [],
+        type_feature: [],
+        territory: [],
+        start_time: new Date,
+        finish_time: new Date,
+        fireworks: false,
+        children_kitchen: false,
+        alco: false,
+        payment_of_alco: 0,
+        lease_extension: false,
+        lease_extension_price: 0,
+        average_check: 0,
+        description: '',
+        max_serving: 0,
+        parking: 0,
+        territory_desc: '',
+        welcome_desc: '',
+        outreg_price: 0,
+        outreg_desc: '',
+        outreg_conditions: '',
     }
-  }
+    const [place, setPlace] = useState<Place>(initialPlaceState);
+    //обработчик для стандартных инпутов type=text
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        setPlace({ ...place, [e.target.name]: e.target.value });
+    }
+    //обработчик для стандартных инпутов type=number
+    function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
+        setPlace({ ...place, [e.target.name]: +e.target.value });
+    }
+    //обработчик чекбоксов
+    function handleCheckBox(name: string, array: number[]) {
+        setPlace({ ...place, [name]: array });
+    }
+    //обработчик радио
+    function handleRadio(e: ChangeEvent<HTMLInputElement>) {
+        let value = +e.target.value;
+        setPlace({ ...place, [e.target.name]: !!value });
+    }
+    // Специальные обработчики формы "Локация"
+    function setAddress(data: string) {
+        setPlace({ ...place, ['address']: data });
+    }
+    function setGeodata(lat: number, lon: number,) {
+        setPlace({ ...place, ['longitude']: lon, ['width']: lat });
+    }
+    function setCity(data: string) {
+        setPlace({ ...place, ['city']: data });
+    }
+    // Площадки
+    const [areas, setAreas] = useState<Area[]>([]);
+    const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
+
+    function addArea(e: MouseEvent<HTMLParagraphElement>) {
+        e.preventDefault;
+        let last = areaIndexArray[areaIndexArray.length - 1];
+        setAreaIndexArray([...areaIndexArray, ++last]);
+    }
+
+    function renderAreaForms() {
+        return areaIndexArray.map((index) => (
+            <section key={index} id={`area${index}`} className='card card-body border-0 shadow-sm p-4 mb-4'>
+                <AreaForm index={index} areas={areas} setAreas={setAreas} />
+                <p className="text-primary mb-3" onClick={addArea}>
+                    <i className='fi-plus-circle me-3'></i> Добавить помещение
+                </p>
+            </section>
+        ))
+    }
+  
+    // Превью
+    const [previewShow, setPreviewShow] = useState(false);
+    const handlePreviewClose = () => setPreviewShow(false);
+    const handlePreviewShow = () => setPreviewShow(true);
+    //Валидация, отправка формы
+    const [validated, setValidated] = useState(false);
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        let token = localStorage.getItem(TOKEN_TYPES.default);
+        if (form.checkValidity() && token) {
+          setValidated(true);
+          createPlace(place, token);
+        }
 
   //чтобы можно было использовать в обоих ProgressBar
   const [percent, setPercent] = useState<number>(0);

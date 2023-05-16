@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';

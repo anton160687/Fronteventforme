@@ -7,18 +7,19 @@ import FileUploader from '../fileUploader/FileUploader';
 
 type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleCheckBox: (name: string, array: string[]) => void;
+  handleCheckBox: (name: string, array: number[]) => void;
   handleNumberChange: (e: ChangeEvent<HTMLInputElement>) => void;
   description: string;
-  territory_desc: string;
-  welcome_desc: string;
-  outreg_price: number;
-  outreg_desc: string;
-  outreg_conditions: string;
+  territory_desc?: string;
+  welcome_desc?: string;
+  outreg_price?: number;
+  outreg_desc?: string;
+  outreg_conditions?: string;
   setTerritoryImg: Dispatch<SetStateAction<string[]>>;
   setWelcomeImg: Dispatch<SetStateAction<string[]>>;
   setOutregImg: Dispatch<SetStateAction<string[]>>;
 };
+
 
 function PlaceDetails({
   handleChange,
@@ -78,9 +79,10 @@ function PlaceDetails({
             {'Особенности\u00a0'}
             <span className="text-danger">*</span>
           </Form.Label>
-          <RenderCheckbox
+
+          <RenderCheckbox 
             options={FEATURES}
-            name="features"
+            name='type_feature'
             max={100}
             handleCheckBox={handleCheckBox}
           />
