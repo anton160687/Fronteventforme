@@ -162,7 +162,6 @@
 
   &__text {
     @include fz(7, 12);
-    color: $grey;
 
     p {
       margin: 0;
@@ -196,6 +195,24 @@
     width: fit-content;
     &_title {
       text-align: center;
+    }
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    display: block;
+    height: auto;
+  }
+
+  .locations {
+    &_wrapper {
+      height: 50vmin;
+      margin: 2em 0;
     }
   }
 }

@@ -35,7 +35,7 @@ export const CardRepetition: FC<src> = ({ src }) => {
 
 export const CardName: FC = () => {
   return (
-    <figure className="card border-0 align-items-center card-horizontal col-lg-12 col-md-12 my-2">
+    <figure className="card border-0 align-items-center card-horizontal col-12 col-md-8 col-lg-12 my-2">
       <Image
         src="/img/card/cardsPersonServices/plug.png"
         className="rounded-circle me-3"
@@ -44,11 +44,7 @@ export const CardName: FC = () => {
         height={64}
       />
       <figcaption className="card-body p-0 col-auto">
-        <h6
-          className={`card-title my-2 text-start' + ${styles.card_title} ${styles.card_name}`}
-        >
-          Имя Фамилия
-        </h6>
+        <h6 className={`card-title my-2 text-start`}>Имя Фамилия</h6>
         <p className={'card-text ' + styles.card_sign}>
           <i className="fi-calendar me-2"></i>24 ноября
         </p>

@@ -86,7 +86,7 @@ export const PersonServices: FC = () => {
       <Row className="mb-4 justify-content-center justify-content-lg-start">
         <figure
           className={
-            'card card-hover border-0 align-items-center col-lg-6 col-md-12 col-sm-12 ' +
+            'card card-hover border-0 align-items-center col-lg-6 col-sm-12 ' +
             styles.card
           }
           style={{ padding: '1.25rem' }}
