@@ -1,6 +1,5 @@
 export type Place = {
     type_place: number,
-    user?: number,
     cover_place?: string,
     title: string;
     city: string;

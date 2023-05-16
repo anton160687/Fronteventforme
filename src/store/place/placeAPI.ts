@@ -5,7 +5,6 @@ import { Place } from "@/types/placeType";
 export async function createPlace (data: Place, token: string) {
     //впоследствии этот промежуточный объект будет не нужен, отсылаться будет сразу data
     let requestBody = {
-        user: 1,
         type_place: 1,
         title: data.title,
         city: data.city,
@@ -37,9 +36,9 @@ export async function createPlace (data: Place, token: string) {
         headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorisation': 'token ' + token,
+            'Authorization': 'Token ' + token,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
     })
 
     let result = await response.json();

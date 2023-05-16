@@ -19,7 +19,6 @@ import { createPlace } from '@/store/place/placeAPI';
 const AddPropertyPage = () => {
     const user = useSelector(selectUser);
     const initialPlaceState: Place = {
-        user: user?.id,
         type_place: 1,
         title: '',
         city: '',
