@@ -202,7 +202,6 @@ export default function CatalogItemSlider(): JSX.Element {
                     addDays(new Date(), 11),
                     addDays(new Date(), 12),
                   ]}
-                  selectsRange
                   inline
                 />
               </div>
@@ -322,7 +321,7 @@ export default function CatalogItemSlider(): JSX.Element {
                 <p style={{ fontWeight: '500' }}>{place.sale.condition}</p>
 
                 {/* //! тут по ТЗ: при нажатии открывается карусель фото комнаты, но я пока сделала бэйдж до прояснения вопроса (дизайнер тоже бэйдж сделала) */}
-                <Badge className={styles.badge}>
+                <Badge className="bg-faded-primary fw-bold fs-sm py-2 px-3">
                   <i className="fi-gift fs-lg me-1"></i>
                   {place.sale.btn}
                 </Badge>

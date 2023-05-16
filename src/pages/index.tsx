@@ -9,12 +9,15 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
+import { FilePondFile } from 'filepond';
+import { useState } from 'react';
 
 type HomeProps = {
   topLocations: Place[];
 };
 
 export default function Home({ topLocations }: HomeProps) {
+  const [gallery, setGallery] = useState<FilePondFile[]>([]);
   return (
     <>
       <Hero />

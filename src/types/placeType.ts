@@ -29,6 +29,11 @@ export type Place = {
     outreg_conditions: string;
 }
 
+export type Album = {
+  title: string;
+  album_img: string[];
+};
+
 /* с бэка
 title - строка; максимальная длина 50
 city - строка; максимальная длина 20

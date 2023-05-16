@@ -1,8 +1,10 @@
-import { Row, Form, Col, InputGroup } from "react-bootstrap";
-import RenderCheckbox from "../renderChekbox/RenderCheckBox";
-import { FEATURES, TERRITORY } from "@/constant";
-import DetailsTextarea from "../detailsTextarea/DetailsTextarea";
-import { ChangeEvent } from "react";
+import { Row, Form, Col, InputGroup } from 'react-bootstrap';
+import RenderCheckbox from '../renderChekbox/RenderCheckBox';
+import { ADD_PLACE_NAMES, FEATURES, TERRITORY } from '@/constant';
+import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import FileUploader from '../fileUploader/FileUploader';
+import { FilePondFile } from 'filepond';
 
 type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -14,8 +16,10 @@ type PlaceDetailsProps = {
   outreg_price: number;
   outreg_desc: string;
   outreg_conditions: string;
-}
-
+  setTerritoryImg: Dispatch<SetStateAction<string[]>>;
+  setWelcomeImg: Dispatch<SetStateAction<string[]>>;
+  setOutregImg: Dispatch<SetStateAction<string[]>>;
+};
 
 function PlaceDetails({
   handleChange,
@@ -26,112 +30,140 @@ function PlaceDetails({
   welcome_desc,
   outreg_price,
   outreg_desc,
-  outreg_conditions
+  outreg_conditions,
+  setTerritoryImg,
+  setWelcomeImg,
+  setOutregImg,
 }: PlaceDetailsProps) {
-  return (
-    <section id='details' className='card card-body border-0 shadow-sm p-4 mb-4'>
-      <h2 className='h4 mb-4'>
-        <i className='fi-party-popper text-primary fs-5 mt-n1 me-2'></i>
-        Детали площадки
-      </h2>
+  const uploaderRender = (setPhotos: Dispatch<SetStateAction<string[]>>) => {
+    return (
+      <Row className="mb-4">
+        <Form.Group>
+          <Form.Label className="d-block mb-2 mt-2 pb-1">
+            Загрузите фото <span className="text-danger">*</span>
+          </Form.Label>
 
-      <Row className='mb-4'>
+          <FileUploader
+            setGallery={setPhotos}
+            required={true}
+            maxFiles={1}
+            warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
+          />
+        </Form.Group>
+      </Row>
+    );
+  };
+
+  return (
+    <section
+      id={ADD_PLACE_NAMES.details.id}
+      className="card card-body border-0 shadow-sm p-4 mb-4"
+    >
+      <h2 className="h4 mb-4">
+        <i className="fi-party-popper text-primary fs-5 mt-n1 me-2"></i>
+        {ADD_PLACE_NAMES.details.name}
+      </h2>
+      <Row className="mb-4">
         <DetailsTextarea
           details={description}
           handleChange={handleChange}
-          name={"description"}
-          header={"Описание"}
-          placeholder={"Опишите площадку"}
+          name={'description'}
+          header={'Описание'}
+          placeholder={'Опишите площадку'}
           required
         />
       </Row>
-
-      <Row className='mb-4'>
-        <Form.Group controlId='features'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+      <Row className="mb-4">
+        <Form.Group controlId="features">
+          <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             {'Особенности\u00a0'}
-            <span className='text-danger'>*</span>
+            <span className="text-danger">*</span>
           </Form.Label>
-          <RenderCheckbox options={FEATURES}
-            name='features'
+          <RenderCheckbox
+            options={FEATURES}
+            name="features"
             max={100}
             handleCheckBox={handleCheckBox}
           />
         </Form.Group>
       </Row>
-
-      <Row className='mb-4'>
-        <Form.Group controlId='max_serving'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-            Сколько человек обслуживает 1 официант?
-            <span className='text-danger'>*</span>
+      <Row className="mb-4">
+        <Form.Group controlId="max_serving">
+          <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
+            Сколько человек обслуживает 1 официант?{' '}
+            <span className="text-danger">*</span>
           </Form.Label>
           <Form.Control
-            name='max_serving'
+            name="max_serving"
             type="number"
-            size='lg'
+            size="lg"
             className="w-md-50 w-sm-75 w-xs-100"
-            placeholder='10 человек или 1 стол'
+            placeholder="10 человек или 1 стол"
             onChange={handleNumberChange}
             required
           />
         </Form.Group>
       </Row>
-
-      <Row className='mb-4'>
-        <Form.Group controlId='territory'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+      <Row className="mb-4">
+        <Form.Group controlId="territory">
+          <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             Территория
-            <i className='fi-eye-on fs-sm ms-2' />
+            <i className="fi-eye-on fs-sm ms-2" />
           </Form.Label>
-          <RenderCheckbox options={TERRITORY}
-            name='territory'
+          <RenderCheckbox
+            options={TERRITORY}
+            name="territory"
             max={6}
-            handleCheckBox={handleCheckBox} />
-          <p className="mt-2 mb-0 fs-sm"><i className='fi-alert-circle me-2' />Не более 6-и опций.</p>
+            handleCheckBox={handleCheckBox}
+          />
+          <p className="mt-2 mb-0 fs-sm">
+            <i className="fi-alert-circle me-2" />
+            Не более 6-и опций.
+          </p>
         </Form.Group>
       </Row>
-
-      <Row className='mb-4'>
-        <Form.Group controlId='parking'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>Вместимость парковки</Form.Label>
+      <Row className="mb-4">
+        <Form.Group controlId="parking">
+          <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
+            Вместимость парковки
+          </Form.Label>
           <Form.Control
             name="parking"
             type="number"
-            size='lg'
+            size="lg"
             className="w-md-50 w-sm-75 w-xs-100"
-            placeholder='100 машин'
+            placeholder="100 машин"
             onChange={handleNumberChange}
           />
         </Form.Group>
       </Row>
-
-      <Row className='mb-4'>
+      <Row className="mb-4">
         <DetailsTextarea
           details={territory_desc}
           handleChange={handleChange}
-          name={"territory_desc"}
-          header={"Описание территории"}
-          placeholder={"Опишите территорию"}
+          name={'territory_desc'}
+          header={'Описание территории'}
+          placeholder={'Опишите территорию'}
           required={false}
         />
+        {uploaderRender(setTerritoryImg)}
       </Row>
 
-      <Row className='mb-4'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-            Welcome-зона
-            <i className='fi-eye-on fs-sm ms-2' />
-          </Form.Label>
-          <DetailsTextarea
-            details={welcome_desc}
-            handleChange={handleChange}
-            name={"welcome_desc"}
-            header={"Описание welcome-зоны"}
-            placeholder={"Описание welcome-зоны"}
-            required={false}
-          />
+      <Row className="mb-4">
+        <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
+          Welcome-зона
+          <i className="fi-eye-on fs-sm ms-2" />
+        </Form.Label>
+        <DetailsTextarea
+          details={welcome_desc}
+          handleChange={handleChange}
+          name={'welcome_desc'}
+          header={'Описание welcome-зоны'}
+          placeholder={'Описание welcome-зоны'}
+          required={false}
+        />
+        {uploaderRender(setWelcomeImg)}
       </Row>
-
       <Row className='mb-4'>
           <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
             Выездная регистрация
@@ -158,25 +190,26 @@ function PlaceDetails({
                 {'Что входит в стоимость?\u00a0'}<span className='text-danger'>*</span>
               </Form.Label>
               <Form.Control
-                name='outreg_desc'
-                type='text'
+                name="outreg_desc"
+                type="text"
                 value={outreg_desc}
                 onChange={handleChange}
                 required
               />
-            </Col>
-          </Row>
-          <DetailsTextarea
-            details={outreg_conditions}
-            handleChange={handleChange}
-            name={"outreg_conditions"}
-            header={"Условия выездной регистрации"}
-            placeholder={"Описание условий"}
-            required={false}
-          />
+          </Col>
+        </Row>
+        <DetailsTextarea
+          details={outreg_conditions}
+          handleChange={handleChange}
+          name={'outreg_conditions'}
+          header={'Условия выездной регистрации'}
+          placeholder={'Описание условий'}
+          required={false}
+        />
+        {uploaderRender(setOutregImg)}
       </Row>
     </section>
-  )
+  );
 }
 
 export default PlaceDetails;
