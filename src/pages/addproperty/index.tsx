@@ -1,12 +1,5 @@
-import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import {
-  Form,
-  Row,
-  Col,
-  Container,
-  ProgressBar,
-  Button,
-} from 'react-bootstrap';
+import { ChangeEvent, FormEvent, MouseEvent, SetStateAction, useEffect, useState } from 'react';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -21,81 +14,60 @@ import { ADD_PLACE_NAMES } from '@/constant';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 
 const AddPropertyPage = () => {
-    const initialPlaceState: Place = {
-        title: '',
-        city: '',
-        metro: '',
-        address: '',
-        geodata: [],
-        location: [],
-        id_yandex: '',
-        kitchen: [],
-        event: [],
-        features: [],
-        territory: [],
-        start_time: new Date,
-        finish_time: new Date,
-        fireworks: false,
-        children_kitchen: false,
-        alco: false,
-        payment_of_alco: 0,
-        lease_extension: false,
-        lease_extension_price: 0,
-        average_check: 0,
-        description: '',
-        //этих полей на бэке вообще нет, кажется
-        max_serving: 0,
-        parking: 0,
-        territory_desc: '',
-        welcome_desc: '',
-        outreg_price: 0,
-        outreg_desc: '',
-        outreg_conditions: '',
-    }
-    const [place, setPlace] = useState<Place>(initialPlaceState);
-    //обработчик для стандартных инпутов type=text
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setPlace({ ...place, [e.target.name]: e.target.value });
-    }
-    //обработчик для стандартных инпутов type=number
-    function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
-        setPlace({ ...place, [e.target.name]: +e.target.value });
-    }
-    //обработчик чекбоксов
-    function handleCheckBox(name: string, array: string[]) {
-        setPlace({ ...place, [name]: array });
-    }
-    //обработчик радио
-    function handleRadio(e: ChangeEvent<HTMLInputElement>) {
-        let value = +e.target.value;
-        setPlace({ ...place, [e.target.name]: !!value });
-    }
-    // Специальные обработчики формы "Локация"
-    function setAddress(data: string) {
-        setPlace({ ...place, ['address']: data });
-    }
-    function setGeodata(lat: number, lon: number,) {
-        setPlace({ ...place, ['geodata']: [lat, lon] });
-    }
-    function setCity(data: string) {
-        setPlace({ ...place, ['city']: data });
-    }
-    // Загрузка картинок
-    const [gallery, setGallery] = useState<FilePondFile[]>([]);
-    // Площадки
-    const [areas, setAreas] = useState<Area[]>([]);
-    const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0,]);
-
-    function addArea(e: MouseEvent<HTMLParagraphElement>) {
-        e.preventDefault;
-        let last = areaIndexArray[areaIndexArray.length - 1];
-        setAreaIndexArray([...areaIndexArray, ++last]);
-    }
+  const initialPlaceState: Place = {
+    title: '',
+    city: '',
+    metro: '',
+    address: '',
+    geodata: [],
+    location: [],
+    id_yandex: '',
+    kitchen: [],
+    event: [],
+    features: [],
+    territory: [],
+    start_time: new Date,
+    finish_time: new Date,
+    fireworks: false,
+    children_kitchen: false,
+    alco: false,
+    payment_of_alco: 0,
+    lease_extension: false,
+    lease_extension_price: 0,
+    average_check: 0,
+    description: '',
+    //этих полей на бэке вообще нет, кажется
+    max_serving: 0,
+    parking: 0,
+    territory_desc: '',
+    welcome_desc: '',
+    outreg_price: 0,
+    outreg_desc: '',
+    outreg_conditions: '',
+  }
+  const [place, setPlace] = useState<Place>(initialPlaceState);
+  //обработчик для стандартных инпутов type=text
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setPlace({ ...place, [e.target.name]: e.target.value });
+  }
+  //обработчик для стандартных инпутов type=number
+  function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
+    setPlace({ ...place, [e.target.name]: +e.target.value });
+  }
+  //обработчик чекбоксов
+  function handleCheckBox(name: string, array: string[]) {
+    setPlace({ ...place, [name]: array });
+  }
+  //обработчик радио
+  function handleRadio(e: ChangeEvent<HTMLInputElement>) {
+    let value = +e.target.value;
+    setPlace({ ...place, [e.target.name]: !!value });
+  }
   // Специальные обработчики формы "Локация"
   function setAddress(data: string) {
     setPlace({ ...place, ['address']: data });
   }
-  function setGeodata(lat: number, lon: number) {
+  function setGeodata(lat: number, lon: number,) {
     setPlace({ ...place, ['geodata']: [lat, lon] });
   }
   function setCity(data: string) {
@@ -126,10 +98,12 @@ const AddPropertyPage = () => {
       </section>
     ));
   }
+
   // Превью
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
   const handlePreviewShow = () => setPreviewShow(true);
+
   //Валидация, отправка формы
   const [validated, setValidated] = useState(false);
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -141,13 +115,6 @@ const AddPropertyPage = () => {
     }
   }
 
-  useEffect(() => {
-    console.log('Площадка', place);
-  }, [place]);
-  useEffect(() => {
-    console.log('Помещение', areas);
-  }, [areas]);
-
   //чтобы можно было использовать в обоих ProgressBar
   const [percent, setPercent] = useState<number>(0);
   //флаг для блокиварования кнопки формы
@@ -157,46 +124,38 @@ const AddPropertyPage = () => {
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
   const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
   const [outregImg, setOutregImg] = useState<string[]>([]);
-
-  useEffect(() => {
-    const placeImg = mainPhotos.slice(1);
-    setPlace((prev) => ({
-      ...prev,
-      cover_place: mainPhotos[0],
-      place_img: placeImg,
-    }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainPhotos]);
-
-  //!не придумала, как это оптимизировать
-  useEffect(() => {
-    setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [welcomeImg]);
-
-  useEffect(() => {
-    setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [territoryImg]);
-
-  useEffect(() => {
-    setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [outregImg]);
-
-  //Свадебные альбомы
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
 
-  useEffect(() => {
-    setPlace((prev) => ({ ...prev, wedding_albums: albums }));
+  // useEffect(() => {
+  //   const placeImg = mainPhotos.slice(1);
+  //   setPlace((prev) => ({
+  //     ...prev,
+  //     cover_place: mainPhotos[0],
+  //     place_img: placeImg,
+  //   }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [mainPhotos]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [albums]);
+  // useEffect(() => {
+  //   setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [welcomeImg]);
+
+  // useEffect(() => {
+  //   setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [territoryImg]);
+
+  // useEffect(() => {
+  //   setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [outregImg]);
+
+  // useEffect(() => {
+  //   setPlace((prev) => ({ ...prev, wedding_albums: albums }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [albums]);
 
   function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
@@ -249,53 +208,54 @@ const AddPropertyPage = () => {
                 <BasicForm title={place.title} handleChange={handleChange} location />
               </section>
 
-                 <LocationForm
-                            setCity={setCity}
-                            setAddress={setAddress}
-                            setGeodata={setGeodata}
-                            setInputFields={handleChange}
-                            address={place.address}
-                            metro={place.metro}
-                            id_yandex={place.id_yandex}
-                        />
+              <LocationForm
+                setCity={setCity}
+                setAddress={setAddress}
+                setGeodata={setGeodata}
+                setInputFields={handleChange}
+                address={place.address}
+                metro={place.metro}
+                id_yandex={place.id_yandex}
+              />
 
-                        <PlaceDescription
-                            handleChange={handleChange}
-                            handleCheckBox={handleCheckBox}
-                            handleNumberChange={handleNumberChange}
-                            handleRadio={handleRadio}
-                            children_kitchen={place.children_kitchen}
-                            fireworks={place.fireworks}
-                            alco={place.alco}
-                        />
+              <PlaceDescription
+                handleChange={handleChange}
+                handleCheckBox={handleCheckBox}
+                handleNumberChange={handleNumberChange}
+                handleRadio={handleRadio}
+                children_kitchen={place.children_kitchen}
+                fireworks={place.fireworks}
+                alco={place.alco}
+              />
 
               <MainPhotos setMainPhotos={setMainPhotos} />
 
               {renderAreaForms()}
 
-               <PlaceDetails
-                            handleChange={handleChange}
-                            handleCheckBox={handleCheckBox}
-                            handleNumberChange={handleNumberChange}
-                            description={place.description}
-                            territory_desc={place.territory_desc}
-                            welcome_desc={place.welcome_desc}
-                            outreg_price={place.outreg_price}
-                            outreg_desc={place.outreg_desc}
-                            outreg_conditions={place.outreg_conditions}
-                        />
+              <PlaceDetails
+                handleChange={handleChange}
+                handleCheckBox={handleCheckBox}
+                handleNumberChange={handleNumberChange}
+                description={place.description}
+                territory_desc={place.territory_desc}
+                welcome_desc={place.welcome_desc}
+                outreg_price={place.outreg_price}
+                outreg_desc={place.outreg_desc}
+                outreg_conditions={place.outreg_conditions}
+                setTerritoryImg={setTerritoryImg}
+                setWelcomeImg={setWelcomeImg}
+                setOutregImg={setOutregImg}
+              />
 
               {renderWeddingAlbum()}
 
               <section className="d-sm-flex justify-content-between pt-2">
-                            <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
-                                <i className='fi-eye-on ms-n1 me-2'></i>
-                                Предпросмотр
-                            </Button>
+                <Button size='lg' variant='outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2' onClick={handlePreviewShow}>
+                  <i className='fi-eye-on ms-n1 me-2'></i>
+                  Предпросмотр
+                </Button>
 
-                            <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>
-                                Сохранить
-                            </Button>
+                <Button type='submit' size='lg' variant='primary d-block w-100 w-sm-auto mb-2'>
                   Сохранить
                 </Button>
               </section>
@@ -313,7 +273,7 @@ const AddPropertyPage = () => {
             />
           </Col>
         </Row>
-      </Container>
+      </Container >
       <Preview
         previewShow={previewShow}
         handlePreviewClose={handlePreviewClose}

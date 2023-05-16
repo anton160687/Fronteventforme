@@ -2,8 +2,8 @@ import { ChangeEvent, MouseEvent, ClipboardEvent, SetStateAction, useEffect, use
 import { Row, Col, Form } from 'react-bootstrap';
 import { DaDataValue } from "@/types/dadata";
 import { fetchAddress } from './locationAPI';
+import { ADD_PLACE_NAMES } from '@/constant';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { ADD_PLACE_NAMES, SUG_URL, TOKEN } from '@/constant';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
 
 type LocationFormProps = {
@@ -64,8 +64,6 @@ function LocationForm({ setCity, setAddress, setGeodata, setInputFields, address
         setAddress(pastedData);
         setOpenDropdown(true);
     }
-    fetchAdress(address);
-  }, [address]);
 
     function handleClick(e: MouseEvent<HTMLParagraphElement>) {
         let input = e.target as HTMLElement;
@@ -74,29 +72,29 @@ function LocationForm({ setCity, setAddress, setGeodata, setInputFields, address
         setAddress(chosenAddress);
         setOpenDropdown(false);
     }
-  }, [suggestions]);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setAddress(e.target.value);
-    setOpenDropdown(true);
-  }
+    function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
+        setOpenDropdown(false);
+        setSuggestions(undefined);
+    }
 
-  function handleClick(e: MouseEvent<HTMLParagraphElement>) {
-    let input = e.target as HTMLElement;
-    let chosenAddress: string = input.innerText;
-    setAddress(chosenAddress);
-  }
-
-  function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {
-    setOpenDropdown(false);
-    setSuggestions(undefined);
-  }
+    function renderClues(suggestions: DaDataValue[]) {
+        return suggestions.map((suggestion, i) => (
+            <p
+                key={i}
+                className={styles.checked}
+                onClick={(e) => handleClick(e)}
+            >
+                {suggestion.value}
+            </ p>
+        ))
+    }
 
     return (
         <section id={ADD_PLACE_NAMES.location.id} className='card card-body border-0 shadow-sm p-4 mb-4'>
             <h2 className='h4 mb-4'>
                 <i className='fi-map-pin text-primary fs-5 mt-n1 me-2'></i>
-                {ADD_PLACE_NAMES.location.name}
+                 {ADD_PLACE_NAMES.location.name}
             </h2>
             <Row>
                 <Form.Group as={Col} sm={12} controlId='ap-address' className='mb-3'>
