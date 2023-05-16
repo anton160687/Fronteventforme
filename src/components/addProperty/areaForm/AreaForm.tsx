@@ -20,7 +20,6 @@ import {
   TYPE_AREA,
 } from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
-import { FilePondFile } from 'filepond';
 
 type AreaFormProps = {
   index: number;
@@ -29,42 +28,43 @@ type AreaFormProps = {
 };
 
 function AreaForm({ index, areas, setAreas }: AreaFormProps) {
-    let initialAreaFormState: Area = {
-        title: '',
-        type_area: '',
-        min_capacity: 0,
-        max_capacity: 0,
-        color_hall: '',
-        separate_entrance: false,
-        sale: '',
-        min_price_banquet: 0,
-        min_price_rent: 0,
-        deposit: 0,
-        detail_location: '',
-        scheme_of_payment: '',
-        bare_lease: false,
-        reserved_dates: [],
-    }
-    const [area, setArea] = useState<Area>(initialAreaFormState);
-    //обработчик для стандартных инпутов type=text
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setArea({ ...area, [e.target.name]: e.target.value });
-    }
-    //обработчик для стандартных инпутов type=number
-    function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
-        setArea({ ...area, [e.target.name]: +e.target.value });
-    }
-    // тип (any пришлось поставить из-за Бутсрапа)
-    const [selectedType, setSelectedType] = useState<string>('');
-    function handleTypeSelect(eventKey: any, e: any) {
-        setArea({ ...area, ['type_area']: eventKey });
-        setSelectedType(e.target.name);
-    }
-    // цвет
-    const [selectedColor, setSelectedColor] = useState<string>('');
-    function handleColorSelect(eventKey: any, e: any) {
-        setArea({ ...area, ['color_hall']: eventKey });
-        setSelectedColor(e.target.name);
+  let initialAreaFormState: Area = {
+    title: '',
+    type_area: '',
+    min_capacity: 0,
+    max_capacity: 0,
+    color_hall: '',
+    separate_entrance: false,
+    sale: '',
+    min_price_banquet: 0,
+    min_price_rent: 0,
+    deposit: 0,
+    detail_location: '',
+    scheme_of_payment: '',
+    bare_lease: false,
+    reserved_dates: [],
+  }
+  const [area, setArea] = useState<Area>(initialAreaFormState);
+  //обработчик для стандартных инпутов type=text
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setArea({ ...area, [e.target.name]: e.target.value });
+  }
+  //обработчик для стандартных инпутов type=number
+  function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
+    setArea({ ...area, [e.target.name]: +e.target.value });
+  }
+  // тип (any пришлось поставить из-за Бутсрапа)
+  const [selectedType, setSelectedType] = useState<string>('');
+  function handleTypeSelect(eventKey: any, e: any) {
+    setArea({ ...area, ['type_area']: eventKey });
+    setSelectedType(e.target.name);
+  }
+  // цвет
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  function handleColorSelect(eventKey: any, e: any) {
+    setArea({ ...area, ['color_hall']: eventKey });
+    setSelectedColor(e.target.name);
+  }
   // схема оплаты
   const [selectedScheme, setSelectedScheme] = useState<string>('');
   function handleSchemeSelect(eventKey: any, e: any) {
@@ -197,24 +197,24 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           </div>
         </Form.Group>
 
-<Form.Group as={Col} controlId='color_hall'>
-                    <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-                        {'Цвет зала\u00a0'}<span className='text-danger'>*</span>
-                    </Form.Label>
-                    <Dropdown onSelect={handleColorSelect}>
-                        <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
-                            {selectedColor || "---"}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu >
-                            {COLOR_HALL.map((option, indx) =>
-                                <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
-                                     {option[1]}
-                                </Dropdown.Item>)}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Form.Group>
-            </Row>
-        
+        <Form.Group as={Col} controlId='color_hall'>
+          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+            {'Цвет зала\u00a0'}<span className='text-danger'>*</span>
+          </Form.Label>
+          <Dropdown onSelect={handleColorSelect}>
+            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
+              {selectedColor || "---"}
+            </Dropdown.Toggle>
+            <Dropdown.Menu >
+              {COLOR_HALL.map((option, indx) =>
+                <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
+                  {option[1]}
+                </Dropdown.Item>)}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Form.Group>
+      </Row>
+
       {/* Отдельный вход */}
       <Row className="mb-4">
         <Form.Group controlId="separate_entrance">
