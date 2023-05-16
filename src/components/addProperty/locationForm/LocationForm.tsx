@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent, ClipboardEvent, SetStateAction, useEffect, use
 import { Row, Col, Form } from 'react-bootstrap';
 import { DaDataValue } from "@/types/dadata";
 import { fetchAddress } from './locationAPI';
+import { ADD_PLACE_NAMES } from '@/constant';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import styles from '@/styles/addProperty/AddProperty.module.scss';
 
@@ -90,10 +91,10 @@ function LocationForm({ setCity, setAddress, setGeodata, setInputFields, address
     }
 
     return (
-        <section id='location' className='card card-body border-0 shadow-sm p-4 mb-4'>
+        <section id={ADD_PLACE_NAMES.location.id} className='card card-body border-0 shadow-sm p-4 mb-4'>
             <h2 className='h4 mb-4'>
                 <i className='fi-map-pin text-primary fs-5 mt-n1 me-2'></i>
-                Локация
+                 {ADD_PLACE_NAMES.location.name}
             </h2>
             <Row>
                 <Form.Group as={Col} sm={12} controlId='ap-address' className='mb-3'>

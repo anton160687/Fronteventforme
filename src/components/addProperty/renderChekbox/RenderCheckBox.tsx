@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { ChangeEvent, useEffect, useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
 
 type RenderCheckboxProps = {
     options: (string | number)[][],
@@ -11,10 +11,10 @@ type RenderCheckboxProps = {
 function RenderCheckbox ({options, name, max, handleCheckBox}: RenderCheckboxProps) {
   const initialState: number[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
-  
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     //запрет на выбор опций свыше указанного дял поля максимума
-    if (e.target.checked && selectedArray.length===max) {
+    if (e.target.checked && selectedArray.length === max) {
       e.target.checked = false;
     }
     if (e.target.checked) {
@@ -29,22 +29,25 @@ function RenderCheckbox ({options, name, max, handleCheckBox}: RenderCheckboxPro
     }
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     handleCheckBox(name, selectedArray);
   }, [selectedArray]);
 
-    return (<Row xs={1} sm={2} md={3}>
-        {options.map((option) => (
-          <Col key={option[0]}>
-            <Form.Check
-              type='checkbox'
-              value={option[0]}
-              label={option[1]}
-              onChange={handleChange}
-            />
-          </Col>
-        ))}
-      </Row>)
+  return (
+    <Row xs={1} sm={2} md={3}>
+      {options.map((option, index) => (
+        <Col key={option[0]}>
+          <Form.Check
+            type="checkbox"
+            value={option[0]}
+            id={`${option[0]}-${index}`}
+            label={option[1]}
+            onChange={handleChange}
+          />
+        </Col>
+      ))}
+    </Row>
+  );
 }
 
 export default RenderCheckbox;

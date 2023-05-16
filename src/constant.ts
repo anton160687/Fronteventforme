@@ -1,9 +1,13 @@
+import { addPlaceName } from './types/addPlaceNames';
+
 export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
 export const TEST_URL = 'http://188.225.24.70:8080/';
 
 // для dadata
-export const CITY_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
-export const SUG_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
+export const CITY_URL =
+  'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
+export const SUG_URL =
+  'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address';
 export const TOKEN = '343619a9fc7c1a076f2d4bf1892321dabdb238a2';
 
 //Форма создания Place
@@ -317,6 +321,17 @@ export const ACTORS: FooterConst = {
       url: '#',
     },
   ],
+};
+
+//names для формы добавления площадки - для progressbar
+export const ADD_PLACE_NAMES: addPlaceName = {
+  basic: { id: 'basic-info', name: 'Базовая информация' },
+  location: { id: 'location', name: 'Локация' },
+  description: { id: 'description', name: 'Описание площадки' },
+  mainPhotos: { id: 'photos', name: 'Фото площадки' },
+  area: { id: 'area-', name: 'Помещения' },
+  details: { id: 'details', name: 'Детали площадки' },
+  weddingAlbum: { id: 'wedding', name: 'Альбомы проведенных свадеб' },
 };
 
 //для авторизации

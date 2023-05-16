@@ -7,13 +7,6 @@ import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
-import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
-import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
-import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
-import YaMap from '../../../components/catalog/catalogItem/yaMap/yaMap';
-
-import styles from '@/styles/catalog/places/Places.module.scss';
 
 import { Card } from 'react-bootstrap/';
 import {
@@ -30,7 +23,11 @@ import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 import styles from '@/styles/catalog/places/Places.module.scss';
-
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
+import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
+import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
+import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 
 type CatalogItemProps = {
   item?: Place;
@@ -70,23 +67,22 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
 
       <Row className={styles.main__container}>
-        
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
-          <LocationDescription item={item}/>
+          <LocationDescription item={item} />
 
           <AnchorBtns />
-          
+
           <TextHeadingDescription item={item} />
-          
+
           <TextHeadingSuitableFor />
-          
+
           <TextHeadingDetailsKitchen />
-          
+
           <CatalogItemSlider />
-          
+
           <TextHeadingSiteDetails />
-          
+
           <TextHeadingFeatures />
 
           {providerCards &&
@@ -147,33 +143,31 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
         {/* это - боковой контейнер справа на странице */}
         <Col xl={4} lg={8} className={styles.right__container}>
-            <div className={styles.popular__container}>
-              {/* тестовые данные, потом - удалить */}
-              <RatingStars rating={3.7} voices={58} />
-              {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-              <div className={styles.popular__text}>
-                <p className={styles.popular__par}>
-                  В избранном у&nbsp;<span>{234} человека </span>
-                </p>
-                <p className={styles.popular__par}>
-                  Забронировано&nbsp;<span>{12} раз </span>
-                </p>
-              </div>
-            </div>
-
+          <div className={styles.popular__container}>
             {/* тестовые данные, потом - удалить */}
-            <BookingForm
-              avatar={'https://picsum.photos/100/100'}
-              first_name={'Имя'}
-              last_name={'Фамилия'}
-              phone={'12345678'}
-              email={'sshuahuash@mail.ru'}
-            />
+            <RatingStars rating={3.7} voices={58} />
+            {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+            <div className={styles.popular__text}>
+              <p className={styles.popular__par}>
+                В избранном у&nbsp;<span>{234} человека </span>
+              </p>
+              <p className={styles.popular__par}>
+                Забронировано&nbsp;<span>{12} раз </span>
+              </p>
+            </div>
+          </div>
 
-            <ContactForm />
-            
+          {/* тестовые данные, потом - удалить */}
+          <BookingForm
+            avatar={'https://picsum.photos/100/100'}
+            first_name={'Имя'}
+            last_name={'Фамилия'}
+            phone={'12345678'}
+            email={'sshuahuash@mail.ru'}
+          />
+
+          <ContactForm />
         </Col>
-
       </Row>
       <SimilarItemsSlider />
     </Container>
