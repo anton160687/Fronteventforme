@@ -63,7 +63,7 @@
   align-items: center;
   color: #1f1b2d;
 
-  &>span {
+  & > span {
     color: $primary;
   }
 }
@@ -137,12 +137,11 @@
   .text__description_column {
     width: 100%;
   }
-  
 }
 
 .text__cuisine_container {
   margin-bottom: 40px;
-} 
+}
 
 .text__cuisine_btn {
   border: transparent;
@@ -162,7 +161,7 @@
 @media (max-width: 600px) {
   .text__cuisine_container {
     flex-direction: column;
-  } 
+  }
   .text__cuisine_btn {
     align-self: flex-start;
     margin-top: 12px;
@@ -194,7 +193,6 @@
   font-weight: 500;
 
   &_bottom {
-    display: flex;
     width: 100%;
     @include fz(10, 14);
   }
@@ -233,14 +231,15 @@
   font-weight: 700;
   padding: 0.5rem 1rem;
   @include fz(12, 14);
+  width: fit-content;
 }
 
 .sale {
-  margin: 1.5em 1em 0;
   display: flex;
   flex-direction: column;
   justify-content: baseline;
   flex-grow: 1;
+  width: fit-content;
 }
 
 .calendar {
@@ -354,5 +353,3 @@
     @include fz(14, 14);
   }
 }
-
-
