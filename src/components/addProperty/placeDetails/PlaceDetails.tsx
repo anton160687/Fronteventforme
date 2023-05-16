@@ -164,42 +164,38 @@ function PlaceDetails({
         />
         {uploaderRender(setWelcomeImg)}
       </Row>
-
-      <Row className="mb-4">
-        <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-          Выездная регистрация
-          <i className="fi-eye-on fs-sm ms-2" />
-        </Form.Label>
-        <Row className="align-items-end mb-3">
-          <Col xs={12} sm={12} md={5} lg={5} xl={5}>
-            <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-              {'Стоимость выезд. регистрации\u00a0'}
-              <span className="text-danger">*</span>
-            </Form.Label>
-            <InputGroup>
+      <Row className='mb-4'>
+          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+            Выездная регистрация
+            <i className='fi-eye-on fs-sm ms-2' />
+          </Form.Label>
+          <Row className="align-items-end mb-3">
+            <Col xs={12} sm={12} md={5} lg={5} xl={5}>
+              <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                {'Стоимость выезд. регистрации\u00a0'}<span className='text-danger'>*</span>
+              </Form.Label>
+              <InputGroup>
+                <Form.Control
+                  name='outreg_price'
+                  placeholder='1000'
+                  type='number'
+                  onChange={handleNumberChange}
+                  required
+                />
+                <InputGroup.Text id='icon-addon'>₽</InputGroup.Text>
+              </InputGroup>
+            </Col>
+            <Col>
+              <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
+                {'Что входит в стоимость?\u00a0'}<span className='text-danger'>*</span>
+              </Form.Label>
               <Form.Control
-                name="outreg_price"
-                placeholder="1000"
-                type="number"
-                value={outreg_price}
-                onChange={handleNumberChange}
+                name="outreg_desc"
+                type="text"
+                value={outreg_desc}
+                onChange={handleChange}
                 required
               />
-              <InputGroup.Text id="icon-addon">₽</InputGroup.Text>
-            </InputGroup>
-          </Col>
-          <Col>
-            <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-              {'Что входит в стоимость?\u00a0'}
-              <span className="text-danger">*</span>
-            </Form.Label>
-            <Form.Control
-              name="outreg_desc"
-              type="text"
-              value={outreg_desc}
-              onChange={handleChange}
-              required
-            />
           </Col>
         </Row>
         <DetailsTextarea

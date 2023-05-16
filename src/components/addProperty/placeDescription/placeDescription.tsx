@@ -84,11 +84,10 @@ function PlaceDescription({
               onChange={handleRadio}
             />
             <Form.Check
-              type="radio"
-              name="children_kitchen"
-              label="Нет"
-              id="children_kitchen-Нет"
-              value={undefined}
+              type='radio'
+              name='children_kitchen'
+              label='Нет'
+              value={0}
               checked={!children_kitchen}
               onChange={handleRadio}
             />
