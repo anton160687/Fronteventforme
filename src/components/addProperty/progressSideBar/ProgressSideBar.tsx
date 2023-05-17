@@ -94,7 +94,7 @@ function ProgressSideBar({
       ...prev.slice(index + 1),
     ]);
   };
-
+  //! TODO: добавить проверки на наличие картинок
   const isCompletedPlace = () => {
     //Базовая информация
     if (place.title) {
@@ -105,10 +105,10 @@ function ProgressSideBar({
     }
 
     //Локация
-    if (place.city && place.address && place.ya_id) {
+    if (place.city && place.address) {
       changeAnchor(ADD_PLACE_NAMES.location, true);
     }
-    if (!(place.city && place.address && place.ya_id)) {
+    if (!(place.city && place.address)) {
       changeAnchor(ADD_PLACE_NAMES.location, false);
     }
 
@@ -139,7 +139,7 @@ function ProgressSideBar({
     //Детали площадки
     if (
       place.description &&
-      place.features.length &&
+      place.type_feature.length &&
       place.max_serving &&
       place.outreg_price &&
       place.outreg_desc
@@ -149,7 +149,7 @@ function ProgressSideBar({
     if (
       !(
         place.description &&
-        place.features.length &&
+        place.type_feature.length &&
         place.max_serving &&
         place.outreg_price &&
         place.outreg_desc
@@ -158,7 +158,7 @@ function ProgressSideBar({
       changeAnchor(ADD_PLACE_NAMES.details, false);
     }
   };
-
+  //! TODO: добавить проверки на наличие картинок
   const isCompletedAreas = () => {
     //Помещения
     let areasFilledCount = 0;

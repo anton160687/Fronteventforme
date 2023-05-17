@@ -2,13 +2,18 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 
 type RenderCheckboxProps = {
-    options: (string | number)[][],
-    name: string;
-    max: number;
-    handleCheckBox: (name: string, array: number[]) => void;
-}
+  options: (string | number)[][];
+  name: string;
+  max: number;
+  handleCheckBox: (name: string, array: number[]) => void;
+};
 
-function RenderCheckbox ({options, name, max, handleCheckBox}: RenderCheckboxProps) {
+function RenderCheckbox({
+  options,
+  name,
+  max,
+  handleCheckBox,
+}: RenderCheckboxProps) {
   const initialState: number[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
 
@@ -40,7 +45,7 @@ function RenderCheckbox ({options, name, max, handleCheckBox}: RenderCheckboxPro
           <Form.Check
             type="checkbox"
             value={option[0]}
-            id={`${option[0]}-${index}`}
+            id={`${option[1]}-${index}`}
             label={option[1]}
             onChange={handleChange}
           />

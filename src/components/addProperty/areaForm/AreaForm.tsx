@@ -43,7 +43,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     scheme_of_payment: '',
     bare_lease: false,
     reserved_dates: [],
-  }
+  };
   const [area, setArea] = useState<Area>(initialAreaFormState);
   //обработчик для стандартных инпутов type=text
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -118,8 +118,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
       <Row className="mb-4">
         <Form.Group>
           <Form.Label className="d-block mb-2 mt-2 pb-1">
-            Загрузите фотографии/видео зала{' '}
-            <span className="text-danger">*</span>
+            Загрузите фотографии зала <span className="text-danger">*</span>
           </Form.Label>
 
           <FileUploader
@@ -197,19 +196,24 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           </div>
         </Form.Group>
 
-        <Form.Group as={Col} controlId='color_hall'>
-          <Form.Label className='d-block fw-bold mb-2 mt-2 pb-1'>
-            {'Цвет зала\u00a0'}<span className='text-danger'>*</span>
+        <Form.Group as={Col} controlId="color_hall">
+          <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
+            {'Цвет зала\u00a0'}
+            <span className="text-danger">*</span>
           </Form.Label>
           <Dropdown onSelect={handleColorSelect}>
-            <Dropdown.Toggle variant='outline-secondary' className={styles.dropdown__item}>
-              {selectedColor || "---"}
+            <Dropdown.Toggle
+              variant="outline-secondary"
+              className={styles.dropdown__item}
+            >
+              {selectedColor || '---'}
             </Dropdown.Toggle>
-            <Dropdown.Menu >
-              {COLOR_HALL.map((option, indx) =>
+            <Dropdown.Menu>
+              {COLOR_HALL.map((option, indx) => (
                 <Dropdown.Item key={indx} name={option[1]} eventKey={option[0]}>
                   {option[1]}
-                </Dropdown.Item>)}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
         </Form.Group>
