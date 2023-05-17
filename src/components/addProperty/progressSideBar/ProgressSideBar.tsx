@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ScrollLink from '@/components/_finder/ScrollLink';
 import { Place } from '@/types/placeType';

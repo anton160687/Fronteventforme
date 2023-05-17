@@ -1,4 +1,10 @@
-import { FormEvent, useState, Dispatch, SetStateAction, ChangeEvent } from 'react';
+import {
+  FormEvent,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+} from 'react';
 import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -12,9 +18,13 @@ type SignUpFormProps = {
   signUpForm: boolean;
   setSignUpForm: Dispatch<SetStateAction<boolean>>;
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone }: SignUpFormProps): JSX.Element {
+export default function SignUpForm({
+  signUpForm,
+  setSignUpForm,
+  setSignUpIsDone,
+}: SignUpFormProps): JSX.Element {
   const initialDataState: CreateUserData = {
     username: '',
     email: '',
@@ -24,16 +34,16 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
   const [data, setData] = useState<CreateUserData>(initialDataState);
   const [validated, setValidated] = useState(false);
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    
+
     if (form.checkValidity()) {
       setSignUpIsDone(true);
       setValidated(true);
       createUser(data);
     }
-  };
+  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -58,8 +68,7 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
             <Form
               validated={validated}
               onSubmit={handleSubmit}
-              style={{ fontWeight: '500' }}
-              className="w-100"
+              className="w-100 fw-semibold"
               method="post"
               action="#"
             >
