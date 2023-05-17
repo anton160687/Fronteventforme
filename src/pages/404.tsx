@@ -39,10 +39,10 @@ export default function Error() {
                 <div ref={animationContainer}></div>
               </div>
               <h1 className="h3 pt-lg-4">
-                Sorry, the content you are looking for doesn&apos;t exist.
+                К сожалению, такой страницы не существует.
               </h1>
               <p className="lead mb-5 pb-lg-2">
-                Either it was removed, or you mistyped the link.
+                Вероятно, она была удалена или находится по другой ссылке.
               </p>
               <Button
                 as={Link}
