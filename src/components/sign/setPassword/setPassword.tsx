@@ -2,7 +2,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import Button from 'react-bootstrap/Button';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
 
 type formDataType = {
   password: string;
@@ -62,7 +62,7 @@ export default function SetPassword(): JSX.Element {
             pattern={PASSWORD_REQUIREMENTS}
             title={PASSWORD_TITLE}
             onChange={handleChange}
-            name={formFields.password}
+            name={FormFields.Password}
           />
         </Form.Group>
         <Form.Group className="mb-4">
@@ -77,7 +77,7 @@ export default function SetPassword(): JSX.Element {
             className=""
             style=""
             autoComplete="off"
-            name={formFields.confirmPassword}
+            name={FormFields.ConfirmPassword}
             placeholder="Повторите пароль"
             pattern={data.password}
             title={'Пароли должны совпадать.'}
