@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Navigation} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { providerCards } from "@/types/cardsType";
@@ -14,7 +14,14 @@ import 'lightgallery/css/lg-thumbnail.css'
 import 'lightgallery/css/lg-zoom.css'
 import 'lightgallery/css/lg-fullscreen.css'
 
-export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, description, pathImg}) => {
+type AlbumCardProps = {
+  id: number,
+  title: string,
+  description: string[],
+  pathImg: string[],
+}
+
+function AlbumCard ({id, title, description, pathImg}: AlbumCardProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [totalSlides, setTotalSlides] = useState(0)
 
@@ -84,3 +91,5 @@ export const ProviderCardSpecialBlock:FC<providerCards> = ({id, title, descripti
   </figure>    
 )
 }
+
+export default AlbumCard;

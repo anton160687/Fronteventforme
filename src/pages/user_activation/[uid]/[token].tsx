@@ -5,7 +5,7 @@ import styles from '@/styles/sign/Sign.module.scss';
 import { TEST_URL } from '@/constant';
 
 
-export default function finishRegistrationPage() {
+export default function FinishRegistrationPage() {
     const router = useRouter();
     //здесь ловим динамические параметры из адресной строки
     const uid = router.query.uid as string;
@@ -39,7 +39,6 @@ export default function finishRegistrationPage() {
     useEffect(() => {
         if (uid && token) {
             sendAuthData();
-            //перенаправляем на главную или иную страницу, пока отключено
             handleRedirect();
         }
     }, [uid, token])

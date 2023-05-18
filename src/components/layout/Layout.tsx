@@ -15,10 +15,6 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(fetchUserWithThunk(11));
-  }, []);
-
   const router = useRouter().pathname;
 
   return (

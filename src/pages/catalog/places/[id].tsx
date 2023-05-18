@@ -2,15 +2,13 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { Place } from '@/types/catalog';
 import { URL } from '@/constant';
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-
-import { Card } from 'react-bootstrap/';
+import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
 import {
-  ProviderCardSpecialBlock,
   PhotosWeddingsHeld,
   ArticlesWeddings,
   TextHeadingDescription,
@@ -87,7 +85,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           {providerCards &&
             providerCards.map((item) => (
-              <ProviderCardSpecialBlock
+              <AlbumCard
                 key={item.id}
                 id={item.id}
                 title={item.title}

@@ -42,14 +42,14 @@ function LocationForm({
 
   useEffect(() => {
     fetchAddress(address, setSuggestions, setGeodata);
-  }, [address]);
+  }, [address, setSuggestions, setGeodata]);
 
   //автоматическое определение города
   useEffect(() => {
     if (suggestions && suggestions.length !== 0 && suggestions[0].data.city) {
       setCity(suggestions[0].data.city);
     }
-  }, [suggestions]);
+  }, [suggestions, setCity]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const prevValue = preliminaryAddress;
