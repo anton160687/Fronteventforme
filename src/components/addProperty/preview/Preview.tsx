@@ -65,8 +65,8 @@ return (
                             const renderEvent = festivEvents.find(festivEvent => festivEvent.alt == item)
 
                             return(
-                                <Col key={i}>
-                                    <i className= {`${renderEvent?.icon} me-2 fs-sm`}/>
+                                <Col key={i} className='mb-1'>
+                                    <i className= {`${renderEvent?.icon} me-2`}/>
                                     {renderEvent?.action}
                                 </Col>
                             )})}

@@ -63,7 +63,7 @@
   align-items: center;
   color: #1f1b2d;
 
-  &>span {
+  & > span {
     color: $primary;
   }
 }
@@ -120,12 +120,11 @@
   .text__description_column {
     width: 100%;
   }
-  
 }
 
 .text__cuisine_container {
   margin-bottom: 40px;
-} 
+}
 
 .text__cuisine_btn {
   border: transparent;
@@ -145,7 +144,7 @@
 @media (max-width: 600px) {
   .text__cuisine_container {
     flex-direction: column;
-  } 
+  }
   .text__cuisine_btn {
     align-self: flex-start;
     margin-top: 12px;
@@ -210,12 +209,6 @@
 .summary {
   @include fz(16, 16);
   font-weight: 500;
-}
-
-.badge {
-  font-weight: 700;
-  padding: 0.5rem 1rem;
-  @include fz(12, 14);
 }
 
 .sale {

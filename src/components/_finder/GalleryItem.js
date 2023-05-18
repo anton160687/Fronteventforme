@@ -25,7 +25,6 @@ const GalleryItem = ({
         height={thumb[2]}
         alt={caption ? caption : imgAlt}
         light={light ? 1 : 0}
-        objectFit="cover"
       />
     )}
     {caption && <span className="gallery-item-caption">{caption}</span>}

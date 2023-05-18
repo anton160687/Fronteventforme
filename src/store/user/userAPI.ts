@@ -43,10 +43,11 @@ export async function createUser (data: CreateUserData) {
 export async function signinUser (data: SigninUserData) {
   //пока без роли, ждем исправлений от бэка
   let request = {
+    is_bride: data.is_bride,
     email: data.email,
     password: data.password,
   }
-  let response = await fetch(`${TEST_URL}auth/users/`, {
+  let response = await fetch(`${TEST_URL}auth/token/login/`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
@@ -55,8 +56,9 @@ export async function signinUser (data: SigninUserData) {
     body: JSON.stringify(request)
   })
   if (response.ok) {
-    console.log(response);
-    // localStorage.setItem("token", token);
+    let result = await response.json();
+    console.log(result);
+    localStorage.setItem("token", result.auth_token);
   } else {
     console.log(response);
   }
