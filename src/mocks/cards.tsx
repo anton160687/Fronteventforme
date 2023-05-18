@@ -163,14 +163,14 @@ export const cards ={
 // сделал массив для отображения "предпросмотра"
 // добавил в него сокращения из массивва place
   festivEvents: [
-    { alt: 'wed', icon: 'fi-friends', action: 'Свадьба'},
-    { alt: 'birth', icon: 'fi-gift', action: 'День рождения'},
-    { alt: 'nyr', icon: 'fi-bell', action: 'Новый год'},
-    { alt: 'buf', icon: 'fi-glass', action: 'Фуршет'},
-    { alt: 'bach', icon: 'fi-man', action: 'Мальчишник'},
-    { alt: 'bclt', icon: 'fi-woman', action: 'Девичник'},
-    { alt: 'cmp', icon: 'fi-party-popper', action: 'Выпускной'},
-    { alt: 'fest', icon: 'fi-briefcase', action: 'Корпоратив'},
-    { alt: 'grd', icon: 'fi-cake', action: 'Праздничный банкет'},
+    { alt: 1, icon: 'fi-friends', action: 'Свадьба'},
+    { alt: 2, icon: 'fi-gift', action: 'День рождения'},
+    { alt: 3, icon: 'fi-bell', action: 'Новый год'},
+    { alt: 4, icon: 'fi-glass', action: 'Фуршет'},
+    { alt: 5, icon: 'fi-man', action: 'Мальчишник'},
+    { alt: 6, icon: 'fi-woman', action: 'Девичник'},
+    { alt: 9, icon: 'fi-party-popper', action: 'Выпускной'},
+    { alt: 7, icon: 'fi-briefcase', action: 'Корпоратив'},
+    { alt: 8, icon: 'fi-cake', action: 'Праздничный банкет'},
   ]
 }

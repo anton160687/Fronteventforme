@@ -3,7 +3,6 @@ import { FC } from "react"
 import { Col, Row } from "react-bootstrap"
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { LOCATION, KITCHEN } from "@/constant";
-import { temporaryComponent } from "../temporaryСomponent/temporaryСomponent";
 
 type PlaceProps = {
   place: Place
@@ -12,6 +11,23 @@ type PlaceProps = {
 export const TextHeadingDescription:FC<PlaceProps> = ({ place }) => {
   const { location } = place || [];
   const { kitchen } = place || [];
+
+// временный костыль для отображения текста, а не номеров
+//* arr - массив из place
+//* arrConst - массив из constant.ts
+
+const temporaryComponent = (arr:number[], arrConst:(number | string)[][]) => (
+  arr?.map((check, i) => {
+    
+    let newName = arrConst.find(item => item.includes(check))?.slice(-1)
+
+    return(
+    <span className="d-flex justify-content-end" key={i} >
+      {newName}
+    </span>
+    )
+  })
+)
 
 return (
 <Row id="review" className='mb-xl-5 mb-md-4 mb-sm-3 d-flex'>
@@ -28,7 +44,7 @@ return (
         <li className='d-flex align-items-center justify-content-between text-dark'>Аренда <strong>{place.lease_extension ? "Есть" : "Нет"|| 'Не указано'}</strong></li>
         <li className='d-flex align-items-center justify-content-between text-dark border-top'>Средний чек <strong>{place.average_check || 'Не указано'}</strong></li>
         <li className='d-flex align-items-center justify-content-between text-dark border-top'>Пробковый сбор <strong>{place.payment_of_alco || 'Не указано'}</strong></li>
-        <li className='d-flex align-items-center justify-content-between text-dark border-top'>Депозит <strong>{place.corkage_fee ? "Есть" : "Нет" || 'Не указано'}</strong></li>
+        <li className='d-flex align-items-center justify-content-between text-dark border-top'>Депозит <strong>{''|| 'Не указано'}</strong></li>
         <li className='d-flex align-items-center justify-content-between text-dark border-top'>Продление <strong>{place.lease_extension_price || 'Не указано'}</strong></li>
       </ul>
     </Col>

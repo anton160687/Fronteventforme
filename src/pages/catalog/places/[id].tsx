@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
@@ -29,12 +29,7 @@ import {
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
-import styles from '@/styles/catalog/places/Places.module.scss';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
-import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
-import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
-import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
-import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
+
 
 type CatalogItemProps = {
   item: Place;

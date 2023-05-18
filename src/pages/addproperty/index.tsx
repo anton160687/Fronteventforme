@@ -303,6 +303,7 @@ function AddPropertyPage() {
       <Preview
         previewShow={previewShow}
         handlePreviewClose={handlePreviewClose}
+        place={place}
       />
     </>
   );

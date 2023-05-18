@@ -1,12 +1,11 @@
-import { Card, Col, Container, Modal, Row} from 'react-bootstrap';
-import styles from '@/styles/addproperty/AddProperty.module.scss';
+import { Button, Card, Col, Container, Modal, Row} from 'react-bootstrap';
+import styles from "@/styles/catalog/places/Places.module.scss";
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import { 
     PhotosWeddingsHeld,
     ProviderCardSpecialBlock, 
     TextHeadingDescription, 
-    TextHeadingDetailsKitchen, 
     TextHeadingFeatures, 
     TextHeadingSiteDetails 
 } from '@/components/catalog';
@@ -14,6 +13,7 @@ import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlide
 import { cards } from '@/mocks/cards';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import { Place } from '@/types/placeType';
+import { KITCHEN } from "@/constant";
 
 type PreviewProps = {
     previewShow: boolean,
@@ -26,6 +26,25 @@ function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
     const { photosHeld } = cards || {};
     const { festivEvents } = cards || {};
     const { event } = place || [];
+    const { kitchen } = place || [];
+
+    // временный костыль для отображения текста, а не номеров
+    //* arr - массив из place
+    //* arrConst - массив из constant.ts
+    // отображаем только то, что кликнул поставщик
+    const temporaryComponent = (arr:number[], arrConst:(number | string)[][]) => (
+        arr?.map((check, i) => {
+            
+            let newName = arrConst.find(item => item.includes(check))?.slice(-1)
+            
+            return(
+                <span className="mx-2" key={i} >
+                    {newName}
+                </span>
+            )})
+        )
+
+    console.log("place", place);
 
 return (
     <Modal
@@ -61,6 +80,7 @@ return (
                         <h4>Подходит для:</h4>
                         <Row xs={1} sm={2} md={3}>
                             {event?.map((item, i) => {
+                            // костыль для связки 2-х массивов, пока нет бэка
                             // отображаем только то, что кликнул поставщик
                             const renderEvent = festivEvents.find(festivEvent => festivEvent.alt == item)
 
@@ -73,7 +93,23 @@ return (
                         </Row>
                     </Row>
 
-                    <TextHeadingDetailsKitchen />
+                    <div  className={styles.text__cuisine_container + ' border-0 mb-xl-5 mb-md-4 mb-sm-3 d-flex'}>
+                        <Card.Body className='p-0'>
+                            <Card.Title as='h4' className='mb-3'>Детали о кухне площадки:</Card.Title>
+                            <Card.Text className='mb-2 d-flex align-items-center'>
+                                <i className='fi-union me-2 fs-sm' />
+                                {temporaryComponent(kitchen, KITCHEN) || 'Не указано'}
+                            </Card.Text>
+                            <Card.Text className='mb-2'>
+                                <i className='fi-ticket me-2 fs-sm' />
+                                {place.children_kitchen ? "Есть детское меню" : "Нет детского меню"}
+                            </Card.Text>
+                        </Card.Body>
+                        <Button href="#" className={styles.text__cuisine_btn}>
+                        <i className='fi-file-clean me-2' />
+                            Запросить банкетное меню
+                        </Button>
+                    </div>
 
                     <CatalogItemSlider />
 
