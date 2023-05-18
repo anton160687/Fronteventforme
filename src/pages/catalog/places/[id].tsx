@@ -84,7 +84,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           <CatalogItemSlider />
 
-          <TextHeadingSiteDetails />
+          <TextHeadingSiteDetails description={''}/>
 
           <TextHeadingFeatures />
 

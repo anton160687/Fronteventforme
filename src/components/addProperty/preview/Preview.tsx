@@ -6,14 +6,14 @@ import {
     PhotosWeddingsHeld,
     ProviderCardSpecialBlock, 
     TextHeadingDescription, 
-    TextHeadingFeatures, 
     TextHeadingSiteDetails 
 } from '@/components/catalog';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { cards } from '@/mocks/cards';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import { Place } from '@/types/placeType';
-import { KITCHEN } from "@/constant";
+import { KITCHEN, FEATURES } from "@/constant";
+import { temporaryComponent } from '../temporaryComponent';
 
 type PreviewProps = {
     previewShow: boolean,
@@ -27,22 +27,7 @@ function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
     const { festivEvents } = cards || {};
     const { event } = place || [];
     const { kitchen } = place || [];
-
-    // временный костыль для отображения текста, а не номеров
-    //* arr - массив из place
-    //* arrConst - массив из constant.ts
-    // отображаем только то, что кликнул поставщик
-    const temporaryComponent = (arr:number[], arrConst:(number | string)[][]) => (
-        arr?.map((check, i) => {
-            
-            let newName = arrConst.find(item => item.includes(check))?.slice(-1)
-            
-            return(
-                <span className="mx-2" key={i} >
-                    {newName}
-                </span>
-            )})
-        )
+    const { type_feature } = place || [];
 
     console.log("place", place);
 
@@ -113,9 +98,15 @@ return (
 
                     <CatalogItemSlider />
 
-                    <TextHeadingSiteDetails />
+                    {/* в компоненте сделал логику для "Предпросмотра" и "карты поставщика" */}
+                    <TextHeadingSiteDetails description = {place.description}/>
 
-                    <TextHeadingFeatures />
+                    <Row className='mb-xl-5 mb-md-4 mb-sm-3'>
+                        <h4>Особенности</h4>            
+                        <Row xs={1} sm={2} md={3}>
+                            {temporaryComponent(type_feature, FEATURES)}
+                        </Row>
+                    </Row>
 
                     {providerCards &&
                         providerCards.map((item) => (
