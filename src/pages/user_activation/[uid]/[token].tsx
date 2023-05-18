@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import { Container, Spinner } from "react-bootstrap";
+import { Paths, TEST_URL } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
-import { TEST_URL } from '@/constant';
 
 
 export default function FinishRegistrationPage() {
@@ -33,7 +33,7 @@ export default function FinishRegistrationPage() {
     }
 
     function handleRedirect() {
-        router.push('/signin')
+        router.push(Paths.SignIn)
     }
 
     useEffect(() => {

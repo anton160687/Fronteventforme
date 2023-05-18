@@ -36,7 +36,7 @@ function RenderCheckbox({
 
   useEffect(() => {
     handleCheckBox(name, selectedArray);
-  }, [handleCheckBox, name, selectedArray]);
+  }, [name, selectedArray]);
 
   return (
     <Row xs={1} sm={2} md={3}>

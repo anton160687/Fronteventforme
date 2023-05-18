@@ -41,7 +41,6 @@ export async function createUser (data: CreateUserData) {
 }
 
 export async function signinUser (data: SigninUserData) {
-  //пока без роли, ждем исправлений от бэка
   let request = {
     is_bride: data.is_bride,
     email: data.email,

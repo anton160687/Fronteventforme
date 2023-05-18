@@ -152,12 +152,13 @@ export const OPTIONS_ADD = [
 ];
 
 //для навигации
-export const PATHS = {
-  signUp: '/signup',
-  signIn: '/signin',
-  renew: '/renew',
-  catalog: '/catalog',
-  places: '/places',
+export enum Paths {
+  Home = '/',
+  SignUp = '/signup',
+  SignIn = '/signin',
+  Renew = '/renew',
+  Catalog = '/catalog',
+  Places = '/catalog/places',
 };
 
 // для форм регистрации, авторизации
@@ -165,16 +166,16 @@ export const PASSWORD_REQUIREMENTS = '/^(?=.*[A-Za-z])(?=.*[0-9])(?=(.*[!@#$%^&*
 export const PASSWORD_TITLE =
   'Пароль должен содержать от 8 до 50 символов, в нем должны содержаться цифры, символы и буквы латинского алфавита';
 
-export const formFields = {
-  is_bride: 'is_bride',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  confirmPassword: 'confirmPassword',
+export enum FormFields {
+  IsBride = 'is_bride',
+  Username = 'username',
+  Email = 'email',
+  Password = 'password',
+  ConfirmPassword = 'confirmPassword',
 };
 
 // для футера
-export type FooterConst = {
+export type FooterType = {
   title: string;
   data: {
     id: number;
@@ -182,7 +183,8 @@ export type FooterConst = {
     url: string;
   }[];
 };
-export const SERVICES: FooterConst = {
+
+export const SERVICES: FooterType = {
   title: 'Услуги',
   data: [
     {
@@ -217,7 +219,8 @@ export const SERVICES: FooterConst = {
     },
   ],
 };
-export const PAGES: FooterConst = {
+
+export const PAGES: FooterType = {
   title: 'Страницы',
   data: [
     {
@@ -252,7 +255,8 @@ export const PAGES: FooterConst = {
     },
   ],
 };
-export const PLACES: FooterConst = {
+
+export const PLACES: FooterType = {
   title: 'Площадки',
   data: [
     {
@@ -287,7 +291,8 @@ export const PLACES: FooterConst = {
     },
   ],
 };
-export const ACTORS: FooterConst = {
+
+export const ACTORS: FooterType = {
   title: 'Исполнители',
   data: [
     {
@@ -335,7 +340,7 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 };
 
 //для авторизации
-export const TOKEN_TYPES = {
-  default: 'token',
-  bearer: 'bearer_token',
+export enum Token {
+  Default = 'token',
+  Bearer = 'bearer_token',
 };
