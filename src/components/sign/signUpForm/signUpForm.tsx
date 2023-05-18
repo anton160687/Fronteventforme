@@ -9,7 +9,12 @@ import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  USERNAME_REQUIREMENTS,
+  formFields,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
@@ -63,7 +68,7 @@ export default function SignUpForm({
         </p>
       ) : (
         <>
-          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4 py-sm-5">
+          <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4">
             <Form
               validated={validated}
               onSubmit={handleSubmit}
@@ -78,6 +83,7 @@ export default function SignUpForm({
                   required
                   name={formFields.username}
                   onChange={handleChange}
+                  pattern={USERNAME_REQUIREMENTS}
                 />
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">

@@ -37,12 +37,11 @@ export default function SetPassword(): JSX.Element {
   }
 
   return (
-    <div className="col-md-6 px-2 pt-2 pb-4 px-sm-6 pb-sm-5 pt-md-5">
+    <>
       <Form
         validated={validated}
         onSubmit={handleSubmit}
-        style={{ fontWeight: '500' }}
-        className="w-100"
+        className="w-100 fw-semibold"
       >
         <Form.Group className="mb-4">
           <Form.Label htmlFor="password">
@@ -56,7 +55,7 @@ export default function SetPassword(): JSX.Element {
             size=""
             light={false}
             className=""
-            style=""
+            style={null}
             autoComplete="off"
             placeholder="Введите пароль"
             pattern={PASSWORD_REQUIREMENTS}
@@ -75,7 +74,7 @@ export default function SetPassword(): JSX.Element {
             size=""
             light={false}
             className=""
-            style=""
+            style={null}
             autoComplete="off"
             name={formFields.confirmPassword}
             placeholder="Повторите пароль"
@@ -89,6 +88,6 @@ export default function SetPassword(): JSX.Element {
           Сохранить изменения
         </Button>
       </Form>
-    </div>
+    </>
   );
 }
