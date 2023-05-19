@@ -7,7 +7,7 @@ export default function SocialMedia(): JSX.Element {
     event.preventDefault;
   }
   return (
-    <section style={{ marginLeft: '5rem' }}>
+    <section className={styles.socialMedia}>
       <Button variant="outline-primary w-100 mb-3">
         <i className="fi-vk fs-lg me-2"></i>
         Войти через Вконтакте

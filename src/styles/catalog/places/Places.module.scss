@@ -176,7 +176,6 @@
   font-weight: 500;
 
   &_bottom {
-    display: flex;
     width: 100%;
     @include fz(10, 14);
   }
@@ -211,12 +210,19 @@
   font-weight: 500;
 }
 
+.badge {
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  @include fz(12, 14);
+  width: fit-content;
+}
+
 .sale {
-  margin: 1.5em 1em 0;
   display: flex;
   flex-direction: column;
   justify-content: baseline;
   flex-grow: 1;
+  width: fit-content;
 }
 
 .calendar {

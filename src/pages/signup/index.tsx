@@ -11,7 +11,7 @@ export default function SignUp(): JSX.Element {
   const [signUpIsDone, setSignUpIsDone] = useState(false);
 
   return (
-    <Container as="section" className="mx-auto w-75">
+    <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
       <>
         {/* Page wrapper */}
         <main className="page-wrapper">
@@ -22,8 +22,10 @@ export default function SignUp(): JSX.Element {
               style={{ maxWidth: '1040px', border: 'none' }}
             >
               <div className="row mx-0 align-items-center">
-                <SignUpPic />
-                <div className="col-md-6 px-2 pt-2 pb-4 px-sm-6 pb-sm-5 pt-md-5">
+                <div className="col-lg-6 border-end-lg p-2 pe-lg-5">
+                  <SignUpPic />
+                </div>
+                <div className="col-lg-6 px-2 pt-2 pb-4 px-sm-6 pt-md-5 ps-lg-5">
                   {!signUpForm && <SocialMedia />}
                   {!signUpIsDone ? (
                     <SignUpForm
@@ -32,7 +34,9 @@ export default function SignUp(): JSX.Element {
                       setSignUpIsDone={setSignUpIsDone}
                     />
                   ) : (
-                    <SignUpText />
+                    <div className="ps-lg-5">
+                      <SignUpText />
+                    </div>
                   )}
                 </div>
               </div>

@@ -271,7 +271,7 @@ export default function CatalogItemSlider(): JSX.Element {
           </LightGallery>
 
           <div className={styles.slider_text_wrapper}>
-            <div className="d-flex">
+            <div className="d-md-flex">
               <div className={styles.left_block}>
                 <div className={styles.slider_text}>
                   <p>Вместимость</p>
@@ -312,19 +312,19 @@ export default function CatalogItemSlider(): JSX.Element {
               </div>
             </div>
 
-            <div className={styles.slider_text_bottom}>
-              <div className={styles.slider_details}>
-                <h4 className="h4">Детали</h4>
-                {detailsRender(place.description)}
-              </div>
-              <div className={styles.sale}>
-                <p style={{ fontWeight: '500' }}>{place.sale.condition}</p>
+            <div className={styles.slider_text_bottom + ' d-md-flex'}>
+              <div className={styles.sale + ' order-2 my-4 ms-md-3'}>
+                <p className="fw-semibold">{place.sale.condition}</p>
 
                 {/* //! тут по ТЗ: при нажатии открывается карусель фото комнаты, но я пока сделала бэйдж до прояснения вопроса (дизайнер тоже бэйдж сделала) */}
                 <Badge className="bg-faded-primary fw-bold fs-sm py-2 px-3">
                   <i className="fi-gift fs-lg me-1"></i>
                   {place.sale.btn}
                 </Badge>
+              </div>
+              <div className={styles.slider_details + ' order-1 mt-5 mt-md-0'}>
+                <h4 className="h4">Детали</h4>
+                {detailsRender(place.description)}
               </div>
             </div>
           </div>
