@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import { Container, Spinner } from "react-bootstrap";
 import styles from '@/styles/sign/Sign.module.scss';
+import { TEST_URL } from '@/constant';
 
 
 export default function finishRegistrationPage() {
@@ -15,10 +16,7 @@ export default function finishRegistrationPage() {
             uid: uid,
             token: token
         }
-        console.log(data);
-        //пока что URL в хардкоде, потом надо будет поместить рабочее URL в env
-        //и, поскольку это нерабочее URL, сейчас запрос уходит вникуда и возвращает 404, но это пока нормально
-        let response = await fetch('127.0.0.1:8000/auth/users/activation/', {
+        let response = await fetch(`${TEST_URL}auth/users/activation/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -35,17 +33,14 @@ export default function finishRegistrationPage() {
     }
 
     function handleRedirect() {
-        router.push('/')
+        router.push('/signin')
     }
 
     useEffect(() => {
         if (uid && token) {
-            //сохраняем токен в localStorage
-            localStorage.setItem("token", token);
-            // здесь - отправка данных на бэк
             sendAuthData();
             //перенаправляем на главную или иную страницу, пока отключено
-            // handleRedirect();
+            handleRedirect();
         }
     }, [uid, token])
 

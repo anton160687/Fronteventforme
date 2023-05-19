@@ -26,7 +26,7 @@ const CatalogPlaceCard: FC<propsPlace> = ({ place }) => {
 
         <Card.Title className={`d-flex align-items-baseline justify-content-between my-4`}>
           <Link href={`/catalog/places/${place.id}`} className="m-0 text-decoration-none" ><h5>{place.title}</h5></Link>
-          <Button className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle`}>
+          <Button className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle shadow-sm`}>
             <i className='fi-heart'></i>
           </Button>
         </Card.Title>

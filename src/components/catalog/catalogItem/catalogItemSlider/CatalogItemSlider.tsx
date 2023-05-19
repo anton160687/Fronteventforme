@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,7 +14,7 @@ import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'lightgallery/css/lg-video.css';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
@@ -67,7 +67,7 @@ export default function CatalogItemSlider(): JSX.Element {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const onChange = (dates: any) => {
+  const onChangeDates = (dates: any) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
@@ -87,6 +87,22 @@ export default function CatalogItemSlider(): JSX.Element {
       event.preventDefault();
     }
     setValidated(true);
+  };
+
+  const average_check = 2000;
+  const min_cost = 100000;
+  const [peopleQuantity, setPeopleQuantity] = useState<number>();
+  const onChangePeople = (e: ChangeEvent<HTMLInputElement>) => {
+    setPeopleQuantity(+e.currentTarget.value);
+    calculateCost();
+  };
+
+  const calculateCost = () => {
+    if (peopleQuantity) {
+      return average_check * peopleQuantity > min_cost
+        ? average_check * peopleQuantity
+        : min_cost;
+    } else return 0;
   };
 
   return (
@@ -120,63 +136,38 @@ export default function CatalogItemSlider(): JSX.Element {
                 />
               </Modal.Header>
               <Modal.Body className="px-sm-5 px-4">
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Form.Group controlId="property-city" className="mb-3">
-                    <Form.Label className="fw-bold mb-2">
-                      Property location
-                    </Form.Label>
-                    <Form.Select required>
-                      <option value="">Choose city</option>
-                      <option value="Chicago">Chicago</option>
-                      <option value="Dallas">Dallas</option>
-                      <option value="Los Angeles">Los Angeles</option>
-                      <option value="New York">New York</option>
-                      <option value="San Diego">San Diego</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      Please choose the city.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Select required>
-                      <option value="">Choose district</option>
-                      <option value="Brooklyn">Brooklyn</option>
-                      <option value="Manhattan">Manhattan</option>
-                      <option value="Staten Island">Staten Island</option>
-                      <option value="The Bronx">The Bronx</option>
-                      <option value="Queens">Queens</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      Please choose the district.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group
-                    controlId="property-address"
-                    className="pt-2 mb-3"
-                  >
-                    <Form.Label className="fw-bold mb-2">Address</Form.Label>
-                    <Form.Control placeholder="Enter your address" required />
-                    <Form.Control.Feedback type="invalid">
-                      Please provide your property&apos;s address.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  <Form.Group controlId="property-area" className="pt-2 mb-4">
-                    <Form.Label className="fw-bold mb-2">
-                      Total area, sq.m.
+                <Form
+                  onSubmit={handleSubmit}
+                  className="fs-6 fw-normal pt-2 mb-3"
+                >
+                  <Form.Group controlId="calculate-cost" className="pt-2 mb-3">
+                    {/* //!При нажатии авторизованным пользователем количество
+                    гостей подставляется из личного кабинета. Можно изменить.*/}
+                    <Form.Label className="mb-2">
+                      Укажите количество гостей
                     </Form.Label>
                     <Form.Control
-                      placeholder="Enter your property area"
-                      required
+                      type="number"
+                      value={peopleQuantity}
+                      onChange={onChangePeople}
                     />
-                    <Form.Control.Feedback type="invalid">
-                      Please enter your property&apos;s area.
-                    </Form.Control.Feedback>
                   </Form.Group>
-                  <Button type="submit" variant="primary d-block w-100 mb-4">
+                  {/* Минимальная стоимость и средний чек тоже подтягиваются из бд */}
+                  <Form.Text>
+                    <p className="mb-0">Минимальная стоимость:</p>
+                    <p className="fs-5 fw-bold">{min_cost} ₽</p>
+                  </Form.Text>
+                  <Form.Text>
+                    <p className="mb-0 text-dark">Итоговая стоимость:</p>
+                    <p className="fs-5 fw-bold text-primary">
+                      {calculateCost()} ₽
+                    </p>
+                  </Form.Text>
+
+                  {/* <Button type="submit" variant="primary d-block w-100 mb-4">
                     <i className="fi-calculator me-2"></i>
                     Рассчитать
-                  </Button>
+                  </Button> */}
                 </Form>
               </Modal.Body>
             </Modal>
@@ -195,10 +186,11 @@ export default function CatalogItemSlider(): JSX.Element {
               >
                 <DatePicker
                   selected={startDate}
-                  onChange={onChange}
+                  onChange={onChangeDates}
                   minDate={new Date(Date.now())}
-                  maxDate={new Date('02/29/2024')}
-                  placeholderText="Select a date in Feb 2022"
+                  //на год от сегодняшней даты
+                  maxDate={new Date(Date.now() + 3.156e10)}
+                  placeholderText="Select a date"
                   className="rounded-1 pe-5"
                   endDate={endDate}
                   startDate={startDate}
@@ -210,7 +202,6 @@ export default function CatalogItemSlider(): JSX.Element {
                     addDays(new Date(), 11),
                     addDays(new Date(), 12),
                   ]}
-                  selectsRange
                   inline
                 />
               </div>
@@ -326,7 +317,7 @@ export default function CatalogItemSlider(): JSX.Element {
                 <p className="fw-semibold">{place.sale.condition}</p>
 
                 {/* //! тут по ТЗ: при нажатии открывается карусель фото комнаты, но я пока сделала бэйдж до прояснения вопроса (дизайнер тоже бэйдж сделала) */}
-                <Badge className={styles.badge}>
+                <Badge className="bg-faded-primary fw-bold fs-sm py-2 px-3">
                   <i className="fi-gift fs-lg me-1"></i>
                   {place.sale.btn}
                 </Badge>

@@ -3,42 +3,32 @@ import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import styles from '@/styles/sign/Sign.module.scss';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import {
-  PASSWORD_REQUIREMENTS,
-  PASSWORD_TITLE,
-  formFields,
-  PATHS,
-} from '@/constant';
-
-type formDataType = {
-  userRole: string;
-  email: string;
-  password: string;
-};
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/constant';
+import styles from '@/styles/sign/Sign.module.scss';
+import { SigninUserData } from '@/types/forms';
+import { signinUser } from '@/store/user/userAPI';
+import router from 'next/router';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
-  //создаем стэйт для нашей формы
-  const initialDataState: formDataType = {
-    userRole: 'bride',
+  const initialDataState: SigninUserData = {
+    is_bride: true,
     email: '',
     password: '',
   };
+
   const [data, setData] = useState<formDataType>(initialDataState);
   const ref = useRef<HTMLFormElement>(null);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity()) {
-      setValidated(true);
-      //здесь будут действия по отправке data на бэк
+ 
+  const [widthForm, setWidthForm] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      setWidthForm(ref.current.clientWidth);
     }
-  };
-
+  }, []);
+  
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
       ...data,
@@ -46,12 +36,23 @@ export default function SignInForm(): JSX.Element {
     });
   }
 
-  const [widthForm, setWidthForm] = useState(0);
-  useEffect(() => {
-    if (ref.current) {
-      setWidthForm(ref.current.clientWidth);
+  function handleToggle(e: ChangeEvent<HTMLInputElement>) {
+    let value = +e.target.value;
+    setData({
+      ...data,
+      [e.target.name]: !!value,
+    });
+  }
+
+  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity()) {
+      setValidated(true);
+      signinUser(data);
+      router.push('/');
     }
-  }, []);
+  };
 
   return (
     <Form
@@ -72,10 +73,10 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="bride"
-            name={formFields.userRole}
-            value="bride"
-            checked={data.userRole === 'bride'}
-            onChange={handleChange}
+            name={formFields.is_bride}
+            value={1}
+            checked={data.is_bride}
+            onChange={handleToggle}
             variant="outline-primary fw-normal"
             className={styles.toggle_btn}
           >
@@ -83,17 +84,15 @@ export default function SignInForm(): JSX.Element {
             <span className={styles.toggle_btn}>Я пользователь</span>
           </ToggleButton>
           <Form.Control
-            required
-            defaultValue={data.userRole}
             style={{ position: 'absolute', zIndex: '-1' }}
           />
           <ToggleButton
             type="radio"
             id="vendor"
-            name={formFields.userRole}
-            value="vendor"
-            checked={data.userRole === 'vendor'}
-            onChange={handleChange}
+            name={formFields.is_bride}
+            value={0}
+            checked={!data.is_bride}
+            onChange={handleToggle}
             variant="outline-primary fw-normal"
           >
             <i className="fi-briefcase fs-lg me-1"></i>
@@ -135,7 +134,7 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
-          pattern={PASSWORD_REQUIREMENTS}
+          // pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
         />
       </Form.Group>
