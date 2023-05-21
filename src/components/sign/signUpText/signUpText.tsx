@@ -4,8 +4,8 @@ import { Paths } from '@/constant';
 
 export default function SignUpText() {
   return (
-    <div style={{ marginLeft: '5rem' }}>
-      <h4 className="h4 mb-4 mb-sm-5">
+    <div className=" text-center text-lg-start">
+      <h4 className="h4 mb-4">
         Для завершения регистрации перейдите по ссылке на вашей электронной
         почте
       </h4>

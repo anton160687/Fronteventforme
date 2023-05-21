@@ -5,8 +5,8 @@ import { Paths } from '@/constant';
 
 export default function SignInPic(): JSX.Element {
   return (
-    <div className="col-md-6 border-end-md p-2 p-sm-5">
-      <h2 className="h3 mb-4 mb-sm-5">
+    <>
+      <h2 className="h3 mb-4 mb-sm-5 text-center text-lg-start">
         Привет. <br />
         Рады видеть вас снова!
       </h2>
@@ -18,13 +18,13 @@ export default function SignInPic(): JSX.Element {
           alt="Illusration"
         />
       </div>
-      <div className="mt-4 mt-sm-5">
+      <div className="mt-4 mt-sm-5 text-center text-lg-start">
         Еще нет аккаунта на портале?{'\u00A0'}
         <br />
         <Link className={styles.link} href={Paths.SignUp}>
           Регистрация
         </Link>
       </div>
-    </div>
+    </>
   );
 }

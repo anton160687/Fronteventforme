@@ -5,8 +5,8 @@ import { Paths } from '@/constant';
 
 export default function SignUpPic() {
   return (
-    <div className="col-md-6 border-end-md p-2 p-sm-5">
-      <h3 className="h3 mb-4 mb-sm-5">
+    <>
+      <h3 className="h3 mb-4 mb-sm-5 text-center text-lg-start">
         Присоединяйтесь к EventForMe. Получите доступ к услугам:
       </h3>
       <div style={{ fontWeight: '500' }}>
@@ -33,12 +33,12 @@ export default function SignUpPic() {
           alt="Illusration"
         />
       </div>
-      <div className="mt-4 mt-sm-5">
+      <div className="mt-4 mt-sm-5 text-center text-lg-start">
         Уже есть аккаунт?{'\u00A0'}
         <Link className={styles.link} href={Paths.SignIn}>
           Войти
         </Link>
       </div>
-    </div>
+    </>
   );
 }
