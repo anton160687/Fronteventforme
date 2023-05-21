@@ -209,7 +209,7 @@ export default function CatalogItemSlider(): JSX.Element {
           </div>
           <LightGallery
             selector=".gallery-item"
-            licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : ''}
+            // licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : undefined}
             plugins={[lgThumbnail, lgZoom, lgFullScreen]}
             zoomFromOrigin={true}
             exThumbImage="data-external-thumb-image"

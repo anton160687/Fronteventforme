@@ -20,7 +20,7 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
     return (
       <LightGallery
         selector=".gallery-item"
-        licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : ''}
+        // licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : undefined}
         plugins={[lgThumbnail, lgZoom, lgFullScreen]}
         zoomFromOrigin={true}
       >
