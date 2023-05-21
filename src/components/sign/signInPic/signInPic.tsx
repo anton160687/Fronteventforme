@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ImageLoader from '../../_finder/ImageLoader';
 import styles from '@/styles/sign/Sign.module.scss';
-import { PATHS } from '@/constant';
+import { Paths } from '@/constant';
 
 export default function SignInPic(): JSX.Element {
   return (
@@ -21,7 +21,7 @@ export default function SignInPic(): JSX.Element {
       <div className="mt-4 mt-sm-5 text-center text-lg-start">
         Еще нет аккаунта на портале?{'\u00A0'}
         <br />
-        <Link className={styles.link} href={PATHS.signUp}>
+        <Link className={styles.link} href={Paths.SignUp}>
           Регистрация
         </Link>
       </div>

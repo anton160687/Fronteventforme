@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields, Paths } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
@@ -73,7 +73,7 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="bride"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={1}
             checked={data.is_bride}
             onChange={handleToggle}
@@ -89,7 +89,7 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="vendor"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={0}
             checked={!data.is_bride}
             onChange={handleToggle}
@@ -106,7 +106,7 @@ export default function SignInForm(): JSX.Element {
           type="email"
           placeholder="primer@mail.ru"
           required
-          name={formFields.email}
+          name={FormFields.Email}
           onChange={handleChange}
         />
       </Form.Group>
@@ -119,14 +119,14 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={PATHS.renew} className={styles.link + ' fs-sm'}>
+          <Link href={Paths.Renew} className={styles.link + ' fs-sm'}>
             Забыли пароль?
           </Link>
         </div>
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
-          name={formFields.password}
+          name={FormFields.Password}
           onChange={handleChange}
           required
           style={{}}

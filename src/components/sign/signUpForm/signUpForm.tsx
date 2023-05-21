@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
@@ -67,7 +67,7 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
                 <Form.Control
                   placeholder="Введите свое имя"
                   required
-                  name={formFields.username}
+                  name={FormFields.Username}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -77,7 +77,7 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
                   type="email"
                   placeholder="primer@mail.ru"
                   required
-                  name={formFields.email}
+                  name={FormFields.Email}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -96,7 +96,7 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
                   className=""
                   style={{}}
                   placeholder="Введите пароль"
-                  name={formFields.password}
+                  name={FormFields.Password}
                   pattern={PASSWORD_REQUIREMENTS}
                   title={PASSWORD_TITLE}
                   onChange={handleChange}
@@ -117,7 +117,7 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
                   className=""
                   style={{}}
                   placeholder="Повторите пароль"
-                  name={formFields.confirmPassword}
+                  name={FormFields.ConfirmPassword}
                   pattern={data.password}
                   title={'Пароли должны совпадать.'}
                   autoComplete="off"

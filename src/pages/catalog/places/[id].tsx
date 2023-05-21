@@ -1,16 +1,14 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import { Place } from '@/types/catalog';
-import { URL } from '@/constant';
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { URL, Paths } from '@/constant';
+import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-
-import { Card } from 'react-bootstrap/';
+import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
 import {
-  ProviderCardSpecialBlock,
   PhotosWeddingsHeld,
   ArticlesWeddings,
   TextHeadingDescription,
@@ -22,12 +20,12 @@ import {
 import { cards } from '@/mocks/cards';
 import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
-import styles from '@/styles/catalog/places/Places.module.scss';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
+import styles from '@/styles/catalog/places/Places.module.scss';
 
 type CatalogItemProps = {
   item?: Place;
@@ -41,13 +39,13 @@ export default function CatalogItem({ item }: CatalogItemProps) {
   return (
     <Container>
       <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item linkAs={Link} href="/">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
           Каталог
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog/places">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Places}>
           Площадки
         </Breadcrumb.Item>
         <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>
@@ -87,7 +85,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           {providerCards &&
             providerCards.map((item) => (
-              <ProviderCardSpecialBlock
+              <AlbumCard
                 key={item.id}
                 id={item.id}
                 title={item.title}

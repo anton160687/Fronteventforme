@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styles from '@/styles/sign/Sign.module.scss';
+import { Paths } from '@/constant';
+
 
 export default function SignInText() {
   return (

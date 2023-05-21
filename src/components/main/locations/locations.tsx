@@ -1,9 +1,9 @@
 import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import { Place } from '@/types/catalog';
 import styles from '@/styles/main/Main.module.scss';
+
 
 type LocationProps = {
   locations: Place[];
