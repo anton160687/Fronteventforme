@@ -43,9 +43,10 @@ function SupplierSlider(): JSX.Element {
             }}
             className="mx-n2"
             data-carousel-options='{"loop": true}'
+            grabCursor
           >
             {suppliers.map((supplier, index) => (
-              <SwiperSlide key={index}>
+              <SwiperSlide key={index} className="h-auto">
                 <Link href={supplier.href} className="position-relative">
                   <div className="rounded-3">
                     <div className="d-inline-block mx-2">

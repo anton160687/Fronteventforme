@@ -2,10 +2,13 @@
 
 .py64 {
   padding: 64px 0;
+  @include adaptiv-value(padding-top, 64, 15);
+  @include adaptiv-value(padding-bottom, 64, 15);
 }
 
 .my124 {
-  margin: 124px 0;
+  @include adaptiv-value(margin-top, 124, 30);
+  @include adaptiv-value(margin-bottom, 124, 30);
 }
 
 .btn__link {
@@ -59,8 +62,6 @@
 }
 
 .step {
-  &__title {
-  }
   &__description {
     margin: 0;
   }
@@ -189,5 +190,51 @@
   .mobile__column {
     flex-direction: column;
     gap: 16px;
+  }
+}
+
+.supplierFZ {
+  @include fz(20, 56);
+}
+
+.card {
+  &_title {
+    font-size: 16px;
+  }
+  &_sign {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .card {
+    width: fit-content;
+    &_title {
+      text-align: center;
+    }
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    display: block;
+    height: auto;
+  }
+
+  .locations {
+    &_wrapper {
+      height: 35vmin;
+      margin: 2em 0;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card_name {
+    text-align: center;
   }
 }
