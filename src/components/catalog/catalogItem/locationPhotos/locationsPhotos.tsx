@@ -1,5 +1,5 @@
 import GalleryItem from '@/components/_finder/GalleryItem';
-import LightGallery from 'lightgallery/react'
+import LightGallery from 'lightgallery/react';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import lgFullScreen from 'lightgallery/plugins/fullscreen';
@@ -20,6 +20,7 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
     return (
       <LightGallery
         selector=".gallery-item"
+        // licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : undefined}
         plugins={[lgThumbnail, lgZoom, lgFullScreen]}
         zoomFromOrigin={true}
       >

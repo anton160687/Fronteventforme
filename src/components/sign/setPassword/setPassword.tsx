@@ -2,21 +2,17 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import Button from 'react-bootstrap/Button';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields } from '@/constant';
-
-type formDataType = {
-  password: string;
-  confirmPassword: string;
-};
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
+import { PasswordFromData } from '@/types/forms';
 
 export default function SetPassword(): JSX.Element {
   const [validated, setValidated] = useState(false);
-  //создаем стэйт для нашей формы
-  const initialDataState: formDataType = {
+
+  const initialDataState: PasswordFromData = {
     password: '',
     confirmPassword: '',
   };
-  const [data, setData] = useState<formDataType>(initialDataState);
+  const [data, setData] = useState<PasswordFromData>(initialDataState);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
@@ -61,7 +57,7 @@ export default function SetPassword(): JSX.Element {
             pattern={PASSWORD_REQUIREMENTS}
             title={PASSWORD_TITLE}
             onChange={handleChange}
-            name={formFields.password}
+            name={FormFields.Password}
           />
         </Form.Group>
         <Form.Group className="mb-4">
@@ -76,7 +72,7 @@ export default function SetPassword(): JSX.Element {
             className=""
             style={null}
             autoComplete="off"
-            name={formFields.confirmPassword}
+            name={FormFields.ConfirmPassword}
             placeholder="Повторите пароль"
             pattern={data.password}
             title={'Пароли должны совпадать.'}

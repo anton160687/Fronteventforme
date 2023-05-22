@@ -13,11 +13,11 @@ import Sidebar from '@/components/catalog/sidebar/Sidebar';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
 import CatalogPlaceCard from '@/components/catalog/placeCard/catalogPlaceCard';
-import { TopSlidersPlaces } from '@/components/catalog/';
+import TypeAreaSlider from '@/components/catalog/typeAreaSlider/TypeAreaSlider';
 //для SSR
-import { URL } from '@/constant';
+import { URL, Paths } from '@/constant';
 import { Place } from '@/types/catalog';
-import BotomFilters from '@/components/catalog/botomFilters/botomFilters';
+import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 
 type CatalogPlacesProps = {
   places: Place[];
@@ -58,10 +58,10 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   return (
     <Container>
       <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item linkAs={Link} href="/">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
           Каталог
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
@@ -69,7 +69,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
       <Row className="p-0">
         <Title title={'Площадки'} quantity={places.length} />
-        <TopSlidersPlaces />
+        <TypeAreaSlider />
         <PlaceFilters />
       </Row>
 

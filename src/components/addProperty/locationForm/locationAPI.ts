@@ -7,6 +7,8 @@ export async function fetchAddress(
     setSuggestions: Dispatch<SetStateAction<DaDataValue[] | undefined>>,
     setGeodata: (lat: number, lon: number) => void
 ) {
+    let apiToken = (process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_DADATA : TOKEN);
+
     let data = { "query": query };
     let response = await fetch(SUG_URL, {
         method: "POST",
@@ -14,7 +16,7 @@ export async function fetchAddress(
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Authorization": "Token " + TOKEN
+            "Authorization": "Token " + apiToken
         },
         body: JSON.stringify(data),
     })

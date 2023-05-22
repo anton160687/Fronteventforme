@@ -1,5 +1,5 @@
 import { User } from '@/types/user';
-import { URL, TEST_URL } from '@/constant';
+import { URL, TEST_URL, Token } from '@/constant';
 import { CreateUserData, SigninUserData } from '@/types/forms';
 
 export async function fetchAllUsers(): Promise<User[] | undefined> {
@@ -38,23 +38,23 @@ export async function createUser(data: CreateUserData) {
       body: JSON.stringify(request),
     });
 
-    const result = await response.json();
-    console.log('result', result);
     if (!response.ok) {
-      console.log('error result', result);
-
       throw new Error(`Request failed with status ${response.status}`);
     }
+
+    const result = await response.json();
+    console.log('createUser result', result);
   } catch (error) {
     console.error(error);
   }
 }
 
 export async function signinUser(data: SigninUserData) {
-  //пока без роли, ждем исправлений от бэка
+  //пока без роли и почты (вместо этого ждет имя пользователя), ждем исправлений от бэка
   let request = {
-    is_bride: data.is_bride,
-    email: data.email,
+    //  is_bride: data.is_bride,
+    // email: data.email,
+    username: data.username,
     password: data.password,
   };
   let response = await fetch(`${TEST_URL}auth/token/login/`, {
@@ -67,9 +67,9 @@ export async function signinUser(data: SigninUserData) {
   });
   if (response.ok) {
     let result = await response.json();
-    console.log(result);
-    localStorage.setItem('token', result.auth_token);
+    console.log('signinUser result', result);
+    localStorage.setItem(Token.Default, result.auth_token);
   } else {
-    console.log(response);
+    console.error('signinUser', response);
   }
 }

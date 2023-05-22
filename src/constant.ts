@@ -172,16 +172,16 @@ export const USERNAME_REQUIREMENTS = '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$';
 export const USERNAME_TITLE =
   'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры и буквы латинского алфавита. При этом первый символ обязательно буква.';
 
-export const formFields = {
-  is_bride: 'is_bride',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  confirmPassword: 'confirmPassword',
-};
+export enum FormFields {
+  IsBride = 'is_bride',
+  Username = 'username',
+  Email = 'email',
+  Password = 'password',
+  ConfirmPassword = 'confirmPassword',
+}
 
 // для футера
-export type FooterConst = {
+export type FooterType = {
   title: string;
   data: {
     id: number;
@@ -189,7 +189,8 @@ export type FooterConst = {
     url: string;
   }[];
 };
-export const SERVICES: FooterConst = {
+
+export const SERVICES: FooterType = {
   title: 'Услуги',
   data: [
     {
@@ -224,7 +225,8 @@ export const SERVICES: FooterConst = {
     },
   ],
 };
-export const PAGES: FooterConst = {
+
+export const PAGES: FooterType = {
   title: 'Страницы',
   data: [
     {
@@ -259,7 +261,8 @@ export const PAGES: FooterConst = {
     },
   ],
 };
-export const PLACES: FooterConst = {
+
+export const PLACES: FooterType = {
   title: 'Площадки',
   data: [
     {
@@ -294,7 +297,8 @@ export const PLACES: FooterConst = {
     },
   ],
 };
-export const ACTORS: FooterConst = {
+
+export const ACTORS: FooterType = {
   title: 'Исполнители',
   data: [
     {
@@ -342,7 +346,7 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 };
 
 //для авторизации
-export const TOKEN_TYPES = {
-  default: 'token',
-  bearer: 'bearer_token',
-};
+export enum Token {
+  Default = 'token',
+  Bearer = 'bearer_token',
+}

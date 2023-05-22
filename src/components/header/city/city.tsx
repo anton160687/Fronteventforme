@@ -19,6 +19,8 @@ function City(): JSX.Element {
   const dropDownRef = useRef(null);
   const [openDropDown, setOpenDropdown] = useState<boolean>(false);
 
+  let apiToken = (process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_DADATA : TOKEN);
+  
   // определение геолокации юзера
   useEffect(() => {
     const geo = navigator.geolocation;
@@ -42,7 +44,7 @@ function City(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Authorization": "Token " + TOKEN
+          "Authorization": "Token " + apiToken
         },
         body: JSON.stringify(data),
       })
@@ -62,7 +64,7 @@ function City(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Authorization": "Token " + TOKEN
+          "Authorization": "Token " + apiToken
         },
         body: JSON.stringify(data),
       })
@@ -78,11 +80,11 @@ function City(): JSX.Element {
   function handleClick(e: MouseEvent<HTMLParagraphElement>, city: Nullable<string>) {
     let input = e.target as HTMLElement;
     let chosenAddress: string = input.innerText;
-
     setAddress(chosenAddress);
     if (city) {
       setCity(city);
     }
+    setOpenDropdown(false);
   }
 
   function handleOutsideClick(e: MouseEvent<HTMLParagraphElement>) {

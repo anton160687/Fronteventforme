@@ -25,10 +25,10 @@ import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import { createPlace } from '@/store/place/placeAPI';
+import { createPlace } from '@/components/addProperty/placeAPI';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import { ADD_PLACE_NAMES, TOKEN_TYPES } from '@/constant';
+import { ADD_PLACE_NAMES, Token } from '@/constant';
 
 //! обязательно проверть корректность после подключения API: проценты в прогресс баре, заполнение всех обязательных полей, загрузку фоток
 function AddPropertyPage() {
@@ -124,7 +124,7 @@ function AddPropertyPage() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    let token = localStorage.getItem(TOKEN_TYPES.default);
+    let token = localStorage.getItem(Token.Default);
     if (form.checkValidity() && token) {
       setValidated(true);
       createPlace(place, token);

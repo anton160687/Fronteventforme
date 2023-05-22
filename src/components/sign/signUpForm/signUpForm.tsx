@@ -12,9 +12,9 @@ import PasswordToggle from '@/components/_finder/PasswordToggle';
 import {
   PASSWORD_REQUIREMENTS,
   PASSWORD_TITLE,
+  FormFields,
   USERNAME_REQUIREMENTS,
   USERNAME_TITLE,
-  formFields,
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
@@ -79,7 +79,7 @@ export default function SignUpForm({
                 <Form.Control
                   placeholder="Введите имя пользователя"
                   required
-                  name={formFields.username}
+                  name={FormFields.Username}
                   onChange={handleChange}
                   pattern={USERNAME_REQUIREMENTS}
                   title={USERNAME_TITLE}
@@ -92,7 +92,7 @@ export default function SignUpForm({
                   type="email"
                   placeholder="primer@mail.ru"
                   required
-                  name={formFields.email}
+                  name={FormFields.Email}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -111,7 +111,7 @@ export default function SignUpForm({
                   className=""
                   style={{}}
                   placeholder="Введите пароль"
-                  name={formFields.password}
+                  name={FormFields.Password}
                   pattern={PASSWORD_REQUIREMENTS}
                   title={PASSWORD_TITLE}
                   onChange={handleChange}
@@ -132,7 +132,7 @@ export default function SignUpForm({
                   className=""
                   style={{}}
                   placeholder="Повторите пароль"
-                  name={formFields.confirmPassword}
+                  name={FormFields.ConfirmPassword}
                   pattern={data.password}
                   title={'Пароли должны совпадать.'}
                   autoComplete="off"

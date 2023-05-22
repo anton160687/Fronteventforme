@@ -32,7 +32,7 @@ const DropdownCB = ({ name, text, options, icon, setFilterParams }: DropdownCBPr
 
   useEffect(()=> {
     setFilterParams(name, selectedArray)
-  }, [selectedArray])
+  }, [name, selectedArray])
 
 function renderCB() {
   return options.map((option, i) => (

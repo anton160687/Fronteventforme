@@ -1,9 +1,9 @@
 import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import { Place } from '@/types/catalog';
 import styles from '@/styles/main/Main.module.scss';
+
 
 type LocationProps = {
   locations: Place[];
@@ -13,7 +13,13 @@ type LocationProps = {
   showAllTxt?: string;
 };
 
-export function Locations({ locations, title }: LocationProps): JSX.Element {
+export function Locations({
+  locations,
+  title,
+  isShowAll,
+  href = '#',
+  showAllTxt = 'Показать все',
+}: LocationProps): JSX.Element {
   function renderLocations() {
     return locations.map((location: Place, index: number) => (
       <div
@@ -75,8 +81,20 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
   return (
     <Container as="section" className="mx-auto w-75">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h3 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h3>
+        <div className="d-sm-flex align-items-center justify-content-between mb-3">
+          <h2 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h2>
+          {isShowAll && (
+            <Link
+              href={href}
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+              }}
+            >
+              {showAllTxt}
+              <i className="fi-arrow-long-right ms-2"></i>
+            </Link>
+          )}
         </div>
         <div className={styles.grid}>
           {locations ? renderLocations() : 'Loading'}

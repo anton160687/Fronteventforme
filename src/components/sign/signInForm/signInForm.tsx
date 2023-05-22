@@ -5,7 +5,14 @@ import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { PASSWORD_TITLE, formFields, PATHS } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  PATHS,
+  USERNAME_TITLE,
+  USERNAME_REQUIREMENTS,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
@@ -17,9 +24,18 @@ export default function SignInForm(): JSX.Element {
     is_bride: true,
     email: '',
     password: '',
+    username: '',
   };
+
   const [data, setData] = useState<SigninUserData>(initialDataState);
   const ref = useRef<HTMLFormElement>(null);
+
+  const [widthForm, setWidthForm] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      setWidthForm(ref.current.clientWidth);
+    }
+  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -45,12 +61,6 @@ export default function SignInForm(): JSX.Element {
       router.push('/');
     }
   }
-  const [widthForm, setWidthForm] = useState(0);
-  useEffect(() => {
-    if (ref.current) {
-      setWidthForm(ref.current.clientWidth);
-    }
-  }, []);
 
   return (
     <Form
@@ -71,7 +81,7 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="bride"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={1}
             checked={data.is_bride}
             onChange={handleToggle}
@@ -85,7 +95,7 @@ export default function SignInForm(): JSX.Element {
           <ToggleButton
             type="radio"
             id="vendor"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={0}
             checked={!data.is_bride}
             onChange={handleToggle}
@@ -96,13 +106,26 @@ export default function SignInForm(): JSX.Element {
           </ToggleButton>
         </ButtonGroup>
       </Form.Group>
+      {/*//! временно, добавила для взаимодействия с тестовой апи */}
+      <Form.Group controlId="si-username" className="mb-4">
+        <Form.Label>Имя</Form.Label>
+        <Form.Control
+          placeholder="Введите имя пользователя"
+          required
+          name={FormFields.Username}
+          onChange={handleChange}
+          pattern={USERNAME_REQUIREMENTS}
+          title={USERNAME_TITLE}
+          type="username"
+        />
+      </Form.Group>
       <Form.Group controlId="si-email" className="mb-4">
         <Form.Label style={{ fontWeight: '500' }}>Электронная почта</Form.Label>
         <Form.Control
           type="email"
           placeholder="primer@mail.ru"
           required
-          name={formFields.email}
+          name={FormFields.Email}
           onChange={handleChange}
         />
       </Form.Group>
@@ -122,7 +145,7 @@ export default function SignInForm(): JSX.Element {
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
-          name={formFields.password}
+          name={FormFields.Password}
           onChange={handleChange}
           required
           style={{}}
@@ -130,7 +153,7 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
-          // pattern={PASSWORD_REQUIREMENTS}
+          pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
         />
       </Form.Group>

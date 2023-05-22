@@ -1,13 +1,14 @@
-import { FC } from "react"
-import { Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import Button from 'react-bootstrap/Button'
-import 'swiper/css/bundle'
-import Link from "next/link"
+import { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css/bundle';
+import Button from 'react-bootstrap/Button';
+import Image from "next/image";
+import Link from "next/link";
 import { cards } from "@/mocks/cards";
 import styles from "@/styles/catalog/places/Places.module.scss";
 
-export const TopSlidersPlaces:FC =() => {
+
+function TypeAreaSlider () {
   const {iconSlides} = cards || {};
 
   return(
@@ -26,7 +27,7 @@ export const TopSlidersPlaces:FC =() => {
         
         const iconEl = icon ? 
           <i className={icon}></i> :
-          <img src={src} alt='photo'/>
+          <Image src={src || ''} alt='photo' width={20} height={20}/>
 
         return(
         <SwiperSlide key={index} className='p-2'>
@@ -42,5 +43,6 @@ export const TopSlidersPlaces:FC =() => {
     <Button id='prev' variant='prev' />
     <Button id='next' variant='next' />
   </div>
-    
 )}
+
+export default TypeAreaSlider;

@@ -3,13 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'next/image';
 import SocialButton from '../_finder/SocialButton';
-import { SERVICES, PLACES, PAGES, ACTORS, FooterConst } from '@/constant';
+import { SERVICES, PLACES, PAGES, ACTORS, FooterType } from '@/constant';
 import styles from '@/styles/footer/Footer.module.scss';
 import Button from 'react-bootstrap/Button';
 
 export default function Footer() {
 
-  function renderRow(rowData: FooterConst, button: boolean): JSX.Element {
+  function renderRow(rowData: FooterType, button: boolean): JSX.Element {
     return (
       <div className={styles.footer_row + ' mb-sm-0 mb-4'}>
         <h4 className='h5'>{rowData.title}</h4>

@@ -1,6 +1,6 @@
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type SignUpTextProps = {
   data: CreateUserData;
@@ -10,12 +10,15 @@ export default function SignUpText({ data }: SignUpTextProps) {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleClick = () => {
-    createUser(data);
-    setIsDisabled(true);
-    setTimeout(() => {
-      setIsDisabled(false);
-      //одна минута
-    }, 60000);
+    if (isDisabled) {
+      createUser(data);
+      setIsDisabled(true);
+      setTimeout(() => {
+        //для избежания многократного нажатия на повторное отправление ссылки
+        setIsDisabled(false);
+        //одна минута
+      }, 60000);
+    }
   };
 
   return (
