@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router'
 import { AppDispatch } from '@/store';
 import { selectPlaces, setPlaces } from '@/store/catalog/catalogSlice';
 import Link from 'next/link';
@@ -7,27 +8,31 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Container from 'react-bootstrap/Container';
-import Pagination from 'react-bootstrap/Pagination';
 import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
 import CatalogPlaceCard from '@/components/catalog/placeCard/catalogPlaceCard';
 import TypeAreaSlider from '@/components/catalog/typeAreaSlider/TypeAreaSlider';
+import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
 import { Place } from '@/types/catalog';
-import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
+import { GetServerSideProps } from 'next';
+import PaginationBar from '@/components/catalog/pagination/Pagination';
+import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
+
 
 type CatalogPlacesProps = {
   places: Place[];
+  currentPage: number;
+  queryParamsWithoutPagination: string | null;
 };
 
-function CatalogPlaces({ places }: CatalogPlacesProps) {
-  const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
-  const unsortedPlaces = useSelector(selectPlaces);
+function CatalogPlaces({ places, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
   const dispatch = useDispatch<AppDispatch>();
-
+  const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
+  
   useEffect(() => {
     dispatch(setPlaces(places));
   }, []);
@@ -84,19 +89,14 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
               : renderAllPlaces(places)}
           </section>
 
-          <Pagination size="lg">
-            <Pagination.Item>
-              <i className="fi-chevron-left"></i>
-            </Pagination.Item>
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Item active>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Ellipsis />
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>
-              <i className="fi-chevron-right"></i>
-            </Pagination.Item>
-          </Pagination>
+       {/* Пагинация */}
+        <PaginationBar
+          currentPage ={currentPage}
+          totalCount={100}
+          siblingCount = {1}
+          pageSize={8}
+          query={queryParamsWithoutPagination}
+        />
         </Col>
       </Row>
 
@@ -108,8 +108,18 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 export default CatalogPlaces;
 
 //SSR
-export async function getServerSideProps() {
-  const response = await fetch(`${URL}/places/`);
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const query = context.query;
+  const currentPage: number = query?.page? +query.page : 1;
+  let queryParams: string | null = null;
+  let queryParamsWithoutPagination: string | null = null;
+  if (query) {
+    queryParams =  getQueryParams(query);
+    queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page');
+  }
+  const getPlacesURL = queryParams? `${URL}places${queryParams}` : `${URL}places/`;
+  const response = await fetch(getPlacesURL);
   const places: Place[] = await response.json();
 
   if (!places) {
@@ -121,6 +131,8 @@ export async function getServerSideProps() {
   return {
     props: {
       places,
+      currentPage,
+      queryParamsWithoutPagination,
     },
   };
 }
