@@ -1,8 +1,23 @@
-import Link from 'next/link';
-import styles from '@/styles/sign/Sign.module.scss';
-import { PATHS } from '@/constant';
+import { CreateUserData } from '@/types/forms';
+import { createUser } from '@/store/user/userAPI';
+import { useEffect, useState } from 'react';
 
-export default function SignUpText() {
+type SignUpTextProps = {
+  data: CreateUserData;
+};
+
+export default function SignUpText({ data }: SignUpTextProps) {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleClick = () => {
+    createUser(data);
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+      //одна минута
+    }, 60000);
+  };
+
   return (
     <div className=" text-center text-lg-start">
       <h4 className="h4 mb-4">
@@ -10,9 +25,17 @@ export default function SignUpText() {
         почте
       </h4>
       <p>Если вы не получили письмо, проверьте папку &quot;Спам&quot;</p>
-      <Link className={styles.link} href="#">
-        Выслать ссылку повторно
-      </Link>
+      <button
+        className={`text-primary border-0 bg-white text-lg-start p-0 ${
+          isDisabled ? 'text-muted' : ''
+        }`}
+        onClick={handleClick}
+        disabled={isDisabled}
+      >
+        {!isDisabled
+          ? 'Выслать ссылку повторно'
+          : 'Повторить действие можно будет через 1 минуту'}
+      </button>
     </div>
   );
 }

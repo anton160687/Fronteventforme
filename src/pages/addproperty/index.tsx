@@ -227,6 +227,10 @@ function AddPropertyPage() {
                 />
               </section>
 
+              {mainPhotos.map((photo, index) => {
+                return <img src={photo} key={index} />;
+              })}
+
               <LocationForm
                 setCity={setCity}
                 setAddress={setAddress}

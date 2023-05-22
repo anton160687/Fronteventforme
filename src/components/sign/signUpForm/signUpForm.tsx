@@ -13,6 +13,7 @@ import {
   PASSWORD_REQUIREMENTS,
   PASSWORD_TITLE,
   USERNAME_REQUIREMENTS,
+  USERNAME_TITLE,
   formFields,
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
@@ -23,20 +24,17 @@ type SignUpFormProps = {
   signUpForm: boolean;
   setSignUpForm: Dispatch<SetStateAction<boolean>>;
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
+  data: CreateUserData;
+  setData: Dispatch<SetStateAction<CreateUserData>>;
 };
 
 export default function SignUpForm({
   signUpForm,
   setSignUpForm,
   setSignUpIsDone,
+  data,
+  setData,
 }: SignUpFormProps): JSX.Element {
-  const initialDataState: CreateUserData = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
-  const [data, setData] = useState<CreateUserData>(initialDataState);
   const [validated, setValidated] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -79,11 +77,13 @@ export default function SignUpForm({
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
                 <Form.Control
-                  placeholder="Введите свое имя"
+                  placeholder="Введите имя пользователя"
                   required
                   name={formFields.username}
                   onChange={handleChange}
                   pattern={USERNAME_REQUIREMENTS}
+                  title={USERNAME_TITLE}
+                  type="username"
                 />
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">
@@ -98,8 +98,8 @@ export default function SignUpForm({
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-password">
-                  Пароль{' '}
-                  <span className="fs-sm text-muted">(макс. 50 символов)</span>
+                  Пароль
+                  <span className="fs-sm text-muted"> (макс. 50 символов)</span>
                 </Form.Label>
                 <PasswordToggle
                   id="su-password"
