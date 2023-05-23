@@ -1,5 +1,7 @@
 import Pagination from 'react-bootstrap/Pagination';
 import { usePagination, DOTS } from '../../../hooks/usePagination';
+import Link from 'next/link';
+import styles from '@/styles/catalog/Catalog.module.scss';
 
 type PaginationProps = {
     currentPage: number;
@@ -37,16 +39,16 @@ function PaginationBar({
             pageNumber === DOTS ?
                 <Pagination.Ellipsis key={i} />
                 : (
-                    <Pagination.Item
-                        active={pageNumber === currentPage}
+                    <Link
                         key={i}
+                        className={pageNumber === currentPage ? styles.pagination__link_active : styles.pagination__link}
                         href={query === '?' ?
                             `/catalog/places?page=${pageNumber}`
                             :
                             `/catalog/places${query}&page=${pageNumber}`}
                     >
                         {pageNumber}
-                    </Pagination.Item>
+                    </ Link>
                 )
         ))
     }
@@ -54,22 +56,26 @@ function PaginationBar({
     return (
         <Pagination size="lg">
             {currentPage !== 1 &&
-                <Pagination.Item href={query === '?' ?
-                    `/catalog/places?page=${currentPage - 1}`
-                    :
-                    `/catalog/places${query}&page=${currentPage - 1}`
-                }>
+                <Link
+                    className={styles.pagination__arrow}
+                    href={query === '?' ?
+                        `/catalog/places?page=${currentPage - 1}`
+                        :
+                        `/catalog/places${query}&page=${currentPage - 1}`
+                    }>
                     <i className="fi-chevron-left"></i>
-                </Pagination.Item>
+                </Link>
             }
             {renderPaginationItems()}
             {currentPage !== lastPage &&
-                <Pagination.Item href={query === '?' ?
-                    `/catalog/places?page=${currentPage + 1}`
-                    :
-                    `/catalog/places${query}&page=${currentPage + 1}`}>
+                <Link
+                    className={styles.pagination__arrow}
+                    href={query === '?' ?
+                        `/catalog/places?page=${currentPage + 1}`
+                        :
+                        `/catalog/places${query}&page=${currentPage + 1}`}>
                     <i className="fi-chevron-right"></i>
-                </Pagination.Item>
+                </Link>
             }
 
         </Pagination >
