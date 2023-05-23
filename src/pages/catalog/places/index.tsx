@@ -119,6 +119,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page');
   }
   const getPlacesURL = queryParams? `${URL}places${queryParams}` : `${URL}places/`;
+
+  console.log('это урл на бэк ' + getPlacesURL);
+
   const response = await fetch(getPlacesURL);
   const places: Place[] = await response.json();
 
