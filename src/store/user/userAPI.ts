@@ -69,7 +69,29 @@ export async function signinUser(data: SigninUserData) {
     let result = await response.json();
     console.log('signinUser result', result);
     localStorage.setItem(Token.Default, result.auth_token);
+    getUserInfo();
   } else {
     console.error('signinUser', response);
+  }
+}
+
+export async function getUserInfo() {
+  const token = localStorage.getItem(Token.Default);
+
+  let response = await fetch(
+    `${TEST_URL}auth/users/me/?${JSON.stringify(token)}/`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  if (response.ok) {
+    let result = await response.json();
+    console.log('getUserInfo result', result);
+  } else {
+    console.error('getUserInfo', response);
   }
 }

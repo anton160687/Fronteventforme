@@ -25,8 +25,9 @@ export default function FinishRegistrationPage() {
     //стоит подумать о том, какие здесь м.б. обработчики ошибок. Пока что просто логирование
     if (response.ok) {
       console.log('авторизация прошла успешно');
+      handleRedirect();
     } else {
-      console.log(response);
+      console.error('sendAuthData', response);
     }
   }
 
@@ -37,9 +38,8 @@ export default function FinishRegistrationPage() {
   useEffect(() => {
     if (uid && token) {
       sendAuthData();
-      handleRedirect();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid, token]);
 
   return (
