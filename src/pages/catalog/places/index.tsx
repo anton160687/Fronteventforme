@@ -11,38 +11,39 @@ import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
-import CatalogPlaceCard from '@/components/catalog/placeCard/catalogPlaceCard';
+import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import TypeAreaSlider from '@/components/catalog/typeAreaSlider/TypeAreaSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
-import { Place } from '@/types/catalog';
+import { Place, PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
 import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
 
 
 type CatalogPlacesProps = {
-  places: Place[];
+  places: PlaceCardType[];
+  totalCount: number;
   currentPage: number;
   queryParamsWithoutPagination: string | null;
 };
 
-function CatalogPlaces({ places, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
+function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
+  const [sortedPlaces, setSortedPlaces] = useState<PlaceCardType[] | null>(null);
   
-  useEffect(() => {
-    dispatch(setPlaces(places));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setPlaces(places));
+  // }, []);
 
   function sortPlacesByParam(param: string) {
     switch (param) {
       case 'popularity':
-        let sortedByRating = places
-          .slice()
-          .sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
-        setSortedPlaces(sortedByRating);
+        // let sortedByRating = places
+        //   .slice()
+        //   .sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
+        // setSortedPlaces(sortedByRating);
         break;
       case 'lowPrice':
         //здесь логика сортировки
@@ -53,10 +54,12 @@ function CatalogPlaces({ places, currentPage, queryParamsWithoutPagination }: Ca
     }
   }
 
-  function renderAllPlaces(places: Place[]) {
-    return places.map((place) => (
-      <CatalogPlaceCard key={place.id} place={place} />
-    ));
+  function renderAllPlaces(places: PlaceCardType[]) {
+    if (places.length !== 0) {
+      return places.map((place) => (
+        <PlaceCard key={place.id} place={place} />
+      ));
+    }
   }
 
   return (
@@ -91,7 +94,7 @@ function CatalogPlaces({ places, currentPage, queryParamsWithoutPagination }: Ca
        {/* Пагинация */}
         <PaginationBar
           currentPage ={currentPage}
-          totalCount={100}
+          totalCount={totalCount}
           siblingCount = {1}
           pageSize={8}
           query={queryParamsWithoutPagination}
@@ -124,9 +127,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log('это урл на бэк ' + getPlacesURL);
 
   const response = await fetch(getPlacesURL);
-  const places: Place[] = await response.json();
+  const result = await response.json();
+  console.log(result);
+  // массив карточек
+  const places: PlaceCardType[] = result.results;
+  // общее кол-во карточек
+  const totalCount: number = result.count;
 
-  if (!places) {
+  if (!result) {
     return {
       notFound: true,
     };
@@ -135,6 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       places,
+      totalCount,
       currentPage,
       queryParamsWithoutPagination,
     },

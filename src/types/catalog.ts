@@ -1,3 +1,24 @@
+export type PlaceCardType = {
+  id: number;
+  title: string;
+  areas: {
+    id: number;
+    type_area: {
+      id: number;
+      type_area: string;
+    },
+    min_capacity: number;
+    max_capacity: number;
+    min_price_banquet: number;
+    min_price_rent: number;
+  }[];
+  images_place: {
+      id: number;
+      image: string;
+      place: number;
+    }[];
+}
+
 export type Place = {
   id: number;
   rating: {
