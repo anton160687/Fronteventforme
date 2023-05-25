@@ -56,7 +56,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
   }
 
   return (
-    <Container>
+    <Container className="px-5 px-xl-0 ">
       <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
@@ -75,7 +75,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
       <Row>
         <Sidebar />
-        <Col className="ms-4 p-0">
+        <Col className="ms-lg-4 p-0">
           <Sorting sortingCB={sortPlacesByParam} />
 
           <section>
@@ -84,7 +84,10 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
               : renderAllPlaces(places)}
           </section>
 
-          <Pagination size="lg">
+          <Pagination
+            size="lg"
+            className=" justify-content-center justify-content-lg-start"
+          >
             <Pagination.Item>
               <i className="fi-chevron-left"></i>
             </Pagination.Item>

@@ -53,7 +53,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   }
 
   return (
-    <Navbar bg="light" expand="xl">
+    <Navbar bg="light" expand="xl" className="px-5 px-xl-0 ">
       <Container>
         <Navbar.Brand as={Link} href="/" className="me-2 me-xl-4">
           <Image
@@ -72,7 +72,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
           <Nav className={styles.navbar__central_block}>
             <City />
             <CatalogDropDown />
-            {renderNavigation()}            
+            {renderNavigation()}
           </Nav>
           <Nav>
             {!isAuth && <Login />}
