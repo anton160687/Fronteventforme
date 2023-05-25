@@ -11,11 +11,11 @@ function BotomFilters() {
         return (
             <ul className={styles.catalog__btmfilters}>
                 <h5 className={styles.catalog__btmfilters_header}>{title}</h5>
-                {array.map((item, i) => (
+                {array.map(({path, desc, quantity}, i) => (
                     <li key={i}>
-                        <Link href={`?${item.path}`} className={styles.catalog__btmfilters_link}>
-                            <p>{item.desc}</p>
-                            <p>{item.quantity}</p>
+                        <Link href={`?${path}`} className={styles.catalog__btmfilters_link}>
+                            <p>{desc}</p>
+                            <p>{quantity}</p>
                         </Link>
                     </li>
                 ))}
@@ -26,11 +26,11 @@ function BotomFilters() {
     function renderLastColumn(array: { path: string, desc: string, quantity: number }[]): JSX.Element {
         return (
             <ul className={styles.catalog__btmfilters}>
-                {array.map((item, i) => (
+                {array.map(({path, desc, quantity}, i) => (
                     <li key={i}>
-                        <Link href={`?${item.path}`} className={styles.catalog__btmfilters_link}>
-                            <h5 className={styles.catalog__btmfilters_header}>{item.desc}</h5>
-                            <p>{item.quantity}</p>
+                        <Link href={`?${path}`} className={styles.catalog__btmfilters_link}>
+                            <h5 className={styles.catalog__btmfilters_header}>{desc}</h5>
+                            <p>{quantity}</p>
                         </Link>
                     </li>
                 ))}

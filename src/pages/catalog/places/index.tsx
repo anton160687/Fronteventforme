@@ -12,7 +12,7 @@ import Sidebar from '@/components/catalog/sidebar/Sidebar';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
 import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
-import TypeAreaSlider from '@/components/catalog/typeAreaSlider/TypeAreaSlider';
+import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
@@ -20,7 +20,6 @@ import { Place, PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
 import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
-
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -76,7 +75,7 @@ function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagi
 
       <Row className="p-0">
         <Title title={'Площадки'} quantity={places.length} />
-        <TypeAreaSlider />
+        <PlaceTypesSlider />
         <PlaceFilters />
       </Row>
 
@@ -120,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     queryParams =  getQueryParams(query);
     queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page');
   }
-  //запрос перечня Places
+  
   const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
   const getPlacesURL = queryParams? `${API}catalog/places${queryParams}` : `${API}catalog/places/`;
 
@@ -128,10 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const response = await fetch(getPlacesURL);
   const result = await response.json();
-  console.log(result);
-  // массив карточек
   const places: PlaceCardType[] = result.results;
-  // общее кол-во карточек
   const totalCount: number = result.count;
 
   if (!result) {
