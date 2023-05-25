@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
-import { selectPlaces, setPlaces } from '@/store/catalog/catalogSlice';
+import { setPlaces } from '@/store/catalog/catalogSlice';
 import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -117,7 +117,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     queryParams =  getQueryParams(query);
     queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page');
   }
-  const getPlacesURL = queryParams? `${URL}places${queryParams}` : `${URL}places/`;
+  //запрос перечня Places
+  const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+  const getPlacesURL = queryParams? `${API}catalog/places${queryParams}` : `${API}catalog/places/`;
 
   console.log('это урл на бэк ' + getPlacesURL);
 

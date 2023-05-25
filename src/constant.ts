@@ -1,7 +1,5 @@
 import { addPlaceName } from './types/addPlaceNames';
-
-export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
-export const TEST_URL = 'http://188.225.24.70:8080/';
+export const URL = 'http://188.225.24.70:8080/api/v1/';
 
 // для dadata
 export const CITY_URL =

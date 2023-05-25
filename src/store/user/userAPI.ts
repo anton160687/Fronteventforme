@@ -1,9 +1,11 @@
 import { User } from "@/types/user";
-import { URL, TEST_URL } from "@/constant";
+import { URL } from "@/constant";
 import { CreateUserData, SigninUserData } from "@/types/forms";
 
+const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+
 export async function fetchAllUsers(): Promise<User[] | undefined> {
-    let response = await fetch(`${URL}users/`)
+    let response = await fetch(`${API}users/`)
   if (response.ok) {
     let result = await response.json();
     return result;
@@ -13,7 +15,7 @@ export async function fetchAllUsers(): Promise<User[] | undefined> {
 }
 
 export async function fetchUserById(id: number): Promise<User | undefined> {
-  let response = await fetch(`${URL}users/${id}/`)
+  let response = await fetch(`${API}users/${id}/`)
 if (response.ok) {
   let result = await response.json();
   return result;
@@ -27,7 +29,7 @@ export async function createUser (data: CreateUserData) {
     username: data.username,
     password: data.password,
   }
-  let response = await fetch(`${TEST_URL}auth/users/`, {
+  let response = await fetch(`${API}auth/users/`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
@@ -46,7 +48,7 @@ export async function signinUser (data: SigninUserData) {
     email: data.email,
     password: data.password,
   }
-  let response = await fetch(`${TEST_URL}auth/token/login/`, {
+  let response = await fetch(`${API}auth/token/login/`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
