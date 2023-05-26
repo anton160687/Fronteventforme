@@ -25,13 +25,14 @@ type CatalogPlacesProps = {
   places: PlaceCardType[];
   totalCount: number;
   currentPage: number;
-  queryParamsWithoutPagination: string | null;
+  queryParamsWithoutPagination: string;
 };
 
 function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [sortedPlaces, setSortedPlaces] = useState<PlaceCardType[] | null>(null);
   
+  console.log(places);
   // useEffect(() => {
   //   dispatch(setPlaces(places));
   // }, []);
@@ -113,15 +114,11 @@ export default CatalogPlaces;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
   const currentPage: number = query?.page? +query.page : 1;
-  let queryParams: string | null = null;
-  let queryParamsWithoutPagination: string | null = null;
-  if (query) {
-    queryParams =  getQueryParams(query);
-    queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page');
-  }
+  let queryParams = getQueryParams(query) !== '?' ? getQueryParams(query) : '';
+  let queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page') !== '?' ? getQueryParamsWithoutParam(query, 'page') : '';
   
   const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
-  const getPlacesURL = queryParams? `${API}catalog/places${queryParams}` : `${API}catalog/places/`;
+  const getPlacesURL = queryParams? `${API}catalog/places/${queryParams}` : `${API}catalog/places/`;
 
   console.log('это урл на бэк ' + getPlacesURL);
 

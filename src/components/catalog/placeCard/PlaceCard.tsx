@@ -23,7 +23,7 @@ function PlaceCard({ place }: PlaceCardProps) {
     <Card className='card-horizontal card-hover my-5'>
       <Link href={`/catalog/places/${place.id}`} className='card-img-top'>
         <ImageLoader
-          src={place.images_place[0]?.image}
+          src={place.cover_place}
           quality={100}
           layout='fill'
           objectFit='cover'

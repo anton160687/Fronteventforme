@@ -53,14 +53,13 @@ function PlaceFilters() {
         if (filterParams.more) {
             queryParams = parseQueryParam(queryParams, filterParams.more)
         }
-
         console.log(queryParams);
         if (queryParams!=='?') {
             router.push(`/catalog/places${queryParams}`);
+        } else {
+            router.push(`/catalog/places`);
         }
-
     }, [filterParams])
-
 
     return (
         <div className={styles.catalog__dropdown}>

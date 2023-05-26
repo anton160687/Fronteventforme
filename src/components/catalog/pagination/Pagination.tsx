@@ -8,7 +8,7 @@ type PaginationProps = {
     totalCount: number;
     siblingCount: number;
     pageSize: number;
-    query: string | null;
+    query: string;
 }
 
 function PaginationBar({
@@ -19,7 +19,7 @@ function PaginationBar({
     query,
 }: PaginationProps) {
 
-    console.log(query);
+    console.log("это запрос без пагинации " + query);
 
     const paginationRange = usePagination({
         currentPage,
@@ -42,7 +42,7 @@ function PaginationBar({
                     <Link
                         key={i}
                         className={pageNumber === currentPage ? styles.pagination__link_active : styles.pagination__link}
-                        href={query === '?' ?
+                        href={query === '' ?
                             `/catalog/places?page=${pageNumber}`
                             :
                             `/catalog/places${query}&page=${pageNumber}`}
@@ -58,7 +58,7 @@ function PaginationBar({
             {currentPage !== 1 &&
                 <Link
                     className={styles.pagination__arrow}
-                    href={query === '?' ?
+                    href={query === '' ?
                         `/catalog/places?page=${currentPage - 1}`
                         :
                         `/catalog/places${query}&page=${currentPage - 1}`
@@ -70,7 +70,7 @@ function PaginationBar({
             {currentPage !== lastPage &&
                 <Link
                     className={styles.pagination__arrow}
-                    href={query === '?' ?
+                    href={query === '' ?
                         `/catalog/places?page=${currentPage + 1}`
                         :
                         `/catalog/places${query}&page=${currentPage + 1}`}>

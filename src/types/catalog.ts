@@ -1,6 +1,7 @@
 export type PlaceCardType = {
   id: number;
   title: string;
+  cover_place: string;
   areas: {
     id: number;
     type_area: {
