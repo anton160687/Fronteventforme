@@ -9,7 +9,7 @@ import {
   PASSWORD_REQUIREMENTS,
   PASSWORD_TITLE,
   FormFields,
-  PATHS,
+  Paths,
   USERNAME_TITLE,
   USERNAME_REQUIREMENTS,
 } from '@/constant';
@@ -24,7 +24,6 @@ export default function SignInForm(): JSX.Element {
     is_bride: true,
     email: '',
     password: '',
-    username: '',
   };
 
   const [data, setData] = useState<SigninUserData>(initialDataState);
@@ -106,19 +105,6 @@ export default function SignInForm(): JSX.Element {
           </ToggleButton>
         </ButtonGroup>
       </Form.Group>
-      {/*//! временно, добавила для взаимодействия с тестовой апи */}
-      <Form.Group controlId="si-username" className="mb-4">
-        <Form.Label>Имя</Form.Label>
-        <Form.Control
-          placeholder="Введите имя пользователя"
-          required
-          name={FormFields.Username}
-          onChange={handleChange}
-          pattern={USERNAME_REQUIREMENTS}
-          title={USERNAME_TITLE}
-          type="username"
-        />
-      </Form.Group>
       <Form.Group controlId="si-email" className="mb-4">
         <Form.Label style={{ fontWeight: '500' }}>Электронная почта</Form.Label>
         <Form.Control
@@ -138,7 +124,7 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={PATHS.renew} className={styles.link + ' fs-sm'}>
+          <Link href={Paths.Renew} className={styles.link + ' fs-sm'}>
             Забыли пароль?
           </Link>
         </div>

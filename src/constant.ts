@@ -152,14 +152,15 @@ export const OPTIONS_ADD = [
 ];
 
 //ссылки для навигации
-export const PATHS = {
-  signUp: '/signup',
-  signIn: '/signin',
-  renew: '/renew',
-  catalog: '/catalog',
-  places: '/places',
-  addProperty: '/addproperty',
-  addContacts: '/addcontacts',
+export const Paths = {
+  SignUp: '/signup',
+  SignIn: '/signin',
+  Renew: '/renew',
+  Catalog: '/catalog',
+  Places: '/places',
+  AddProperty: '/addproperty',
+  AddContacts: '/addcontacts',
+  Home: '/',
 };
 
 // для форм регистрации, авторизации
@@ -349,4 +350,5 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 export enum Token {
   Default = 'token',
   Bearer = 'bearer_token',
+  Refresh = 'refresh',
 }

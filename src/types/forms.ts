@@ -16,7 +16,6 @@ export type SigninUserData = {
   is_bride: boolean;
   email: string;
   password: string;
-  username: string;
 };
 
 export type ContactsFormData = {
@@ -30,4 +29,10 @@ export type ContactsFormData = {
 export type PasswordFromData = {
   password: string;
   confirmPassword: string;
+};
+
+export type ResetPawwrodConfirm = {
+  uid: string;
+  token: string;
+  new_password: string;
 };

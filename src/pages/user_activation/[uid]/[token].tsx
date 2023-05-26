@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
-import { PATHS, TEST_URL } from '@/constant';
+import { Paths, TEST_URL } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 
 export default function FinishRegistrationPage() {
@@ -25,6 +25,9 @@ export default function FinishRegistrationPage() {
     //стоит подумать о том, какие здесь м.б. обработчики ошибок. Пока что просто логирование
     if (response.ok) {
       console.log('авторизация прошла успешно');
+      //	пример ответа
+      // token: 'botg0g-15cda8c91c0218f4c1ad4687215bc817';
+      // uid: 'NQ';
       handleRedirect();
     } else {
       console.error('sendAuthData', response);
@@ -32,7 +35,7 @@ export default function FinishRegistrationPage() {
   }
 
   function handleRedirect() {
-    router.push(PATHS.signIn);
+    router.push(Paths.SignIn);
   }
 
   useEffect(() => {

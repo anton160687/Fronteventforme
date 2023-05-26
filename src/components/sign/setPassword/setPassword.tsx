@@ -2,10 +2,26 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import Button from 'react-bootstrap/Button';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  Paths,
+} from '@/constant';
 import { PasswordFromData } from '@/types/forms';
+import { useRouter } from 'next/router';
+import { resetPasswordConfirm } from '@/store/user/userAPI';
 
 export default function SetPassword(): JSX.Element {
+  const router = useRouter();
+  //здесь ловим динамические параметры из адресной строки
+  const uid = router.query.uid as string;
+  const token = router.query.token as string;
+
+  function handleRedirect() {
+    router.push(Paths.SignIn);
+  }
+
   const [validated, setValidated] = useState(false);
 
   const initialDataState: PasswordFromData = {
@@ -13,6 +29,11 @@ export default function SetPassword(): JSX.Element {
     confirmPassword: '',
   };
   const [data, setData] = useState<PasswordFromData>(initialDataState);
+  const requestData = {
+    uid,
+    token,
+    new_password: data.password,
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
@@ -21,7 +42,8 @@ export default function SetPassword(): JSX.Element {
 
     if (form.checkValidity()) {
       setValidated(true);
-      //логика отправки на бэк
+      resetPasswordConfirm(requestData);
+      handleRedirect();
     }
   };
 

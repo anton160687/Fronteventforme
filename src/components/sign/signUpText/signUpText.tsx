@@ -1,25 +1,31 @@
 import { CreateUserData } from '@/types/forms';
-import { createUser } from '@/store/user/userAPI';
-import { useState } from 'react';
+import { createUser, resendActivationLink } from '@/store/user/userAPI';
+import { useEffect, useState } from 'react';
 
 type SignUpTextProps = {
   data: CreateUserData;
 };
 
 export default function SignUpText({ data }: SignUpTextProps) {
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleClick = () => {
-    if (isDisabled) {
-      createUser(data);
-      setIsDisabled(true);
-      setTimeout(() => {
-        //для избежания многократного нажатия на повторное отправление ссылки
-        setIsDisabled(false);
-        //одна минута
-      }, 60000);
-    }
+    resendActivationLink(data.email);
+    setIsDisabled(true);
+    setTimeout(() => {
+      //для избежания многократного нажатия на повторное отправление ссылки
+      setIsDisabled(false);
+      //одна минута
+    }, 60000);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      //для избежания многократного нажатия на повторное отправление ссылки
+      setIsDisabled(false);
+      //одна минута
+    }, 60000);
+  }, []);
 
   return (
     <div className=" text-center text-lg-start">
