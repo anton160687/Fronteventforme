@@ -63,10 +63,11 @@ export default function SetPassword(): JSX.Element {
       >
         <Form.Group className="mb-4">
           <Form.Label htmlFor="password">
-            Пароль <span className="fs-sm text-muted">(макс. 50 символов)</span>
+            Введите новый пароль
+            <span className="fs-sm text-muted"> (макс. 50 символов)</span>
           </Form.Label>
           <PasswordToggle
-            id="confirm-password"
+            id="reset-password"
             minLength="8"
             maxLength="50"
             required

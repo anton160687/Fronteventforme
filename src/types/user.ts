@@ -1,9 +1,10 @@
 //это просто пример
 export type User = {
-    id: number,
-    name: string,
-    surname: string,
-    patronymic?: string,
-    avatar?:	string,
-    is_bride: boolean,
-  }
+  id: number;
+  email: string;
+  username: string;
+  name?: string;
+  surname?: string;
+  avatar?: string;
+  is_bride?: boolean;
+};

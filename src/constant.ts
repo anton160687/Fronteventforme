@@ -349,6 +349,7 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 //для авторизации
 export enum Token {
   Default = 'token',
-  Bearer = 'bearer_token',
   Refresh = 'refresh',
+  Bearer = 'bearer_token',
+  BearerRefresh = 'bearer_refresh',
 }

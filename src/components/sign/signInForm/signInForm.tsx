@@ -10,13 +10,14 @@ import {
   PASSWORD_TITLE,
   FormFields,
   Paths,
-  USERNAME_TITLE,
-  USERNAME_REQUIREMENTS,
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
 import router from 'next/router';
+import { fetchUserDataWithThunk, selectUser } from '@/store/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/store';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -27,8 +28,10 @@ export default function SignInForm(): JSX.Element {
   };
 
   const [data, setData] = useState<SigninUserData>(initialDataState);
-  const ref = useRef<HTMLFormElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
+  //для адаптива, в зависимости от ширины компонента, ButtonGroup либо горизонтальная, либо вертикальная
+  const ref = useRef<HTMLFormElement>(null);
   const [widthForm, setWidthForm] = useState(0);
   useEffect(() => {
     if (ref.current) {
@@ -57,7 +60,8 @@ export default function SignInForm(): JSX.Element {
     if (form.checkValidity()) {
       setValidated(true);
       signinUser(data);
-      // router.push('/');
+      dispatch(fetchUserDataWithThunk());
+      router.push('/');
     }
   }
 
