@@ -9,10 +9,6 @@ type LayoutProps = {
 };
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const router = useRouter().pathname;
-
   return (
     <>
       <Header />

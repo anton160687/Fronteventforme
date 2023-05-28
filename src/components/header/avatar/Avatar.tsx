@@ -13,14 +13,14 @@ type AvatarProps = {
 function Avatar({ is_bride, name, surname, avatar }: AvatarProps) {
   let path = Paths.Home;
   //на тот случай, если путь к ЛК будет меняться в зависимости от роли
-  switch (is_bride) {
-    case true:
-      path = '#';
-      break;
-    case false:
-      path = '#';
-      break;
-  }
+  // switch (is_bride) {
+  //   case true:
+  //     path = '#';
+  //     break;
+  //   case false:
+  //     path = '#';
+  //     break;
+  // }
 
   return (
     <a href={path} className={styles.avatar__link}>
