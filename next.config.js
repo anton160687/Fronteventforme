@@ -8,6 +8,7 @@ const nextConfig = {
 module.exports = {
   images: {
     domains: [
+      '188.225.24.70',
       'picsum.photos',
       'dummyimage.com',
       'placekitten.com',

@@ -6,7 +6,7 @@ import styles from '@/styles/catalog/Catalog.module.scss';
 type DropdownCBProps = {
   name: string,
   text: string,
-  options: string[][],
+  options: string[][]
   icon: string,
   setFilterParams: (name: string, value: string[]) => void
 }

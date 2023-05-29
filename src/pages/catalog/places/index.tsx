@@ -1,44 +1,49 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
-import { selectPlaces, setPlaces } from '@/store/catalog/catalogSlice';
+import { setPlaces } from '@/store/catalog/catalogSlice';
 import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Container from 'react-bootstrap/Container';
-import Pagination from 'react-bootstrap/Pagination';
 import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
 import Sorting from '@/components/catalog/sorting/Sorting';
 import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
-import CatalogPlaceCard from '@/components/catalog/placeCard/catalogPlaceCard';
-import TypeAreaSlider from '@/components/catalog/typeAreaSlider/TypeAreaSlider';
+import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
+import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
+import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
-import { Place } from '@/types/catalog';
-import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
+import { Place, PlaceCardType } from '@/types/catalog';
+import { GetServerSideProps } from 'next';
+import PaginationBar from '@/components/catalog/pagination/Pagination';
+import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
 
 type CatalogPlacesProps = {
-  places: Place[];
+  places: PlaceCardType[];
+  totalCount: number;
+  currentPage: number;
+  queryParamsWithoutPagination: string;
 };
 
-function CatalogPlaces({ places }: CatalogPlacesProps) {
-  const [sortedPlaces, setSortedPlaces] = useState<Place[] | null>(null);
-  const unsortedPlaces = useSelector(selectPlaces);
+function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
   const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(setPlaces(places));
-  }, []);
+  const [sortedPlaces, setSortedPlaces] = useState<PlaceCardType[] | null>(null);
+  
+  console.log(places);
+  // useEffect(() => {
+  //   dispatch(setPlaces(places));
+  // }, []);
 
   function sortPlacesByParam(param: string) {
     switch (param) {
       case 'popularity':
-        let sortedByRating = places
-          .slice()
-          .sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
-        setSortedPlaces(sortedByRating);
+        // let sortedByRating = places
+        //   .slice()
+        //   .sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
+        // setSortedPlaces(sortedByRating);
         break;
       case 'lowPrice':
         //здесь логика сортировки
@@ -49,10 +54,12 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
     }
   }
 
-  function renderAllPlaces(places: Place[]) {
-    return places.map((place) => (
-      <CatalogPlaceCard key={place.id} place={place} />
-    ));
+  function renderAllPlaces(places: PlaceCardType[]) {
+    if (places.length !== 0) {
+      return places.map((place) => (
+        <PlaceCard key={place.id} place={place} />
+      ));
+    }
   }
 
   return (
@@ -69,7 +76,7 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 
       <Row className="p-0">
         <Title title={'Площадки'} quantity={places.length} />
-        <TypeAreaSlider />
+        <PlaceTypesSlider />
         <PlaceFilters />
       </Row>
 
@@ -84,19 +91,14 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
               : renderAllPlaces(places)}
           </section>
 
-          <Pagination size="lg">
-            <Pagination.Item>
-              <i className="fi-chevron-left"></i>
-            </Pagination.Item>
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Item active>{2}</Pagination.Item>
-            <Pagination.Item>{3}</Pagination.Item>
-            <Pagination.Ellipsis />
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>
-              <i className="fi-chevron-right"></i>
-            </Pagination.Item>
-          </Pagination>
+       {/* Пагинация */}
+        <PaginationBar
+          currentPage ={currentPage}
+          totalCount={totalCount}
+          siblingCount = {1}
+          pageSize={8}
+          query={queryParamsWithoutPagination}
+        />
         </Col>
       </Row>
 
@@ -108,11 +110,24 @@ function CatalogPlaces({ places }: CatalogPlacesProps) {
 export default CatalogPlaces;
 
 //SSR
-export async function getServerSideProps() {
-  const response = await fetch(`${URL}/places/`);
-  const places: Place[] = await response.json();
 
-  if (!places) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const query = context.query;
+  const currentPage: number = query?.page? +query.page : 1;
+  let queryParams = getQueryParams(query) !== '?' ? getQueryParams(query) : '';
+  let queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page') !== '?' ? getQueryParamsWithoutParam(query, 'page') : '';
+  
+  const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+  const getPlacesURL = queryParams? `${API}catalog/places/${queryParams}` : `${API}catalog/places/`;
+
+  console.log('это урл на бэк ' + getPlacesURL);
+
+  const response = await fetch(getPlacesURL);
+  const result = await response.json();
+  const places: PlaceCardType[] = result.results;
+  const totalCount: number = result.count;
+
+  if (!result) {
     return {
       notFound: true,
     };
@@ -121,6 +136,9 @@ export async function getServerSideProps() {
   return {
     props: {
       places,
+      totalCount,
+      currentPage,
+      queryParamsWithoutPagination,
     },
   };
 }

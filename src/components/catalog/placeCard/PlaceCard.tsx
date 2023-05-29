@@ -1,21 +1,29 @@
-import { FC } from "react";
 import Link from "next/link";
 import { Button, Card } from "react-bootstrap";
 import ImageLoader from "@/components/_finder/ImageLoader";
+import { PlaceCardType } from "@/types/catalog";
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { Place } from "@/types/catalog";
 
-type propsPlace = {
-  place: Place
+type PlaceCardProps = {
+  place: PlaceCardType
 }
 
-const CatalogPlaceCard: FC<propsPlace> = ({ place }) => {
+function PlaceCard({ place }: PlaceCardProps) {
+
+  function renderCardText(title: string, description: string) {
+    return (
+      <Card.Text className='d-flex align-items-center justify-content-between fs-6'>
+        <span className='m-0'>{title}</span>
+        <span className='m-0 text-end'><strong>{description}</strong></span>
+      </Card.Text>
+    )
+  }
 
   return (
     <Card className='card-horizontal card-hover my-5'>
       <Link href={`/catalog/places/${place.id}`} className='card-img-top'>
         <ImageLoader
-          src={place.image_vendor}
+          src={place.cover_place}
           quality={100}
           layout='fill'
           objectFit='cover'
@@ -31,9 +39,18 @@ const CatalogPlaceCard: FC<propsPlace> = ({ place }) => {
           </Button>
         </Card.Title>
 
-        <CardText title={place.title} description={place.description} />
-        <CardText title='Схема оплаты' description='За аренду зала + за банкет' />
-        <CardText title='Стоимость' description='Аренда 10 000 ₽ + от 4 000 ₽/ч' />
+        {place.areas.length !== 0 && renderCardText(
+          'Вместимость',
+          `${place.areas[0].min_capacity} - ${place.areas[0].max_capacity} человек`)
+        }
+
+        {place.areas.length !== 0 && renderCardText(
+          'Стоимость',
+          `Аренда ${place.areas[0].min_price_rent} ₽ + от ${place.areas[0].min_price_banquet} ₽/ч`)
+        }
+
+        {place.areas.length !== 0 && renderCardText('Схема оплаты', 'За аренду зала + за банкет')}
+
         <hr className='text-secondary' />
         <Card.Footer className='d-flex align-items-center justify-content-evenly px-0 '>
           <span>3 банкетных зала</span>
@@ -47,16 +64,4 @@ const CatalogPlaceCard: FC<propsPlace> = ({ place }) => {
   )
 }
 
-type cardTextType = {
-  title: string
-  description: string
-}
-
-const CardText: FC<cardTextType> = ({ title, description }) => (
-  <Card.Text className='d-flex align-items-center justify-content-between fs-6'>
-    <span className='m-0'>{title}</span>
-    <span className='m-0 text-end'><strong>{description}</strong></span>
-  </Card.Text>
-)
-
-export default CatalogPlaceCard;
+export default PlaceCard;

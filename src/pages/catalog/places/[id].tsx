@@ -174,7 +174,8 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const response = await fetch(`${URL}/places/${id}`);
+  const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+  const response = await fetch(`${API}catalog/places/${id}`);
   if (response.ok) {
     const result: Place = await response.json();
 
