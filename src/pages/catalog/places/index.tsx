@@ -16,7 +16,7 @@ import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSl
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
-import { Place, PlaceCardType } from '@/types/catalog';
+import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
 import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
