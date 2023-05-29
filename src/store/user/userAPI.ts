@@ -1,5 +1,5 @@
 import { User } from '@/types/user';
-import { URL, Token } from '@/constant';
+import { AUTH_URL, Token } from '@/constant';
 import {
   CreateUserData,
   ResetPawwrodConfirm,
@@ -7,7 +7,7 @@ import {
 } from '@/types/forms';
 
 
-const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+const API = process.env.NODE_ENV === 'production'? process.env.AUTH_URL : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -61,7 +61,7 @@ export async function signinUser(data: SigninUserData) {
 
     localStorage.setItem(Token.Bearer, result.access);
     localStorage.setItem(Token.BearerRefresh, result.refresh);
-    //   getUserInfo();
+
   } else {
     console.error('signinUser', response);
   }

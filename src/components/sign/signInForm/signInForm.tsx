@@ -60,7 +60,8 @@ export default function SignInForm(): JSX.Element {
     if (form.checkValidity()) {
       setValidated(true);
       signinUser(data);
-      dispatch(fetchUserDataWithThunk());
+      //это надо переместить в useEffect на главную
+      // dispatch(fetchUserDataWithThunk());
       router.push('/');
     }
   }

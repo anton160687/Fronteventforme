@@ -1,5 +1,6 @@
 import { addPlaceName } from './types/addPlaceNames';
 export const URL = 'http://188.225.24.70:8080/api/v1/';
+export const AUTH_URL = 'http://188.225.24.70:8080/';
 
 // для dadata
 export const CITY_URL =
