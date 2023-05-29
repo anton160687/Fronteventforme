@@ -7,11 +7,10 @@ export const CAPACITY = [
   ];
 
   //такого фильтра на бэке нет
-  export const STYLE = [
-    ['loft', 'Лофт'],
-    ['rustik', 'Рустик'],
-    ['classic', 'Классический'],
-    ['other', 'Другое'],
+  export const SCHEME = [
+    ['scheme_of_payment=bah', 'Аренда зала + банкет'],
+    ['scheme_of_payment=ban', 'Только банкет'],
+    ['scheme_of_payment=hall', 'Только зал'],
   ];
 
   export const PRICE = [

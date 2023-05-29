@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 export function getQueryParams (parsedQuery: ParsedUrlQuery): string {
         const page = parsedQuery.page;
         const city = parsedQuery.city;
-        const scheme_payment = parsedQuery.scheme_payment;
+        const scheme_of_payment = parsedQuery.scheme_of_payment;
         const place_style = parsedQuery.place_style;
         const territory = parsedQuery.territory;
         const type_feature = parsedQuery.type_feature;
@@ -11,6 +11,7 @@ export function getQueryParams (parsedQuery: ParsedUrlQuery): string {
         const max_average_check = parsedQuery.max_average_check;
         const min_capacity = parsedQuery.min_capacity;
         const max_capacity = parsedQuery.max_capacity;
+        const ordering = parsedQuery.ordering;
 
         let query = '?';
 
@@ -22,13 +23,13 @@ export function getQueryParams (parsedQuery: ParsedUrlQuery): string {
             query === '?' ? query += '' : query += '&'
             query += `city=${city}`
         }
-        if (scheme_payment) {
-            if (Array.isArray(scheme_payment)) {
+        if (scheme_of_payment) {
+            if (Array.isArray(scheme_of_payment)) {
                 query === '?' ? query += '' : query += '&'
-                scheme_payment.forEach((scheme)=> query += `scheme_payment=${scheme}`)
+                scheme_of_payment.forEach((scheme)=> query += `scheme_of_payment=${scheme}`)
             } else {
                 query === '?' ? query += '' : query += '&'
-                query += `scheme_payment=${scheme_payment}`
+                query += `scheme_of_payment=${scheme_of_payment}`
             }
         }
         if (place_style) {
@@ -112,6 +113,10 @@ export function getQueryParams (parsedQuery: ParsedUrlQuery): string {
             } else {
                 query += `max_capacity=${max_capacity}`
             }
+        }
+        if (ordering) {
+            query === '?' ? query += '' : query += '&'
+            query += `ordering=${ordering}`
         }
 
         return query;
