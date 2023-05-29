@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import Pagination from 'react-bootstrap/Pagination';
 import { usePagination, DOTS } from '../../../hooks/usePagination';
-import Link from 'next/link';
 import styles from '@/styles/catalog/Catalog.module.scss';
 
 type PaginationProps = {
