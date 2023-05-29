@@ -70,7 +70,7 @@ export async function signinUser(data: SigninUserData) {
 export async function getUserInfo(): Promise<User | undefined> {
   const bearer_token = localStorage.getItem(Token.Bearer);
 
-  let response = await fetch(`${TEST_URL}auth/users/me/`, {
+  let response = await fetch(`${API}auth/users/me/`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -95,7 +95,7 @@ export async function resendActivationLink(data: string) {
     email: data,
   };
   try {
-    let response = await fetch(`${TEST_URL}auth/users/resend_activation/`, {
+    let response = await fetch(`${API}auth/users/resend_activation/`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -120,7 +120,7 @@ export async function resetPassword(data: string) {
     email: data,
   };
   try {
-    let response = await fetch(`${TEST_URL}auth/users/reset_password/`, {
+    let response = await fetch(`${API}auth/users/reset_password/`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
