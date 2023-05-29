@@ -1,4 +1,4 @@
-import { TEST_URL } from "@/constant";
+import { URL } from "@/constant";
 import { Place } from "@/types/placeType";
 
 
@@ -31,7 +31,7 @@ export async function createPlace (data: Place, token: string) {
         max_serving: data.max_serving,
         parking: data.parking,
     }
-    let response = await fetch (`${TEST_URL}api/v1/catalog/places/`, {
+    let response = await fetch (`${URL}api/v1/catalog/places/`, {
         method: 'POST',
         headers: {
             'accept': 'application/json',

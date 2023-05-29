@@ -1,10 +1,13 @@
 import { User } from '@/types/user';
-import { TEST_URL, Token } from '@/constant';
+import { URL, Token } from '@/constant';
 import {
   CreateUserData,
   ResetPawwrodConfirm,
   SigninUserData,
 } from '@/types/forms';
+
+
+const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -13,7 +16,7 @@ export async function createUser(data: CreateUserData) {
     password: data.password,
   };
   try {
-    let response = await fetch(`${TEST_URL}auth/users/`, {
+    let response = await fetch(`${API}auth/users/`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -42,7 +45,7 @@ export async function signinUser(data: SigninUserData) {
     email: data.email,
     password: data.password,
   };
-  let response = await fetch(`${TEST_URL}auth/jwt/create/`, {
+  let response = await fetch(`${API}auth/jwt/create/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -143,7 +146,7 @@ export async function resetPasswordConfirm(data: ResetPawwrodConfirm) {
     token: data.token,
     new_password: data.new_password,
   };
-  let response = await fetch(`${TEST_URL}auth/users/reset_password_confirm/`, {
+  let response = await fetch(`$API}auth/users/reset_password_confirm/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

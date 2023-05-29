@@ -1,12 +1,12 @@
 import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
-import { Place } from '@/types/catalog';
+import { LocationCard } from '@/types/locationCard';
 import styles from '@/styles/main/Main.module.scss';
 
 
 type LocationProps = {
-  locations: Place[];
+  locations: LocationCard[];
   title: string;
   href?: string;
   isShowAll: boolean;
@@ -21,7 +21,7 @@ export function Locations({
   showAllTxt = 'Показать все',
 }: LocationProps): JSX.Element {
   function renderLocations() {
-    return locations.map((location: Place, index: number) => (
+    return locations.map((location: LocationCard, index: number) => (
       <div
         className={`${styles.locations_wrapper} card-hover shadow-sm ${
           index === 0 ? styles.locations_wrapper_1 : ''
@@ -43,13 +43,13 @@ export function Locations({
                     className={`${styles.description__star} fi-star-filled me-1`}
                   ></i>
                   <p>
-                    <span className="fw-bold">{location.rating.rating}</span> (
-                    {location.rating.votes})
+                    <span className="fw-bold">{location.rating}</span> (
+                    {location.rating})
                   </p>
                 </div>
                 <div className="d-flex align-items-center my-1">
                   <i className={`fi-map-pin me-1`}></i>
-                  <p>{location.address.full}</p>
+                  <p>{location.address}</p>
                 </div>
                 <div className="d-flex align-items-center my-1">
                   <i className={`fi-credit-card me-1`}></i>
@@ -68,7 +68,7 @@ export function Locations({
             </div>
           </div>
         </Link>
-        <img src={location.image_vendor} alt={location.title} />
+        <img src={location.image} alt={location.title} />
       </div>
     ));
   }

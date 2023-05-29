@@ -1,7 +1,5 @@
 import { addPlaceName } from './types/addPlaceNames';
-
-export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
-export const TEST_URL = 'http://188.225.24.70:8080/';
+export const URL = 'http://188.225.24.70:8080/api/v1/';
 
 // для dadata
 export const CITY_URL =
@@ -106,62 +104,18 @@ export const SCHEME_OF_PAYMENT = [
   ['hall', 'Только банкет'],
 ];
 
-// для фильтров [PlaceFilters] на странице каталога
-export const OPTIONS_CAPACITY = [
-  ['10-30', 'от 10 до 30'],
-  ['30-60', 'от 30 до 60'],
-  ['60-100', 'от 60 до 100'],
-  ['100-150', 'от 100 до 150'],
-  ['150', 'от 150'],
-];
-export const OPTIONS_STYLE = [
-  ['loft', 'Лофт'],
-  ['rustik', 'Рустик'],
-  ['classic', 'Классический'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_PRICE = [
-  ['1000', 'до 1000 ₽'],
-  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_TERRITORY = [
-  ['park', 'Своя парковка'],
-  ['welc', 'Welcome-зона'],
-  ['fire', 'Место под фаер-шоу'],
-  ['firew', 'Можно фейерверк'],
-  ['hotel', 'Отель рядом'],
-  ['kids', 'Детская игровая зона'],
-  ['phot', 'Фотозона'],
-  ['reg', 'С выездной регистрацией'],
-  ['pan', 'Панорамный вид'],
-  ['guest', 'Отель для гостей'],
-];
-export const OPTIONS_MORE = [
-  ['1000', 'до 1000 ₽'],
-  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_ADD = [
-  ['1000', 'Аренда без еды'],
-  ['1000-2000', 'Свой алкоголь'],
-  ['2000-3000', 'Без проб. сбора'],
-  ['other', 'Можно праздновать после 23:00'],
-];
+//для навигации
+export enum Paths {
+  Home = '/',
+  SignUp = '/signup',
+  SignIn = '/signin',
+  Renew = '/renew',
+  Catalog = '/catalog',
+  Places = '/catalog/places',
+  AddProperty = '/addproperty',
+  AddContacts = '/addcontacts',
+}
 
-//ссылки для навигации
-export const Paths = {
-  SignUp: '/signup',
-  SignIn: '/signin',
-  Renew: '/renew',
-  Catalog: '/catalog',
-  Places: '/places',
-  AddProperty: '/addproperty',
-  AddContacts: '/addcontacts',
-  Home: '/',
-};
 
 // для форм регистрации, авторизации
 export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}';
