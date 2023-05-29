@@ -17,7 +17,6 @@ type HomeProps = {
 };
 
 export default function Home({ topLocations = mockLocationCards }: HomeProps) {
-
   return (
     <>
       <Hero />
