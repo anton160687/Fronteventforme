@@ -7,10 +7,7 @@ import { Paths } from '@/constant';
 function Login() {
   return (
     <Nav.Item className={styles.login}>
-      <Link
-        href={Paths.SignIn}
-        className={styles.login__link}
-      >
+      <Link href={Paths.SignIn} className={styles.login__link}>
         <Image
           src="/img/header/user.svg"
           width={9}

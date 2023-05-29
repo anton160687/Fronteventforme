@@ -1,9 +1,21 @@
-import { FormEvent, useState, Dispatch, SetStateAction, ChangeEvent } from 'react';
+import {
+  FormEvent,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+} from 'react';
 import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  USERNAME_REQUIREMENTS,
+  USERNAME_TITLE,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
@@ -12,28 +24,29 @@ type SignUpFormProps = {
   signUpForm: boolean;
   setSignUpForm: Dispatch<SetStateAction<boolean>>;
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
-}
+  data: CreateUserData;
+  setData: Dispatch<SetStateAction<CreateUserData>>;
+};
 
-export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone }: SignUpFormProps): JSX.Element {
-  const initialDataState: CreateUserData = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
-  const [data, setData] = useState<CreateUserData>(initialDataState);
+export default function SignUpForm({
+  signUpForm,
+  setSignUpForm,
+  setSignUpIsDone,
+  data,
+  setData,
+}: SignUpFormProps): JSX.Element {
   const [validated, setValidated] = useState(false);
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    
+
     if (form.checkValidity()) {
       setSignUpIsDone(true);
       setValidated(true);
       createUser(data);
     }
-  };
+  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -57,18 +70,20 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
             <Form
               validated={validated}
               onSubmit={handleSubmit}
-              style={{ fontWeight: '500' }}
-              className="w-100"
+              className="w-100 fw-semibold"
               method="post"
               action="#"
             >
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
                 <Form.Control
-                  placeholder="Введите свое имя"
+                  placeholder="Введите имя пользователя"
                   required
                   name={FormFields.Username}
                   onChange={handleChange}
+                  pattern={USERNAME_REQUIREMENTS}
+                  title={USERNAME_TITLE}
+                  type="username"
                 />
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">
@@ -83,8 +98,8 @@ export default function SignUpForm({ signUpForm, setSignUpForm, setSignUpIsDone 
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-password">
-                  Пароль{' '}
-                  <span className="fs-sm text-muted">(макс. 50 символов)</span>
+                  Пароль
+                  <span className="fs-sm text-muted"> (макс. 50 символов)</span>
                 </Form.Label>
                 <PasswordToggle
                   id="su-password"

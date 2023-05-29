@@ -2,21 +2,38 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 import Form from 'react-bootstrap/Form';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import Button from 'react-bootstrap/Button';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields } from '@/constant';
-
-type formDataType = {
-  password: string;
-  confirmPassword: string;
-};
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  Paths,
+} from '@/constant';
+import { PasswordFromData } from '@/types/forms';
+import { useRouter } from 'next/router';
+import { resetPasswordConfirm } from '@/store/user/userAPI';
 
 export default function SetPassword(): JSX.Element {
+  const router = useRouter();
+  //здесь ловим динамические параметры из адресной строки
+  const uid = router.query.uid as string;
+  const token = router.query.token as string;
+
+  function handleRedirect() {
+    router.push(Paths.SignIn);
+  }
+
   const [validated, setValidated] = useState(false);
-  //создаем стэйт для нашей формы
-  const initialDataState: formDataType = {
+
+  const initialDataState: PasswordFromData = {
     password: '',
     confirmPassword: '',
   };
-  const [data, setData] = useState<formDataType>(initialDataState);
+  const [data, setData] = useState<PasswordFromData>(initialDataState);
+  const requestData = {
+    uid,
+    token,
+    new_password: data.password,
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
@@ -25,7 +42,8 @@ export default function SetPassword(): JSX.Element {
 
     if (form.checkValidity()) {
       setValidated(true);
-      //логика отправки на бэк
+      resetPasswordConfirm(requestData);
+      handleRedirect();
     }
   };
 
@@ -45,10 +63,11 @@ export default function SetPassword(): JSX.Element {
       >
         <Form.Group className="mb-4">
           <Form.Label htmlFor="password">
-            Пароль <span className="fs-sm text-muted">(макс. 50 символов)</span>
+            Введите новый пароль
+            <span className="fs-sm text-muted"> (макс. 50 символов)</span>
           </Form.Label>
           <PasswordToggle
-            id="confirm-password"
+            id="reset-password"
             minLength="8"
             maxLength="50"
             required

@@ -1,11 +1,15 @@
+import EnterEmail from '@/components/sign/setPassword/enterEmail';
 import SignInPic from '@/components/sign/signInPic/signInPic';
 import SignInText from '@/components/sign/signInText/signInText';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 
-export default function renew(): JSX.Element {
+export default function Renew(): JSX.Element {
+  const [isSent, setIsSent] = useState(false);
+  const [email, setEmail] = useState('');
+
   return (
     <Container as="section" className="mx-auto w-75">
-      {/* Page wrapper */}
       <main className="page-wrapper">
         <div className="container-fluid h-100 align-items-center justify-content-center">
           <div
@@ -17,7 +21,14 @@ export default function renew(): JSX.Element {
                 <SignInPic />
               </div>
               <div className="mx-auto max-lg-0 col-lg-6 px-2 pt-2 pb-4 px-sm-6 pt-md-5 ps-lg-5">
-                <SignInText />
+                {!isSent && (
+                  <EnterEmail
+                    setIsSent={setIsSent}
+                    setEmail={setEmail}
+                    email={email}
+                  />
+                )}
+                {isSent && <SignInText email={email} />}
               </div>
             </div>
           </div>

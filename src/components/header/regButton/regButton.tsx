@@ -14,7 +14,12 @@ function RegButton() {
     <Button variant="primary" onClick={handleClick} className={styles.regbtn}>
       <Link href={Paths.SignUp} className={styles.regbtn__text}>
         Регистрация
-        <Image src="/img/header/arrowRight.png" alt="arrow" width={6} height={12}/>
+        <Image
+          src="/img/header/arrowRight.png"
+          alt="arrow"
+          width={6}
+          height={12}
+        />
       </Link>
     </Button>
   );

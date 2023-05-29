@@ -5,11 +5,19 @@ import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields, Paths } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  Paths,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
 import router from 'next/router';
+import { fetchUserDataWithThunk, selectUser } from '@/store/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/store';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -19,16 +27,18 @@ export default function SignInForm(): JSX.Element {
     password: '',
   };
 
-  const [data, setData] = useState<formDataType>(initialDataState);
+  const [data, setData] = useState<SigninUserData>(initialDataState);
+  const dispatch = useDispatch<AppDispatch>();
+
+  //для адаптива, в зависимости от ширины компонента, ButtonGroup либо горизонтальная, либо вертикальная
   const ref = useRef<HTMLFormElement>(null);
- 
   const [widthForm, setWidthForm] = useState(0);
   useEffect(() => {
     if (ref.current) {
       setWidthForm(ref.current.clientWidth);
     }
   }, []);
-  
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
       ...data,
@@ -44,15 +54,16 @@ export default function SignInForm(): JSX.Element {
     });
   }
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
       signinUser(data);
+      dispatch(fetchUserDataWithThunk());
       router.push('/');
     }
-  };
+  }
 
   return (
     <Form
@@ -83,9 +94,7 @@ export default function SignInForm(): JSX.Element {
             <i className="fi-user fs-lg me-1"></i>
             <span className={styles.toggle_btn}>Я пользователь</span>
           </ToggleButton>
-          <Form.Control
-            style={{ position: 'absolute', zIndex: '-1' }}
-          />
+          <Form.Control style={{ position: 'absolute', zIndex: '-1' }} />
           <ToggleButton
             type="radio"
             id="vendor"
@@ -134,7 +143,7 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
-          // pattern={PASSWORD_REQUIREMENTS}
+          pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
         />
       </Form.Group>

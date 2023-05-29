@@ -11,6 +11,7 @@ import RegButton from '../regButton/regButton';
 import Login from '../login/Login';
 import Avatar from '../avatar/Avatar';
 import styles from '@/styles/header/Navbar.module.scss';
+import { Paths } from '@/constant';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -55,7 +56,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   return (
     <Navbar bg="light" expand="xl">
       <Container>
-        <Navbar.Brand as={Link} href="/" className="me-2 me-xl-4">
+        <Navbar.Brand as={Link} href={Paths.Home} className="me-2 me-xl-4">
           <Image
             className={styles.logo}
             src="/img/header/logo.png"
@@ -72,7 +73,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
           <Nav className={styles.navbar__central_block}>
             <City />
             <CatalogDropDown />
-            {renderNavigation()}            
+            {renderNavigation()}
           </Nav>
           <Nav>
             {!isAuth && <Login />}

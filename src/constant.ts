@@ -112,13 +112,20 @@ export enum Paths {
   Renew = '/renew',
   Catalog = '/catalog',
   Places = '/catalog/places',
+  AddProperty = '/addproperty',
+  AddContacts = '/addcontacts',
 }
 
+
 // для форм регистрации, авторизации
-export const PASSWORD_REQUIREMENTS =
-  '/^(?=.*[A-Za-z])(?=.*[0-9])(?=(.*[!@#$%^&*()-__+.])).{8,50}$/';
+export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}';
 export const PASSWORD_TITLE =
-  'Пароль должен содержать от 8 до 50 символов, в нем должны содержаться цифры, символы и буквы латинского алфавита';
+  'Пароль должен содержать от 8 до 20 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
+
+//вылезает warning, избавиться не смогла, но все работает
+export const USERNAME_REQUIREMENTS = '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$';
+export const USERNAME_TITLE =
+  'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры и буквы латинского алфавита. При этом первый символ обязательно буква.';
 
 export enum FormFields {
   IsBride = 'is_bride',
@@ -296,5 +303,7 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 //для авторизации
 export enum Token {
   Default = 'token',
+  Refresh = 'refresh',
   Bearer = 'bearer_token',
+  BearerRefresh = 'bearer_refresh',
 }

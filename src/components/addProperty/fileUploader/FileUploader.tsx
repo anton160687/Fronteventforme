@@ -10,6 +10,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { TEST_URL } from '@/constant';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
