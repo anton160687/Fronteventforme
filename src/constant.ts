@@ -25,7 +25,7 @@ export const TYPE_AREA = [
   [13, 'Замок'],
   [14, 'Загородный клуб'],
   [15, 'Столовая'],
-]
+];
 export const EVENT = [
   [1, 'Свадьба'],
   [2, 'День рождения'],
@@ -36,7 +36,7 @@ export const EVENT = [
   [7, 'Корпоратив'],
   [8, 'Праздничный банкет'],
   [9, 'Выпускной'],
-]
+];
 export const KITCHEN = [
   [1, 'Европейская'],
   [2, 'Азиатская'],
@@ -46,7 +46,7 @@ export const KITCHEN = [
   [6, 'Японская'],
   [7, 'Корейская'],
   [8, 'Другая'],
-]
+];
 export const LOCATION = [
   [1, 'Около моря'],
   [2, 'Около реки'],
@@ -56,7 +56,7 @@ export const LOCATION = [
   [6, 'В лесу'],
   [7, 'Около озера'],
   [8, 'В горах'],
-]
+];
 
 export const FEATURES = [
   [1, 'Номер для гостей'],
@@ -69,7 +69,7 @@ export const FEATURES = [
   [8, 'Есть примерочная'],
   [9, 'Панорамный вид'],
   [10, 'Фотозона'],
-]
+];
 
 export const TERRITORY = [
   [1, 'Своя парковка'],
@@ -82,7 +82,7 @@ export const TERRITORY = [
   [8, 'С выездной регистрацией'],
   [9, 'Панорамный вид'],
   [10, 'Отель для гостей'],
-]
+];
 
 //Форма Area
 export const COLOR_HALL = [
@@ -95,14 +95,14 @@ export const COLOR_HALL = [
   ['lblue', 'Голубой'],
   ['blue', 'Синий'],
   ['purple', 'Фиолетовый'],
-  ['beige', 'Бежевый']
-]
+  ['beige', 'Бежевый'],
+];
 
 export const SCHEME_OF_PAYMENT = [
-  ['bah', "Аренда зала + банкет"],
-  ['ban', "Только аренда зала"],
-  ['hall', "Только банкет"],
-]
+  ['bah', 'Аренда зала + банкет'],
+  ['ban', 'Только аренда зала'],
+  ['hall', 'Только банкет'],
+];
 
 //для навигации
 export enum Paths {
@@ -112,10 +112,11 @@ export enum Paths {
   Renew = '/renew',
   Catalog = '/catalog',
   Places = '/catalog/places',
-};
+}
 
 // для форм регистрации, авторизации
-export const PASSWORD_REQUIREMENTS = '/^(?=.*[A-Za-z])(?=.*[0-9])(?=(.*[!@#$%^&*()\-__+.])).{8,50}$/';
+export const PASSWORD_REQUIREMENTS =
+  '/^(?=.*[A-Za-z])(?=.*[0-9])(?=(.*[!@#$%^&*()-__+.])).{8,50}$/';
 export const PASSWORD_TITLE =
   'Пароль должен содержать от 8 до 50 символов, в нем должны содержаться цифры, символы и буквы латинского алфавита';
 
@@ -125,7 +126,7 @@ export enum FormFields {
   Email = 'email',
   Password = 'password',
   ConfirmPassword = 'confirmPassword',
-};
+}
 
 // для футера
 export type FooterType = {
@@ -296,4 +297,4 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 export enum Token {
   Default = 'token',
   Bearer = 'bearer_token',
-};
+}
