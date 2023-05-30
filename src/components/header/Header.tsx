@@ -11,9 +11,7 @@ export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const token = localStorage.getItem(Token.Access);
-
-    if (token) {
+    if (localStorage.getItem(Token.Access)) {
       dispatch(fetchUserDataWithThunk());
     }
 

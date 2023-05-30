@@ -39,33 +39,6 @@ export async function createUser(data: CreateUserData) {
   }
 }
 
-// export async function signinUser(data: SigninUserData) {
-//   let request = {
-//     is_bride: data.is_bride,
-//     email: data.email,
-//     password: data.password,
-//   };
-//   let response = await fetch(`${API}auth/jwt/create/`, {
-//     method: 'POST',
-//     headers: {
-//       accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(request),
-//   });
-//   if (response.ok) {
-//     let result = await response.json();
-//     //пример ответа
-//     // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-//     // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
-
-//     localStorage.setItem(Token.Access, result.access);
-//     localStorage.setItem(Token.Refresh, result.refresh);
-//   } else {
-//     console.error('signinUser', response);
-//   }
-// }
-
 export async function signinUser(data: SigninUserData) {
   let request = {
     is_bride: data.is_bride,
