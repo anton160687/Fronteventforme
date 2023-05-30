@@ -4,18 +4,30 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import styles from '@/styles/catalog/Catalog.module.scss';
 
 type DropdownCBProps = {
-  name: string,
-  text: string,
-  options: string[][]
-  icon: string,
-  setFilterParams: (name: string, value: string[]) => void
-}
+  name: string;
+  text: string;
+  options: string[][];
+  icon: string;
+  className: string;
+  setFilterParams: (name: string, value: string[]) => void;
+};
 
-const DropdownCB = ({ name, text, options, icon, setFilterParams }: DropdownCBProps) => {
+const DropdownCB = ({
+  name,
+  text,
+  options,
+  icon,
+  className,
+  setFilterParams,
+}: DropdownCBProps) => {
   const initialState: string[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
-  
-  const iconEl = icon ? <i className={`${icon} fs-lg opacity-60 me-1`}></i> : ''
+
+  const iconEl = icon ? (
+    <i className={`${icon} fs-lg opacity-60 me-1`}></i>
+  ) : (
+    ''
+  );
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
@@ -30,27 +42,38 @@ const DropdownCB = ({ name, text, options, icon, setFilterParams }: DropdownCBPr
     }
   }
 
-  useEffect(()=> {
-    setFilterParams(name, selectedArray)
-  }, [name, selectedArray])
+  useEffect(() => {
+    setFilterParams(name, selectedArray);
 
-function renderCB() {
-  return options.map((option, i) => (
-    <Form.Check key={i} type='checkbox' value={option[0]} label={option[1]} onChange={handleChange} />
-  ))
-}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, selectedArray]);
 
-return (
-  <Dropdown>
-    <Dropdown.Toggle variant='outline-secondary' className={styles.catalog__dropdown_icon}>
-      {iconEl}
-      <p className={styles.catalog__dropdown_text}>{text}</p>
-    </Dropdown.Toggle>
-    <Dropdown.Menu className={styles.catalog__dropdown_container}>
-      {renderCB()}
-    </Dropdown.Menu>
-  </Dropdown>
-)
-}
+  function renderCB() {
+    return options.map((option, i) => (
+      <Form.Check
+        key={i}
+        type="checkbox"
+        value={option[0]}
+        label={option[1]}
+        onChange={handleChange}
+      />
+    ));
+  }
 
-export default DropdownCB
+  return (
+    <Dropdown>
+      <Dropdown.Toggle
+        variant="outline-secondary"
+        className={styles.catalog__dropdown_icon + ' ' + className}
+      >
+        {iconEl}
+        <p className={styles.catalog__dropdown_text}>{text}</p>
+      </Dropdown.Toggle>
+      <Dropdown.Menu className={styles.catalog__dropdown_container}>
+        {renderCB()}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+
+export default DropdownCB;

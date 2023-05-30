@@ -8,7 +8,6 @@ import styles from '@/styles/catalog/Catalog.module.scss';
 import { filterParamsType } from '@/types/filter';
 import * as options from './placeFilterOptions';
 
-
 function PlaceFilters() {
     const router = useRouter();
     const initialFilterParamsState: filterParamsType = {
@@ -74,27 +73,29 @@ function PlaceFilters() {
 
     return (
         <div className={styles.catalog__dropdown}>
-
-            <Col md={4} className='d-sm-flex align-items-center'>
-                <Dropdown>
-                    <Dropdown.Toggle variant='outline-secondary' className={styles.catalog__dropdown_icon}>
-                        <i className={`fi-map-pin fs-lg opacity-60 me-1`} />
-                        <p className={styles.catalog__dropdown_text}>Город</p>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu className={styles.catalog__dropdown_container}>
-                        <FormControl type='text' placeholder='Введите город' onBlur={handleBlur} onChange={handleChange} value={city} />
-                    </Dropdown.Menu>
-                </Dropdown>
-                <hr className={styles.catalog__dropdown_hr} />
+            
+                <Col className='d-sm-flex align-items-center justify-content-around flex-sm-wrap'>
+                    <Dropdown>
+                        <Dropdown.Toggle variant='outline-secondary' className={styles.catalog__dropdown_icon + ' px-2'}>
+                            <i className={`fi-map-pin fs-lg opacity-60 me-1`} />
+                            <p className={styles.catalog__dropdown_text}>Город</p>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu className={styles.catalog__dropdown_container}>
+                            <FormControl type='text' placeholder='Введите город' onBlur={handleBlur} onChange={handleChange} value={city}/>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <hr className={styles.catalog__dropdown_hr} />
+                    <DropdownCB
+												className="px-2"
+                        name='capacity'
+                        text='Вместимость'
+                        icon='fi-building'
+                        setFilterParams={filterParamsCallback}
+												options={options.CAPACITY}
+                    />
+                   <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    name='capacity'
-                    text='Вместимость'
-                    icon='fi-building'
-                    setFilterParams={filterParamsCallback}
-                    options={options.CAPACITY}
-                />
-                <hr className={styles.catalog__dropdown_hr} />
-                <DropdownCB
+										className="px-2"
                     name='scheme_of_payment'
                     text='Схема оплаты'
                     icon='fi-home'
@@ -103,6 +104,7 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
+										className="px-2"
                     name='price'
                     text='Средний чек'
                     icon='fi-wallet'
@@ -111,6 +113,7 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
+										className="px-2"
                     name='territory'
                     text='Территория'
                     icon='fi-grid'
@@ -119,6 +122,7 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
+										className="px-2"
                     name='more'
                     text='Еще на площадке'
                     icon='fi-grid'
@@ -127,6 +131,7 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
+										className="px-2"
                     name='additional'
                     text='Дополнительно'
                     icon='fi-grid'
@@ -134,7 +139,7 @@ function PlaceFilters() {
                     options={options.ADD}
                 />
             </Col>
-        </div >
+						</div>
     )
 }
 
