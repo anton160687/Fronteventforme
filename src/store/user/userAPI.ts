@@ -45,25 +45,23 @@ export async function signinUser(data: SigninUserData) {
     email: data.email,
     password: data.password,
   };
-  return fetch(`${API}auth/jwt/create/`, {
+  let response = await fetch(`${API}auth/jwt/create/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(request),
-  })
-    .then((response) => response.json())
-    .then((result) => {
-      //пример ответа
-      // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-      // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
-      localStorage.setItem(Token.Access, result.access);
-      localStorage.setItem(Token.Refresh, result.refresh);
-    })
-    .catch((error) => {
-      console.error('signinUser', error);
-    });
+  });
+
+  if (response.ok) {
+    let result = await response.json();
+    localStorage.setItem(Token.Access, result.access);
+    localStorage.setItem(Token.Refresh, result.refresh);
+    return result;
+  } else {
+    console.error('signinUser', response);
+  }
 }
 
 export async function getUserInfo(): Promise<User | undefined> {
