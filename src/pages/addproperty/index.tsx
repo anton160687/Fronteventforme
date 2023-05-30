@@ -107,7 +107,7 @@ function AddPropertyPage() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const token = localStorage.getItem(Token.Default);
+    const token = localStorage.getItem(Token.Access);
     if (form.checkValidity() && token) {
       console.log('отправка формы');
       setValidated(true);

@@ -59,7 +59,7 @@ export async function signinUser(data: SigninUserData) {
     // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
     // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
 
-    localStorage.setItem(Token.Default, result.access);
+    localStorage.setItem(Token.Access, result.access);
     localStorage.setItem(Token.Refresh, result.refresh);
   } else {
     console.error('signinUser', response);
@@ -67,7 +67,7 @@ export async function signinUser(data: SigninUserData) {
 }
 
 export async function getUserInfo(): Promise<User | undefined> {
-  const token = localStorage.getItem(Token.Default);
+  const token = localStorage.getItem(Token.Access);
 
   let response = await fetch(`${API}auth/users/me/`, {
     method: 'GET',
