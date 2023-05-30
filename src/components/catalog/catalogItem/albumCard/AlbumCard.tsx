@@ -48,7 +48,7 @@ function AlbumCard ({id, title, description, pathImg}: AlbumCardProps) {
     </figcaption>
 
     <LightGallery
-      ey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : ''}
+      // licenseKey={process.env.NODE_ENV==='production'? process.env.NEXT_PUBLIC_LG : ''}
       plugins={[lgThumbnail, lgZoom, lgFullScreen]}
       selector='.gallery-item'
       zoomFromOrigin={false}

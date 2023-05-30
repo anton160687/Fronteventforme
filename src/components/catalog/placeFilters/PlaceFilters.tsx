@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormControl } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
@@ -14,18 +14,26 @@ function PlaceFilters() {
     const initialFilterParamsState: filterParamsType = {
         city: '',
         capacity: [],
-        style: [],
+        scheme_of_payment: [],
         price: [],
         territory: [],
         more: [],
         additional: [],
     };
     const [filterParams, setFilterParams] = useState(initialFilterParamsState);
-    function setCity(e: ChangeEvent<HTMLInputElement>) {
-        setFilterParams({ ...filterParams, city: e.target.value })
+    const [city, setCity] = useState<string>('')
+    
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        setCity(e.target.value);
     }
+
+    function handleBlur (e: FocusEvent<HTMLInputElement>) {
+        setFilterParams({ ...filterParams, city: city });
+
+    }
+
     function filterParamsCallback(name: string, value: string[]) {
-        setFilterParams({ ...filterParams, [name]: value })
+        setFilterParams({ ...filterParams, [name]: value });
     }
 
     function parseQueryParam(queryParams: string, param: string[]) {
@@ -44,6 +52,9 @@ function PlaceFilters() {
         if (filterParams.capacity) {
             queryParams = parseQueryParam(queryParams, filterParams.capacity)
         }
+        if (filterParams.scheme_of_payment) {
+            queryParams = parseQueryParam(queryParams, filterParams.scheme_of_payment)
+        }
         if (filterParams.price) {
             queryParams = parseQueryParam(queryParams, filterParams.price)
         }
@@ -53,12 +64,12 @@ function PlaceFilters() {
         if (filterParams.more) {
             queryParams = parseQueryParam(queryParams, filterParams.more)
         }
-        console.log(queryParams);
         if (queryParams!=='?') {
             router.push(`/catalog/places${queryParams}`);
         } else {
             router.push(`/catalog/places`);
         }
+        console.log(queryParams);
     }, [filterParams])
 
     return (
@@ -71,7 +82,7 @@ function PlaceFilters() {
                         <p className={styles.catalog__dropdown_text}>Город</p>
                     </Dropdown.Toggle>
                     <Dropdown.Menu className={styles.catalog__dropdown_container}>
-                        <FormControl type='text' placeholder='Введите город' onChange={setCity} value={filterParams.city} />
+                        <FormControl type='text' placeholder='Введите город' onBlur={handleBlur} onChange={handleChange} value={city} />
                     </Dropdown.Menu>
                 </Dropdown>
                 <hr className={styles.catalog__dropdown_hr} />
@@ -84,11 +95,11 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    name='style'
-                    text='Стиль площадки'
+                    name='scheme_of_payment'
+                    text='Схема оплаты'
                     icon='fi-home'
                     setFilterParams={filterParamsCallback}
-                    options={options.STYLE}
+                    options={options.SCHEME}
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB

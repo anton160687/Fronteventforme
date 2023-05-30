@@ -31,7 +31,7 @@ export type PasswordFromData = {
   confirmPassword: string;
 };
 
-export type ResetPawwrodConfirm = {
+export type ResetPasswordConfirm = {
   uid: string;
   token: string;
   new_password: string;

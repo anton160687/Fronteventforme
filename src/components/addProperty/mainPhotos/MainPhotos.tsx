@@ -6,7 +6,7 @@ type MainPhotosProps = {
   setMainPhotos: Dispatch<SetStateAction<string[]>>;
 };
 
-export function MainPhotos({ setMainPhotos }: MainPhotosProps) {
+function MainPhotos({ setMainPhotos }: MainPhotosProps) {
   return (
     <section
       id={ADD_PLACE_NAMES.mainPhotos.id}
@@ -27,3 +27,5 @@ export function MainPhotos({ setMainPhotos }: MainPhotosProps) {
     </section>
   );
 }
+
+export default MainPhotos;

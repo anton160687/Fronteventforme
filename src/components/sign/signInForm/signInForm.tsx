@@ -59,9 +59,10 @@ export default function SignInForm(): JSX.Element {
     const form = e.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
-      signinUser(data);
-      dispatch(fetchUserDataWithThunk());
-      router.push('/');
+      signinUser(data).then(() => {
+        dispatch(fetchUserDataWithThunk());
+        router.push('/');
+      });
     }
   }
 

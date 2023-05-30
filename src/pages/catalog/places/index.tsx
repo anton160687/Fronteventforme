@@ -16,7 +16,7 @@ import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSl
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
 import { URL, Paths } from '@/constant';
-import { Place, PlaceCardType } from '@/types/catalog';
+import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
 import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
@@ -26,33 +26,15 @@ type CatalogPlacesProps = {
   totalCount: number;
   currentPage: number;
   queryParamsWithoutPagination: string;
+  queryParamsWithoutSorting: string;
 };
 
-function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination }: CatalogPlacesProps) {
-  const dispatch = useDispatch<AppDispatch>();
-  const [sortedPlaces, setSortedPlaces] = useState<PlaceCardType[] | null>(null);
-  
+function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination, queryParamsWithoutSorting }: CatalogPlacesProps) {
   console.log(places);
+  
   // useEffect(() => {
-  //   dispatch(setPlaces(places));
-  // }, []);
-
-  function sortPlacesByParam(param: string) {
-    switch (param) {
-      case 'popularity':
-        // let sortedByRating = places
-        //   .slice()
-        //   .sort((a: Place, b: Place) => b.rating.rating - a.rating.rating);
-        // setSortedPlaces(sortedByRating);
-        break;
-      case 'lowPrice':
-        //здесь логика сортировки
-        break;
-      case 'hightPrice':
-        //здесь логика сортировки
-        break;
-    }
-  }
+  //   setPlaceRenderList  
+  // }, [places]);
 
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {
@@ -83,22 +65,18 @@ function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagi
       <Row>
         <Sidebar />
         <Col className="ms-4 p-0">
-          <Sorting sortingCB={sortPlacesByParam} />
+          <Sorting query={queryParamsWithoutSorting}/>
 
-          <section>
-            {sortedPlaces
-              ? renderAllPlaces(sortedPlaces)
-              : renderAllPlaces(places)}
-          </section>
+          {renderAllPlaces(places)}
 
-       {/* Пагинация */}
-        <PaginationBar
-          currentPage ={currentPage}
-          totalCount={totalCount}
-          siblingCount = {1}
-          pageSize={8}
-          query={queryParamsWithoutPagination}
-        />
+          {/* Пагинация */}
+          <PaginationBar
+            currentPage={currentPage}
+            totalCount={totalCount}
+            siblingCount={1}
+            pageSize={8}
+            query={queryParamsWithoutPagination}
+          />
         </Col>
       </Row>
 
@@ -113,12 +91,13 @@ export default CatalogPlaces;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
-  const currentPage: number = query?.page? +query.page : 1;
-  let queryParams = getQueryParams(query) !== '?' ? getQueryParams(query) : '';
-  let queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page') !== '?' ? getQueryParamsWithoutParam(query, 'page') : '';
-  
-  const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
-  const getPlacesURL = queryParams? `${API}catalog/places/${queryParams}` : `${API}catalog/places/`;
+  const currentPage: number = query?.page ? +query.page : 1;
+  const queryParams = getQueryParams(query) !== '?' ? getQueryParams(query) : '';
+  const queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page') !== '?' ? getQueryParamsWithoutParam(query, 'page') : '';
+  const queryParamsWithoutSorting = getQueryParamsWithoutParam(query, 'ordering') !== '?' ? getQueryParamsWithoutParam(query, 'ordering') : '';
+
+  const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+  const getPlacesURL = queryParams ? `${API}catalog/places/${queryParams}` : `${API}catalog/places/`;
 
   console.log('это урл на бэк ' + getPlacesURL);
 
@@ -139,6 +118,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       totalCount,
       currentPage,
       queryParamsWithoutPagination,
+      queryParamsWithoutSorting,
     },
   };
 }
