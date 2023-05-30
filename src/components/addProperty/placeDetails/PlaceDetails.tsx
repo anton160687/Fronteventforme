@@ -1,9 +1,9 @@
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Row, Form, Col, InputGroup } from 'react-bootstrap';
 import RenderCheckbox from '../renderChekbox/RenderCheckBox';
-import { ADD_PLACE_NAMES, FEATURES, TERRITORY } from '@/constant';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import FileUploader from '../fileUploader/FileUploader';
+import { ADD_PLACE_NAMES, FEATURES, TERRITORY } from '@/constant';
 
 type PlaceDetailsProps = {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -105,13 +105,13 @@ function PlaceDetails({
         </Form.Group>
       </Row>
       <Row className="mb-4">
-        <Form.Group controlId="territory">
+        <Form.Group controlId="type_territory">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             Территория
           </Form.Label>
           <RenderCheckbox
             options={TERRITORY}
-            name="territory"
+            name="type_territory"
             max={6}
             handleCheckBox={handleCheckBox}
           />

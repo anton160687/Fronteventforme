@@ -1,4 +1,5 @@
 export type Area = {
+    place_id?: number;
     title: string;
     cover_area?: string;
     type_area: string;
@@ -13,6 +14,6 @@ export type Area = {
     scheme_of_payment: string;
     detail_location: string;
     reserved_dates: Date[];
-    bare_lease: boolean;
-    place?: number;
+    area_img: string [];
+    bare_lease?: boolean;
 }

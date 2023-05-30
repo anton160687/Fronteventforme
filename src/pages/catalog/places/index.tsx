@@ -31,10 +31,6 @@ type CatalogPlacesProps = {
 
 function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination, queryParamsWithoutSorting }: CatalogPlacesProps) {
   console.log(places);
-  
-  // useEffect(() => {
-  //   setPlaceRenderList  
-  // }, [places]);
 
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {

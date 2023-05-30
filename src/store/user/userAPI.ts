@@ -55,27 +55,22 @@ export async function signinUser(data: SigninUserData) {
   });
   if (response.ok) {
     let result = await response.json();
-    //пример ответа
-    // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-    // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
-
-    localStorage.setItem(Token.Bearer, result.access);
-    localStorage.setItem(Token.BearerRefresh, result.refresh);
-
+    localStorage.setItem(Token.Access, result.access);
+    localStorage.setItem(Token.Refresh, result.refresh);
   } else {
     console.error('signinUser', response);
   }
 }
 
 export async function getUserInfo(): Promise<User | undefined> {
-  const bearer_token = localStorage.getItem(Token.Bearer);
+  const token = localStorage.getItem(Token.Access);
 
   let response = await fetch(`${API}auth/users/me/`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${bearer_token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   if (response.ok) {

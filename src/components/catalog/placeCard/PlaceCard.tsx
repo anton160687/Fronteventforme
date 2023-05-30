@@ -9,6 +9,7 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({ place }: PlaceCardProps) {
+  console.log(place);
 
   function renderCardText(title: string, description: string) {
     return (
@@ -23,7 +24,7 @@ function PlaceCard({ place }: PlaceCardProps) {
     <Card className='card-horizontal card-hover my-5'>
       <Link href={`/catalog/places/${place.id}`} className='card-img-top'>
         <ImageLoader
-          src={place.cover_place}
+          src={place.cover_place || place.images_place[0]?.image|| 'http://placekitten.com/200/300'}
           quality={100}
           layout='fill'
           objectFit='cover'

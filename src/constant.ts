@@ -303,8 +303,6 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 
 //для авторизации
 export enum Token {
-  Default = 'token',
+  Access = 'access',
   Refresh = 'refresh',
-  Bearer = 'bearer_token',
-  BearerRefresh = 'bearer_refresh',
 }

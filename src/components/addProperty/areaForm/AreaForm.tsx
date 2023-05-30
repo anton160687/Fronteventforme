@@ -13,12 +13,7 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import {
-  ADD_PLACE_NAMES,
-  COLOR_HALL,
-  SCHEME_OF_PAYMENT,
-  TYPE_AREA,
-} from '@/constant';
+import { ADD_PLACE_NAMES, COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
@@ -41,8 +36,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     deposit: 0,
     detail_location: '',
     scheme_of_payment: '',
-    bare_lease: false,
     reserved_dates: [],
+    area_img: [],
+    bare_lease: false,
   };
   const [area, setArea] = useState<Area>(initialAreaFormState);
   //обработчик для стандартных инпутов type=text
@@ -82,27 +78,23 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     setArea({ ...area, ['reserved_dates']: newArr });
   }
 
+  // Загрузка картинок
+  const [areaImg, setAreaImg] = useState<string[]>([]);
+
+  useEffect(() => {
+    setArea((prev) => ({
+      ...prev,
+      area_img: areaImg
+    }));
+  }, [areaImg]);
+
   //при изменении объекта Площадки - прокидываем в общий список мест
   useEffect(() => {
     let newAreasArr = [...areas];
     newAreasArr[index] = area;
     setAreas(newAreasArr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
 
-  // Загрузка картинок
-  const [areaImg, setAreaImg] = useState<string[]>([]);
-
-  useEffect(() => {
-    const cover = areaImg.slice(1);
-    setArea((prev) => ({
-      ...prev,
-      cover_area: areaImg[0],
-      area_img: cover,
-    }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [areaImg]);
   return (
     <>
       <h2 className="h4 mb-4">
@@ -170,7 +162,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               type="number"
               min="30"
               max="60"
-              value={area.min_capacity || undefined}
+              value={area.min_capacity || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
               required
@@ -188,7 +180,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               type="number"
               min="30"
               max="60"
-              value={area.max_capacity || undefined}
+              value={area.max_capacity || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
               required
@@ -283,7 +275,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               placeholder="от 10 000"
               type="number"
               min="10000"
-              value={area.min_price_banquet || undefined}
+              value={area.min_price_banquet || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
               required
@@ -303,7 +295,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
               placeholder="от 10 000"
               type="number"
               min="10000"
-              value={area.min_price_rent || undefined}
+              value={area.min_price_rent || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
               required

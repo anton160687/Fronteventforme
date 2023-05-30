@@ -23,7 +23,8 @@ export type Place = {
   kitchen: number[];
   event: number[];
   type_feature: number[];
-  territory: number[];
+  type_territory: number[];
+  // territory: number[];
   place_img: string[],
   // под эти поля еще нет бэка
   territory_desc?: string;
