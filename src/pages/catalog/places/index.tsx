@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store';
-import { setPlaces } from '@/store/catalog/catalogSlice';
 import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -19,7 +15,10 @@ import { URL, Paths } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
-import { getQueryParams, getQueryParamsWithoutParam } from '@/services/catalog.service';
+import {
+  getQueryParams,
+  getQueryParamsWithoutParam,
+} from '@/services/catalog.service';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -29,19 +28,23 @@ type CatalogPlacesProps = {
   queryParamsWithoutSorting: string;
 };
 
-function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagination, queryParamsWithoutSorting }: CatalogPlacesProps) {
+function CatalogPlaces({
+  places,
+  totalCount,
+  currentPage,
+  queryParamsWithoutPagination,
+  queryParamsWithoutSorting,
+}: CatalogPlacesProps) {
   console.log(places);
 
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {
-      return places.map((place) => (
-        <PlaceCard key={place.id} place={place} />
-      ));
+      return places.map((place) => <PlaceCard key={place.id} place={place} />);
     }
   }
 
   return (
-    <Container>
+    <Container className="px-5 px-xl-0 ">
       <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
@@ -60,8 +63,8 @@ function CatalogPlaces({ places, totalCount, currentPage, queryParamsWithoutPagi
 
       <Row>
         <Sidebar />
-        <Col className="ms-4 p-0">
-          <Sorting query={queryParamsWithoutSorting}/>
+        <Col className="ms-lg-4 p-0">
+          <Sorting query={queryParamsWithoutSorting} />
 
           {renderAllPlaces(places)}
 
@@ -88,12 +91,21 @@ export default CatalogPlaces;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
   const currentPage: number = query?.page ? +query.page : 1;
-  const queryParams = getQueryParams(query) !== '?' ? getQueryParams(query) : '';
-  const queryParamsWithoutPagination = getQueryParamsWithoutParam(query, 'page') !== '?' ? getQueryParamsWithoutParam(query, 'page') : '';
-  const queryParamsWithoutSorting = getQueryParamsWithoutParam(query, 'ordering') !== '?' ? getQueryParamsWithoutParam(query, 'ordering') : '';
+  const queryParams =
+    getQueryParams(query) !== '?' ? getQueryParams(query) : '';
+  const queryParamsWithoutPagination =
+    getQueryParamsWithoutParam(query, 'page') !== '?'
+      ? getQueryParamsWithoutParam(query, 'page')
+      : '';
+  const queryParamsWithoutSorting =
+    getQueryParamsWithoutParam(query, 'ordering') !== '?'
+      ? getQueryParamsWithoutParam(query, 'ordering')
+      : '';
 
   const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
-  const getPlacesURL = queryParams ? `${API}catalog/places/${queryParams}` : `${API}catalog/places/`;
+  const getPlacesURL = queryParams
+    ? `${API}catalog/places/${queryParams}`
+    : `${API}catalog/places/`;
 
   console.log('это урл на бэк ' + getPlacesURL);
 
@@ -117,4 +129,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       queryParamsWithoutSorting,
     },
   };
-}
+};

@@ -117,7 +117,6 @@ export enum Paths {
   AddContacts = '/addcontacts',
 }
 
-
 // для форм регистрации, авторизации
 export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}';
 export const PASSWORD_TITLE =

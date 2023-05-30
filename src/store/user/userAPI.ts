@@ -2,12 +2,12 @@ import { User } from '@/types/user';
 import { AUTH_URL, Token } from '@/constant';
 import {
   CreateUserData,
-  ResetPawwrodConfirm,
+  ResetPasswordConfirm,
   SigninUserData,
 } from '@/types/forms';
 
-
-const API = process.env.NODE_ENV === 'production'? process.env.AUTH_URL : AUTH_URL;
+const API =
+  process.env.NODE_ENV === 'production' ? process.env.AUTH_URL : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -53,10 +53,12 @@ export async function signinUser(data: SigninUserData) {
     },
     body: JSON.stringify(request),
   });
+
   if (response.ok) {
     let result = await response.json();
     localStorage.setItem(Token.Access, result.access);
     localStorage.setItem(Token.Refresh, result.refresh);
+    return result;
   } else {
     console.error('signinUser', response);
   }
@@ -135,7 +137,7 @@ export async function resetPassword(data: string) {
   }
 }
 
-export async function resetPasswordConfirm(data: ResetPawwrodConfirm) {
+export async function resetPasswordConfirm(data: ResetPasswordConfirm) {
   let request = {
     uid: data.uid,
     token: data.token,

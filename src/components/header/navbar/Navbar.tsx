@@ -54,7 +54,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   }
 
   return (
-    <Navbar bg="light" expand="xl">
+    <Navbar bg="light" expand="xl" className="px-5 px-xl-0 ">
       <Container>
         <Navbar.Brand as={Link} href={Paths.Home} className="me-2 me-xl-4">
           <Image

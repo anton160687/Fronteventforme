@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Hero from '@/components/main/hero/Hero';
 import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
@@ -9,7 +8,6 @@ import { ConvenientCatalog } from '@/components/main/convenientCtlg/convenientCa
 import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
-import { URL } from '@/constant';
 import { mockLocationCards } from '@/mocks/locationCards';
 
 type HomeProps = {
