@@ -305,3 +305,21 @@ export enum Token {
   Access = 'access',
   Refresh = 'refresh',
 }
+
+export const TYPE_AREA_DICKTIONARY = [
+  ['bqh', 'Банкетный зал'],
+  ['tent', 'Шатер'],
+  ['vrnd', 'Веранда'],
+  ['ycc', 'Яхт-клуб'],
+  ['mts', 'Теплоход'],
+  ['loft', 'Лофт'],
+  ['mnr', 'Усадьба'],
+  ['rsrn', 'Ресторан'],
+  ['cafe', 'Кафе'],
+  ['rct', 'База отдыха'],
+  ['ctg', 'Коттедж'],
+  ['htl', 'Отель'],
+  ['cst', 'Замок'],
+  ['cntc', 'Загородный клуб'],
+  ['cntn', 'Столовая'],
+];
