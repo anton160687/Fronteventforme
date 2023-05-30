@@ -2,7 +2,7 @@ import { User } from '@/types/user';
 import { AUTH_URL, Token } from '@/constant';
 import {
   CreateUserData,
-  ResetPawwrodConfirm,
+  ResetPasswordConfirm,
   SigninUserData,
 } from '@/types/forms';
 
@@ -53,14 +53,12 @@ export async function signinUser(data: SigninUserData) {
     },
     body: JSON.stringify(request),
   });
+
   if (response.ok) {
     let result = await response.json();
-    //пример ответа
-    // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-    // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
-
     localStorage.setItem(Token.Access, result.access);
     localStorage.setItem(Token.Refresh, result.refresh);
+    return result;
   } else {
     console.error('signinUser', response);
   }
@@ -139,7 +137,7 @@ export async function resetPassword(data: string) {
   }
 }
 
-export async function resetPasswordConfirm(data: ResetPawwrodConfirm) {
+export async function resetPasswordConfirm(data: ResetPasswordConfirm) {
   let request = {
     uid: data.uid,
     token: data.token,

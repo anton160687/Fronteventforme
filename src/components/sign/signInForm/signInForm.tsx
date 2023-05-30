@@ -15,8 +15,8 @@ import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
 import router from 'next/router';
-import { fetchUserDataWithThunk, selectUser } from '@/store/user/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserDataWithThunk } from '@/store/user/userSlice';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 
 export default function SignInForm(): JSX.Element {
@@ -59,10 +59,10 @@ export default function SignInForm(): JSX.Element {
     const form = e.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
-      signinUser(data);
-      //это надо переместить в useEffect на главную
-      // dispatch(fetchUserDataWithThunk());
-      router.push('/');
+      signinUser(data).then(() => {
+        dispatch(fetchUserDataWithThunk());
+        router.push('/');
+      });
     }
   }
 
