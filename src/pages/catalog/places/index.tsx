@@ -37,10 +37,6 @@ function CatalogPlaces({
 }: CatalogPlacesProps) {
   console.log(places);
 
-  // useEffect(() => {
-  //   setPlaceRenderList
-  // }, [places]);
-
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {
       return places.map((place) => <PlaceCard key={place.id} place={place} />);

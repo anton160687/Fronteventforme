@@ -15,8 +15,8 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
-import { createPlace } from '@/components/addProperty/placeAPI';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
+import { createArea, createPlace } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -47,7 +47,7 @@ function AddPropertyPage() {
     kitchen: [],
     event: [],
     type_feature: [],
-    territory: [],
+    type_territory: [],
     place_img: [],
     territory_desc: '',
     welcome_desc: '',
@@ -103,15 +103,24 @@ function AddPropertyPage() {
   }
 
   //Валидация, отправка формы
+  console.log(place);
   const [validated, setValidated] = useState(false);
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const token = localStorage.getItem(Token.Access);
+
+    console.log ('это токен' + token)
+
     if (form.checkValidity() && token) {
-      console.log('отправка формы');
       setValidated(true);
-      createPlace(place, token);
+      let placeId = await createPlace(place, token);
+      console.log(placeId);
+      if (placeId && areas.length !== 0) {
+        areas.forEach((area)=> {
+          createArea(area, placeId, token);
+        })
+      }
     }
   }
 
@@ -190,7 +199,7 @@ function AddPropertyPage() {
               <div className="mb-4">
                 <h1 className="h2 mb-0">Добавить площадку</h1>
                 <div className="d-lg-none pt-3 mb-2">
-                  {percent}% профиля заполнено
+                  {percent}% информации заполнено
                 </div>
                 <ProgressBar
                   variant="warning"
