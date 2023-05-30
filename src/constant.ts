@@ -306,7 +306,7 @@ export enum Token {
   Refresh = 'refresh',
 }
 
-export const TYPE_AREA_DICKTIONARY = [
+export const TYPE_AREA_DICTIONARY = [
   ['bqh', 'Банкетный зал'],
   ['tent', 'Шатер'],
   ['vrnd', 'Веранда'],

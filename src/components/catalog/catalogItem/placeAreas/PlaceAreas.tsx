@@ -26,7 +26,7 @@ import { Area, AreaImages } from '@/types/areaType';
 import {
   COLOR_HALL,
   SCHEME_OF_PAYMENT,
-  TYPE_AREA_DICKTIONARY,
+  TYPE_AREA_DICTIONARY,
 } from '@/constant';
 
 type PlaceAreasProps = {
@@ -200,10 +200,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                   <Form.Label className="mb-2">
                     Укажите количество гостей
                   </Form.Label>
-                  <Form.Control
-                    type="number"
-                    onChange={onChangePeople}
-                  />
+                  <Form.Control type="number" onChange={onChangePeople} />
                 </Form.Group>
                 <Form.Text>
                   <p className="mb-0">Минимальная стоимость:</p>
@@ -351,7 +348,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               <div className={styles.slider_text}>
                 <p>Тип</p>
                 <p className={styles.slider_text_data}>
-                  {findTitle(TYPE_AREA_DICKTIONARY, area.type_area.type_area)}
+                  {findTitle(TYPE_AREA_DICTIONARY, area.type_area.type_area)}
                 </p>
               </div>
               <div className={styles.slider_text}>
