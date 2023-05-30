@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Place } from '@/types/catalog';
 import { Card } from 'react-bootstrap/';
 import styles from "@/styles/catalog/places/LocationPhotos.module.scss";
+import { Place } from "@/types/placeType";
 
 type LocationDescriptionProps = {
     item?: Place,

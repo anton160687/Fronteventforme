@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Place } from '@/types/catalog';
-import { URL, Paths } from '@/constant';
 import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
@@ -25,16 +23,22 @@ import LocationDescription from '@/components/catalog/catalogItem/locationPhotos
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
+import { URL, Paths } from '@/constant';
+import { User } from '@/types/user';
+import { Place } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 type CatalogItemProps = {
-  item?: Place;
+  place: Place;
+  user: User;
 };
 
-export default function CatalogItem({ item }: CatalogItemProps) {
+export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { providerCards } = cards || {};
   const { photosHeld } = cards || {};
   const { articles } = cards || {};
+
+  console.log(place);
 
   return (
     <Container>
@@ -48,7 +52,7 @@ export default function CatalogItem({ item }: CatalogItemProps) {
         <Breadcrumb.Item linkAs={Link} href={Paths.Places}>
           Площадки
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>
+        <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
       {/* тестовые данные для разных ситуаций, потом - удалить */}
@@ -67,11 +71,11 @@ export default function CatalogItem({ item }: CatalogItemProps) {
       <Row className={styles.main__container}>
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
-          <LocationDescription item={item} />
+          <LocationDescription item={place} />
 
           <AnchorBtns />
 
-          <TextHeadingDescription item={item} />
+          <TextHeadingDescription item={place} />
 
           <TextHeadingSuitableFor />
 
@@ -174,10 +178,13 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
-  const response = await fetch(`${API}catalog/places/${id}`);
+  const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+  console.log(API);
+  let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {
-    const result: Place = await response.json();
+    let result = await response.json();
+    let user = result.user;
+    delete result.user;
 
     if (!result) {
       return {
@@ -186,7 +193,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     return {
-      props: { item: result },
+      props: {
+        place: result,
+        user: user,
+      },
     };
   }
 

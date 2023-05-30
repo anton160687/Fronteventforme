@@ -1,6 +1,6 @@
-import { Place } from "@/types/catalog"
-import { FC } from "react"
-import { Col, Row } from "react-bootstrap"
+import { FC } from "react";
+import { Col, Row } from "react-bootstrap";
+import { Place } from "@/types/placeType";
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 type PlaceProps = {

@@ -56,7 +56,7 @@ function CatalogPlaces({
       </Breadcrumb>
 
       <Row className="p-0">
-        <Title title={'Площадки'} quantity={places.length} />
+        <Title title={'Площадки'} quantity={totalCount} />
         <PlaceTypesSlider />
         <PlaceFilters />
       </Row>
