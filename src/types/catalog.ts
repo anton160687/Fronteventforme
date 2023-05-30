@@ -7,18 +7,18 @@ export type PlaceCardType = {
     type_area: {
       id: number;
       type_area: string;
-    },
+    };
     min_capacity: number;
     max_capacity: number;
     min_price_banquet: number;
     min_price_rent: number;
   }[];
   images_place: {
-      id: number;
-      image: string;
-      place: number;
-    }[];
-}
+    id: number;
+    image: string;
+    place: number;
+  }[];
+};
 
 export type Place = {
   id: number;
@@ -74,22 +74,4 @@ export type Area = {
   min_price: number;
   payment_scheme: string;
   capacity: string;
-};
-
-export type Hall = {
-  imgSrc: string[];
-  title: string;
-  price: string;
-  description: string;
-  capacity: string;
-  payment: string;
-  lightHall: boolean | string;
-  type: string;
-  addEntrance: boolean | string;
-  withoutFood: boolean | string;
-  minBanketPrice: string | number;
-  sale: {
-    btn: string;
-    condition: string;
-  };
 };

@@ -16,7 +16,7 @@ import {
   TextHeadingSiteDetails,
 } from '@/components/catalog';
 import { cards } from '@/mocks/cards';
-import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
+import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
@@ -38,7 +38,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { photosHeld } = cards || {};
   const { articles } = cards || {};
 
-  console.log(place);
+  console.log('place', place);
 
   return (
     <Container>
@@ -81,7 +81,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
           <TextHeadingDetailsKitchen />
 
-          <CatalogItemSlider />
+          <PlaceAreas areas={place.areas} average_check={place.average_check} />
 
           <TextHeadingSiteDetails />
 
