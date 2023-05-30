@@ -1,5 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button} from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Button,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -8,12 +15,11 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 import { createPlace } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -72,7 +78,7 @@ function AddPropertyPage() {
   function setCity(data: string) {
     setPlace({ ...place, ['city']: data });
   }
-  
+
   // Площадки
   const [areas, setAreas] = useState<Area[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
@@ -95,7 +101,7 @@ function AddPropertyPage() {
       </section>
     ));
   }
-  
+
   //Валидация, отправка формы
   const [validated, setValidated] = useState(false);
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -108,7 +114,7 @@ function AddPropertyPage() {
       createPlace(place, token);
     }
   }
- 
+
   // Загрузка картинок
   const [mainPhotos, setMainPhotos] = useState<string[]>([]);
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
@@ -117,7 +123,7 @@ function AddPropertyPage() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
 
-    useEffect(() => {
+  useEffect(() => {
     setPlace((prev) => ({
       ...prev,
       place_img: mainPhotos,
@@ -166,15 +172,15 @@ function AddPropertyPage() {
     ));
   }
 
-   //Progress Bar
-   const [percent, setPercent] = useState<number>(0);
-   const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
- 
-   // Превью
-   const [previewShow, setPreviewShow] = useState(false);
-   const handlePreviewClose = () => setPreviewShow(false);
-   const handlePreviewShow = () => setPreviewShow(true);
-   
+  //Progress Bar
+  const [percent, setPercent] = useState<number>(0);
+  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+
+  // Превью
+  const [previewShow, setPreviewShow] = useState(false);
+  const handlePreviewClose = () => setPreviewShow(false);
+  const handlePreviewShow = () => setPreviewShow(true);
+
   return (
     <>
       <Container className="py-5">

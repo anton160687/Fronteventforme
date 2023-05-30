@@ -6,8 +6,8 @@ import {
   SigninUserData,
 } from '@/types/forms';
 
-
-const API = process.env.NODE_ENV === 'production'? process.env.AUTH_URL : AUTH_URL;
+const API =
+  process.env.NODE_ENV === 'production' ? process.env.AUTH_URL : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -59,23 +59,22 @@ export async function signinUser(data: SigninUserData) {
     // access: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
     // refresh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....';
 
-    localStorage.setItem(Token.Bearer, result.access);
-    localStorage.setItem(Token.BearerRefresh, result.refresh);
-
+    localStorage.setItem(Token.Default, result.access);
+    localStorage.setItem(Token.Refresh, result.refresh);
   } else {
     console.error('signinUser', response);
   }
 }
 
 export async function getUserInfo(): Promise<User | undefined> {
-  const bearer_token = localStorage.getItem(Token.Bearer);
+  const token = localStorage.getItem(Token.Default);
 
   let response = await fetch(`${API}auth/users/me/`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${bearer_token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
   if (response.ok) {
