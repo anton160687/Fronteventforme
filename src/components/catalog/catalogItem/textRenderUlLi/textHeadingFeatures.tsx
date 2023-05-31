@@ -79,24 +79,24 @@ export const TextHeadingFeatures = ({
 
   return (
     <Row className="mb-xl-5 mb-4">
-      <h4>Особенности</h4>
+      <h4 className="text-center text-sm-start">Особенности</h4>
 
-      <Row className="d-flex justify-content-between">
-        {col1.length && (
+      <Row className="d-md-flex text-center text-sm-start d-block justify-content-between">
+        {col1.length > 0 && (
           <ul className="list-unstyled w-auto mb-0">
             {col1.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
         )}
-        {col2.length && (
+        {col2.length > 0 && (
           <ul className="list-unstyled w-auto mb-0">
             {col2.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
         )}
-        {col3.length && (
+        {col3.length > 0 && (
           <ul className="list-unstyled w-auto mb-0">
             {col3.map((feature) => (
               <li key={feature}>{feature}</li>
