@@ -41,7 +41,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     deposit: 0,
     detail_location: '',
     scheme_of_payment: '',
-    reserved_dates: [],
+    reserved_days: [],
     area_img: [],
     bare_lease: false,
   };
@@ -74,13 +74,13 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
   }
   // даты брони
   function handleDateChange(date: Date, id: number) {
-    let newArr = [...area.reserved_dates];
+    let newArr = [...area.reserved_days];
     if (newArr[id] && date === null) {
       newArr.splice(id, 1);
     } else {
       newArr[id] = date;
     }
-    setArea({ ...area, ['reserved_dates']: newArr });
+    setArea({ ...area, ['reserved_days']: newArr });
   }
 
   // Загрузка картинок
@@ -387,12 +387,12 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
       </Row>
       {/* Недоступные даты */}
       <Row>
-        <Form.Group controlId="reserved_dates">
+        <Form.Group controlId="reserved_days">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             Отметьте даты, на которые бронь зала уже недоступна
           </Form.Label>
           <AreaFormDatePicker
-            datesArray={area.reserved_dates}
+            datesArray={area.reserved_days}
             handleDateChange={handleDateChange}
           />
         </Form.Group>
