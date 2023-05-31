@@ -85,12 +85,12 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             type_territory={place.type_territory}
           />
 
-          {/* <AlbumCardContainer
+          <AlbumCardContainer
             territory={place.territory_desc}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
-          /> */}
-          {providerCards &&
+          />
+          {/* {providerCards &&
             providerCards.map((item) => (
               <AlbumCard
                 key={item.id}
@@ -99,7 +99,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 description={item.description}
                 pathImg={item.pathImg}
               />
-            ))}
+            ))} */}
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
