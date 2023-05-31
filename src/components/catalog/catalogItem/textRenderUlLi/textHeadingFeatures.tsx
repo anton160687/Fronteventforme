@@ -14,11 +14,11 @@ export const TextHeadingFeatures = ({
   max_serving,
   type_territory,
 }: TextHeadingFeaturesProps): JSX.Element => {
-  //для красивого вывода данных
+  //для красивого вывода данных - не вынесла в отдельный хелпер, т.к. тут в случае undefined возвращается пустая строка, а не "Не указано"
   const findFeatures = (dictionary: string[][], value: string): string => {
     const title = dictionary.find((item: string[]) => item[0] === value);
 
-    if (title === undefined) return 'Не указано';
+    if (title === undefined) return '';
 
     return title[1];
   };
@@ -29,7 +29,7 @@ export const TextHeadingFeatures = ({
   ): string[] => {
     const element: string[] = array.map((item: number) => {
       const title = dictionary.find((dEl: [number, string]) => dEl[0] === item);
-      if (title === undefined) return 'Не указано';
+      if (title === undefined) return '';
       else return title[1];
     });
     return element;
@@ -74,32 +74,30 @@ export const TextHeadingFeatures = ({
       else setCol1((prev) => [...prev, feature]);
     });
 
-    console.log('allFeatures', allFeatures);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFeatures]);
 
   return (
-    <Row className="mb-xl-5 mb-md-4 mb-sm-3">
+    <Row className="mb-xl-5 mb-4">
       <h4>Особенности</h4>
 
       <Row className="d-flex justify-content-between">
         {col1.length && (
-          <ul className="list-unstyled w-auto">
+          <ul className="list-unstyled w-auto mb-0">
             {col1.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
         )}
         {col2.length && (
-          <ul className="list-unstyled w-auto">
+          <ul className="list-unstyled w-auto mb-0">
             {col2.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}
           </ul>
         )}
         {col3.length && (
-          <ul className="list-unstyled w-auto">
+          <ul className="list-unstyled w-auto mb-0">
             {col3.map((feature) => (
               <li key={feature}>{feature}</li>
             ))}

@@ -30,7 +30,7 @@ export type Place = {
   // territory: number[];
   place_img: string[];
   // под эти поля еще нет бэка
-  territory_desc?: string;
+  territory_desc: string;
   welcome_desc?: string;
   outreg_price?: number;
   outreg_desc?: string;
@@ -91,7 +91,7 @@ type Location = {
     | 'imt';
 };
 
-type OutsideReg = {
+export type OutsideReg = {
   id: number;
   images_out_reg: OutsideRegImages[];
   outreg_price: number;
@@ -152,7 +152,7 @@ type TypePlace = {
     | 'firew';
 };
 
-type WelcomeZone = {
+export type WelcomeZone = {
   id: number;
   images_welcome: WelcomeZoneImage[];
   welcome_desc: string;

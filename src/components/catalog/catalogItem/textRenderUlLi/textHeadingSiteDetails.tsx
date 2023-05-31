@@ -13,7 +13,7 @@ export const TextHeadingSiteDetails = ({
   const new_description = description.slice(0, 128) + '...';
 
   return (
-    <Card className={styles.text__details_container + ' border-0'}>
+    <Card className="border-0 mb-xl-5 mb-4">
       <Card.Body className="p-0">
         <Card.Title as="h4" className="mb-3">
           Детали площадки

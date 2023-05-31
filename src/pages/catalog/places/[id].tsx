@@ -27,6 +27,7 @@ import { URL, Paths } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceRecieved } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
+import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 
 type CatalogItemProps = {
   place: PlaceRecieved;
@@ -72,25 +73,23 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
           <LocationDescription item={place} />
-
           <AnchorBtns />
-
           <TextHeadingDescription item={place} />
-
           <TextHeadingSuitableFor />
-
           <TextHeadingDetailsKitchen />
-
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
-
           <TextHeadingSiteDetails description={place.description} />
-
           <TextHeadingFeatures
             max_serving={place.max_serving}
             features={place.type_feature}
             type_territory={place.type_territory}
           />
 
+          {/* <AlbumCardContainer
+            territory={place.territory_desc}
+            welcome_zones={place.welcome_zones}
+            outside_reg={place.outsites_reg}
+          /> */}
           {providerCards &&
             providerCards.map((item) => (
               <AlbumCard
@@ -101,7 +100,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 pathImg={item.pathImg}
               />
             ))}
-
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
@@ -118,7 +116,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 ))}
             </div>
           </Row>
-
           <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
               Статьи о свадьбах на площадке “Villa Arcobaleno”
@@ -136,12 +133,10 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 ))}
             </div>
           </Row>
-
           <div id="map" className={styles.map__container}>
             Здесь карта Яндекса с объектом
             <YaMap />
           </div>
-
           <div id="comments" className={styles.comments__container}>
             <YaComments />
           </div>
