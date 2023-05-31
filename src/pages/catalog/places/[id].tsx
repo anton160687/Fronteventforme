@@ -41,7 +41,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   const placeImgList = place.images_place.map((item)=>{return item.image});
 
   return (
-    <Container>
+    <Container className="px-5">
       <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
@@ -77,12 +77,14 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             type_territory={place.type_territory}
           />
 
-          <AlbumCardContainer
+          {/* <AlbumCardContainer
             territory={place.territory_desc}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
-          />
-          {/* {providerCards &&
+          /> */}
+
+          {/*//! для демонстрации */}
+          {providerCards &&
             providerCards.map((item) => (
               <AlbumCard
                 key={item.id}
@@ -91,12 +93,12 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 description={item.description}
                 pathImg={item.pathImg}
               />
-            ))} */}
+            ))}
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
             </Card.Title>
-            <div className="d-flex justify-content-evenly">
+            <div className="d-flex justify-content-evenly flex-wrap p-0">
               {photosHeld &&
                 photosHeld.map((item) => (
                   <PhotosWeddingsHeld
@@ -112,7 +114,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
               Статьи о свадьбах на площадке “Villa Arcobaleno”
             </Card.Title>
-            <div className="d-flex justify-content-evenly">
+            <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
               {articles &&
                 articles.map((item) => (
                   <ArticlesWeddings
