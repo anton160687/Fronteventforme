@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { Card } from 'react-bootstrap/';
 import styles from '@/styles/catalog/places/LocationPhotos.module.scss';
-import { PlaceRecieved } from '@/types/placeType';
+import { PlaceReceived } from '@/types/placeType';
 import { numberOfAreas } from '@/services/parse.service';
 
 type LocationDescriptionProps = {
-  item: PlaceRecieved;
+  item: PlaceReceived;
 };
 
 function LocationDescription({ item }: LocationDescriptionProps) {

@@ -25,12 +25,12 @@ import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import { URL, Paths } from '@/constant';
 import { User } from '@/types/user';
-import { PlaceRecieved } from '@/types/placeType';
+import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 
 type CatalogItemProps = {
-  place: PlaceRecieved;
+  place: PlaceReceived;
   user: User;
 };
 
@@ -55,7 +55,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* тестовые данные для разных ситуаций, потом - удалить */}
       <LocationPhotos
         photoUrls={placeImgList}
       />
@@ -68,8 +67,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <LocationDescription item={place} />
           <AnchorBtns />
           <TextHeadingDescription item={place} />
-          <TextHeadingSuitableFor />
-          <TextHeadingDetailsKitchen />
+          <TextHeadingSuitableFor item={place}/>
+          <TextHeadingDetailsKitchen item={place}/>
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
           <TextHeadingSiteDetails description={place.description} />
           <TextHeadingFeatures
