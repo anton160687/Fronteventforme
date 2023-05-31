@@ -166,12 +166,18 @@
 .slider_details {
   flex-grow: 1;
   margin-right: 3em;
-  @include fz(10, 14);
+  @include fz(12, 16);
+  color: $gray900;
+
+  p {
+    color: $gray800;
+  }
 }
 
 .slider_text {
+  color: $gray900;
   display: flex;
-  @include fz(10, 14);
+  @include fz(12, 16);
   justify-content: space-between;
   font-weight: 500;
 
@@ -195,9 +201,9 @@
   flex-grow: 1;
 }
 
-.left_block {
-  padding-right: 1.5rem;
-}
+// .left_block {
+//   padding-right: 1.5rem;
+// }
 
 .link_hover {
   &:hover {

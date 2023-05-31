@@ -11,34 +11,13 @@ export type Area = {
   min_price_banquet: number;
   min_price_rent: number;
   deposit: number;
-  scheme_of_payment: string;
+  scheme_of_payment: 'bah' | 'ban' | 'hall';
   detail_location: string;
   images_area: AreaImages[] | [];
   bare_lease?: boolean;
   reserved_days: string;
   // reserved_dates: Date[];
 };
-
-// color_hall: 'white';
-// cover_area: 'http://188.225.24.70:8080/media/cover_area/panton.jpg';
-// deposit: 15000;
-// detail_location: 'Красота';
-// id: 1;
-// images_area: [];
-// max_capacity: 100;
-// min_capacity: 10;
-// min_price_banquet: 10000;
-// min_price_rent: 20000;
-// place: 1;
-// reserved_days: '2023-05-25';
-// sale: '500';
-// scheme_of_payment: 'bah';
-// separate_entrance: true;
-// title: 'Пантеон';
-// type_area: {
-//   id: 2;
-//   type_area: 'tent';
-// }
 
 //тип приходящего с бека Area
 export type AreaRecieved = Omit<
@@ -63,7 +42,22 @@ export type AreaRecieved = Omit<
 
 type TypeArea = {
   id: number;
-  type_area: string;
+  type_area:
+    | 'bqh'
+    | 'tent'
+    | 'vrnd'
+    | 'ycc'
+    | 'mts'
+    | 'loft'
+    | 'mnr'
+    | 'rsrn'
+    | 'cafe'
+    | 'rct'
+    | 'ctg'
+    | 'htl'
+    | 'cst'
+    | 'cntc'
+    | 'cntn';
 };
 
 export type AreaImages = {

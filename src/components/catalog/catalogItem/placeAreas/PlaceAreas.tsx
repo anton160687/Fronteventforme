@@ -303,7 +303,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               ) : (
                 <GalleryItem
                   href={area.cover_area}
-                  thumb={[area.cover_area, 807, 230]}
+                  thumb={[area.cover_area, 900, 230]}
                   data-external-thumb-image={area.cover_area}
                   imgAlt={area.title}
                   light={false}
@@ -318,7 +318,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
         <div className={styles.slider_text_wrapper}>
           <div className="d-md-flex">
-            <div className={styles.left_block}>
+            <div className={styles.left_block + ' me-0 me-md-4'}>
               <div className={styles.slider_text}>
                 <p>Вместимость</p>
                 <p className={styles.slider_text_data}>
@@ -373,7 +373,11 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
           <div className={styles.slider_text_bottom + ' d-md-flex'}>
             {area.sale && (
-              <div className={styles.sale + ' order-2 my-4 ms-md-3'}>
+              <div
+                className={
+                  styles.sale + ' order-2 my-4 ms-md-3 mx-auto w-75 w-md-auto'
+                }
+              >
                 {/* //! в форме заполнения помещения нет соответствующего поля */}
                 {/* <p className="fw-semibold">{place.sale.condition}</p> */}
 

@@ -83,9 +83,13 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
 
-          <TextHeadingSiteDetails />
+          <TextHeadingSiteDetails description={place.description} />
 
-          <TextHeadingFeatures />
+          <TextHeadingFeatures
+            max_serving={place.max_serving}
+            features={place.type_feature}
+            type_territory={place.type_territory}
+          />
 
           {providerCards &&
             providerCards.map((item) => (

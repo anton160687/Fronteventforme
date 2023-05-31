@@ -1,5 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Button,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -8,11 +15,11 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
 import { createArea, createPlace } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -103,16 +110,16 @@ function AddPropertyPage() {
     const form = event.currentTarget;
     const token = localStorage.getItem(Token.Access);
 
-    console.log ('это токен' + token)
+    console.log('это токен' + token);
 
     if (form.checkValidity() && token) {
       setValidated(true);
       let placeId = await createPlace(place, token);
       console.log(placeId);
       if (placeId && areas.length !== 0) {
-        areas.forEach((area)=> {
+        areas.forEach((area) => {
           createArea(area, placeId, token);
-        })
+        });
       }
     }
   }

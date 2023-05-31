@@ -72,7 +72,7 @@ export const FEATURES = [
   [10, 'Фотозона'],
 ];
 
-export const TERRITORY = [
+export const TERRITORY: [number, string][] = [
   [1, 'Своя парковка'],
   [2, 'Welcome-зона'],
   [3, 'Место под фаер-шоу'],
@@ -322,4 +322,17 @@ export const TYPE_AREA_DICTIONARY = [
   ['cst', 'Замок'],
   ['cntc', 'Загородный клуб'],
   ['cntn', 'Столовая'],
+];
+
+export const FEATURES_DICTIONARY = [
+  ['guestr', 'Номер для гостей'],
+  ['room', 'Номер для новобрачных'],
+  ['proj', 'Есть проектор'],
+  ['tv', 'ТВ-экраны'],
+  ['dance', 'Есть танцпол'],
+  ['scen', 'Есть сцена'],
+  ['brid', 'Есть комната невесты'],
+  ['dress', 'Есть примерочная'],
+  ['pan', 'Панорамный вид'],
+  ['phot', 'Фотозона'],
 ];
