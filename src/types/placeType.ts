@@ -42,8 +42,8 @@ export type Album = {
   album_img: string[];
 };
 
-//тип приходящего с бека Area
-export type PlaceRecieved = Omit<
+//тип приходящего с бека Place
+export type PlaceReceived = Omit<
   Place,
   | 'areas'
   | 'event'
@@ -52,6 +52,7 @@ export type PlaceRecieved = Omit<
   | 'location'
   | 'type_feature'
   | 'type_place'
+  | 'kitchen'
 > & {
   areas: AreaRecieved[] | [];
   cover_place: string;
@@ -59,8 +60,9 @@ export type PlaceRecieved = Omit<
   start_time: string;
   finish_time: string;
   id: number;
-  images_place: ImagesPlace;
+  images_place: ImagesPlace[];
   location: Location[];
+  kitchen: Kitchen[];
   outsites_reg: OutsideReg[];
   type_feature: Feature[];
   type_place: TypePlace[];
@@ -89,6 +91,11 @@ type Location = {
     | 'forest'
     | 'lake'
     | 'imt';
+};
+
+type Kitchen = {
+  id: number;
+  kitchen: string;
 };
 
 export type OutsideReg = {

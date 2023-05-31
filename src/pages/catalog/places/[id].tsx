@@ -25,12 +25,12 @@ import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import { URL, Paths } from '@/constant';
 import { User } from '@/types/user';
-import { PlaceRecieved } from '@/types/placeType';
+import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 
 type CatalogItemProps = {
-  place: PlaceRecieved;
+  place: PlaceReceived;
   user: User;
 };
 
@@ -38,8 +38,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { providerCards } = cards || {};
   const { photosHeld } = cards || {};
   const { articles } = cards || {};
-
-  console.log('place', place);
+  const placeImgList = place.images_place.map((item)=>{return item.image});
 
   return (
     <Container className="px-5">
@@ -56,15 +55,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* тестовые данные для разных ситуаций, потом - удалить */}
       <LocationPhotos
-        photoUrls={[
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-        ]}
+        photoUrls={placeImgList}
       />
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
@@ -75,8 +67,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <LocationDescription item={place} />
           <AnchorBtns />
           <TextHeadingDescription item={place} />
-          <TextHeadingSuitableFor />
-          <TextHeadingDetailsKitchen />
+          <TextHeadingSuitableFor item={place}/>
+          <TextHeadingDetailsKitchen item={place}/>
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
           <TextHeadingSiteDetails description={place.description} />
           <TextHeadingFeatures
@@ -136,11 +128,10 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             </div>
           </Row>
           <div id="map" className={styles.map__container}>
-            Здесь карта Яндекса с объектом
-            <YaMap />
+            <YaMap lat={place.width} long={place.longitude}/>
           </div>
           <div id="comments" className={styles.comments__container}>
-            <YaComments />
+            <YaComments id={place.id_yandex}/>
           </div>
         </Col>
 
@@ -162,11 +153,11 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
           {/* тестовые данные, потом - удалить */}
           <BookingForm
-            avatar={'https://picsum.photos/100/100'}
-            first_name={'Имя'}
-            last_name={'Фамилия'}
-            phone={'12345678'}
-            email={'sshuahuash@mail.ru'}
+            avatar={user.avatar || '/img/header/avatar.svg'}
+            first_name={user.first_name || 'Имя'}
+            last_name={user.last_name ||'Фамилия'}
+            phone={user.phone || '123456789'}
+            email={user.email || 'sshuahuash@mail.ru'}
           />
 
           <ContactForm />
@@ -180,7 +171,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
   const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
-  console.log(API);
+  
   let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {
     let result = await response.json();
