@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { Card } from 'react-bootstrap/';
 import styles from '@/styles/catalog/places/LocationPhotos.module.scss';
-import { Place } from '@/types/placeType';
+import { PlaceRecieved } from '@/types/placeType';
 
 type LocationDescriptionProps = {
-  item?: Place;
+  item?: PlaceRecieved;
 };
 
 function LocationDescription({ item }: LocationDescriptionProps) {
@@ -37,7 +37,7 @@ function LocationDescription({ item }: LocationDescriptionProps) {
       </div>
 
       <div className={styles.location__flex_container}>
-        <p>{item?.address.full}</p>
+        <p>{item?.address}</p>
         <Link href="#map" className={styles.location__map}>
           <i className="fi-map" /> <p>На карте</p>
         </Link>
