@@ -25,11 +25,11 @@ import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import { URL, Paths } from '@/constant';
 import { User } from '@/types/user';
-import { Place } from '@/types/placeType';
+import { PlaceRecieved } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 type CatalogItemProps = {
-  place: Place;
+  place: PlaceRecieved;
   user: User;
 };
 
