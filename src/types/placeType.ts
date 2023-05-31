@@ -42,7 +42,7 @@ export type Album = {
   album_img: string[];
 };
 
-//тип приходящего с бека Area
+//тип приходящего с бека Place
 export type PlaceRecieved = Omit<
   Place,
   | 'areas'
@@ -59,7 +59,7 @@ export type PlaceRecieved = Omit<
   start_time: string;
   finish_time: string;
   id: number;
-  images_place: ImagesPlace;
+  images_place: ImagesPlace[];
   location: Location[];
   outsites_reg: OutsideReg[];
   type_feature: Feature[];
