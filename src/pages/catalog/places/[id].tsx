@@ -38,7 +38,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { photosHeld } = cards || {};
   const { articles } = cards || {};
   const placeImgList = place.images_place.map((item)=>{return item.image});
-  console.log(placeImgList);
 
   return (
     <Container>
