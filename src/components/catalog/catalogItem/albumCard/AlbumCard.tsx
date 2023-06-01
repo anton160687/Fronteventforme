@@ -48,7 +48,7 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
         <p className="mb-2">{description}</p>
       </figcaption>
 
-      <div style={{ maxWidth: '50%' }}>
+      <div className="w-md-50 w-75">
         <LightGallery
           plugins={[lgThumbnail, lgZoom, lgFullScreen]}
           selector=".gallery-item"
@@ -77,7 +77,7 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                     <SwiperSlide key={index}>
                       <GalleryItem
                         href={path}
-                        thumb={[path, 420, 270]}
+                        thumb={[path, 500, 270]}
                         data-external-thumb-image={path}
                         imgalt="Image"
                         quality={100}
@@ -93,14 +93,13 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                     </SwiperSlide>
                   </>
                 ))}
-                <SlidesCount />
               </>
             ) : (
               <ImageLoader
                 src="/img/emptyPhoto.png"
                 height={270}
-                width={420}
-                imgalt={title}
+                width={500}
+                imgAlt={title}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
@@ -110,6 +109,7 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                 video='false'
               />
             )}
+            {pathImg.length > 1 && <SlidesCount />}
           </Swiper>
         </LightGallery>
       </div>

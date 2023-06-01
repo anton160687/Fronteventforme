@@ -15,8 +15,8 @@ function ArticlesWeddings ({ title, description, pathImg, dateText}: ArticlesWed
 
   return (
     <figure
-      style={{ maxWidth: '430px' }}
-      className=" card-hover text-decoration-none text-dark rounded-3 mx-2"
+      // style={{ maxWidth: '350px' }}
+      className=" card-hover text-decoration-none text-dark rounded-3 px-2 w-75 w-md-50"
     >
       <ImageLoader
         src={pathImg}
