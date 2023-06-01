@@ -167,7 +167,7 @@ export const cards = {
   ],
 
   //! карточки проведённых свадеб
-  photosHeld: [
+  weddingPhotos: [
     {
       id: 1,
       title: 'Екатерина и Андрей',

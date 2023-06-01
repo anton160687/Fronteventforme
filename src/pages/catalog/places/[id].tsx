@@ -7,7 +7,7 @@ import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
 import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
-import ArticlesWeddings from '@/components/catalog/catalogItem/articlesWeddings/ArticlesWeddings';
+import ArticleWeddings from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddings';
 import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
 import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
 import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
@@ -111,7 +111,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
               {articles &&
                 articles.map((item) => (
-                  <ArticlesWeddings
+                  <ArticleWeddings
                     key={item.id}
                     title={item.title}
                     description={item.description}
