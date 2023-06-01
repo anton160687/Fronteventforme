@@ -1,16 +1,17 @@
 import { Button, Card } from "react-bootstrap"
-import { PlaceReceived } from '@/types/placeType';
-import styles from "@/styles/catalog/places/Places.module.scss";
+import { Kitchen } from '@/types/placeType';
 import { KITCHEN } from "@/constant";
+import styles from "@/styles/catalog/places/Places.module.scss";
 
-type PlaceProps = {
-  item: PlaceReceived;
+type TextKitchenProps = {
+  children: boolean;
+  kitchens: Kitchen[];
 };
 
-export function TextHeadingDetailsKitchen ({ item }: PlaceProps) {
-  function renderKitchenNames() {
+function TextKitchen ({ children, kitchens }: TextKitchenProps) {
+  function renderKitchens() {
     let cuisines = '';
-    item.kitchen.forEach(({id})=> {
+    kitchens.forEach(({id})=> {
       let res = KITCHEN.filter((value) => value[0] === id);
       cuisines += `${res[0][1]} `
     })
@@ -22,11 +23,11 @@ export function TextHeadingDetailsKitchen ({ item }: PlaceProps) {
       <Card.Title as='h4' className='mb-3'>Детали о кухне площадки:</Card.Title>
       <Card.Text className='mb-2'>
         <i className='fi-union me-2 fs-sm' />
-        {renderKitchenNames()}
+        {renderKitchens()}
       </Card.Text>
       <Card.Text className='mb-2'>
         <i className='fi-ticket me-2 fs-sm' />
-        {item.children_kitchen? 'Есть детское меню' : 'Детского меню нет'}
+        {children? 'Есть детское меню' : 'Детского меню нет'}
       </Card.Text>
     </Card.Body>
     <Button href="#" className={styles.text__cuisine_btn}>
@@ -36,3 +37,5 @@ export function TextHeadingDetailsKitchen ({ item }: PlaceProps) {
   </div>
   )
 }
+
+export default TextKitchen;

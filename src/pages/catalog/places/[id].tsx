@@ -6,16 +6,13 @@ import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
 import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
-import {
-  PhotosWeddingsHeld,
-  ArticlesWeddings,
-  TextHeadingDescription,
-  TextHeadingSuitableFor,
-  TextHeadingDetailsKitchen,
-  TextHeadingFeatures,
-  TextHeadingSiteDetails,
-} from '@/components/catalog';
-import { cards } from '@/mocks/cards';
+import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
+import ArticlesWeddings from '@/components/catalog/catalogItem/articlesWeddings/ArticlesWeddings';
+import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
+import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
+import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
+import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDetails';
+import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
 import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
@@ -28,6 +25,7 @@ import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
+import { cards } from '@/mocks/cards';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -36,7 +34,7 @@ type CatalogItemProps = {
 
 export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { providerCards } = cards || {};
-  const { photosHeld } = cards || {};
+  const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
   const placeImgList = place.images_place.map((item)=>{return item.image});
 
@@ -66,23 +64,21 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Col xl={8} className={styles.left__container}>
           <LocationDescription item={place} />
           <AnchorBtns />
-          <TextHeadingDescription item={place} />
-          <TextHeadingSuitableFor item={place}/>
-          <TextHeadingDetailsKitchen item={place}/>
+          <TextDescription item={place} />
+          <TextEvents events={place.event}/>
+          <TextKitchen children={place.children_kitchen} kitchens={place.kitchen}/>
+
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
-          <TextHeadingSiteDetails description={place.description} />
-          <TextHeadingFeatures
-            max_serving={place.max_serving}
-            features={place.type_feature}
-            type_territory={place.type_territory}
-          />
+          
+          <TextDetails description={place.description} />
+          <TextFeatures features={place.type_feature} territories={place.type_place} />
 
           <AlbumCardContainer
             territory={place.territory_desc}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
           />
-          {/* {providerCards &&
+          {providerCards &&
             providerCards.map((item) => (
               <AlbumCard
                 key={item.id}
@@ -91,15 +87,15 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                 description={item.description}
                 pathImg={item.pathImg}
               />
-            ))} */}
+            ))}
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
             </Card.Title>
             <div className="d-flex justify-content-evenly">
-              {photosHeld &&
-                photosHeld.map((item) => (
-                  <PhotosWeddingsHeld
+              {weddingPhotos &&
+                weddingPhotos.map((item) => (
+                  <WeddingsPhotos
                     key={item.id}
                     title={item.title}
                     description={item.description}
@@ -151,11 +147,11 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
           {/* тестовые данные, потом - удалить */}
           <BookingForm
-            avatar={user.avatar || '/img/header/avatar.svg'}
-            first_name={user.first_name || 'Имя'}
-            last_name={user.last_name ||'Фамилия'}
-            phone={user.phone || '123456789'}
-            email={user.email || 'sshuahuash@mail.ru'}
+            avatar={user?.avatar || '/img/header/avatar.svg'}
+            first_name={user?.first_name || 'Имя'}
+            last_name={user?.last_name ||'Фамилия'}
+            phone={user?.phone || '123456789'}
+            email={user?.email || 'sshuahuash@mail.ru'}
           />
 
           <ContactForm />

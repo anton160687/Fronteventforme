@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import styles from '@/styles/catalog/places/Places.module.scss';
 
-type TextHeadingSiteDetailsProps = {
+type TextDetailsProps = {
   description: string;
 };
 
-export const TextHeadingSiteDetails = ({
-  description,
-}: TextHeadingSiteDetailsProps): JSX.Element => {
+function TextDetails ({ description }: TextDetailsProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const new_description = description.slice(0, 128) + '...';
 
@@ -47,3 +44,5 @@ export const TextHeadingSiteDetails = ({
     </Card>
   );
 };
+
+export default TextDetails;

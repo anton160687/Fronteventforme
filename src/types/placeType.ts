@@ -56,7 +56,7 @@ export type PlaceReceived = Omit<
 > & {
   areas: AreaRecieved[] | [];
   cover_place: string;
-  event: Event;
+  event: Event[];
   start_time: string;
   finish_time: string;
   id: number;
@@ -69,7 +69,7 @@ export type PlaceReceived = Omit<
   welcome_zones: WelcomeZone[];
 };
 
-type Event = {
+export type Event = {
   id: number;
   event: string;
 };
@@ -93,7 +93,7 @@ type Location = {
     | 'imt';
 };
 
-type Kitchen = {
+export type Kitchen = {
   id: number;
   kitchen: string;
 };
@@ -128,7 +128,7 @@ export type Feature = {
     | 'phot';
 };
 
-type TypePlace = {
+export type TypePlace = {
   id: number;
   type_place:
     | 'site'

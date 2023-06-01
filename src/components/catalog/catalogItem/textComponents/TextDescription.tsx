@@ -1,12 +1,25 @@
 import { Col, Row } from 'react-bootstrap';
 import { PlaceReceived } from '@/types/placeType';
+import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
-type PlaceProps = {
+type TextDescriptionProps = {
   item: PlaceReceived;
 };
 
-export function TextHeadingDescription({ item }: PlaceProps) {
+function TextDescription({ item }: TextDescriptionProps) {
+  let locations: (string | number)[] = [];
+  item.location.forEach(({ id }) => {
+    let res = LOCATION.filter((value) => value[0] === id);
+    locations.push(res[0][1]);
+  })
+  
+  function renderLocations() {
+    if (locations.length !== 0) {
+      return locations.map((location, i)=> (<p key={i} className={styles.text_locations}>{location}</p>))
+    }
+    return 'Не указано'
+  }
 
   return (
     <Row id="review" className="mb-xl-5 mb-md-4 mb-sm-3 d-flex">
@@ -19,7 +32,7 @@ export function TextHeadingDescription({ item }: PlaceProps) {
         <ul className={styles.text__description_column + ' list-unstyled'}>
 
           <li className="d-flex align-items-center justify-content-between text-dark">
-            Расположение <strong>{item?.location.map((item) => <span key={item.id}>{item.location}</span>) || 'Не указано'}</strong>
+            Расположение <strong>{renderLocations()}</strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
             Время работы <strong>{item?.start_time.substring(0, 5) || 'Не указано'} - {item?.finish_time.substring(0, 5) || 'Не указано'}</strong>
@@ -36,8 +49,8 @@ export function TextHeadingDescription({ item }: PlaceProps) {
           </li>
         </ul>
         <ul className={styles.text__description_column + ' list-unstyled'}>
-        <li className="d-flex align-items-center justify-content-between text-dark">
-            Продление аренды <strong>{item?.lease_extension? 'Возможно' : 'Невозможно'}</strong>
+          <li className="d-flex align-items-center justify-content-between text-dark">
+            Продление аренды <strong>{item?.lease_extension ? 'Возможно' : 'Невозможно'}</strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
             Стоимость продления <strong>{item?.lease_extension_price || 'Не указано'}</strong>
@@ -56,3 +69,5 @@ export function TextHeadingDescription({ item }: PlaceProps) {
     </Row>
   )
 };
+
+export default TextDescription;

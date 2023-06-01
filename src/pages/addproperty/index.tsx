@@ -1,12 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import {
-  Form,
-  Row,
-  Col,
-  Container,
-  ProgressBar,
-  Button,
-} from 'react-bootstrap';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -19,7 +12,7 @@ import { createArea, createPlace } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {

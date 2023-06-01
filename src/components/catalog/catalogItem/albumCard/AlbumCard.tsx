@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import 'swiper/css/bundle';
 import GalleryItem from '@/components/_finder/GalleryItem';
 import LightGallery from 'lightgallery/react';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
@@ -13,6 +12,7 @@ import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import ImageLoader from '@/components/_finder/ImageLoader';
+import 'swiper/css/bundle';
 
 type AlbumCardProps = {
   id: number;
@@ -79,16 +79,16 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                         href={path}
                         thumb={[path, 420, 270]}
                         data-external-thumb-image={path}
-                        imgAlt="Image"
+                        imgalt="Image"
                         quality={100}
                         className={
                           id % 2 === 0
                             ? styles.rounded_left
                             : styles.rounded_right
                         }
-                        light={false}
+                        light='false'
                         caption=""
-                        video={false}
+                        video='false'
                       />
                     </SwiperSlide>
                   </>
@@ -100,14 +100,14 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                 src="/img/emptyPhoto.png"
                 height={270}
                 width={420}
-                imgAlt={title}
+                imgalt={title}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
                 }
-                light={false}
+                light='false'
                 caption=""
-                video={false}
+                video='false'
               />
             )}
           </Swiper>

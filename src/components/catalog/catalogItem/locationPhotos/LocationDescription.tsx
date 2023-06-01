@@ -27,6 +27,7 @@ function LocationDescription({ item }: LocationDescriptionProps) {
           <i className="fi-map" /> <p>На карте</p>
         </Link>
       </div>
+      <p>Метро: {item.metro || 'не указано' }</p>
     </>
   );
 }
