@@ -1,33 +1,35 @@
 import Link from 'next/link';
 import { Card } from 'react-bootstrap/';
-import styles from "@/styles/catalog/places/LocationPhotos.module.scss";
+import styles from '@/styles/catalog/places/LocationPhotos.module.scss';
+import { PlaceReceived } from '@/types/placeType';
+import { numberOfAreas } from '@/services/parse.service';
 
 type LocationDescriptionProps = {
-    title?: string
-    address?: string
-}
+  item: PlaceReceived;
+};
 
-function LocationDescription ({title, address}: LocationDescriptionProps) {
+function LocationDescription({ item }: LocationDescriptionProps) {
 
-    return (<>
-              <div className={styles.location__flex_container}>
-            <h3>{title || "Карта поставщика"}</h3>
-            <Card.Footer className={styles.text_title}>
-              <span>3 зала</span>
-              <span className="fs-4 text-secondary mx-2">|</span>
-              <span>2 шатра</span>
-              <span className="fs-4 text-secondary mx-2">|</span>
-              <span>2 веранды</span>
-            </Card.Footer>
-          </div>
+  return (
+    <>
+      <div className={styles.location__flex_container}>
+        <h3>{item.title}</h3>
+        <Card.Footer className={styles.text_title}>
+          <span>
+            {item.areas.length} {numberOfAreas(item.areas.length)}
+          </span>
+        </Card.Footer>
+      </div>
 
-          <div className={styles.location__flex_container}>
-            <p>{address || "Адрес поставщика"}</p>
-            <Link href="#map" className={styles.location__map}>
-              <i className="fi-map" /> <p>На карте</p>
-            </Link>
-          </div>
-    </>)
+      <div className={styles.location__flex_container}>
+        <p>{item.address}</p>
+        <Link href="#map" className={styles.location__map}>
+          <i className="fi-map" /> <p>На карте</p>
+        </Link>
+      </div>
+      <p>Метро: {item.metro || 'не указано' }</p>
+    </>
+  );
 }
 
 export default LocationDescription;

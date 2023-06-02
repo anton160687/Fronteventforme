@@ -85,7 +85,9 @@
 
 .anchor__btns {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+
   @media (max-width: 800px) {
     display: none;
   }
@@ -99,7 +101,8 @@
   font-size: 18px;
   line-height: 150%;
   color: #9691a4;
-  margin: 16px 0 48px;
+  margin: 1rem;
+
   &:hover {
     background-color: $primary;
     color: #ffffff;
@@ -108,35 +111,67 @@
 
 .catalog__btmfilters {
   list-style-type: none;
+  padding-left: 0;
   &_header {
-      margin-bottom: 12px;
-      &:hover {
-        color:#FE9589;
-      }
+    margin-bottom: 12px;
+    &:hover {
+      color: #fe9589;
+    }
   }
+
   &_link {
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 150%;
-      display: flex;
-      align-items: center;
-      color: #9691A4;
-      & > p {
-          margin-bottom: 8px;
-      }
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    display: flex;
+    align-items: center;
+    color: #9691a4;
+    & > p {
+      margin-bottom: 8px;
+    }
   }
 }
+
 .catalog__btmfilters_row {
   margin-bottom: 64px;
 }
+
 .catalog__btmfilters_container {
   margin: 124px 0;
 }
 
 .active {
-  color: #FE9589;
+  color: #fe9589;
+}
 
+//пагинация
+.pagination__link {
+  width: 24px;
+  height: 24px;
+  text-decoration: none;
+  color: #454056;
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+
+  &_active {
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #fe9589;
+    border-radius: 50px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+  }
+}
+
+.pagination__arrow {
+  color: #454056;
 }

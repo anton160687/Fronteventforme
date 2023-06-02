@@ -9,7 +9,7 @@ import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import CardImageHoverOverlay from '@/components/_finder/CardImageHoverOverlay';
 import { similarPlaces } from '@/mocks/similarItemsSlider';
-import { PATHS } from '@/constant';
+import { Paths } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 export function SimilarItemsSlider() {
@@ -23,7 +23,7 @@ export function SimilarItemsSlider() {
           Похожие площадки
         </h2>
         <Link
-          href={PATHS.catalog + PATHS.places}
+          href={Paths.Catalog + Paths.Places}
           className={'btn btn-link ms-md-3 p-0 ' + styles.summary}
         >
           Вернуться в каталог

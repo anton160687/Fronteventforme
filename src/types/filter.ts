@@ -1,7 +1,7 @@
 export type filterParamsType = {
     city: string,
     capacity: string[],
-    style: string[],
+    scheme_of_payment: string[],
     price: string[],
     territory: string[],
     more: string[],

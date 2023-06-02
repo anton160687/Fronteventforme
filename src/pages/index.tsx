@@ -7,17 +7,14 @@ import { Locations } from '@/components/main/locations/locations';
 import { ConvenientCatalog } from '@/components/main/convenientCtlg/convenientCatalog';
 import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
-import { Place } from '@/types/catalog';
-import { URL } from '@/constant';
-import { FilePondFile } from 'filepond';
-import { useState } from 'react';
+import { LocationCard } from '@/types/locationCard';
+import { mockLocationCards } from '@/mocks/locationCards';
 
 type HomeProps = {
-  topLocations: Place[];
+  topLocations: LocationCard[];
 };
 
-export default function Home({ topLocations }: HomeProps) {
-  const [gallery, setGallery] = useState<FilePondFile[]>([]);
+export default function Home({ topLocations = mockLocationCards }: HomeProps) {
   return (
     <>
       <Hero />
@@ -43,18 +40,21 @@ export default function Home({ topLocations }: HomeProps) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const response = await fetch(`${URL}/places/`);
-  const result: Place[] = await response.json();
-  const locations: Place[] = result?.slice(0, 5);
+// Здесь должен быть запрос на URL с топовыми площадками.
+// Пока соотв. API нет, используем мок-массив.
+// export const getServerSideProps = async () => {
+//   const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+//   const response = await fetch(`${API}`);
+//   const result: LocationCard[] = await response.json();
+//   const locations: LocationCard[] = result?.slice(0, 5);
 
-  if (!locations) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (!locations) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: { topLocations: locations },
-  };
-};
+//   return {
+//     props: { topLocations: locations },
+//   };
+// };

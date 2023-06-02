@@ -1,96 +1,92 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Place } from "@/types/placeType"
-import { URL } from '@/constant';
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
+import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
+import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
+import ArticleWeddings from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddings';
+import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
+import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
+import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
+import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDetails';
+import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
+import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
+import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
+import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
+import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
-import YaComments from '../../../components/catalog/catalogItem/yaComments/YaComments';
-import YaMap from '../../../components/catalog/catalogItem/yaMap/yaMap';
-
+import { URL, Paths } from '@/constant';
+import { User } from '@/types/user';
+import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
-
-import { Card } from 'react-bootstrap/';
-import {
-  ProviderCardSpecialBlock,
-  PhotosWeddingsHeld,
-  ArticlesWeddings,
-  TextHeadingDescription,
-  TextHeadingSuitableFor,
-  TextHeadingDetailsKitchen,
-  TextHeadingFeatures,
-  TextHeadingSiteDetails,
-} from '@/components/catalog';
+import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import { cards } from '@/mocks/cards';
-import CatalogItemSlider from '@/components/catalog/catalogItem/catalogItemSlider/CatalogItemSlider';
-import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
-
 
 type CatalogItemProps = {
-  item: Place;
+  place: PlaceReceived;
+  user: User;
 };
 
-export default function CatalogItem({ item }: CatalogItemProps) {
+export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { providerCards } = cards || {};
-  const { photosHeld } = cards || {};
+  const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
+  const placeImgList = place.images_place.map((item) => {
+    return item.image;
+  });
 
   return (
-    <Container>
+    <Container className="px-5">
       <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item linkAs={Link} href="/">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
           Каталог
         </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href="/catalog/places">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Places}>
           Площадки
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{item?.title}</Breadcrumb.Item>
+        <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      {/* тестовые данные для разных ситуаций, потом - удалить */}
-      <LocationPhotos
-        photoUrls={[
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-          'https://picsum.photos/369/224',
-        ]}
-      />
+      <LocationPhotos photoUrls={placeImgList} />
 
       {/* это - общий контейнер страницы на все блоки под верхними фото */}
 
-      <Row className={`${styles.main__container} mx-auto w-xl-100 w-lg-75`}>
-        
+      <Row className={styles.main__container}>
         {/* это - основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
-          <LocationDescription />
-
+          <LocationDescription item={place} />
           <AnchorBtns />
-          
-          <TextHeadingDescription place={item}/>
-          
-          <TextHeadingSuitableFor />
+          <TextDescription item={place} />
+          <TextEvents events={place.event} />
+          <TextKitchen
+            children={place.children_kitchen}
+            kitchens={place.kitchen}
+          />
 
-          <TextHeadingDetailsKitchen />
+          <PlaceAreas areas={place.areas} average_check={place.average_check} />
 
-          <CatalogItemSlider />
+          <TextDetails description={place.description} />
+          <TextFeatures
+            features={place.type_feature}
+            territories={place.type_place}
+          />
 
-          <TextHeadingSiteDetails description={''}/>
-
-          <TextHeadingFeatures />
-
+          <AlbumCardContainer
+            territory={place.territory_desc}
+            welcome_zones={place.welcome_zones}
+            outside_reg={place.outsites_reg}
+          />
           {providerCards &&
             providerCards.map((item) => (
-              <ProviderCardSpecialBlock
+              <AlbumCard
                 key={item.id}
                 id={item.id}
                 title={item.title}
@@ -98,32 +94,30 @@ export default function CatalogItem({ item }: CatalogItemProps) {
                 pathImg={item.pathImg}
               />
             ))}
-
-          <Row>
-            <Card.Title as="h4" className="text-sm-center text-md-start">
+          <Row className="my-xl-4 my-md-3 my-sm-2">
+            <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
             </Card.Title>
-            <Row>
-              {photosHeld &&
-                photosHeld.map((item) => (
-                  <PhotosWeddingsHeld
+            <div className="d-flex justify-content-evenly">
+              {weddingPhotos &&
+                weddingPhotos.map((item) => (
+                  <WeddingsPhotos
                     key={item.id}
                     title={item.title}
                     description={item.description}
                     pathImg={item.pathImg}
                   />
                 ))}
-            </Row>
+            </div>
           </Row>
-
-          <Row>
-            <Card.Title as="h4" className="text-sm-center text-lg-start">
+          <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
+            <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
               Статьи о свадьбах на площадке “Villa Arcobaleno”
             </Card.Title>
-            <Row className="d-flex flex-lg-nowrap justify-content-evenly">
+            <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
               {articles &&
                 articles.map((item) => (
-                  <ArticlesWeddings
+                  <ArticleWeddings
                     key={item.id}
                     title={item.title}
                     description={item.description}
@@ -131,10 +125,14 @@ export default function CatalogItem({ item }: CatalogItemProps) {
                     dateText={item.dateText}
                   />
                 ))}
-            </Row>
+            </div>
           </Row>
-
-          
+          <div id="map" className={styles.map__container}>
+            <YaMap lat={place.width} long={place.longitude} />
+          </div>
+          <div id="comments" className={styles.comments__container}>
+            <YaComments id={place.id_yandex} />
+          </div>
         </Col>
 
         {/* это - боковой контейнер справа на странице */}
@@ -155,24 +153,16 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
           {/* тестовые данные, потом - удалить */}
           <BookingForm
-            avatar={'https://picsum.photos/100/100'}
-            first_name={'Имя'}
-            last_name={'Фамилия'}
-            phone={'12345678'}
-            email={'sshuahuash@mail.ru'}
+            avatar={user?.avatar || '/img/header/avatar.svg'}
+            first_name={user?.first_name || 'Имя'}
+            last_name={user?.last_name || 'Фамилия'}
+            phone={user?.phone || '123456789'}
+            email={user?.email || 'sshuahuash@mail.ru'}
           />
 
           <ContactForm />
         </Col>
       </Row>
-      <div id="map" className={styles.map__container}>
-        Здесь карта Яндекса с объектом
-        <YaMap />
-      </div>
-
-      <div id="comments" className={styles.comments__container}>
-        <YaComments />
-      </div>
       <SimilarItemsSlider />
     </Container>
   );
@@ -180,9 +170,13 @@ export default function CatalogItem({ item }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const response = await fetch(`${URL}/places/${id}`);
+  const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+
+  let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {
-    const result: Place = await response.json();
+    let result = await response.json();
+    let user = result.user;
+    delete result.user;
 
     if (!result) {
       return {
@@ -191,7 +185,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     return {
-      props: { item: result },
+      props: {
+        place: result,
+        user: user,
+      },
     };
   }
 

@@ -122,6 +122,12 @@
   }
 }
 
+.text_locations {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
 .text__cuisine_container {
   margin-bottom: 40px;
 }
@@ -154,29 +160,28 @@
 }
 
 .text__details_container {
-  margin-bottom: 40px;
-}
-
-//слайдеры
-.catalog_item_slider {
-  @include fz(10, 14);
-  @include adaptiv-value('margin-bottom', 40, 10);
+  margin-bottom: 2.5rem;
 }
 
 .slider_details {
   flex-grow: 1;
   margin-right: 3em;
-  @include fz(10, 14);
+  @include fz(12, 16);
+  color: $gray900;
+
+  p {
+    color: $gray800;
+  }
 }
 
 .slider_text {
+  color: $gray900;
   display: flex;
-  @include fz(10, 14);
+  @include fz(12, 16);
   justify-content: space-between;
   font-weight: 500;
 
   &_bottom {
-    display: flex;
     width: 100%;
     @include fz(10, 14);
   }
@@ -188,6 +193,8 @@
 
   &_data {
     font-weight: 700;
+    margin-left: 3rem;
+    text-align: end;
   }
 }
 
@@ -196,9 +203,9 @@
   flex-grow: 1;
 }
 
-.left_block {
-  padding-right: 1.5rem;
-}
+// .left_block {
+//   padding-right: 1.5rem;
+// }
 
 .link_hover {
   &:hover {
@@ -212,11 +219,11 @@
 }
 
 .sale {
-  margin: 1.5em 1em 0;
   display: flex;
   flex-direction: column;
   justify-content: baseline;
   flex-grow: 1;
+  width: fit-content;
 }
 
 .calendar {
@@ -231,6 +238,11 @@
 
   &_none {
     display: none;
+  }
+
+  @media screen and (max-width: 665px) {
+    left: -70%;
+    top: 100%;
   }
 }
 
@@ -250,6 +262,7 @@
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
   margin: 0;
+  white-space: inherit;
 }
 
 // для верхнего слайдера
@@ -274,21 +287,23 @@
   justify-content: space-evenly;
 }
 
-.text_territory_reverse{
+.text_territory_reverse {
   flex-direction: row-reverse;
 }
 
-.text_territory, .text_territory_reverse{
+.text_territory,
+.text_territory_reverse {
   //для слайдеров: фикс. ширина и выравнивание по центру
-  max-width: 856px;
+  //max-width: 856px;
+  width: 100%;
+  gap: 1rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   @include adaptiv-value('margin-bottom', 48, 15);
 
-  figcaption{
-    padding: 0 15px;
-    width: 50%;
+  figcaption {
+    min-width: 50%;
   }
 
   @media (max-width: 800px) {
@@ -300,19 +315,19 @@
       border-radius: 12px;
       width: 100%;
     }
-    figcaption{
+    figcaption {
       padding: 0;
       margin: 0 auto;
     }
   }
   @media (max-width: 700px) {
-    figcaption{
-      width: 60%;
+    figcaption {
+      width: 100%;
     }
   }
   @media (max-width: 600px) {
-    figcaption{
-      display: none;
+    figcaption {
+      text-align: justify;
     }
   }
 }

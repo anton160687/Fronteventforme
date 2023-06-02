@@ -1,15 +1,23 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, formFields, PATHS } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  Paths,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import { signinUser } from '@/store/user/userAPI';
 import router from 'next/router';
+import { fetchUserDataWithThunk } from '@/store/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -18,7 +26,18 @@ export default function SignInForm(): JSX.Element {
     email: '',
     password: '',
   };
+
   const [data, setData] = useState<SigninUserData>(initialDataState);
+  const dispatch = useDispatch<AppDispatch>();
+
+  //для адаптива, в зависимости от ширины компонента, ButtonGroup либо горизонтальная, либо вертикальная
+  const ref = useRef<HTMLFormElement>(null);
+  const [widthForm, setWidthForm] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      setWidthForm(ref.current.clientWidth);
+    }
+  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -35,34 +54,38 @@ export default function SignInForm(): JSX.Element {
     });
   }
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
-      signinUser(data);
-      router.push('/');
+      signinUser(data).then(() => {
+        dispatch(fetchUserDataWithThunk());
+        router.push('/');
+      });
     }
-  };
+  }
 
   return (
     <Form
       validated={validated}
       onSubmit={handleSubmit}
-      style={{ marginLeft: '5rem' }}
       method="post"
       action="#"
+      ref={ref}
     >
       <Form.Group controlId="su-radio" className="mb-4">
         <ButtonGroup
           className="w-100"
           size="lg"
           style={{ position: 'relative' }}
+          //работает только при монтировании, т.к. на не нужны лишние исчисления, а люди редко сильно меняют размеры экрана
+          vertical={widthForm < 350 ? true : false}
         >
           <ToggleButton
             type="radio"
             id="bride"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={1}
             checked={data.is_bride}
             onChange={handleToggle}
@@ -72,13 +95,11 @@ export default function SignInForm(): JSX.Element {
             <i className="fi-user fs-lg me-1"></i>
             <span className={styles.toggle_btn}>Я пользователь</span>
           </ToggleButton>
-          <Form.Control
-            style={{ position: 'absolute', zIndex: '-1' }}
-          />
+          <Form.Control style={{ position: 'absolute', zIndex: '-1' }} />
           <ToggleButton
             type="radio"
             id="vendor"
-            name={formFields.is_bride}
+            name={FormFields.IsBride}
             value={0}
             checked={!data.is_bride}
             onChange={handleToggle}
@@ -95,7 +116,7 @@ export default function SignInForm(): JSX.Element {
           type="email"
           placeholder="primer@mail.ru"
           required
-          name={formFields.email}
+          name={FormFields.Email}
           onChange={handleChange}
         />
       </Form.Group>
@@ -108,14 +129,14 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={PATHS.renew} className={styles.link + ' fs-sm'}>
+          <Link href={Paths.Renew} className={styles.link + ' fs-sm'}>
             Забыли пароль?
           </Link>
         </div>
         <PasswordToggle
           id="si-password"
           placeholder="Введите пароль"
-          name={formFields.password}
+          name={FormFields.Password}
           onChange={handleChange}
           required
           style={{}}
@@ -123,7 +144,7 @@ export default function SignInForm(): JSX.Element {
           className=""
           size=""
           autoComplete="off"
-          // pattern={PASSWORD_REQUIREMENTS}
+          pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
         />
       </Form.Group>

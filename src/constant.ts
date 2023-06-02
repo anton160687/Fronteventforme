@@ -1,7 +1,6 @@
 import { addPlaceName } from './types/addPlaceNames';
-
-export const URL = 'http://letarist.pythonanywhere.com/api/test_api/';
-export const TEST_URL = 'http://188.225.24.70:8080/';
+export const URL = 'http://188.225.24.70:8080/api/v1/';
+export const AUTH_URL = 'http://188.225.24.70:8080/';
 
 // для dadata
 export const CITY_URL =
@@ -27,7 +26,7 @@ export const TYPE_AREA = [
   [13, 'Замок'],
   [14, 'Загородный клуб'],
   [15, 'Столовая'],
-]
+];
 export const EVENT = [
   [1, 'Свадьба'],
   [2, 'День рождения'],
@@ -38,7 +37,7 @@ export const EVENT = [
   [7, 'Корпоратив'],
   [8, 'Праздничный банкет'],
   [9, 'Выпускной'],
-]
+];
 export const KITCHEN = [
   [1, 'Европейская'],
   [2, 'Азиатская'],
@@ -48,7 +47,7 @@ export const KITCHEN = [
   [6, 'Японская'],
   [7, 'Корейская'],
   [8, 'Другая'],
-]
+];
 export const LOCATION = [
   [1, 'Около моря'],
   [2, 'Около реки'],
@@ -58,7 +57,7 @@ export const LOCATION = [
   [6, 'В лесу'],
   [7, 'Около озера'],
   [8, 'В горах'],
-]
+];
 
 export const FEATURES = [
   [1, 'Номер для гостей'],
@@ -71,9 +70,9 @@ export const FEATURES = [
   [8, 'Есть примерочная'],
   [9, 'Панорамный вид'],
   [10, 'Фотозона'],
-]
+];
 
-export const TERRITORY = [
+export const TERRITORY: [number, string][] = [
   [1, 'Своя парковка'],
   [2, 'Welcome-зона'],
   [3, 'Место под фаер-шоу'],
@@ -84,7 +83,7 @@ export const TERRITORY = [
   [8, 'С выездной регистрацией'],
   [9, 'Панорамный вид'],
   [10, 'Отель для гостей'],
-]
+];
 
 //Форма Area
 export const COLOR_HALL = [
@@ -97,84 +96,47 @@ export const COLOR_HALL = [
   ['lblue', 'Голубой'],
   ['blue', 'Синий'],
   ['purple', 'Фиолетовый'],
-  ['beige', 'Бежевый']
-]
+  ['beige', 'Бежевый'],
+];
 
 export const SCHEME_OF_PAYMENT = [
-  ['bah', "Аренда зала + банкет"],
-  ['ban', "Только аренда зала"],
-  ['hall', "Только банкет"],
-]
-
-// для фильтров [PlaceFilters] на странице каталога
-export const OPTIONS_CAPACITY = [
-  ['10-30', 'от 10 до 30'],
-  ['30-60', 'от 30 до 60'],
-  ['60-100', 'от 60 до 100'],
-  ['100-150', 'от 100 до 150'],
-  ['150', 'от 150'],
-];
-export const OPTIONS_STYLE = [
-  ['loft', 'Лофт'],
-  ['rustik', 'Рустик'],
-  ['classic', 'Классический'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_PRICE = [
-  ['1000', 'до 1000 ₽'],
-  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_TERRITORY = [
-  ['park', 'Своя парковка'],
-  ['welc', 'Welcome-зона'],
-  ['fire', 'Место под фаер-шоу'],
-  ['firew', 'Можно фейерверк'],
-  ['hotel', 'Отель рядом'],
-  ['kids', 'Детская игровая зона'],
-  ['phot', 'Фотозона'],
-  ['reg', 'С выездной регистрацией'],
-  ['pan', 'Панорамный вид'],
-  ['guest', 'Отель для гостей'],
-];
-export const OPTIONS_MORE = [
-  ['1000', 'до 1000 ₽'],
-  ['1000-2000', 'от 1000 ₽ до 2000 ₽'],
-  ['2000-3000', 'от 2000 ₽ до 3000 ₽'],
-  ['other', 'Другое'],
-];
-export const OPTIONS_ADD = [
-  ['1000', 'Аренда без еды'],
-  ['1000-2000', 'Свой алкоголь'],
-  ['2000-3000', 'Без проб. сбора'],
-  ['other', 'Можно праздновать после 23:00'],
+  ['bah', 'Аренда зала + банкет'],
+  ['ban', 'Только аренда зала'],
+  ['hall', 'Только банкет'],
 ];
 
 //для навигации
-export const PATHS = {
-  signUp: '/signup',
-  signIn: '/signin',
-  renew: '/renew',
-  catalog: '/catalog',
-  places: '/places',
-};
+export enum Paths {
+  Home = '/',
+  SignUp = '/signup',
+  SignIn = '/signin',
+  Renew = '/renew',
+  Catalog = '/catalog',
+  Places = '/catalog/places',
+  AddProperty = '/addproperty',
+  AddContacts = '/addcontacts',
+}
 
 // для форм регистрации, авторизации
-export const PASSWORD_REQUIREMENTS = '/^(?=.*[A-Za-z])(?=.*[0-9])(?=(.*[!@#$%^&*()\-__+.])).{8,50}$/';
+export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}';
 export const PASSWORD_TITLE =
-  'Пароль должен содержать от 8 до 50 символов, в нем должны содержаться цифры, символы и буквы латинского алфавита';
+  'Пароль должен содержать от 8 до 20 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
 
-export const formFields = {
-  is_bride: 'is_bride',
-  username: 'username',
-  email: 'email',
-  password: 'password',
-  confirmPassword: 'confirmPassword',
-};
+//вылезает warning, избавиться не смогла, но все работает
+export const USERNAME_REQUIREMENTS = '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$';
+export const USERNAME_TITLE =
+  'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры и буквы латинского алфавита. При этом первый символ обязательно буква.';
+
+export enum FormFields {
+  IsBride = 'is_bride',
+  Username = 'username',
+  Email = 'email',
+  Password = 'password',
+  ConfirmPassword = 'confirmPassword',
+}
 
 // для футера
-export type FooterConst = {
+export type FooterType = {
   title: string;
   data: {
     id: number;
@@ -182,7 +144,8 @@ export type FooterConst = {
     url: string;
   }[];
 };
-export const SERVICES: FooterConst = {
+
+export const SERVICES: FooterType = {
   title: 'Услуги',
   data: [
     {
@@ -217,7 +180,8 @@ export const SERVICES: FooterConst = {
     },
   ],
 };
-export const PAGES: FooterConst = {
+
+export const PAGES: FooterType = {
   title: 'Страницы',
   data: [
     {
@@ -252,7 +216,8 @@ export const PAGES: FooterConst = {
     },
   ],
 };
-export const PLACES: FooterConst = {
+
+export const PLACES: FooterType = {
   title: 'Площадки',
   data: [
     {
@@ -287,7 +252,8 @@ export const PLACES: FooterConst = {
     },
   ],
 };
-export const ACTORS: FooterConst = {
+
+export const ACTORS: FooterType = {
   title: 'Исполнители',
   data: [
     {
@@ -335,7 +301,25 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 };
 
 //для авторизации
-export const TOKEN_TYPES = {
-  default: 'token',
-  bearer: 'bearer_token',
-};
+export enum Token {
+  Access = 'access',
+  Refresh = 'refresh',
+}
+
+export const TYPE_AREA_DICTIONARY = [
+  ['bqh', 'Банкетный зал'],
+  ['tent', 'Шатер'],
+  ['vrnd', 'Веранда'],
+  ['ycc', 'Яхт-клуб'],
+  ['mts', 'Теплоход'],
+  ['loft', 'Лофт'],
+  ['mnr', 'Усадьба'],
+  ['rsrn', 'Ресторан'],
+  ['cafe', 'Кафе'],
+  ['rct', 'База отдыха'],
+  ['ctg', 'Коттедж'],
+  ['htl', 'Отель'],
+  ['cst', 'Замок'],
+  ['cntc', 'Загородный клуб'],
+  ['cntn', 'Столовая'],
+];

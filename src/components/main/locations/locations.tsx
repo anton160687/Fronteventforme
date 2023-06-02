@@ -1,21 +1,27 @@
 import { MouseEvent } from 'react';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { Place } from '@/types/catalog';
+import { LocationCard } from '@/types/locationCard';
 import styles from '@/styles/main/Main.module.scss';
 
+
 type LocationProps = {
-  locations: Place[];
+  locations: LocationCard[];
   title: string;
   href?: string;
   isShowAll: boolean;
   showAllTxt?: string;
 };
 
-export function Locations({ locations, title }: LocationProps): JSX.Element {
+export function Locations({
+  locations,
+  title,
+  isShowAll,
+  href = '#',
+  showAllTxt = 'Показать все',
+}: LocationProps): JSX.Element {
   function renderLocations() {
-    return locations.map((location: Place, index: number) => (
+    return locations.map((location: LocationCard, index: number) => (
       <div
         className={`${styles.locations_wrapper} card-hover shadow-sm ${
           index === 0 ? styles.locations_wrapper_1 : ''
@@ -37,19 +43,17 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
                     className={`${styles.description__star} fi-star-filled me-1`}
                   ></i>
                   <p>
-                    <span className={styles.fw_bold}>
-                      {location.rating.rating}
-                    </span>{' '}
-                    ({location.rating.votes})
+                    <span className="fw-bold">{location.rating}</span> (
+                    {location.rating})
                   </p>
                 </div>
                 <div className="d-flex align-items-center my-1">
                   <i className={`fi-map-pin me-1`}></i>
-                  <p>{location.address.full}</p>
+                  <p>{location.address}</p>
                 </div>
                 <div className="d-flex align-items-center my-1">
                   <i className={`fi-credit-card me-1`}></i>
-                  <p className={styles.fw_bold}>от {location.min_price} ₽</p>
+                  <p className="fw-bold">от {location.min_price} ₽</p>
                 </div>
               </div>
             </div>
@@ -64,7 +68,7 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
             </div>
           </div>
         </Link>
-        <img src={location.image_vendor} alt={location.title} />
+        <img src={location.image} alt={location.title} />
       </div>
     ));
   }
@@ -77,8 +81,20 @@ export function Locations({ locations, title }: LocationProps): JSX.Element {
   return (
     <Container as="section" className="mx-auto w-75">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
-        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h3 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h3>
+        <div className="d-sm-flex align-items-center justify-content-between mb-3">
+          <h2 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h2>
+          {isShowAll && (
+            <Link
+              href={href}
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+              }}
+            >
+              {showAllTxt}
+              <i className="fi-arrow-long-right ms-2"></i>
+            </Link>
+          )}
         </div>
         <div className={styles.grid}>
           {locations ? renderLocations() : 'Loading'}

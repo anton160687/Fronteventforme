@@ -1,19 +1,5 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  MouseEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Form,
-  Row,
-  Col,
-  Container,
-  ProgressBar,
-  Button,
-} from 'react-bootstrap';
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -21,32 +7,22 @@ import BasicForm from '@/components/addProperty/basicForm/BasicForm';
 import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
-import { MainPhotos } from '@/components/addProperty/mainPhotos/MainPhotos';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
-import { useSelector } from 'react-redux';
-import { selectUser } from '@/store/user/userSlice';
-import { createPlace } from '@/store/place/placeAPI';
+import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
+import { createArea, createPlace } from '@/components/addProperty/placeAPI';
+import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import { ADD_PLACE_NAMES, TOKEN_TYPES } from '@/constant';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
 
-//! обязательно проверть корректность после подключения API: проценты в прогресс баре, заполнение всех обязательных полей, загрузку фоток
 function AddPropertyPage() {
-  const user = useSelector(selectUser);
   const initialPlaceState: Place = {
-    type_place: 1,
     title: '',
     city: '',
     metro: '',
     address: '',
     longitude: 0,
     width: 0,
-    location: [],
     id_yandex: '',
-    kitchen: [],
-    event: [],
-    type_feature: [],
-    territory: [],
     start_time: new Date(),
     finish_time: new Date(),
     fireworks: false,
@@ -57,8 +33,15 @@ function AddPropertyPage() {
     lease_extension_price: 0,
     average_check: 0,
     description: '',
-    max_serving: 0,
     parking: 0,
+    max_serving: 0,
+    type_place: [1],
+    location: [],
+    kitchen: [],
+    event: [],
+    type_feature: [],
+    type_territory: [],
+    place_img: [],
     territory_desc: '',
     welcome_desc: '',
     outreg_price: 0,
@@ -66,24 +49,19 @@ function AddPropertyPage() {
     outreg_conditions: '',
   };
   const [place, setPlace] = useState<Place>(initialPlaceState);
-  //обработчик для стандартных инпутов type=text
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setPlace({ ...place, [e.target.name]: e.target.value });
   }
-  //обработчик для стандартных инпутов type=number
   function handleNumberChange(e: ChangeEvent<HTMLInputElement>) {
     setPlace({ ...place, [e.target.name]: +e.target.value });
   }
-  //обработчик чекбоксов
   function handleCheckBox(name: string, array: number[]) {
     setPlace({ ...place, [name]: array });
   }
-  //обработчик радио
   function handleRadio(e: ChangeEvent<HTMLInputElement>) {
     let value = +e.target.value;
     setPlace({ ...place, [e.target.name]: !!value });
   }
-  // Специальные обработчики формы "Локация"
   function setAddress(data: string) {
     setPlace({ ...place, ['address']: data });
   }
@@ -93,6 +71,7 @@ function AddPropertyPage() {
   function setCity(data: string) {
     setPlace({ ...place, ['city']: data });
   }
+
   // Площадки
   const [areas, setAreas] = useState<Area[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
@@ -115,24 +94,29 @@ function AddPropertyPage() {
       </section>
     ));
   }
-  // Превью
-  const [previewShow, setPreviewShow] = useState(false);
-  const handlePreviewClose = () => setPreviewShow(false);
-  const handlePreviewShow = () => setPreviewShow(true);
+
   //Валидация, отправка формы
+  console.log(place);
   const [validated, setValidated] = useState(false);
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    let token = localStorage.getItem(TOKEN_TYPES.default);
+    const token = localStorage.getItem(Token.Access);
+
+    console.log('это токен' + token);
+
     if (form.checkValidity() && token) {
       setValidated(true);
-      createPlace(place, token);
+      let placeId = await createPlace(place, token);
+      console.log(placeId);
+      if (placeId && areas.length !== 0) {
+        areas.forEach((area) => {
+          createArea(area, placeId, token);
+        });
+      }
     }
   }
-  //Progress Bar
-  const [percent, setPercent] = useState<number>(0);
-  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+
   // Загрузка картинок
   const [mainPhotos, setMainPhotos] = useState<string[]>([]);
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
@@ -141,17 +125,14 @@ function AddPropertyPage() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
 
-  //TODO расскоменировать или подкорректировать при подключении API
-  // useEffect(() => {
-  //   const placeImg = mainPhotos.slice(1);
-  //   setPlace((prev) => ({
-  //     ...prev,
-  //     cover_place: mainPhotos[0],
-  //     place_img: placeImg,
-  //   }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [mainPhotos]);
+  useEffect(() => {
+    setPlace((prev) => ({
+      ...prev,
+      place_img: mainPhotos,
+    }));
+  }, [mainPhotos]);
 
+  //TODO подключить эндпойнты
   // useEffect(() => {
   //   setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -193,6 +174,15 @@ function AddPropertyPage() {
     ));
   }
 
+  //Progress Bar
+  const [percent, setPercent] = useState<number>(0);
+  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+
+  // Превью
+  const [previewShow, setPreviewShow] = useState(false);
+  const handlePreviewClose = () => setPreviewShow(false);
+  const handlePreviewShow = () => setPreviewShow(true);
+
   return (
     <>
       <Container className="py-5">
@@ -202,7 +192,7 @@ function AddPropertyPage() {
               <div className="mb-4">
                 <h1 className="h2 mb-0">Добавить площадку</h1>
                 <div className="d-lg-none pt-3 mb-2">
-                  {percent}% профиля заполнено
+                  {percent}% информации заполнено
                 </div>
                 <ProgressBar
                   variant="warning"

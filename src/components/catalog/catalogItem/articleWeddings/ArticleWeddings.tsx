@@ -1,28 +1,22 @@
+import { useState } from 'react';
 import ImageLoader from '@/components/_finder/ImageLoader';
-import { FC, useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import styles from "@/styles/catalog/places/Places.module.scss";
 
-export type cardsType = {
+type  ArticleWeddingsProps = {
   title: string;
   description: string;
   pathImg: string;
   dateText: string;
 };
 
-export const ArticlesWeddings: FC<cardsType> = ({
-  title,
-  description,
-  pathImg,
-  dateText,
-}) => {
+function ArticleWeddings ({ title, description, pathImg, dateText}: ArticleWeddingsProps) {
   //* для дополнительного текста
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const new_description = description.slice(0, 120) + '...';
 
   return (
-    <figure 
-      className={`${styles.articlesWeddings_figure} text-dark card-hover rounded-3`}
+    <figure
+      // style={{ maxWidth: '350px' }}
+      className=" card-hover text-decoration-none text-dark rounded-3 px-2 w-75 w-md-50"
     >
       <ImageLoader
         src={pathImg}
@@ -71,3 +65,5 @@ export const ArticlesWeddings: FC<cardsType> = ({
     </figure>
   );
 };
+
+export default ArticleWeddings;
