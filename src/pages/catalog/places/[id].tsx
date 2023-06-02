@@ -40,6 +40,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
     return item.image;
   });
 
+  console.log('place', place);
+
   return (
     <Container className="px-5">
       <Breadcrumb className="breadcrumb">
@@ -67,7 +69,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <TextDescription item={place} />
           <TextEvents events={place.event} />
           <TextKitchen
-            children={place.children_kitchen}
+            children_kitchen={place.children_kitchen}
             kitchens={place.kitchen}
           />
 
