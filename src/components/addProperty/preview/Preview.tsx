@@ -19,9 +19,21 @@ type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
+  mainPhotos: string[];
+  territoryImg: string[];
+  welcomeImg: string[];
+  outregImg: string[];
 };
 
-function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
+function Preview({
+  previewShow,
+  handlePreviewClose,
+  place,
+  mainPhotos,
+  territoryImg,
+  welcomeImg,
+  outregImg,
+}: PreviewProps) {
   const { weddingPhotos } = cards || {};
   console.log('place', place);
 
@@ -44,7 +56,7 @@ function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
               <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
             </Breadcrumb>
 
-            {/* <LocationPhotos photoUrls={placeImgList} /> */}
+            <LocationPhotos photoUrls={mainPhotos} />
 
             {/* это - общий контейнер страницы на все блоки под верхними фото */}
 
@@ -60,6 +72,7 @@ function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
                   kitchens={place.kitchen}
                 />
 
+                {/* //! Добавить картинки */}
                 <PlaceAreas
                   areas={place.areas}
                   average_check={place.average_check}
@@ -74,7 +87,10 @@ function Preview({ previewShow, handlePreviewClose, place }: PreviewProps) {
                 <AlbumCardContainer
                   territory={place.territory_desc}
                   welcome_zones={place.welcome_desc}
-                  outside_reg={place.outreg_desc}
+                  outside_reg={place.outreg_conditions}
+                  territoryImg={territoryImg}
+                  welcomeImg={welcomeImg}
+                  outregImg={outregImg}
                 />
 
                 <Row className="my-xl-4 my-md-3 my-sm-2">

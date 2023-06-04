@@ -36,6 +36,10 @@ function FileUploader({
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
 
+  useEffect(() => {
+    console.log('files', files);
+  }, [files]);
+
   const onProcess = (
     error: FilePondErrorDescription | null,
     file: FilePondFile

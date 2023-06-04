@@ -86,16 +86,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
           />
-          {providerCards &&
-            providerCards.map((item) => (
-              <AlbumCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                description={item.description}
-                pathImg={item.pathImg}
-              />
-            ))}
+
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке

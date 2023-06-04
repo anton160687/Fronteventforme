@@ -38,7 +38,7 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
 
   return (
     <figure
-      id={title}
+     // id={title}
       className={
         id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
       }
@@ -52,7 +52,7 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
         <LightGallery
           plugins={[lgThumbnail, lgZoom, lgFullScreen]}
           selector=".gallery-item"
-          zoomFromOrigin={false}
+          zoomFromOrigin={true}
           exThumbImage="data-external-thumb-image"
         >
           <Swiper
@@ -78,16 +78,16 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                       href={path}
                       thumb={[path, 500, 270]}
                       data-external-thumb-image={path}
-                      imgAlt="Image"
+                      imgAlt={title}
                       quality={100}
                       className={
                         id % 2 === 0
                           ? styles.rounded_left
                           : styles.rounded_right
                       }
-                      light="false"
+                      light={false}
                       caption=""
-                      video="false"
+                      video={false}
                     />
                   </SwiperSlide>
                 ))}
@@ -97,14 +97,14 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                 src="/img/emptyPhoto.png"
                 height={270}
                 width={500}
-                imgalt={title}
+                imgalt={'No image'}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
                 }
-                light="false"
+                light={false}
                 caption=""
-                video="false"
+                video={false}
               />
             )}
             {pathImg.length > 1 && <SlidesCount />}

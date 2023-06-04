@@ -6,6 +6,9 @@ type AlbumCardContainerProps = {
   territory: string;
   welcome_zones: WelcomeZone[] | string | undefined;
   outside_reg: OutsideReg[] | string | undefined;
+  territoryImg?: string[];
+  welcomeImg?: string[];
+  outregImg?: string[];
 };
 
 type DataType = {
@@ -18,45 +21,84 @@ export default function AlbumCardContainer({
   territory,
   welcome_zones,
   outside_reg,
+  territoryImg,
+  welcomeImg,
+  outregImg,
 }: AlbumCardContainerProps): JSX.Element {
   const [data, setData] = useState<DataType[]>([]);
+
   const [regPhotos, setRegPhotos] = useState<string[]>([]);
   const [welcomePhotos, setWelcomePhotos] = useState<string[]>([]);
-  let outreg_desc = '';
-  let welcome_desc = '';
 
-  if (outside_reg?.length) {
-    outreg_desc =
-      typeof outside_reg === 'string'
-        ? outside_reg
-        : outside_reg[0].outreg_conditions;
-  }
+  const [outregDesc, setOutregDesc] = useState<string>('');
+  const [welcomeDesc, setWelcomeDesc] = useState<string>('');
 
-  if (welcome_zones?.length) {
-    welcome_desc =
-      typeof welcome_zones === 'string'
-        ? welcome_desc
-        : welcome_zones[0].welcome_desc;
-  }
+  useEffect(() => {
+    //description
+    if (outside_reg && outside_reg.length) {
+      const outreg =
+        typeof outside_reg === 'string'
+          ? outside_reg
+          : outside_reg[0].outreg_conditions;
+
+      setOutregDesc(outreg);
+    }
+
+    if (welcome_zones && welcome_zones.length) {
+      setWelcomeDesc(
+        typeof welcome_zones === 'string'
+          ? welcome_zones
+          : welcome_zones[0].welcome_desc
+      );
+    }
+
+    //photos
+    let reg_photo: string[] = [];
+    let welcome_photo: string[] = [];
+
+    if (outregImg) {
+      setRegPhotos(outregImg);
+    } else if (outside_reg !== undefined && typeof outside_reg !== 'string') {
+      reg_photo = outside_reg[0]?.images_out_reg.map((img) => img.image);
+      setRegPhotos(reg_photo);
+    }
+
+    if (welcomeImg) {
+      setWelcomePhotos(welcomeImg);
+    } else if (
+      welcome_zones !== undefined &&
+      typeof welcome_zones !== 'string'
+    ) {
+      welcome_photo = welcome_zones[0]?.images_welcome.map((img) => img.image);
+      setWelcomePhotos(welcome_photo);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const alldata: DataType[] = [];
-    if (territory && territory.length) {
-      alldata.push({ title: 'Территория', desc: territory, img: [] });
+
+    if ((territory && territory.length) || territoryImg) {
+      alldata.push({
+        title: 'Территория',
+        desc: territory,
+        img: territoryImg ? territoryImg : [],
+      });
     }
 
-    if (outside_reg && outside_reg.length) {
+    if (outregDesc || regPhotos) {
       alldata.push({
         title: 'Выездная регистрация',
-        desc: outreg_desc,
+        desc: outregDesc,
         img: regPhotos,
       });
     }
 
-    if (welcome_zones && welcome_zones.length) {
+    if (welcomeDesc || welcomePhotos) {
       alldata.push({
         title: 'Welcome-зона',
-        desc: welcome_desc,
+        desc: welcomeDesc,
         img: welcomePhotos,
       });
     }
@@ -64,25 +106,7 @@ export default function AlbumCardContainer({
     setData(alldata);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [welcomePhotos, regPhotos]);
-
-  useEffect(() => {
-    let reg_photo: string[] = [];
-    let welcome_photo: string[] = [];
-
-    if (outside_reg !== undefined && typeof outside_reg !== 'string') {
-      reg_photo = outside_reg[0]?.images_out_reg.map((img) => img.image);
-    }
-
-    if (welcome_zones !== undefined && typeof welcome_zones !== 'string') {
-      welcome_photo = welcome_zones[0]?.images_welcome.map((img) => img.image);
-    }
-
-    setWelcomePhotos(welcome_photo);
-    setRegPhotos(reg_photo);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [welcomePhotos, regPhotos, outregDesc, welcomeDesc]);
 
   return (
     <>

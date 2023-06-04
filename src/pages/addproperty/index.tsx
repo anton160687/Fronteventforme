@@ -16,7 +16,7 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { createArea, createPlace } from '@/components/addProperty/placeAPI';
-import { ADD_PLACE_NAMES, Token } from '@/constant';
+import { ADD_PLACE_NAMES, AUTH_URL, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
@@ -301,6 +301,12 @@ function AddPropertyPage() {
         previewShow={previewShow}
         handlePreviewClose={handlePreviewClose}
         place={place}
+        mainPhotos={mainPhotos.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
+        territoryImg={territoryImg.map(
+          (img) => `${AUTH_URL}fp/restore/?id=${img}`
+        )}
+        welcomeImg={welcomeImg.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
+        outregImg={outregImg.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
       />
     </>
   );
