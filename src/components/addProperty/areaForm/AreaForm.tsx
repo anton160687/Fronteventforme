@@ -13,13 +13,7 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import {
-  ADD_PLACE_NAMES,
-  COLOR_HALL,
-  RESTORE_IMG,
-  SCHEME_OF_PAYMENT,
-  TYPE_AREA,
-} from '@/constant';
+import { ADD_PLACE_NAMES, COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {

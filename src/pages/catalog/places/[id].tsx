@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import AlbumCard from '@/components/catalog/catalogItem/albumCard/AlbumCard';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import ArticleWeddings from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddings';
 import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
@@ -38,10 +37,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   const placeImgList = place.images_place.map((item) => {
     return item.image;
   });
-  
-  console.log(place);
-
-  console.log('place', place);
 
   return (
     <Container className="px-5">

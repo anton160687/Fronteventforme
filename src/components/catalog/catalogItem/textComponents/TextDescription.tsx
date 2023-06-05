@@ -2,7 +2,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Place, PlaceReceived } from '@/types/placeType';
 import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { makeUniversalNumberArr } from '@/components/heplers';
+import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextDescriptionProps = {
   item: PlaceReceived | Place;
@@ -13,7 +13,9 @@ function TextDescription({ item }: TextDescriptionProps) {
 
   makeUniversalNumberArr(item.location).forEach((location) => {
     let res = LOCATION.filter((value) => value[0] === location);
-    locations.push(res[0][1]);
+    if (res.length !== 0) {
+      locations.push(res[0][1]);
+    }
   });
 
   const start_time =

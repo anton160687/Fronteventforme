@@ -1,7 +1,7 @@
 import { Row } from 'react-bootstrap';
 import { Event } from '@/types/placeType';
 import { EVENT } from '@/constant';
-import { makeUniversalNumberArr } from '@/components/heplers';
+import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextEventProps = {
   events: Event[] | number[];
@@ -14,7 +14,7 @@ function TextEvents({ events }: TextEventProps) {
 
   makeUniversalNumberArr(events).forEach((event) => {
     let res = EVENT.filter((value) => value[0] === event);
-    let eventName = res[0][1] as string;
+    let eventName = res.length !==0 ? res[0][1] as string : '';
     if (eventListFirst.length < 3) {
       eventListFirst.push(eventName);
     } else if (eventListSecond.length < 3) {

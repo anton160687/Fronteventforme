@@ -1,12 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import {
-  Form,
-  Row,
-  Col,
-  Container,
-  ProgressBar,
-  Button,
-} from 'react-bootstrap';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -15,13 +8,7 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import {
-  addTerritoryImages,
-  createArea,
-  createOutReg,
-  createPlace,
-  createWelcomeZone,
-} from '@/components/addProperty/placeAPI';
+import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -115,12 +102,6 @@ function AddPropertyPage() {
   const [outregImg, setOutregImg] = useState<string[]>([]);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
-
-  //TODO подключить эндпойнты
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, wedding_albums: albums }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [albums]);
   //! хуки для разных галлерей
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));

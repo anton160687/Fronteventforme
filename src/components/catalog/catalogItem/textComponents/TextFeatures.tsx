@@ -1,7 +1,7 @@
 import { Row } from 'react-bootstrap';
 import { Feature, TypePlace } from '@/types/placeType';
 import { FEATURES, TERRITORY } from '@/constant';
-import { makeUniversalNumberArr } from '@/components/heplers';
+import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextFeaturesProps = {
   features: Feature[] | number[];
@@ -15,7 +15,7 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
 
   makeUniversalNumberArr(features).forEach((feature) => {
     let res = FEATURES.filter((value) => value[0] === feature);
-    let featureName = res[0][1] as string;
+    let featureName = res.length !==0 ? res[0][1] as string : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(featureName);
@@ -28,7 +28,7 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
 
   makeUniversalNumberArr(territories).forEach((territory) => {
     let res = TERRITORY.filter((value) => value[0] === territory);
-    let territoryName = res[0][1] as string;
+    let territoryName = res.length !==0 ? res[0][1] as string : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(territoryName);

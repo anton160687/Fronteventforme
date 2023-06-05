@@ -15,6 +15,7 @@ import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/Album
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import { cards } from '@/mocks/cards';
 import { Area } from '@/types/areaType';
+import { OutsideReg, WelcomeZone } from '@/types/placeType';
 
 type PreviewProps = {
   previewShow: boolean;
@@ -38,6 +39,22 @@ function Preview({
   outregImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
+  
+  let outside_reg: OutsideReg [] = [{
+    id: 0,
+    images_out_reg: [],
+    outreg_price: place.outreg_price!,
+    outreg_conditions: place.outreg_conditions!,
+    outreg_include: place.outreg_desc!,
+    place: 0,
+  }];
+
+  let welcome_zones: WelcomeZone[] = [{
+    id: 0,
+    images_welcome: [],
+    welcome_desc: place.welcome_desc!,
+    place: 0,
+  }]
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -60,21 +77,18 @@ function Preview({
 
             <LocationPhotos photoUrls={mainPhotos} />
 
-            {/* это - общий контейнер страницы на все блоки под верхними фото */}
-
             <Row className={styles.main__container}>
-              {/* это - основной контейнер слева на странице */}
+              
               <Col xl={8} className={styles.left__container}>
                 <LocationDescription item={place} />
                 <AnchorBtns />
                 <TextDescription item={place} />
                 <TextEvents events={place.event} />
                 <TextKitchen
-                  children_kitchen={place.children_kitchen}
+                  kids={place.children_kitchen}
                   kitchens={place.kitchen}
                 />
 
-                {/* //! Добавить картинки */}
                 <PlaceAreas areas={areas} average_check={place.average_check} />
 
                 <TextDetails description={place.description} />
@@ -85,8 +99,8 @@ function Preview({
 
                 <AlbumCardContainer
                   territory={place.territory_desc}
-                  welcome_zones={place.welcome_desc}
-                  outside_reg={place.outreg_conditions}
+                  welcome_zones={welcome_zones}
+                  outside_reg={outside_reg}
                   territoryImg={territoryImg}
                   welcomeImg={welcomeImg}
                   outregImg={outregImg}

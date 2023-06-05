@@ -2,7 +2,7 @@ import { Button, Card } from 'react-bootstrap';
 import { Kitchen } from '@/types/placeType';
 import { KITCHEN } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { makeUniversalNumberArr } from '@/components/heplers';
+import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextKitchenProps = {
   kids: boolean;
@@ -14,7 +14,9 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
     let cuisines = '';
     makeUniversalNumberArr(kitchens).forEach((kitchen) => {
       let res = KITCHEN.filter((value) => value[0] === kitchen);
-      cuisines += `${res[0][1]} `;
+      if (res.length !== 0) {
+        cuisines += `${res[0][1]} `;
+      }
     });
     return cuisines;
   }
