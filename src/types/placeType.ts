@@ -26,7 +26,8 @@ export type Place = {
   event: number[];
   type_feature: number[];
   type_territory: number[];
-  areas?: Area[];
+  //areas?: Area[]
+  // territory: number[];
   place_img: string[];
   territory_desc: string;
   // под эти поля еще нет бэка или есть отдельные модели?
@@ -79,7 +80,7 @@ type ImagesPlace = {
   place: number;
 };
 
-type Location = {
+export type Location = {
   id: number;
   location:
     | 'sea'
@@ -162,7 +163,6 @@ export type WelcomeZone = {
   id: number;
   images_welcome: WelcomeZoneImage[];
   welcome_desc: string;
-
   place: number;
 };
 

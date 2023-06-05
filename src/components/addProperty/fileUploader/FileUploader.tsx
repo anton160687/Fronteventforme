@@ -10,6 +10,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { RESTORE_IMG } from '@/constant';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
@@ -36,6 +37,10 @@ function FileUploader({
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
 
+  useEffect(() => {
+    console.log('files', files);
+  }, [files]);
+
   const onProcess = (
     error: FilePondErrorDescription | null,
     file: FilePondFile
@@ -56,7 +61,7 @@ function FileUploader({
 
   useEffect(() => {
     const newArr: string[] = [];
-    files.map((file) => newArr.push(file.serverId));
+    files.map((file) => newArr.push(RESTORE_IMG + file.serverId));
     setGallery(newArr);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,12 +79,12 @@ function FileUploader({
         onremovefile={onRemove}
         required={required}
         server={{
-          url: 'http://188.225.24.70:8080/fp',
-          process: '/process/',
-          revert: '/revert/',
-          restore: '/restore/',
-          load: '/load/',
-          fetch: '/fetch/',
+          url: 'http://188.225.24.70:8080/fp/',
+          process: 'process/',
+          // revert: 'revert/',
+          // restore: 'restore/',
+          // load: 'load/',
+          // fetch: 'fetch/',
         }}
         name="filepond"
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i> Загрузите фото</div><div>или перетащите их сюда</div>'

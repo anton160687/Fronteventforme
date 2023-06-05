@@ -22,7 +22,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
-import { AreaRecieved, AreaImages } from '@/types/areaType';
+import { AreaRecieved, Area } from '@/types/areaType';
 import {
   COLOR_HALL,
   SCHEME_OF_PAYMENT,
@@ -30,22 +30,23 @@ import {
 } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaRecieved[];
+  areas: AreaRecieved[] | Area[] | undefined;
   average_check: number;
 };
 
 function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
   return (
     <>
-      {areas.map((area, index) => (
-        <PlaceArea area={area} average_check={average_check} key={index} />
-      ))}
+      {areas &&
+        areas.map((area, index) => (
+          <PlaceArea area={area} average_check={average_check} key={index} />
+        ))}
     </>
   );
 }
 
 type PlaceAreaProps = {
-  area: AreaRecieved;
+  area: AreaRecieved | Area;
   average_check: number;
 };
 
@@ -54,10 +55,11 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   function detailsRender(description: string): JSX.Element {
-    const new_description = description.slice(0, 100) + '...';
+    const descLength = 100;
+    const new_description = description.slice(0, descLength) + '...';
     return (
       <>
-        {description.length < 100 ? (
+        {description.length < descLength ? (
           <p>{description}</p>
         ) : (
           <>
@@ -114,14 +116,11 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
     } else return 0;
   };
 
-  // Form validation
-  const [validated, setValidated] = useState(false);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
     }
-    setValidated(true);
   };
 
   // Единый Вид Названия Помещений
@@ -130,6 +129,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
       return a.toUpperCase();
     });
   }
+
   //для красивого вывода данных из дропдаунов формы добавления
   const findTitle = (dictionary: string[][], value: string): string => {
     const title = dictionary.find((item: string[]) => item[0] === value);
@@ -138,6 +138,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
     return title[1];
   };
+
   const [photos, setPhotos] = useState<string[]>([]);
   useEffect(() => {
     combinePhotos();
@@ -146,11 +147,25 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const combinePhotos = () => {
     const emptyPhoto = '/img/emptyPhoto.png';
-    const imageArray = area.images_area.map((img) => img.image);
-    if (area.cover_area) imageArray.unshift(area.cover_area);
-    if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
-    else setPhotos(imageArray);
+    if ('images_area' in area && area.images_area) {
+      const imageArray = area.images_area.map((img) =>
+        typeof img === 'string' ? img : img.image
+      );
+      if (area.cover_area) imageArray.unshift(area.cover_area);
+      if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
+      else setPhotos(imageArray);
+    }
   };
+
+  const reservedDays =
+    typeof area.reserved_days === 'string'
+      ? [new Date(area.reserved_days)]
+      : area.reserved_days;
+
+  const typeArea =
+    typeof area.type_area === 'string'
+      ? area.type_area
+      : area.type_area.type_area;
 
   return (
     <>
@@ -224,11 +239,11 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 placeholderText="Select a date"
                 className="rounded-1 pe-5"
                 readOnly
-                excludeDates={[
-                  new Date(area.reserved_days),
-                  // addDays(new Date(), 1),
-                  // addDays(new Date(), 10),
-                ]}
+                excludeDates={
+                  reservedDays
+                  //	[  addDays(new Date(), 1),
+                  // addDays(new Date(), 10),]
+                }
                 inline
               />
             </div>
@@ -270,7 +285,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                     thumb={[photos[0], 900, 230]}
                     data-external-thumb-image={photos[0]}
                     imgAlt={area.title}
-                    light={false}
+                    light=""
                     caption=""
                     video={false}
                     className="w-100"
@@ -286,7 +301,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                         className={`${indx === 0 ? styles.rounded_left : ''}${
                           indx === photos.length - 1 ? styles.rounded_right : ''
                         }  `}
-                        light={false}
+                        light=""
                         caption=""
                         video={false}
                       />
@@ -342,7 +357,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               <div className={styles.slider_text}>
                 <p>Тип</p>
                 <p className={styles.slider_text_data}>
-                  {findTitle(TYPE_AREA_DICTIONARY, area.type_area.type_area)}
+                  {findTitle(TYPE_AREA_DICTIONARY, typeArea)}
                 </p>
               </div>
               <div className={styles.slider_text}>

@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Image from 'next/image';
 import { Col, Dropdown, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +13,13 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import { ADD_PLACE_NAMES, COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
+import {
+  ADD_PLACE_NAMES,
+  COLOR_HALL,
+  RESTORE_IMG,
+  SCHEME_OF_PAYMENT,
+  TYPE_AREA,
+} from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
@@ -67,19 +79,22 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     setArea({ ...area, ['reserved_days']: newArr });
   }
 
-  const [areaImg, setAreaImg] = useState<string[]>([]);
-  useEffect(() => {
-    setArea((prev) => ({
-      ...prev,
-      area_img: areaImg,
-    }));
-  }, [areaImg]);
-
   useEffect(() => {
     let newAreasArr = [...areas];
     newAreasArr[index] = area;
     setAreas(newAreasArr);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
+
+  //images
+  const [areaImg, setAreaImg] = useState<string[]>([]);
+  useEffect(() => {
+    setArea((prev) => ({
+      ...prev,
+      images_area: areaImg,
+    }));
+  }, [areaImg]);
 
   return (
     <>

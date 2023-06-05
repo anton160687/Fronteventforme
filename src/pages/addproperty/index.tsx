@@ -1,5 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Button,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -8,7 +15,13 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -102,7 +115,13 @@ function AddPropertyPage() {
   const [outregImg, setOutregImg] = useState<string[]>([]);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
-  // хуки для разных галлерей
+
+  //TODO подключить эндпойнты
+  // useEffect(() => {
+  //   setPlace((prev) => ({ ...prev, wedding_albums: albums }));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [albums]);
+  //! хуки для разных галлерей
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
   }, [mainPhotos]);
@@ -132,6 +151,7 @@ function AddPropertyPage() {
         id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
         className="card card-body border-0 shadow-sm p-4 mb-4"
       >
+        {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
         <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
         <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
           <i className="fi-plus-circle me-3"></i> Добавить альбом
@@ -164,12 +184,14 @@ function AddPropertyPage() {
           addTerritoryImages(placeId, territoryImg, token);
           createArea(area, placeId, token);
           createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
-          createOutReg(place.outreg_price!,
+          createOutReg(
+            place.outreg_price!,
             place.outreg_conditions!,
             place.outreg_desc!,
             placeId,
             outregImg,
-            token);
+            token
+          );
         });
       }
     }
@@ -285,6 +307,12 @@ function AddPropertyPage() {
       <Preview
         previewShow={previewShow}
         handlePreviewClose={handlePreviewClose}
+        place={place}
+        areas={areas}
+        mainPhotos={mainPhotos}
+        territoryImg={territoryImg}
+        welcomeImg={welcomeImg}
+        outregImg={outregImg}
       />
     </>
   );

@@ -16,6 +16,7 @@ export type Area = {
   area_img: string[];
   bare_lease?: boolean;
   reserved_days: Date[];
+  images_area?: string[];
 };
 
 //тип приходящего с бека Area
