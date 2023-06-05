@@ -304,6 +304,7 @@ export const ADD_PLACE_NAMES: addPlaceName = {
 export enum Token {
   Access = 'access',
   Refresh = 'refresh',
+  CreatedAt = 'createdAt',
 }
 
 export const TYPE_AREA_DICTIONARY = [
