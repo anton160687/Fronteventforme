@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import GalleryItem from '@/components/_finder/GalleryItem';
@@ -106,8 +106,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                 }
                 light='false'
                 caption=''
-                video=''
-              />
+                video=''              />
             )}
             {images.length > 1 && <SlidesCount />}
           </Swiper>

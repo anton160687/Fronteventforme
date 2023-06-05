@@ -25,7 +25,6 @@ export default function AlbumCardContainer({
   const welcomePhotos = welcome_zones[0]?.images_welcome.map(
     (img) => img.image
   );
-
   if (territory && territory.length) {
     data.push({ title: 'Территория', desc: territory, img: [] });
   }
