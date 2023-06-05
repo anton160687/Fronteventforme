@@ -5,7 +5,6 @@ import { getUserInfo } from './userAPI';
 
 type UserState = {
   userData: User | undefined;
-  userList: User[];
   isAuth: boolean;
   status: 'idle' | 'loading' | 'failed';
 };
@@ -13,14 +12,10 @@ type UserState = {
 const initialState: UserState = {
   userData: undefined,
   isAuth: false,
-  userList: [],
   status: 'idle',
 };
 
-export const fetchUserDataWithThunk = createAsyncThunk(
-  //action type string
-  'user/fetchUserData',
-  //callback function that should return a promise
+export const fetchUserDataWithThunk = createAsyncThunk('user/fetchUserData',
   async () => {
     const response = await getUserInfo();
     return response;
@@ -28,14 +23,11 @@ export const fetchUserDataWithThunk = createAsyncThunk(
 );
 
 export const userSlice = createSlice({
-  //название слайса
   name: 'user',
   initialState,
   reducers: {
-    // standard reducer logic, with auto-generated action types per reducer
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder
       .addCase(fetchUserDataWithThunk.pending, (state: UserState) => {
         state.status = 'loading';
@@ -59,9 +51,8 @@ export const userSlice = createSlice({
 export const {} = userSlice.actions;
 //кастомный селект
 export const selectUser = (state: RootState) => state.user.userData;
-export const selectIsAuth = (state: RootState) => state.user.isAuth;
-export const selectUsers = (state: RootState) => state.user.userList;
 export const selectUserReqStatus = (state: RootState) => state.user.status;
+export const selectIsAuth = (state: RootState) => state.user.isAuth;
 
 //userReducer
 export default userSlice.reducer;

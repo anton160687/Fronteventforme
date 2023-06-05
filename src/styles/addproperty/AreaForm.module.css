@@ -1,0 +1,41 @@
+@media (max-width: 600px) {
+  .group_container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.capacity__group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.capacity__img {
+  width: 32px;
+  height: 1px;
+}
+
+.capacity__input {
+  min-width: 115px;
+}
+
+.dropdown__item {
+  min-width: 118px;
+}
+
+.radio__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+/*# sourceMappingURL=AreaForm.module.css.map */

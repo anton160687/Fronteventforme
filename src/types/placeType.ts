@@ -26,11 +26,11 @@ export type Place = {
   event: number[];
   type_feature: number[];
   type_territory: number[];
-  //areas?: Area[];
+  //areas?: Area[]
   // territory: number[];
   place_img: string[];
-  // под эти поля еще нет бэка
   territory_desc: string;
+  // под эти поля еще нет бэка или есть отдельные модели?
   welcome_desc?: string;
   outreg_price?: number;
   outreg_desc?: string;

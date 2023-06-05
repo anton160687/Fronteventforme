@@ -43,7 +43,7 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
 // Здесь должен быть запрос на URL с топовыми площадками.
 // Пока соотв. API нет, используем мок-массив.
 // export const getServerSideProps = async () => {
-//   const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+//   const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 //   const response = await fetch(`${API}`);
 //   const result: LocationCard[] = await response.json();
 //   const locations: LocationCard[] = result?.slice(0, 5);

@@ -5,11 +5,11 @@ import styles from '@/styles/catalog/places/Places.module.scss';
 import { makeUniversalNumberArr } from '@/components/heplers';
 
 type TextKitchenProps = {
-  children_kitchen: boolean;
+  kids: boolean;
   kitchens: Kitchen[] | number[];
 };
 
-function TextKitchen({ children_kitchen, kitchens }: TextKitchenProps) {
+function TextKitchen({ kids, kitchens }: TextKitchenProps) {
   function renderKitchens() {
     let cuisines = '';
     makeUniversalNumberArr(kitchens).forEach((kitchen) => {
@@ -36,7 +36,7 @@ function TextKitchen({ children_kitchen, kitchens }: TextKitchenProps) {
         </Card.Text>
         <Card.Text className="mb-2">
           <i className="fi-ticket me-2 fs-sm" />
-          {children_kitchen ? 'Есть детское меню' : 'Детского меню нет'}
+          {kids ? 'Есть детское меню' : 'Детского меню нет'}
         </Card.Text>
       </Card.Body>
       <Button href="#" className={styles.text__cuisine_btn}>

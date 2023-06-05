@@ -33,12 +33,13 @@ type CatalogItemProps = {
 };
 
 export default function CatalogItem({ place, user }: CatalogItemProps) {
-  const { providerCards } = cards || {};
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
   const placeImgList = place.images_place.map((item) => {
     return item.image;
   });
+  
+  console.log(place);
 
   console.log('place', place);
 
@@ -59,19 +60,15 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
       <LocationPhotos photoUrls={placeImgList} />
 
-      {/* это - общий контейнер страницы на все блоки под верхними фото */}
-
+      {/* общий контейнер страницы на все блоки под верхними фото */}
       <Row className={styles.main__container}>
-        {/* это - основной контейнер слева на странице */}
+        {/* основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
           <LocationDescription item={place} />
           <AnchorBtns />
           <TextDescription item={place} />
-          <TextEvents events={place.event} />
-          <TextKitchen
-            children_kitchen={place.children_kitchen}
-            kitchens={place.kitchen}
-          />
+          <TextEvents events={place.event}/>
+          <TextKitchen kids={place.children_kitchen} kitchens={place.kitchen}/>
 
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
 
@@ -83,10 +80,11 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
           <AlbumCardContainer
             territory={place.territory_desc}
+            // TODO - с бэка должна возвращаться картинка территории
+            // territory_img = {}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
           />
-
           <Row className="my-xl-4 my-md-3 my-sm-2">
             <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
               Фото проведенных свадеб на площадке
@@ -128,7 +126,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           </div>
         </Col>
 
-        {/* это - боковой контейнер справа на странице */}
+        {/* боковой контейнер справа на странице */}
         <Col xl={4} lg={8} className={styles.right__container}>
           <div className={styles.popular__container}>
             {/* тестовые данные, потом - удалить */}
@@ -163,7 +161,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const API = process.env.NODE_ENV === 'production' ? process.env.URL : URL;
+  const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {

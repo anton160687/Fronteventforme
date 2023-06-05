@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
 import AlbumCard from './AlbumCard';
-import React, { useEffect, useState } from 'react';
 
 type AlbumCardContainerProps = {
   territory: string;
@@ -88,7 +88,7 @@ export default function AlbumCardContainer({
       });
     }
 
-    if (outregDesc || regPhotos.length) {
+    if (outregDesc || regPhotos?.length) {
       alldata.push({
         title: 'Выездная регистрация',
         desc: outregDesc,
@@ -96,7 +96,7 @@ export default function AlbumCardContainer({
       });
     }
 
-    if (welcomeDesc || welcomePhotos.length) {
+    if (welcomeDesc || welcomePhotos?.length) {
       alldata.push({
         title: 'Welcome-зона',
         desc: welcomeDesc,
@@ -112,14 +112,14 @@ export default function AlbumCardContainer({
   return (
     <>
       {data.map((item, index) => (
-        <React.Fragment key={index}>
+        <div key={index}>
           <AlbumCard
             id={index}
             title={item.title}
             description={item.desc}
-            pathImg={item.img}
+            images={item.img}
           />
-        </React.Fragment>
+        </div>
       ))}
     </>
   );

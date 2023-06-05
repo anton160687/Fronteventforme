@@ -267,10 +267,10 @@
 
 // для верхнего слайдера
 .icon {
-  color: #9691a4;
+  color: $gray800;
 
   &:hover {
-    color: #000000;
+    color: $primary;
   }
 
   @media (max-width: 992px) {
@@ -293,8 +293,6 @@
 
 .text_territory,
 .text_territory_reverse {
-  //для слайдеров: фикс. ширина и выравнивание по центру
-  //max-width: 856px;
   width: 100%;
   gap: 1rem;
   margin: 0 auto;

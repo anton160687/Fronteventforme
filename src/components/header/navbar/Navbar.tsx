@@ -83,8 +83,9 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
             {isAuth && (
               <Avatar
                 is_bride={user?.is_bride}
-                name={user?.name}
-                surname={user?.surname}
+                username={user?.username}
+                first_name={user?.first_name}
+                last_name={user?.last_name}
                 avatar={user?.avatar}
               />
             )}

@@ -11,7 +11,7 @@ export default function FinishRegistrationPage() {
   //здесь ловим динамические параметры из адресной строки
   const uid = router.query.uid as string;
   const token = router.query.token as string;
-const API = process.env.NODE_ENV === 'production'? process.env.AUTH_URL : AUTH_URL;
+  const API = process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_AUTHURL : AUTH_URL;
         
   async function sendAuthData() {
     let data = {

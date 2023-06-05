@@ -78,13 +78,31 @@ function TextDescription({ item }: TextDescriptionProps) {
             <strong>{item?.lease_extension_price || 'Не указано'}</strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
-            Вместимость <strong>Не указано</strong>
+            Вместимость{' '}
+            <strong>
+              {
+                // @ts-expect-error
+                item?.capacity || 'Не указано'
+              }
+            </strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
-            Депозит <strong>Не указано</strong>
+            Депозит{' '}
+            <strong>
+              {
+                // @ts-expect-error
+                item?.deposit || 'Не указано'
+              }
+            </strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
-            Аренда <strong>Не указано</strong>
+            Аренда{' '}
+            <strong>
+              {
+                // @ts-expect-error
+                item?.lease || 'Не указано'
+              }
+            </strong>
           </li>
         </ul>
       </Col>
