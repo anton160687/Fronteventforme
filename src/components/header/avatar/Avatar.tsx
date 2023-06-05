@@ -4,13 +4,14 @@ import styles from '@/styles/header/Avatar.module.scss';
 import { Paths } from '@/constant';
 
 type AvatarProps = {
-  name?: string;
-  surname?: string;
+  first_name?: string;
+  last_name?: string;
+  username?: string;
   avatar?: string;
   is_bride?: boolean;
 };
 
-function Avatar({ is_bride, name, surname, avatar }: AvatarProps) {
+function Avatar({ is_bride, first_name, last_name, username, avatar }: AvatarProps) {
   let path = Paths.Home;
   //на тот случай, если путь к ЛК будет меняться в зависимости от роли
   // switch (is_bride) {
@@ -32,7 +33,8 @@ function Avatar({ is_bride, name, surname, avatar }: AvatarProps) {
         alt="avatar"
       />
       <p className={styles.avatar__name}>
-        {name || 'Джейн'}&nbsp;{surname || 'Доу'}
+        {username}
+        {/* {first_name || 'Имя'}&nbsp;{last_name || 'Фамилия'} */}
       </p>
     </a>
   );

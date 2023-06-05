@@ -13,9 +13,7 @@ import { Paths } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 export function SimilarItemsSlider() {
-  // если обновлять страницу, то places пустой, поэтому ничего не отображается. До решения проблемы заглушка
-  // const places = useSelector(selectPlaces);
-
+  
   return (
     <>
       <div className="d-sm-flex align-items-center justify-content-between mt-5 mb-2 ">

@@ -1,23 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store';
+import { signinUser } from '@/store/user/userAPI';
+import { fetchUserDataWithThunk } from '@/store/user/userSlice';
 import Link from 'next/link';
+import router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import {
-  PASSWORD_REQUIREMENTS,
-  PASSWORD_TITLE,
-  FormFields,
-  Paths,
-} from '@/constant';
+import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields, Paths } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
-import { signinUser } from '@/store/user/userAPI';
-import router from 'next/router';
-import { fetchUserDataWithThunk } from '@/store/user/userSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store';
+
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -26,18 +22,8 @@ export default function SignInForm(): JSX.Element {
     email: '',
     password: '',
   };
-
   const [data, setData] = useState<SigninUserData>(initialDataState);
   const dispatch = useDispatch<AppDispatch>();
-
-  //для адаптива, в зависимости от ширины компонента, ButtonGroup либо горизонтальная, либо вертикальная
-  const ref = useRef<HTMLFormElement>(null);
-  const [widthForm, setWidthForm] = useState(0);
-  useEffect(() => {
-    if (ref.current) {
-      setWidthForm(ref.current.clientWidth);
-    }
-  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({
@@ -54,17 +40,29 @@ export default function SignInForm(): JSX.Element {
     });
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity()) {
       setValidated(true);
-      signinUser(data).then(() => {
+      let response = await signinUser(data);
+      if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
         router.push('/');
-      });
+      } else {
+        alert('Ошибка. Повторите попытку еще раз');
+      }
     }
   }
+
+  //для адаптива
+  const ref = useRef<HTMLFormElement>(null);
+  const [widthForm, setWidthForm] = useState(0);
+  useEffect(() => {
+    if (ref.current) {
+      setWidthForm(ref.current.clientWidth);
+    }
+  }, []);
 
   return (
     <Form
@@ -79,7 +77,6 @@ export default function SignInForm(): JSX.Element {
           className="w-100"
           size="lg"
           style={{ position: 'relative' }}
-          //работает только при монтировании, т.к. на не нужны лишние исчисления, а люди редко сильно меняют размеры экрана
           vertical={widthForm < 350 ? true : false}
         >
           <ToggleButton

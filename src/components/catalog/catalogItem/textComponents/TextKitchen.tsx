@@ -4,11 +4,11 @@ import { KITCHEN } from "@/constant";
 import styles from "@/styles/catalog/places/Places.module.scss";
 
 type TextKitchenProps = {
-  children: boolean;
+  kids: boolean;
   kitchens: Kitchen[];
 };
 
-function TextKitchen ({ children, kitchens }: TextKitchenProps) {
+function TextKitchen ({ kids, kitchens }: TextKitchenProps) {
   function renderKitchens() {
     let cuisines = '';
     kitchens.forEach(({id})=> {
@@ -27,7 +27,7 @@ function TextKitchen ({ children, kitchens }: TextKitchenProps) {
       </Card.Text>
       <Card.Text className='mb-2'>
         <i className='fi-ticket me-2 fs-sm' />
-        {children? 'Есть детское меню' : 'Детского меню нет'}
+        {kids? 'Есть детское меню' : 'Детского меню нет'}
       </Card.Text>
     </Card.Body>
     <Button href="#" className={styles.text__cuisine_btn}>

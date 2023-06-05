@@ -1,3 +1,12 @@
+.contactform__container {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid #EFECF3;
+  -webkit-box-shadow: 0px 5px 8px rgba(70, 78, 95, 0.02);
+          box-shadow: 0px 5px 8px rgba(70, 78, 95, 0.02);
+  border-radius: 12px;
+}
+
 .input__frame {
   border: 1px solid #EFECF3;
   border-radius: 8px;
@@ -5,7 +14,8 @@
   display: -ms-flexbox;
   display: flex;
   padding: 6px;
-  height: 44px;
+  height: 60px;
+  width: 100%;
 }
 
 .input__field {
@@ -42,4 +52,4 @@
   font-size: 14px;
   line-height: 150%;
 }
-/*# sourceMappingURL=Search.module.css.map */
+/*# sourceMappingURL=ContactForm.module.css.map */

@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import styles from '@/styles/catalog/places/Places.module.scss';
 import GalleryItem from '@/components/_finder/GalleryItem';
 import LightGallery from 'lightgallery/react';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import lgFullScreen from 'lightgallery/plugins/fullscreen';
+import ImageLoader from '@/components/_finder/ImageLoader';
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-thumbnail.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
-import ImageLoader from '@/components/_finder/ImageLoader';
 import 'swiper/css/bundle';
+import styles from '@/styles/catalog/places/Places.module.scss';
 
 type AlbumCardProps = {
   id: number;
   title: string;
   description: string;
-  pathImg: string[];
+  images: string[];
 };
 
-function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
+function AlbumCard({ id, title, description, images }: AlbumCardProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
 
@@ -70,16 +70,16 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
             grabCursor
             className="swiper-nav-onhover m-0"
           >
-            {pathImg.length > 0 ? (
+            {images.length > 0 ? (
               <>
-                {pathImg.map((path, index) => (
-                  <>
-                    <SwiperSlide key={index}>
+                {images.map((path, index) => (
+                  <div key={index}>
+                    <SwiperSlide>
                       <GalleryItem
                         href={path}
                         thumb={[path, 500, 270]}
                         data-external-thumb-image={path}
-                        imgalt="Image"
+                        imgAlt="Image"
                         quality={100}
                         className={
                           id % 2 === 0
@@ -87,11 +87,11 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                             : styles.rounded_right
                         }
                         light='false'
-                        caption=""
-                        video='false'
+                        caption=''
+                        video=''
                       />
                     </SwiperSlide>
-                  </>
+                  </div>
                 ))}
               </>
             ) : (
@@ -105,11 +105,11 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
                 }
                 light='false'
-                caption=""
-                video='false'
+                caption=''
+                video=''
               />
             )}
-            {pathImg.length > 1 && <SlidesCount />}
+            {images.length > 1 && <SlidesCount />}
           </Swiper>
         </LightGallery>
       </div>

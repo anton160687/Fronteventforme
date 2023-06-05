@@ -1,11 +1,28 @@
 .login {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 8px;
   font-weight: 700;
   font-size: 14px;
   line-height: 150%;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   color: #FE9589;
 }
+
+.login__link {
+  white-space: nowrap;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+}
+/*# sourceMappingURL=Login.module.css.map */
