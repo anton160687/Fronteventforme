@@ -1,6 +1,6 @@
 import { Breadcrumb, Card, Col, Container, Modal, Row } from 'react-bootstrap';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import { Place } from '@/types/placeType';
@@ -39,8 +39,8 @@ function Preview({
   outregImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
-  
-  let outside_reg: OutsideReg [] = [{
+
+  let outside_reg: OutsideReg[] = [{
     id: 0,
     images_out_reg: [],
     outreg_price: place.outreg_price!,
@@ -78,9 +78,14 @@ function Preview({
             <LocationPhotos photoUrls={mainPhotos} />
 
             <Row className={styles.main__container}>
-              
+
               <Col xl={8} className={styles.left__container}>
-                <LocationDescription item={place} />
+                <LocationDescription
+                  title={place.title}
+                  areasNumber={areas.length}
+                  address={place.address}
+                  metro={place.metro}
+                />
                 <AnchorBtns />
                 <TextDescription item={place} />
                 <TextEvents events={place.event} />

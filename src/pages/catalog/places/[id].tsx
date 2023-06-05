@@ -14,7 +14,7 @@ import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDet
 import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
 import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
@@ -59,11 +59,16 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
       <Row className={styles.main__container}>
         {/* основной контейнер слева на странице */}
         <Col xl={8} className={styles.left__container}>
-          <LocationDescription item={place} />
+          <LocationDescription
+            title={place.title}
+            areasNumber={place.areas?.length}
+            address={place.address}
+            metro={place.metro}
+          />
           <AnchorBtns />
           <TextDescription item={place} />
-          <TextEvents events={place.event}/>
-          <TextKitchen kids={place.children_kitchen} kitchens={place.kitchen}/>
+          <TextEvents events={place.event} />
+          <TextKitchen kids={place.children_kitchen} kitchens={place.kitchen} />
 
           <PlaceAreas areas={place.areas} average_check={place.average_check} />
 
