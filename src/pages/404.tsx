@@ -45,6 +45,7 @@ export default function Error() {
                 Вероятно, она была удалена или находится по другой ссылке.
               </p>
               <Button
+              // @ts-expect-error
                 as={Link}
                 href="/"
                 size="lg"

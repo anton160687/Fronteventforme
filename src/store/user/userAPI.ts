@@ -1,13 +1,9 @@
 import { User } from '@/types/user';
 import { AUTH_URL, Token } from '@/constant';
-import {
-  CreateUserData,
-  ResetPasswordConfirm,
-  SigninUserData,
-} from '@/types/forms';
+import { CreateUserData, ResetPasswordConfirm, SigninUserData } from '@/types/forms';
+import { saveAuthData } from '@/services/auth.service';
 
-const API =
-  process.env.NODE_ENV === 'production' ? process.env.AUTH_URL : AUTH_URL;
+const API = process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_AUTHURL : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -28,12 +24,7 @@ export async function createUser(data: CreateUserData) {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
-
-    const result = await response.json();
-    // пример ответа
-    // email: 'email';
-    // id: 3;
-    // username: 'username';
+    const result:{id:number, email: string, username: string} = await response.json();
   } catch (error) {
     console.error(error);
   }
@@ -56,11 +47,32 @@ export async function signinUser(data: SigninUserData) {
 
   if (response.ok) {
     let result = await response.json();
-    localStorage.setItem(Token.Access, result.access);
-    localStorage.setItem(Token.Refresh, result.refresh);
-    return result;
+    saveAuthData(result);
+    return "success";
   } else {
     console.error('signinUser', response);
+  }
+}
+
+export async function authoriseUser (refreshToken: string) {
+  let request = {
+    "refresh": refreshToken
+  };
+  let response = await fetch(`${API}auth/jwt/refresh/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
+
+  if (response.ok) {
+    let result: {access: string, refresh: string} = await response.json();
+    saveAuthData(result);
+    return "success";
+  } else {
+    console.error('refreshToken', response);
   }
 }
 

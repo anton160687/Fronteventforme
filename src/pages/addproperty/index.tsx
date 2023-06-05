@@ -8,7 +8,7 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import { createArea, createPlace } from '@/components/addProperty/placeAPI';
+import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -95,28 +95,6 @@ function AddPropertyPage() {
     ));
   }
 
-  //Валидация, отправка формы
-  console.log(place);
-  const [validated, setValidated] = useState(false);
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const token = localStorage.getItem(Token.Access);
-
-    console.log('это токен' + token);
-
-    if (form.checkValidity() && token) {
-      setValidated(true);
-      let placeId = await createPlace(place, token);
-      console.log(placeId);
-      if (placeId && areas.length !== 0) {
-        areas.forEach((area) => {
-          createArea(area, placeId, token);
-        });
-      }
-    }
-  }
-
   // Загрузка картинок
   const [mainPhotos, setMainPhotos] = useState<string[]>([]);
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
@@ -124,34 +102,22 @@ function AddPropertyPage() {
   const [outregImg, setOutregImg] = useState<string[]>([]);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
-
+  // хуки для разных галлерей
   useEffect(() => {
-    setPlace((prev) => ({
-      ...prev,
-      place_img: mainPhotos,
-    }));
+    setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
   }, [mainPhotos]);
-
-  //TODO подключить эндпойнты
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [welcomeImg]);
-
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [territoryImg]);
-
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [outregImg]);
-
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, wedding_albums: albums }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [albums]);
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
+  }, [territoryImg]);
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
+  }, [welcomeImg]);
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
+  }, [outregImg]);
+  useEffect(() => {
+    setPlace((prev) => ({ ...prev, wedding_albums: albums }));
+  }, [albums]);
 
   function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
@@ -182,6 +148,32 @@ function AddPropertyPage() {
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
   const handlePreviewShow = () => setPreviewShow(true);
+
+  //Валидация, отправка формы
+  const [validated, setValidated] = useState(false);
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const token = localStorage.getItem(Token.Access);
+
+    if (form.checkValidity() && token) {
+      setValidated(true);
+      let placeId: number = await createPlace(place, token);
+      if (placeId && areas.length !== 0) {
+        areas.forEach((area) => {
+          addTerritoryImages(placeId, territoryImg, token);
+          createArea(area, placeId, token);
+          createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
+          createOutReg(place.outreg_price!,
+            place.outreg_conditions!,
+            place.outreg_desc!,
+            placeId,
+            outregImg,
+            token);
+        });
+      }
+    }
+  }
 
   return (
     <>

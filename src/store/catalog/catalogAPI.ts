@@ -1,7 +1,7 @@
 import { Place } from "@/types/catalog";
 import { URL } from "@/constant";
 
-const API = process.env.NODE_ENV === 'production'? process.env.URL : URL;
+const API = process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_URL : URL;
 
 export async function fetchAllPlaces(): Promise<Place[] | undefined> {
     let response = await fetch(`${API}catalog/places/`)

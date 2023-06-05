@@ -81,8 +81,6 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     setAreas(newAreasArr);
   }, [area]);
 
-  console.log (area);
-
   return (
     <>
       <h2 className="h4 mb-4">

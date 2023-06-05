@@ -1,0 +1,39 @@
+.address__dropdown {
+  position: absolute;
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.checked:hover {
+  color: #674FA3;
+  font-weight: 600;
+}
+
+.numbers_input__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .numbers_input__row {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+}
+
+.numbers_input__row .numbers_input__col {
+  max-width: 250px;
+  margin-bottom: 15px;
+}
+
+.numbers_input__row .numbers_input__col_border {
+  border-radius: 10px 0 0 10px !important;
+  border-right: transparent;
+}
+/*# sourceMappingURL=AddProperty.module.css.map */
