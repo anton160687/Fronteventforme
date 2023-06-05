@@ -14,7 +14,7 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
 
   features.forEach(({ id }) => {
     let res = FEATURES.filter((value) => value[0] === id);
-    let featureName = res[0][1] as string;
+    let featureName = res.length !==0 ? res[0][1] as string : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(featureName);
@@ -27,7 +27,7 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
 
   territories.forEach(({ id }) => {
     let res = TERRITORY.filter((value) => value[0] === id);
-    let territoryName = res[0][1] as string;
+    let territoryName = res.length !==0 ? res[0][1] as string : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(territoryName);

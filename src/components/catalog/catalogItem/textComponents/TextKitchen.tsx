@@ -13,7 +13,9 @@ function TextKitchen ({ kids, kitchens }: TextKitchenProps) {
     let cuisines = '';
     kitchens.forEach(({id})=> {
       let res = KITCHEN.filter((value) => value[0] === id);
-      cuisines += `${res[0][1]} `
+      if (res.length !== 0) {
+        cuisines += `${res[0][1]} `
+      }
     })
     return cuisines;
   }

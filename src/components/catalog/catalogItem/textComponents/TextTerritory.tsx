@@ -13,7 +13,7 @@ function TextTerritory({ territories }: TextTerritoryProps) {
 
   territories.forEach(({ id }) => {
     let res = TERRITORY.filter((value) => value[0] === id);
-    let territoryName = res[0][1] as string;
+    let territoryName = res.length !==0 ? res[0][1] as string : '';
     if (territoryListFirst.length < 3) {
       territoryListFirst.push(territoryName);
     } else if (territoryListSecond.length < 3) {

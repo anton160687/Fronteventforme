@@ -11,7 +11,9 @@ function TextDescription({ item }: TextDescriptionProps) {
   let locations: (string | number)[] = [];
   item.location.forEach(({ id }) => {
     let res = LOCATION.filter((value) => value[0] === id);
-    locations.push(res[0][1]);
+    if (res.length !== 0) {
+      locations.push(res[0][1]);
+    }
   })
   
   function renderLocations() {

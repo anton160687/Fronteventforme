@@ -12,7 +12,7 @@ function TextEvents({ events }: TextEventProps) {
   let eventListThird: string[] = [];
   events.forEach(({ id }) => {
     let res = EVENT.filter((value) => value[0] === id);
-    let eventName = res[0][1] as string;
+    let eventName = res.length !==0 ? res[0][1] as string : '';
     if (eventListFirst.length < 3) {
       eventListFirst.push(eventName);
     } else if (eventListSecond.length < 3) {
