@@ -73,13 +73,14 @@ export default function AlbumCardContainer({
       setWelcomePhotos(welcome_photo);
     }
 
+    //на случай, когда картинки еще не загрузились, а на превью уже перешли
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [territoryImg, welcomeImg, outregImg]);
 
   useEffect(() => {
     const alldata: DataType[] = [];
 
-    if ((territory && territory.length) || territoryImg) {
+    if ((territory && territory.length) || territoryImg?.length) {
       alldata.push({
         title: 'Территория',
         desc: territory,
@@ -87,7 +88,7 @@ export default function AlbumCardContainer({
       });
     }
 
-    if (outregDesc || regPhotos) {
+    if (outregDesc || regPhotos.length) {
       alldata.push({
         title: 'Выездная регистрация',
         desc: outregDesc,
@@ -95,7 +96,7 @@ export default function AlbumCardContainer({
       });
     }
 
-    if (welcomeDesc || welcomePhotos) {
+    if (welcomeDesc || welcomePhotos.length) {
       alldata.push({
         title: 'Welcome-зона',
         desc: welcomeDesc,

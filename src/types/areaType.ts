@@ -11,11 +11,12 @@ export type Area = {
   min_price_banquet: number;
   min_price_rent: number;
   deposit: number;
-  scheme_of_payment: 'bah' | 'ban' | 'hall';
+  scheme_of_payment: 'bah' | 'ban' | 'hall' | '';
   detail_location: string;
   area_img: string[];
   bare_lease?: boolean;
   reserved_days: Date[];
+  images_area?: string[];
 };
 
 //тип приходящего с бека Area

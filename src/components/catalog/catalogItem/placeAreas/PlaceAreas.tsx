@@ -55,10 +55,11 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   function detailsRender(description: string): JSX.Element {
-    const new_description = description.slice(0, 100) + '...';
+    const descLength = 100;
+    const new_description = description.slice(0, descLength) + '...';
     return (
       <>
-        {description.length < 100 ? (
+        {description.length < descLength ? (
           <p>{description}</p>
         ) : (
           <>
@@ -146,8 +147,10 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const combinePhotos = () => {
     const emptyPhoto = '/img/emptyPhoto.png';
-    if ('images_area' in area) {
-      const imageArray = area.images_area.map((img) => img.image);
+    if ('images_area' in area && area.images_area) {
+      const imageArray = area.images_area.map((img) =>
+        typeof img === 'string' ? img : img.image
+      );
       if (area.cover_area) imageArray.unshift(area.cover_area);
       if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
       else setPhotos(imageArray);
@@ -282,7 +285,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                     thumb={[photos[0], 900, 230]}
                     data-external-thumb-image={photos[0]}
                     imgAlt={area.title}
-                    light={false}
+                    light=""
                     caption=""
                     video={false}
                     className="w-100"
@@ -298,7 +301,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                         className={`${indx === 0 ? styles.rounded_left : ''}${
                           indx === photos.length - 1 ? styles.rounded_right : ''
                         }  `}
-                        light={false}
+                        light=""
                         caption=""
                         video={false}
                       />

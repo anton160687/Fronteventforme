@@ -1,6 +1,7 @@
 import { addPlaceName } from './types/addPlaceNames';
 export const URL = 'http://188.225.24.70:8080/api/v1/';
 export const AUTH_URL = 'http://188.225.24.70:8080/';
+export const RESTORE_IMG = `${AUTH_URL}fp/restore/?id=`;
 
 // для dadata
 export const CITY_URL =

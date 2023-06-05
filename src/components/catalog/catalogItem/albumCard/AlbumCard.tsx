@@ -37,81 +37,84 @@ function AlbumCard({ id, title, description, pathImg }: AlbumCardProps) {
   );
 
   return (
-    <figure
-     // id={title}
-      className={
-        id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
-      }
-    >
-      <figcaption>
-        <h4 className="mb-3">{title}</h4>
-        <p className="mb-2">{description}</p>
-      </figcaption>
-
-      <div className="w-md-50 w-75">
-        <LightGallery
-          plugins={[lgThumbnail, lgZoom, lgFullScreen]}
-          selector=".gallery-item"
-          zoomFromOrigin={true}
-          exThumbImage="data-external-thumb-image"
+    <>
+      {(description || pathImg.length > 0) && (
+        <figure
+          className={
+            id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
+          }
         >
-          <Swiper
-            modules={[Navigation]}
-            onSlideChange={(swiper) => {
-              setCurrentSlide(swiper.realIndex + 1);
-            }}
-            onInit={(swiper) => {
-              setCurrentSlide(swiper.realIndex + 1);
-              setTotalSlides(swiper.slides.length - 2);
-            }}
-            navigation
-            spaceBetween={12}
-            loop
-            grabCursor
-            className="swiper-nav-onhover m-0"
-          >
-            {pathImg.length > 0 ? (
-              <>
-                {pathImg.map((path, index) => (
-                  <SwiperSlide key={index + (id % 2)}>
-                    <GalleryItem
-                      href={path}
-                      thumb={[path, 500, 270]}
-                      data-external-thumb-image={path}
-                      imgAlt={title}
-                      quality={100}
-                      className={
-                        id % 2 === 0
-                          ? styles.rounded_left
-                          : styles.rounded_right
-                      }
-                      light={false}
-                      caption=""
-                      video={false}
-                    />
-                  </SwiperSlide>
-                ))}
-              </>
-            ) : (
-              <ImageLoader
-                src="/img/emptyPhoto.png"
-                height={270}
-                width={500}
-                imgalt={'No image'}
-                quality={100}
-                className={
-                  id % 2 === 0 ? styles.rounded_left : styles.rounded_right
-                }
-                light={false}
-                caption=""
-                video={false}
-              />
-            )}
-            {pathImg.length > 1 && <SlidesCount />}
-          </Swiper>
-        </LightGallery>
-      </div>
-    </figure>
+          <figcaption>
+            <h4 className="mb-3">{title}</h4>
+            <p className="mb-2">{description}</p>
+          </figcaption>
+
+          <div className="w-md-50 w-75">
+            <LightGallery
+              plugins={[lgThumbnail, lgZoom, lgFullScreen]}
+              selector=".gallery-item"
+              zoomFromOrigin={true}
+              exThumbImage="data-external-thumb-image"
+            >
+              <Swiper
+                modules={[Navigation]}
+                onSlideChange={(swiper) => {
+                  setCurrentSlide(swiper.realIndex + 1);
+                }}
+                onInit={(swiper) => {
+                  setCurrentSlide(swiper.realIndex + 1);
+                  setTotalSlides(swiper.slides.length - 2);
+                }}
+                navigation
+                spaceBetween={12}
+                loop
+                grabCursor
+                className="swiper-nav-onhover m-0"
+              >
+                {pathImg.length > 0 ? (
+                  <>
+                    {pathImg.map((path, index) => (
+                      <SwiperSlide key={index + (id % 2)}>
+                        <GalleryItem
+                          href={path}
+                          thumb={[path, 500, 270]}
+                          data-external-thumb-image={path}
+                          imgAlt={title}
+                          quality={100}
+                          className={
+                            id % 2 === 0
+                              ? styles.rounded_left
+                              : styles.rounded_right
+                          }
+                          light={false}
+                          caption=""
+                          video={false}
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </>
+                ) : (
+                  <ImageLoader
+                    src="/img/emptyPhoto.png"
+                    height={270}
+                    width={500}
+                    imgalt={'No image'}
+                    quality={100}
+                    className={
+                      id % 2 === 0 ? styles.rounded_left : styles.rounded_right
+                    }
+                    light={false}
+                    caption=""
+                    video={false}
+                  />
+                )}
+                {pathImg.length > 1 && <SlidesCount />}
+              </Swiper>
+            </LightGallery>
+          </div>
+        </figure>
+      )}
+    </>
   );
 }
 

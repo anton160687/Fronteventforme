@@ -14,11 +14,13 @@ import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFe
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import { cards } from '@/mocks/cards';
+import { Area } from '@/types/areaType';
 
 type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
+  areas: Area[];
   mainPhotos: string[];
   territoryImg: string[];
   welcomeImg: string[];
@@ -29,13 +31,13 @@ function Preview({
   previewShow,
   handlePreviewClose,
   place,
+  areas,
   mainPhotos,
   territoryImg,
   welcomeImg,
   outregImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
-  console.log('place', place);
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -73,10 +75,7 @@ function Preview({
                 />
 
                 {/* //! Добавить картинки */}
-                <PlaceAreas
-                  areas={place.areas}
-                  average_check={place.average_check}
-                />
+                <PlaceAreas areas={areas} average_check={place.average_check} />
 
                 <TextDetails description={place.description} />
                 <TextFeatures
@@ -98,6 +97,7 @@ function Preview({
                     Фото проведенных свадеб на площадке
                   </Card.Title>
                   <div className="d-flex justify-content-evenly">
+                    {/* //! Сделать отображение альбомов свадеб */}
                     {weddingPhotos &&
                       weddingPhotos.map((item) => (
                         <WeddingsPhotos

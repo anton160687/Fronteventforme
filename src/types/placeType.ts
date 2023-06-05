@@ -26,7 +26,7 @@ export type Place = {
   event: number[];
   type_feature: number[];
   type_territory: number[];
-  areas?: Area[];
+  //areas?: Area[];
   // territory: number[];
   place_img: string[];
   // под эти поля еще нет бэка

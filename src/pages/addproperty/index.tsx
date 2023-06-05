@@ -16,7 +16,7 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { createArea, createPlace } from '@/components/addProperty/placeAPI';
-import { ADD_PLACE_NAMES, AUTH_URL, Token } from '@/constant';
+import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
@@ -102,8 +102,10 @@ function AddPropertyPage() {
     ));
   }
 
+  console.log('place', place);
+  console.log('areas', areas);
+
   //Валидация, отправка формы
-  console.log(place);
   const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -132,29 +134,7 @@ function AddPropertyPage() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
 
-  useEffect(() => {
-    setPlace((prev) => ({
-      ...prev,
-      place_img: mainPhotos,
-    }));
-  }, [mainPhotos]);
-
   //TODO подключить эндпойнты
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, welcome_img: welcomeImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [welcomeImg]);
-
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, territory_img: territoryImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [territoryImg]);
-
-  // useEffect(() => {
-  //   setPlace((prev) => ({ ...prev, outreg_img: outregImg }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [outregImg]);
-
   // useEffect(() => {
   //   setPlace((prev) => ({ ...prev, wedding_albums: albums }));
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -173,6 +153,7 @@ function AddPropertyPage() {
         id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
         className="card card-body border-0 shadow-sm p-4 mb-4"
       >
+        {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
         <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
         <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
           <i className="fi-plus-circle me-3"></i> Добавить альбом
@@ -301,12 +282,11 @@ function AddPropertyPage() {
         previewShow={previewShow}
         handlePreviewClose={handlePreviewClose}
         place={place}
-        mainPhotos={mainPhotos.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
-        territoryImg={territoryImg.map(
-          (img) => `${AUTH_URL}fp/restore/?id=${img}`
-        )}
-        welcomeImg={welcomeImg.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
-        outregImg={outregImg.map((img) => `${AUTH_URL}fp/restore/?id=${img}`)}
+        areas={areas}
+        mainPhotos={mainPhotos}
+        territoryImg={territoryImg}
+        welcomeImg={welcomeImg}
+        outregImg={outregImg}
       />
     </>
   );
