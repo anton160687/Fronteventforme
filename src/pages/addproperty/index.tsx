@@ -163,7 +163,6 @@ function AddPropertyPage() {
     if (refreshToken && isFresh) {
       let response = await authoriseUser(refreshToken);
       if (response === "success") {
-        console.log('получаем новый access token из локалки')
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
           setValidated(true);
