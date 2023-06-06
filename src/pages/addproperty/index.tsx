@@ -13,6 +13,8 @@ import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
+import { checkIfTokenIsFresh } from '@/services/auth.service';
+import { authoriseUser } from '@/store/user/userAPI';
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -155,27 +157,35 @@ function AddPropertyPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const token = localStorage.getItem(Token.Access);
-
-    if (form.checkValidity() && token) {
-      setValidated(true);
-      let placeId: number = await createPlace(place, token);
-      if (placeId && areas.length !== 0) {
-        areas.forEach((area) => {
-          addTerritoryImages(placeId, territoryImg, token);
-          createArea(area, placeId, token);
-          createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
-          createOutReg(
-            place.outreg_price!,
-            place.outreg_conditions!,
-            place.outreg_desc!,
-            placeId,
-            outregImg,
-            token
-          );
-        });
+    //access токены имеют очень короткий срок жизни, поэтому сначала будем отправлять refresh
+    let refreshToken = localStorage.getItem(Token.Refresh);
+    let isFresh = checkIfTokenIsFresh();
+    if (refreshToken && isFresh) {
+      let response = await authoriseUser(refreshToken);
+      if (response === "success") {
+        console.log('получаем новый access token из локалки')
+        const token = localStorage.getItem(Token.Access);
+        if (form.checkValidity() && token) {
+          setValidated(true);
+          let placeId: number = await createPlace(place, token);
+          if (placeId && areas.length !== 0) {
+            areas.forEach((area) => {
+              addTerritoryImages(placeId, territoryImg, token);
+              createArea(area, placeId, token);
+              createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
+              createOutReg(
+                place.outreg_price!,
+                place.outreg_conditions!,
+                place.outreg_desc!,
+                placeId,
+                outregImg,
+                token
+              );
+            });
+          }
+        }
       }
-    }
+    } 
   }
 
   return (
