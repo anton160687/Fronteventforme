@@ -9,7 +9,8 @@ import { authoriseUser } from '@/store/user/userAPI';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 
 export default function Header() {
-  const isAuth = useSelector(selectIsAuth);
+  // const isAuth = useSelector(selectIsAuth);
+  const isAuth = true;
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -17,9 +18,9 @@ export default function Header() {
     //TODO уточнить у бэка время жизни refresh-токена И продлить его (хотя бы день?)
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
-    async function getNewAccessToken (token: string) {
+    async function getNewAccessToken(token: string) {
       let response = await authoriseUser(token);
-      if (response === "success") {
+      if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
       }
       return response;
@@ -27,11 +28,10 @@ export default function Header() {
     if (refreshToken && isFresh) {
       getNewAccessToken(refreshToken);
     } else {
-      console.log('Нет свежих токенов')
+      console.log('Нет свежих токенов');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-      <HeaderNavbar isAuth={isAuth} />
-  );
+  return <HeaderNavbar isAuth={isAuth} />;
 }

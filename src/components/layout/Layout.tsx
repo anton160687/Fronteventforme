@@ -1,8 +1,6 @@
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/store';
-import { useRouter } from 'next/router';
+import { Container } from 'react-bootstrap';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -10,10 +8,10 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
-    <>
+    <Container>
       <Header />
       {children}
       <Footer />
-    </>
+    </Container>
   );
 }
