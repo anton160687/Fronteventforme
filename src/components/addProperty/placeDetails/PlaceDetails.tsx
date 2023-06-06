@@ -101,6 +101,7 @@ function PlaceDetails({
             placeholder="10 человек или 1 стол"
             onChange={handleNumberChange}
             required
+            min={0}
           />
         </Form.Group>
       </Row>
@@ -133,6 +134,7 @@ function PlaceDetails({
             className="w-md-50 w-sm-75 w-xs-100"
             placeholder="100 машин"
             onChange={handleNumberChange}
+            min={0}
           />
         </Form.Group>
       </Row>
@@ -179,6 +181,7 @@ function PlaceDetails({
                 type="number"
                 onChange={handleNumberChange}
                 required
+                min={0}
               />
               <InputGroup.Text id="icon-addon">₽</InputGroup.Text>
             </InputGroup>

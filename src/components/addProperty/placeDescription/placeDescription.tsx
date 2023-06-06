@@ -84,9 +84,9 @@ function PlaceDescription({
               onChange={handleRadio}
             />
             <Form.Check
-              type='radio'
-              name='children_kitchen'
-              label='Нет'
+              type="radio"
+              name="children_kitchen"
+              label="Нет"
               value={0}
               checked={!children_kitchen}
               onChange={handleRadio}
@@ -187,6 +187,7 @@ function PlaceDescription({
               placeholder="250"
               className={styles.price_border}
               onChange={handleNumberChange}
+              min={0}
             />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>
@@ -206,6 +207,7 @@ function PlaceDescription({
               placeholder="250"
               className={styles.price_border}
               onChange={handleNumberChange}
+              min={0}
             />
             <InputGroup.Text className="border-start-0">₽/час</InputGroup.Text>
           </InputGroup>
@@ -226,6 +228,7 @@ function PlaceDescription({
               className={styles.price_border}
               onChange={handleNumberChange}
               required
+              min={0}
             />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>
