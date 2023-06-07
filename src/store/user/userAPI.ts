@@ -68,8 +68,11 @@ export async function authoriseUser (refreshToken: string) {
   });
 
   if (response.ok) {
-    let result: {access: string, refresh: string} = await response.json();
-    saveAuthData(result);
+    // let result: {access: string, refresh: string} = await response.json();
+    // saveAuthData(result);
+    // приходит только access токен
+    let result: {access: string} = await response.json();
+    localStorage.setItem(Token.Access, result.access);
     return "success";
   } else {
     console.error('refreshToken', response);

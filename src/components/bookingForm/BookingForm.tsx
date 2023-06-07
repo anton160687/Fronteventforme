@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import DatePicker from 'react-datepicker';
@@ -51,7 +51,7 @@ function BookingForm({ avatar, first_name, last_name, phone, email }: BookingFor
         e.preventDefault();
         console.log(booking);
     }
-    
+
 
     return (
         <div className={styles.booking__container}>
@@ -70,7 +70,7 @@ function BookingForm({ avatar, first_name, last_name, phone, email }: BookingFor
             </div>
             <Form className={styles.booking__form}>
                 <Form.Group controlId='text-input' className='mb-3'>
-                    <Form.Control                        
+                    <Form.Control
                         name='name'
                         value={booking.name}
                         placeholder='Ваше имя'
@@ -80,25 +80,27 @@ function BookingForm({ avatar, first_name, last_name, phone, email }: BookingFor
                 </Form.Group>
 
                 <Form.Group controlId='date-input' className='mb-3'>
-                    <InputGroup>
-                        <Form.Control
-                            as={DatePicker}
-                            selected={booking.date}
-                            placeholderText="Дата мероприятия"
-                            className='rounded pe-5'
-                            dateFormat="dd/MM/yy"
-                            onChange={(e: any) => handleDateChange(e)}
-                            required
-                        />
-                        <i className='fi-calendar position-absolute top-50 end-0 translate-middle-y me-3'></i>
-                    </InputGroup>
+                    <Form.Label className='w-100'>
+                        <InputGroup>
+                            <Form.Control
+                                as={DatePicker}
+                                selected={booking.date}
+                                placeholderText="Дата мероприятия"
+                                className='rounded pe-5'
+                                dateFormat="dd/MM/yy"
+                                onChange={(e: any) => handleDateChange(e)}
+                                required
+                            />
+                            <i className='fi-calendar position-absolute top-50 end-0 translate-middle-y me-3'></i>
+                        </InputGroup>
+                    </Form.Label>
                 </Form.Group>
 
                 <Form.Group controlId='number-input' className='mb-3'>
                     <Form.Control
                         type='number'
                         name='guests'
-                        value={booking.guests? booking.guests : ''}
+                        value={booking.guests ? booking.guests : ''}
                         placeholder='Количество гостей'
                         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
                     />
