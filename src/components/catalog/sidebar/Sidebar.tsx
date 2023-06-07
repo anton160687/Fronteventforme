@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 function Sidebar() {
   let path = useRouter().pathname;
-  let inCatalog = /^\/catalog\//.test(path);
 
   let id = 0;
   const list = [
@@ -62,7 +61,7 @@ function Sidebar() {
     return list.map((category) => (
       <Link
         key={category.id}
-        href={inCatalog ? category.path : 'catalog/' + category.path}
+        href={`/catalog/${category.path}`}
         className={styles.sidebar__link}
       >
         <p

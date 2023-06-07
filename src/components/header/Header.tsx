@@ -18,13 +18,14 @@ export default function Header() {
     //TODO уточнить у бэка время жизни refresh-токена И продлить его (хотя бы день?)
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
+
     async function getNewAccessToken(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
       }
-      return response;
     }
+
     if (refreshToken && isFresh) {
       getNewAccessToken(refreshToken);
     } else {

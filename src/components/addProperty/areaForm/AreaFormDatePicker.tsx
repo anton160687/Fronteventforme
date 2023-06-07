@@ -24,6 +24,7 @@ function AreaFormDatePicker({
     return (
       <div key={index}>
         <Form.Group controlId="date-input" className="mb-3">
+        <Form.Label className='w-100'> 
           <InputGroup>
             <Form.Control
               as={DatePicker}
@@ -38,6 +39,7 @@ function AreaFormDatePicker({
             />
             <i className="fi-calendar position-absolute top-50 end-0 translate-middle-y me-3"></i>
           </InputGroup>
+          </Form.Label>
         </Form.Group>
         <p className="cursor-pointer text-primary mb-3" onClick={handleClick}>
           <i className="fi-plus-circle me-3"></i> Добавить дату
