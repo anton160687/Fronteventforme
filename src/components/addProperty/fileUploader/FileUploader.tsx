@@ -24,6 +24,7 @@ registerPlugin(
 
 type FileUploaderProps = {
   setGallery: Dispatch<SetStateAction<string[]>>;
+  setPreviewGallery: Dispatch<SetStateAction<string[]>>;
   warning?: string;
   maxFiles: number;
   required?: boolean;
@@ -31,15 +32,12 @@ type FileUploaderProps = {
 
 function FileUploader({
   setGallery,
+  setPreviewGallery,
   maxFiles,
   warning,
   required = false,
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
-
-  useEffect(() => {
-    console.log('files', files);
-  }, [files]);
 
   const onProcess = (
     error: FilePondErrorDescription | null,
@@ -60,9 +58,12 @@ function FileUploader({
   };
 
   useEffect(() => {
-    const newArr: string[] = [];
-    files.map((file) => newArr.push(RESTORE_IMG + file.serverId));
-    setGallery(newArr);
+    const serverIdArr: string[] = [];
+    const previewArr: string[] = [];
+    files.map((file) => serverIdArr.push(file.serverId));
+    files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
+    setGallery(serverIdArr);
+    setPreviewGallery(previewArr);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);

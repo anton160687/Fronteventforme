@@ -40,6 +40,7 @@ export type Place = {
 export type Album = {
   title: string;
   album_img: string[];
+  preview_album_img?: string[];
 };
 
 //тип приходящего с бека Place

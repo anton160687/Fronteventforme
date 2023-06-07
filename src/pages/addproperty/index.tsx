@@ -1,5 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Button,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -8,7 +15,13 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -100,8 +113,10 @@ function AddPropertyPage() {
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
   const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
   const [outregImg, setOutregImg] = useState<string[]>([]);
+  // Альбомы
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
+
   //! хуки для разных галлерей
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
@@ -149,6 +164,11 @@ function AddPropertyPage() {
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
   const handlePreviewShow = () => setPreviewShow(true);
+  // Фото в Превью
+  const [previewMainPhotos, setPreviewMainPhotos] = useState<string[]>([]);
+  const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
+  const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
+  const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
 
   //Валидация, отправка формы
   const [validated, setValidated] = useState(false);
@@ -177,6 +197,9 @@ function AddPropertyPage() {
       }
     }
   }
+
+  console.log('previewMainPhotos', previewMainPhotos);
+  console.log('mainPhotos', mainPhotos);
 
   return (
     <>
@@ -232,7 +255,10 @@ function AddPropertyPage() {
                 alco={place.alco}
               />
 
-              <MainPhotos setMainPhotos={setMainPhotos} />
+              <MainPhotos
+                setMainPhotos={setMainPhotos}
+                setPreviewMainPhotos={setPreviewMainPhotos}
+              />
 
               {renderAreaForms()}
 
@@ -247,8 +273,11 @@ function AddPropertyPage() {
                 outreg_desc={place.outreg_desc}
                 outreg_conditions={place.outreg_conditions}
                 setTerritoryImg={setTerritoryImg}
+                setPreviewTerritoryImg={setPreviewTerritoryImg}
                 setWelcomeImg={setWelcomeImg}
+                setPreviewWelcomeImg={setPreviewWelcomeImg}
                 setOutregImg={setOutregImg}
+                setPreviewOutregImg={setPreviewOutregImg}
               />
 
               {renderWeddingAlbum()}
@@ -290,10 +319,10 @@ function AddPropertyPage() {
         handlePreviewClose={handlePreviewClose}
         place={place}
         areas={areas}
-        mainPhotos={mainPhotos}
-        territoryImg={territoryImg}
-        welcomeImg={welcomeImg}
-        outregImg={outregImg}
+        mainPhotos={previewMainPhotos}
+        territoryImg={previewTerritoryImg}
+        welcomeImg={previewWelcomeImg}
+        outregImg={previewOutregImg}
       />
     </>
   );

@@ -13,7 +13,12 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import { ADD_PLACE_NAMES, COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
+import {
+  ADD_PLACE_NAMES,
+  COLOR_HALL,
+  SCHEME_OF_PAYMENT,
+  TYPE_AREA,
+} from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
@@ -83,12 +88,15 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
 
   //images
   const [areaImg, setAreaImg] = useState<string[]>([]);
+  const [previewAreaImg, setPreviewAreaImg] = useState<string[]>([]);
   useEffect(() => {
     setArea((prev) => ({
       ...prev,
       images_area: areaImg,
+      preview_images_area: previewAreaImg,
     }));
-  }, [areaImg]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areaImg, previewAreaImg]);
 
   return (
     <>
@@ -110,6 +118,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
 
           <FileUploader
             setGallery={setAreaImg}
+            setPreviewGallery={setPreviewAreaImg}
             required={true}
             maxFiles={5}
             warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
