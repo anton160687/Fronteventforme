@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 function CatalogDropDown() {
     let path = useRouter().pathname;
-    let inCatalog= (/^\/catalog\//.test(path));
 
     const catalogItems = [
         {
@@ -48,7 +47,7 @@ function CatalogDropDown() {
 
     function renderItems() {
         return catalogItems.map(({ id, path, text }) => (
-            <Dropdown.Item key={id} as={Link} href={inCatalog? path :'catalog/' + path}>
+            <Dropdown.Item key={id} as={Link} href={`/catalog/${path}`}>
                 {text}
             </Dropdown.Item>
         ))
