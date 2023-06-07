@@ -153,17 +153,17 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           <div className={styles.capacity__group}>
             <Form.Control
               name="min_capacity"
-              placeholder="от 30"
+              placeholder="от ..."
               type="number"
-              min="30"
-              max="60"
+              // min="30"
+              // max="60"
               value={area.min_capacity || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
               required
             />
             <Image
-              className={styles.capacity__img}
+              className={`${styles.capacity__img} m-2 mt-0 mb-0`}
               src={'/Line.png'}
               alt={'inbetween'}
               width={32}
@@ -171,10 +171,10 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
             />
             <Form.Control
               name="max_capacity"
-              placeholder="до 60"
+              placeholder="до ..."
               type="number"
-              min="30"
-              max="60"
+              // min="30"
+              // max="60"
               value={area.max_capacity || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
@@ -267,9 +267,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           <InputGroup>
             <Form.Control
               name="min_price_banquet"
-              placeholder="от 10 000"
+              placeholder="1000"
               type="number"
-              min="10000"
+              // min="10000"
               value={area.min_price_banquet || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
@@ -287,9 +287,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           <InputGroup>
             <Form.Control
               name="min_price_rent"
-              placeholder="от 10 000"
+              placeholder="1000"
               type="number"
-              min="10000"
+              // min="10000"
               value={area.min_price_rent || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
@@ -307,9 +307,9 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
           <InputGroup>
             <Form.Control
               name="deposit"
-              placeholder="от 10 000"
+              placeholder="1000"
               type="number"
-              min="10000"
+              // min="10000"
               value={area.deposit || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
