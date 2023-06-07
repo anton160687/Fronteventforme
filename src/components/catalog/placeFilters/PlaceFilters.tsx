@@ -88,7 +88,6 @@ function PlaceFilters() {
                 </Dropdown>
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    className="px-2"
                     name='capacity'
                     text='Вместимость'
                     icon='fi-building'
@@ -97,7 +96,6 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    className="px-2"
                     name='scheme_of_payment'
                     text='Схема оплаты'
                     icon='fi-home'
@@ -106,7 +104,6 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    className="px-2"
                     name='price'
                     text='Средний чек'
                     icon='fi-wallet'
@@ -115,7 +112,6 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    className="px-2"
                     name='territory'
                     text='Территория'
                     icon='fi-grid'
@@ -124,7 +120,6 @@ function PlaceFilters() {
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <DropdownCB
-                    className="px-2"
                     name='more'
                     text='Еще на площадке'
                     icon='fi-grid'

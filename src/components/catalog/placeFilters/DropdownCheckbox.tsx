@@ -8,18 +8,10 @@ type DropdownCBProps = {
   text: string;
   options: string[][];
   icon: string;
-  className: string;
   setFilterParams: (name: string, value: string[]) => void;
 };
 
-const DropdownCB = ({
-  name,
-  text,
-  options,
-  icon,
-  className,
-  setFilterParams,
-}: DropdownCBProps) => {
+function DropdownCB ({ name, text, options, icon, setFilterParams}: DropdownCBProps) {
   const initialState: string[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
 
@@ -44,8 +36,6 @@ const DropdownCB = ({
 
   useEffect(() => {
     setFilterParams(name, selectedArray);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name, selectedArray]);
 
   function renderCB() {
@@ -63,8 +53,9 @@ const DropdownCB = ({
   return (
     <Dropdown>
       <Dropdown.Toggle
+        style={selectedArray.length === 0? {color: "#454056"}:  {color: "#FE9589"}}
         variant="outline-secondary"
-        className={styles.catalog__dropdown_icon + ' ' + className}
+        className={`${styles.catalog__dropdown_icon} px-2`}
       >
         {iconEl}
         <p className={styles.catalog__dropdown_text}>{text}</p>

@@ -52,15 +52,13 @@
 //дропдаун-фильтры
 .catalog__dropdown_icon {
   border: none;
+  gap: 6px;
 }
 
 .catalog__dropdown_text {
   font-weight: 500;
   font-size: 14px;
   line-height: 150%;
-  display: flex;
-  align-items: center;
-  color: #666276;
   margin: 0;
 }
 
