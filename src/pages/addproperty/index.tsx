@@ -100,7 +100,12 @@ function AddPropertyPage() {
         id={`${ADD_PLACE_NAMES.area.id}${index}`}
         className="card card-body border-0 shadow-sm p-4 mb-4"
       >
-        <AreaForm index={index} areas={areas} setAreas={setAreas} />
+        <AreaForm
+          index={index}
+          areas={areas}
+          setAreas={setAreas}
+          setPreviewAreas={setPreviewAreas}
+        />
         <p className="text-primary mb-3" onClick={addArea}>
           <i className="fi-plus-circle me-3"></i> Добавить помещение
         </p>
@@ -169,6 +174,8 @@ function AddPropertyPage() {
   const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
   const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
   const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
+  //preview images
+  const [previewAreas, setPreviewAreas] = useState<string[][]>([]);
 
   //Валидация, отправка формы
   const [validated, setValidated] = useState(false);

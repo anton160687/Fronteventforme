@@ -16,6 +16,7 @@ import { cards } from '@/mocks/cards';
 import { Area, AreaRecieved } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import { useState } from 'react';
 
 type PreviewProps = {
   previewShow: boolean;
@@ -59,6 +60,29 @@ function Preview({
       place: 0,
     },
   ];
+
+  //заменить 'type_area' | 'images_area' | 'place_id' | 'color_hall' | 'reserved_days'
+  //: AreaRecieved[]
+
+  const [uniAreas, setUniAreas] = useState<AreaRecieved[]>([]);
+  const makeUniAreas = () => {
+    let newArray: AreaRecieved[] = [];
+    areas.map((area) => newFunc(area));
+  };
+
+  const newFunc = (area: Area): AreaRecieved => {
+    const reservedDays = area.reserved_days.toString();
+    // typeof area.reserved_days === 'string'
+    //   ? [new Date(area.reserved_days)]
+    //   : area.reserved_days;
+
+    const typeArea = { id: 0, type_area: area.type_area };
+    const place = area.place_id;
+    const colorHall = area.color_hall;
+
+		const imagesArea = 
+
+  };
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
