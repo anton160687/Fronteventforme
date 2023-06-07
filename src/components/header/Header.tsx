@@ -9,8 +9,7 @@ import { authoriseUser } from '@/store/user/userAPI';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 
 export default function Header() {
-  // const isAuth = useSelector(selectIsAuth);
-  const isAuth = true;
+  const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {

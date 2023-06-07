@@ -1,8 +1,7 @@
-import { Component } from 'react';
-import Info from './info';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 function Account() {
-  return <Info />;
+  return <LKNavigation></LKNavigation>;
 }
 
 export default Account;
