@@ -89,7 +89,12 @@ function LKNavigation({
               </Col>
             </div>
             <Col md={11} lg={10} className="ms-md-auto mt-3 mb-4 ps-1">
-              <ul className={'list-unstyled fs-sm  mb-0 ' + styles.userInfo}>
+              <ul
+                className={
+                  'd-flex flex-column d-md-block  align-items-center w-100 list-unstyled fs-sm  mb-0 ' +
+                  styles.userInfo
+                }
+              >
                 <li>
                   <a
                     href={`tel:${user?.phone || ''}`}
@@ -143,7 +148,7 @@ function LKNavigation({
 
         {/* Page content */}
         <Col md={7} lg={8} className="mb-5">
-          <h2>{LKSectionsTitles.Info}</h2>
+          <h2>{accountPageTitle}</h2>
           {children}
         </Col>
       </Row>

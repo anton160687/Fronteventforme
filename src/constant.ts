@@ -127,9 +127,9 @@ export enum Paths {
 }
 
 // для форм регистрации, авторизации
-export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}';
+export const PASSWORD_REQUIREMENTS = '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}';
 export const PASSWORD_TITLE =
-  'Пароль должен содержать от 8 до 20 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
+  'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры, символы и буквы латинского алфавита. При этом обязательно в пароле должна быть хотя бы одна цифра, одна буква в нижнем регистре и одна буква в верхнем регистре.';
 
 //вылезает warning, избавиться не смогла, но все работает
 export const USERNAME_REQUIREMENTS = '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$';
@@ -141,7 +141,12 @@ export enum FormFields {
   Username = 'username',
   Email = 'email',
   Password = 'password',
-  ConfirmPassword = 'confirmPassword',
+  ConfirmPassword = 'confirm_password',
+  OldPassword = 'old_password',
+  NewPassword = 'new_password',
+  Phone = 'phone',
+  FirstName = 'first_name',
+  LastName = 'last_name',
 }
 
 // для футера
