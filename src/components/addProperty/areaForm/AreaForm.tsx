@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Col, Dropdown, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -18,8 +12,8 @@ import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
   index: number;
-  areas: Area[];
-  setAreas: Dispatch<SetStateAction<Area[]>>;
+  areas: (Area | null)[];
+  setAreas: Dispatch<SetStateAction<(Area | null)[]>>;
 };
 
 function AreaForm({ index, areas, setAreas }: AreaFormProps) {
@@ -77,8 +71,6 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     let newAreasArr = [...areas];
     newAreasArr[index] = area;
     setAreas(newAreasArr);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area]);
 
   //images

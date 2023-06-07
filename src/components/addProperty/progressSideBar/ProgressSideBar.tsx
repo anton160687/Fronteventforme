@@ -9,7 +9,7 @@ import { addPlaceNameElement } from '@/types/addPlaceNames';
 
 type ProgressSideBarProps = {
   place: Place;
-  areas: Area[];
+  areas: (Area | null)[];
   setPercent: Dispatch<SetStateAction<number>>;
   percent: number;
   setIsFormFilled: Dispatch<SetStateAction<boolean>>;
@@ -164,6 +164,7 @@ function ProgressSideBar({
     let areasFilledCount = 0;
     areas.map((area) => {
       if (
+        area &&
         area.title &&
         area.type_area &&
         area.min_capacity &&

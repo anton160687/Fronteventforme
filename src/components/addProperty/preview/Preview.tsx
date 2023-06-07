@@ -21,7 +21,7 @@ type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
-  areas: Area[];
+  areas: (Area | null)[];
   mainPhotos: string[];
   territoryImg: string[];
   welcomeImg: string[];
