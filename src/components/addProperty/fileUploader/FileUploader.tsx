@@ -24,7 +24,7 @@ registerPlugin(
 
 type FileUploaderProps = {
   setGallery: Dispatch<SetStateAction<string[]>>;
-  setPreviewGallery: Dispatch<SetStateAction<string[]>>;
+  setPreviewGallery?: Dispatch<SetStateAction<string[]>>;
   warning?: string;
   maxFiles: number;
   required?: boolean;
@@ -63,7 +63,7 @@ function FileUploader({
     files.map((file) => serverIdArr.push(file.serverId));
     files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
     setGallery(serverIdArr);
-    setPreviewGallery(previewArr);
+    if (setPreviewGallery) setPreviewGallery(previewArr);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);

@@ -25,7 +25,7 @@ import {
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -197,9 +197,6 @@ function AddPropertyPage() {
       }
     }
   }
-
-  console.log('previewMainPhotos', previewMainPhotos);
-  console.log('mainPhotos', mainPhotos);
 
   return (
     <>

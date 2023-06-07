@@ -1,6 +1,5 @@
 import { Breadcrumb, Card, Col, Container, Modal, Row } from 'react-bootstrap';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import { Place } from '@/types/placeType';
@@ -14,14 +13,15 @@ import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFe
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import { cards } from '@/mocks/cards';
-import { Area } from '@/types/areaType';
+import { Area, AreaRecieved } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 
 type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
-  areas: Area[];
+  areas: AreaRecieved[] | Area[];
   mainPhotos: string[];
   territoryImg: string[];
   welcomeImg: string[];
@@ -40,21 +40,25 @@ function Preview({
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
 
-  let outside_reg: OutsideReg[] = [{
-    id: 0,
-    images_out_reg: [],
-    outreg_price: place.outreg_price!,
-    outreg_conditions: place.outreg_conditions!,
-    outreg_include: place.outreg_desc!,
-    place: 0,
-  }];
+  let outside_reg: OutsideReg[] = [
+    {
+      id: 0,
+      images_out_reg: [],
+      outreg_price: place.outreg_price!,
+      outreg_conditions: place.outreg_conditions!,
+      outreg_include: place.outreg_desc!,
+      place: 0,
+    },
+  ];
 
-  let welcome_zones: WelcomeZone[] = [{
-    id: 0,
-    images_welcome: [],
-    welcome_desc: place.welcome_desc!,
-    place: 0,
-  }]
+  let welcome_zones: WelcomeZone[] = [
+    {
+      id: 0,
+      images_welcome: [],
+      welcome_desc: place.welcome_desc!,
+      place: 0,
+    },
+  ];
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -78,7 +82,6 @@ function Preview({
             <LocationPhotos photoUrls={mainPhotos} />
 
             <Row className={styles.main__container}>
-
               <Col xl={8} className={styles.left__container}>
                 <LocationDescription
                   title={place.title}
