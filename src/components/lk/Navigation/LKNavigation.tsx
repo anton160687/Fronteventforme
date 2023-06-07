@@ -14,8 +14,9 @@ import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
 
 type LKNavigationPropd = {
-  accountPageTitle: string;
-  children: JSX.Element;
+  //временно опциоональные
+  accountPageTitle?: string;
+  children?: JSX.Element;
 };
 
 function LKNavigation({
@@ -55,13 +56,16 @@ function LKNavigation({
         </Breadcrumb.Item>
         <Breadcrumb.Item
           linkAs={Link}
+          active={accountPageTitle ? false : true}
           //! продумать ссылки
           //  href={Paths.Account + is_bride ? Paths.Bride : Paths.Business}
           href={Paths.Account}
         >
           Аккаунт
         </Breadcrumb.Item>
-        <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
+        {accountPageTitle && (
+          <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
+        )}
       </Breadcrumb>
 
       <Row>
