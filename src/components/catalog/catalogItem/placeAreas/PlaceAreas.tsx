@@ -30,7 +30,7 @@ import {
 } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaRecieved[] | Area[] | undefined;
+  areas: AreaRecieved[] | (Area | null)[] | undefined;
   average_check: number;
 };
 
@@ -38,9 +38,13 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
   return (
     <>
       {areas &&
-        areas.map((area, index) => (
-          <PlaceArea area={area} average_check={average_check} key={index} />
-        ))}
+        areas.map((area, index) => {
+          if (area) {
+            return  <PlaceArea area={area} average_check={average_check} key={index} />
+          } else {
+            return <div key={index}></div>
+          }
+        })}
     </>
   );
 }
@@ -232,7 +236,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               }
             >
               <DatePicker
-                onChange={() => {}}
+                onChange={() => { }}
                 minDate={new Date(Date.now())}
                 //на год от сегодняшней даты
                 maxDate={new Date(Date.now() + 3.156e10)}
@@ -298,9 +302,8 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                         thumb={[img, 313, 230]}
                         data-external-thumb-image={img}
                         imgAlt={area.title}
-                        className={`${indx === 0 ? styles.rounded_left : ''}${
-                          indx === photos.length - 1 ? styles.rounded_right : ''
-                        }  `}
+                        className={`${indx === 0 ? styles.rounded_left : ''}${indx === photos.length - 1 ? styles.rounded_right : ''
+                          }  `}
                         light=""
                         caption=""
                         video={false}

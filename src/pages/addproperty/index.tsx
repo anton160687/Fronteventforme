@@ -75,26 +75,57 @@ function AddPropertyPage() {
   }
 
   // Площадки
-  const [areas, setAreas] = useState<Area[]>([]);
-  const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
+  const [areas, setAreas] = useState<(Area | null)[]>([]);
+  const [areaIndexArray, setAreaIndexArray] = useState<(number | null)[]>([0]);
+
   function addArea(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
-    let last = areaIndexArray[areaIndexArray.length - 1];
+    let last = areaIndexArray.length - 1;
     setAreaIndexArray([...areaIndexArray, ++last]);
   }
+
+  function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
+    e.preventDefault;
+
+    if (index !== 0) {
+      let copyIndexArray = areaIndexArray;
+      copyIndexArray[index] = null;
+
+      let copyAreasArray = areas;
+      copyAreasArray[index] = null;
+      console.log('копии');
+      console.log(copyIndexArray);
+      setAreaIndexArray([...copyIndexArray]);
+      setAreas([...copyAreasArray]);
+    } else {
+      alert('Должно быть хотя бы 1 помещение');
+    }
+  }
+
   function renderAreaForms() {
-    return areaIndexArray.map((index) => (
-      <section
-        key={index}
-        id={`${ADD_PLACE_NAMES.area.id}${index}`}
-        className="card card-body border-0 shadow-sm p-4 mb-4"
-      >
-        <AreaForm index={index} areas={areas} setAreas={setAreas} />
-        <p className="text-primary mb-3" onClick={addArea}>
-          <i className="fi-plus-circle me-3"></i> Добавить помещение
-        </p>
-      </section>
-    ));
+    return areaIndexArray.map((index, i) => {
+      if (index !== null) {
+        return (
+          <section
+            key={index}
+            id={`${ADD_PLACE_NAMES.area.id}${index}`}
+            className="card card-body border-0 shadow-sm p-4 mb-4"
+          >
+            {!!index &&
+              <p className="text-primary mb-3" onClick={(e) => deleteAreaForm(e, index)}>
+                <i className="fi-minus-circle me-3"></i> Удалить помещение
+              </p>
+            }
+            <AreaForm index={index} areas={areas} setAreas={setAreas} />
+            <p className="text-primary mb-3" onClick={addArea}>
+              <i className="fi-plus-circle me-3"></i> Добавить помещение
+            </p>
+          </section>
+        )
+      } else {
+        return <div key={i}></div>
+      }
+    });
   }
 
   // Загрузка картинок
@@ -169,22 +200,24 @@ function AddPropertyPage() {
           let placeId: number = await createPlace(place, token);
           if (placeId && areas.length !== 0) {
             areas.forEach((area) => {
-              addTerritoryImages(placeId, territoryImg, token);
-              createArea(area, placeId, token);
-              createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
-              createOutReg(
-                place.outreg_price!,
-                place.outreg_conditions!,
-                place.outreg_desc!,
-                placeId,
-                outregImg,
-                token
-              );
+              if (area) {
+                addTerritoryImages(placeId, territoryImg, token);
+                createArea(area, placeId, token);
+                createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
+                createOutReg(
+                  place.outreg_price!,
+                  place.outreg_conditions!,
+                  place.outreg_desc!,
+                  placeId,
+                  outregImg,
+                  token
+                );
+              }
             });
           }
         }
       }
-    } 
+    }
   }
 
   return (
