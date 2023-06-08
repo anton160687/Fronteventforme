@@ -24,7 +24,7 @@ export type AreaRecieved = Omit<
   Area,
   'type_area' | 'images_area' | 'place_id' | 'color_hall' | 'reserved_days'
 > & {
-  images_area: AreaImages[] | [];
+  images_area: AreaImages[];
   type_area: TypeArea;
   place: number;
   reserved_days: 'string';

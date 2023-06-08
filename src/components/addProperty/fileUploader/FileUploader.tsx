@@ -61,7 +61,7 @@ function FileUploader({
 
   useEffect(() => {
     const newArr: string[] = [];
-    files.map((file) => newArr.push(RESTORE_IMG + file.serverId));
+    files.map((file) => newArr.push(file.serverId));
     setGallery(newArr);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
