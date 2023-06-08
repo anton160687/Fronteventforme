@@ -13,20 +13,21 @@ import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFe
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import { cards } from '@/mocks/cards';
-import { Area, AreaRecieved } from '@/types/areaType';
+import { Area, AreaImages, AreaRecieved } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
-  areas: AreaRecieved[] | Area[];
+  areas: Area[];
   mainPhotos: string[];
   territoryImg: string[];
   welcomeImg: string[];
   outregImg: string[];
+  previewAreas: string[][];
 };
 
 function Preview({
@@ -38,6 +39,7 @@ function Preview({
   territoryImg,
   welcomeImg,
   outregImg,
+  previewAreas,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
 
@@ -61,28 +63,45 @@ function Preview({
     },
   ];
 
-  //заменить 'type_area' | 'images_area' | 'place_id' | 'color_hall' | 'reserved_days'
-  //: AreaRecieved[]
-
   const [uniAreas, setUniAreas] = useState<AreaRecieved[]>([]);
+
+  //через хук, т.к. если просто делать переменную, то фукнция вызывается при каждом клике
+  useEffect(() => {
+    if (previewShow) makeUniAreas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewShow]);
+
   const makeUniAreas = () => {
-    let newArray: AreaRecieved[] = [];
-    areas.map((area) => newFunc(area));
+    const newArray: AreaRecieved[] = areas.map((area, index) =>
+      makeAreaRecievedArr(area, index)
+    );
+    setUniAreas(newArray);
   };
 
-  const newFunc = (area: Area): AreaRecieved => {
+  const makeAreaRecievedArr = (area: Area, index: number): AreaRecieved => {
     const reservedDays = area.reserved_days.toString();
-    // typeof area.reserved_days === 'string'
-    //   ? [new Date(area.reserved_days)]
-    //   : area.reserved_days;
 
     const typeArea = { id: 0, type_area: area.type_area };
-    const place = area.place_id;
-    const colorHall = area.color_hall;
+    const imagesArea: AreaImages[] = [];
 
-		const imagesArea = 
+    previewAreas[index].map((image) => {
+      const item = { id: 0, image: image, area: 0 };
+      imagesArea.push(item);
+    });
 
+    const newArea = {
+      ...area,
+      type_area: typeArea,
+      place: 0,
+      reserved_days: reservedDays,
+      images_area: imagesArea,
+    };
+    delete area.place_id;
+
+    return newArea;
   };
+
+  console.log('uniAreas', uniAreas);
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -121,7 +140,10 @@ function Preview({
                   kitchens={place.kitchen}
                 />
 
-                <PlaceAreas areas={areas} average_check={place.average_check} />
+                <PlaceAreas
+                  areas={uniAreas}
+                  average_check={place.average_check}
+                />
 
                 <TextDetails description={place.description} />
                 <TextFeatures
@@ -129,14 +151,14 @@ function Preview({
                   territories={place.type_place}
                 />
 
-                <AlbumCardContainer
+                {/* <AlbumCardContainer
                   territory={place.territory_desc}
                   welcome_zones={welcome_zones}
                   outside_reg={outside_reg}
                   territoryImg={territoryImg}
                   welcomeImg={welcomeImg}
                   outregImg={outregImg}
-                />
+                /> */}
 
                 <Row className="my-xl-4 my-md-3 my-sm-2">
                   <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">

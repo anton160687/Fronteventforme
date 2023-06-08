@@ -327,6 +327,7 @@ function AddPropertyPage() {
         territoryImg={previewTerritoryImg}
         welcomeImg={previewWelcomeImg}
         outregImg={previewOutregImg}
+        previewAreas={previewAreas}
       />
     </>
   );

@@ -22,7 +22,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
-import { AreaRecieved, Area } from '@/types/areaType';
+import { AreaRecieved } from '@/types/areaType';
 import {
   COLOR_HALL,
   SCHEME_OF_PAYMENT,
@@ -30,7 +30,7 @@ import {
 } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaRecieved[] | Area[] | undefined;
+  areas: AreaRecieved[] | undefined;
   average_check: number;
 };
 
@@ -46,7 +46,7 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
 }
 
 type PlaceAreaProps = {
-  area: AreaRecieved | Area;
+  area: AreaRecieved;
   average_check: number;
 };
 
@@ -116,13 +116,6 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
     } else return 0;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-    }
-  };
-
   // Единый Вид Названия Помещений
   function capitalize(str: string) {
     return str.replace(/(^|\s)\S/g, function (a) {
@@ -139,6 +132,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
     return title[1];
   };
 
+  // преобразование фото
   const [photos, setPhotos] = useState<string[]>([]);
   useEffect(() => {
     combinePhotos();
@@ -147,25 +141,19 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const combinePhotos = () => {
     const emptyPhoto = '/img/emptyPhoto.png';
-    if ('images_area' in area && area.images_area) {
-      const imageArray = area.images_area.map((img) =>
-        typeof img === 'string' ? img : img.image
-      );
-      if (area.cover_area) imageArray.unshift(area.cover_area);
-      if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
-      else setPhotos(imageArray);
-    }
+
+    const imageArray = area.images_area.map((img) => img.image);
+    if (area.cover_area) imageArray.unshift(area.cover_area);
+    if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
+    else setPhotos(imageArray);
   };
 
-  const reservedDays =
-    typeof area.reserved_days === 'string'
-      ? [new Date(area.reserved_days)]
-      : area.reserved_days;
-
-  const typeArea =
-    typeof area.type_area === 'string'
-      ? area.type_area
-      : area.type_area.type_area;
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+    }
+  };
 
   return (
     <>
@@ -240,7 +228,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 className="rounded-1 pe-5"
                 readOnly
                 excludeDates={
-                  reservedDays
+                  [new Date(area.reserved_days)]
                   //	[  addDays(new Date(), 1),
                   // addDays(new Date(), 10),]
                 }
@@ -357,7 +345,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               <div className={styles.slider_text}>
                 <p>Тип</p>
                 <p className={styles.slider_text_data}>
-                  {findTitle(TYPE_AREA_DICTIONARY, typeArea)}
+                  {findTitle(TYPE_AREA_DICTIONARY, area.type_area.type_area)}
                 </p>
               </div>
               <div className={styles.slider_text}>
