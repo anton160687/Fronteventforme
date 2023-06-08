@@ -18,16 +18,6 @@ function TextDescription({ item }: TextDescriptionProps) {
     }
   });
 
-  // const start_time =
-  //   typeof item?.start_time === 'string'
-  //     ? item.start_time
-  //     : item?.start_time.toDateString();
-
-  // const finish_time =
-  //   typeof item?.finish_time === 'string'
-  //     ? item.finish_time
-  //     : item?.finish_time.toString();
-
   function renderLocations() {
     if (locations.length !== 0) {
       return locations.map((location, i) => (

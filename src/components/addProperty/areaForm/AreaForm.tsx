@@ -98,15 +98,15 @@ function AreaForm({
   useEffect(() => {
     setArea((prev) => ({
       ...prev,
-      images_area: areaImg,
+      area_img: areaImg,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areaImg]);
 
   useEffect(() => {
     const areasImages = areas.map((area) =>
-      area.images_area !== undefined
-        ? area.images_area.map((img) => RESTORE_IMG + img)
+      area.area_img !== undefined
+        ? area.area_img.map((img) => RESTORE_IMG + img)
         : []
     );
     setPreviewAreasImg(areasImages);

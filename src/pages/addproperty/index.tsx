@@ -323,7 +323,7 @@ function AddPropertyPage() {
         handlePreviewClose={handlePreviewClose}
         place={place}
         areas={areas}
-        mainPhotos={previewMainPhotos}
+        previewMainPhotos={previewMainPhotos}
         previewTerritoryImg={previewTerritoryImg}
         previewWelcomeImg={previewWelcomeImg}
         previewOutregImg={previewOutregImg}

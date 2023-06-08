@@ -30,14 +30,14 @@ import { cards } from '@/mocks/cards';
 import { Area, AreaImages, AreaReceived, TypeArea } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
   areas: Area[];
-  mainPhotos: string[];
+  previewMainPhotos: string[];
   previewTerritoryImg: string[];
   previewWelcomeImg: string[];
   previewOutregImg: string[];
@@ -49,7 +49,7 @@ function Preview({
   handlePreviewClose,
   place,
   areas,
-  mainPhotos,
+  previewMainPhotos,
   previewTerritoryImg,
   previewWelcomeImg,
   previewOutregImg,
@@ -57,30 +57,16 @@ function Preview({
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
 
-  const [uniAreas, setUniAreas] = useState<AreaReceived[]>([]);
-
-  //const [uniPlace, setUniPlace] = useState<PlaceReceived>([]);
-
-  //через хук, т.к. если просто делать переменную, то фукнция вызывается при каждом клике
-  // useEffect(() => {
-  //   if (previewShow) {
-  //     makeUniAreas();
-  //   //  makePlaceRecieved();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [previewShow]);
-
   const makeUniAreas = (): AreaReceived[] => {
     const newArray: AreaReceived[] = areas.map((area, index) =>
       makeAreaRecievedArr(area, index)
     );
-    //  setUniAreas(newArray);
     return newArray;
   };
 
   const makeAreaRecievedArr = (area: Area, index: number): AreaReceived => {
-    const reservedDays = area.reserved_days.toString();
-    const typeArea: TypeArea = { id: 0, type_area: area.type_area };
+    const reservedDays: string = area.reserved_days.toString();
+    const typeArea: TypeArea = { id: Number(area.type_area), type_area: '' };
 
     const imagesArea: AreaImages[] = [];
     previewAreasImg[index].map((image) => {
@@ -95,8 +81,6 @@ function Preview({
       reserved_days: reservedDays,
       images_area: imagesArea,
     };
-
-    delete newArea.place_id;
 
     return newArea;
   };
@@ -128,7 +112,7 @@ function Preview({
       kitchen: '',
     }));
 
-    const imagesPlace: ImagesPlace[] = place.place_img.map((img) => ({
+    const imagesPlace: ImagesPlace[] = previewMainPhotos.map((img) => ({
       id: 0,
       image: img,
       place: 0,
@@ -140,7 +124,7 @@ function Preview({
       welcome_zone: 0,
     }));
 
-    const welcomeZone = [
+    const welcomeZone: WelcomeZone[] = [
       {
         id: 0,
         images_welcome: welcomeZoneImg,
@@ -178,10 +162,11 @@ function Preview({
         images_territory: territoryImg,
         territory_desc: place.territory_desc,
         place: 0,
+        type_territory: place.type_territory,
       },
     ];
 
-    //! поправить, как будет доступна загрузка свадебных альбомов в форме
+    //! поправить, как будет готова загрузка свадебных альбомов в форме
     const imagesWedding: ImagesWedding[] = [];
 
     const newPlace = {
@@ -200,29 +185,16 @@ function Preview({
       welcome_zones: welcomeZone,
       outsites_reg: outsideReg,
       territory: newTerritory,
-      //!
       areas: makeUniAreas(),
     };
-
-    delete newPlace.welcome_desc;
-    delete newPlace.outreg_price;
-    delete newPlace.outreg_desc;
-    delete newPlace.outreg_conditions;
-    //delete newPlace.territory_desc;
-    //delete newPlace.place_img;
 
     return newPlace;
   };
 
   const uniPlace: PlaceReceived = useMemo(() => {
-    //! подумать о том, чтобы вызывалась только при previewShow = тру
-    //if (previewShow) {
     return makePlaceRecieved();
-    //   } else return uniPlace;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewShow]);
-
-  console.log('uniPlace', uniPlace);
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -243,7 +215,7 @@ function Preview({
               <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
             </Breadcrumb>
 
-            <LocationPhotos photoUrls={mainPhotos} />
+            <LocationPhotos photoUrls={uniPlace.images_place} />
 
             <Row className={styles.main__container}>
               <Col xl={8} className={styles.left__container}>
@@ -255,31 +227,28 @@ function Preview({
                 />
                 <AnchorBtns />
                 <TextDescription item={uniPlace} />
-                <TextEvents events={place.event} />
+                <TextEvents events={uniPlace.event} />
                 <TextKitchen
-                  kids={place.children_kitchen}
-                  kitchens={place.kitchen}
+                  kids={uniPlace.children_kitchen}
+                  kitchens={uniPlace.kitchen}
                 />
 
                 <PlaceAreas
-                  areas={uniAreas}
-                  average_check={place.average_check}
+                  areas={uniPlace.areas}
+                  average_check={uniPlace.average_check}
                 />
 
-                <TextDetails description={place.description} />
+                <TextDetails description={uniPlace.description} />
                 <TextFeatures
-                  features={place.type_feature}
-                  territories={place.type_place}
+                  features={uniPlace.type_feature}
+                  territories={place.type_territory}
                 />
 
-                {/* <AlbumCardContainer
-                  territory={place.territory_desc}
-                  welcome_zones={welcome_zones}
-                  outside_reg={outside_reg}
-                  territoryImg={territoryImg}
-                  welcomeImg={welcomeImg}
-                  outregImg={outregImg}
-                /> */}
+                <AlbumCardContainer
+                  territory={uniPlace.territory!}
+                  welcome_zones={uniPlace.welcome_zones}
+                  outside_reg={uniPlace.outsites_reg}
+                />
 
                 <Row className="my-xl-4 my-md-3 my-sm-2">
                   <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">

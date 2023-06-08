@@ -9,9 +9,10 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'lightgallery/css/lg-video.css';
 import styles from '@/styles/catalog/places/LocationPhotos.module.scss';
+import { ImagesPlace } from '@/types/placeType';
 
 type LocationPhotosProps = {
-  photoUrls: string[];
+  photoUrls: ImagesPlace[];
 };
 
 function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
@@ -26,8 +27,8 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
         <section className={styles.location__photo_container}>
           <div className={styles.location__photo_main}>
             <GalleryItem
-              href={photoUrls[0] || '/img/emptyPhoto.png'}
-              thumb={[photoUrls[0] || '/img/emptyPhoto.png', 756, 400]}
+              href={photoUrls[0]?.image || '/img/emptyPhoto.png'}
+              thumb={[photoUrls[0]?.image || '/img/emptyPhoto.png', 756, 400]}
               caption="Gallery image caption"
               style={{ maxWidth: '756px' }}
               light={false}
@@ -42,8 +43,12 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
               <>
                 <div className={styles.location__photo_column}>
                   <GalleryItem
-                    href={photoUrls[1] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[1] || '/img/emptyPhoto.png', 372, 187]}
+                    href={photoUrls[1]?.image || '/img/emptyPhoto.png'}
+                    thumb={[
+                      photoUrls[1]?.image || '/img/emptyPhoto.png',
+                      372,
+                      187,
+                    ]}
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -52,8 +57,12 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                     className={styles.location__photo_small}
                   />
                   <GalleryItem
-                    href={photoUrls[2] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[2] || '/img/emptyPhoto.png', 372, 187]}
+                    href={photoUrls[2]?.image || '/img/emptyPhoto.png'}
+                    thumb={[
+                      photoUrls[2]?.image || '/img/emptyPhoto.png',
+                      372,
+                      187,
+                    ]}
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -64,8 +73,12 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                 </div>
                 <div className={styles.location__photo_column}>
                   <GalleryItem
-                    href={photoUrls[3] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[3] || '/img/emptyPhoto.png', 372, 187]}
+                    href={photoUrls[3]?.image || '/img/emptyPhoto.png'}
+                    thumb={[
+                      photoUrls[3]?.image || '/img/emptyPhoto.png',
+                      372,
+                      187,
+                    ]}
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -74,8 +87,12 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                     className={styles.location__photo_small_up}
                   />
                   <GalleryItem
-                    href={photoUrls[4] || '/img/emptyPhoto.png'}
-                    thumb={[photoUrls[4] || '/img/emptyPhoto.png', 372, 187]}
+                    href={photoUrls[4]?.image || '/img/emptyPhoto.png'}
+                    thumb={[
+                      photoUrls[4]?.image || '/img/emptyPhoto.png',
+                      372,
+                      187,
+                    ]}
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -87,8 +104,8 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
               </>
             ) : (
               <GalleryItem
-                href={photoUrls[1] || '/img/emptyPhoto.png'}
-                thumb={[photoUrls[1] || '/img/emptyPhoto.png', 756, 400]}
+                href={photoUrls[1]?.image || '/img/emptyPhoto.png'}
+                thumb={[photoUrls[1]?.image || '/img/emptyPhoto.png', 756, 400]}
                 caption="Gallery image caption"
                 style={{ maxWidth: '765px' }}
                 light={false}

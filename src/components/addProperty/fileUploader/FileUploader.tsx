@@ -82,8 +82,8 @@ function FileUploader({
         server={{
           url: 'http://188.225.24.70:8080/fp/',
           process: 'process/',
-          // revert: 'revert/',
-          // restore: 'restore/',
+          revert: 'revert/',
+          restore: 'restore/',
           // load: 'load/',
           // fetch: 'fetch/',
         }}

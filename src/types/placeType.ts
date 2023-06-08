@@ -58,7 +58,6 @@ export type PlaceReceived = Omit<
   | 'outreg_desc'
   | 'outreg_conditions'
   | 'place_img'
-  | 'territory_desc'
 > & {
   areas: AreaReceived[];
   cover_place: string;
@@ -189,11 +188,13 @@ export type ImagesWedding = {
   place: number;
 };
 
+//полностью придумала сама
 export type Territory = {
   id: number;
   images_territory: TerritoryImage[];
   territory_desc: string;
   place: number;
+  type_territory: number[];
 };
 
 export type TerritoryImage = {

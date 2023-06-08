@@ -34,9 +34,15 @@ type CatalogItemProps = {
 export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
-  const placeImgList = place.images_place.map((item) => {
-    return item.image;
-  });
+  const territory = [
+    {
+      id: 0,
+      images_territory: [],
+      territory_desc: place.territory_desc,
+      place: 0,
+      type_territory: place.type_territory,
+    },
+  ];
 
   console.log('place', place);
 
@@ -55,7 +61,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      <LocationPhotos photoUrls={placeImgList} />
+      <LocationPhotos photoUrls={place.images_place} />
 
       {/* общий контейнер страницы на все блоки под верхними фото */}
       <Row className={styles.main__container}>
@@ -77,13 +83,11 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <TextDetails description={place.description} />
           <TextFeatures
             features={place.type_feature}
-            territories={place.type_place}
+            territories={place.type_territory}
           />
 
           <AlbumCardContainer
-            territory={place.territory_desc}
-            // TODO - с бэка должна возвращаться картинка территории
-            // territory_img = {}
+            territory={territory}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
           />

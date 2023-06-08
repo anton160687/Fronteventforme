@@ -23,12 +23,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { AreaReceived } from '@/types/areaType';
-import {
-  COLOR_HALL,
-  SCHEME_OF_PAYMENT,
-  //поменять на TYPE_AREA и функцию из хелперов
-  TYPE_AREA_DICTIONARY,
-} from '@/constant';
+import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 
 type PlaceAreasProps = {
   areas: AreaReceived[] | undefined;
@@ -132,6 +127,9 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
     return title[1];
   };
+
+  const typeArea = TYPE_AREA.find((value) => value[0] === area.type_area.id);
+  const typeAreaName: string = typeArea ? typeArea[1] : 'Не указано';
 
   // преобразование фото
   const [photos, setPhotos] = useState<string[]>([]);
@@ -345,9 +343,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
             <div className={styles.right_block}>
               <div className={styles.slider_text}>
                 <p>Тип</p>
-                <p className={styles.slider_text_data}>
-                  {findTitle(TYPE_AREA_DICTIONARY, area.type_area.type_area)}
-                </p>
+                <p className={styles.slider_text_data}>{typeAreaName}</p>
               </div>
               <div className={styles.slider_text}>
                 <p>Отдельный вход</p>

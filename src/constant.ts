@@ -11,7 +11,7 @@ export const SUG_URL =
 export const TOKEN = '343619a9fc7c1a076f2d4bf1892321dabdb238a2';
 
 //Форма создания Place
-export const TYPE_AREA = [
+export const TYPE_AREA: [number, string][] = [
   [1, 'Банкетный зал'],
   [2, 'Шатер'],
   [3, 'Веранда'],
