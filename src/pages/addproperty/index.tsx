@@ -329,7 +329,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  disabled={!isFormFilled}
+                  //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
