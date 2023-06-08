@@ -159,7 +159,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
     const emptyPhoto = '/img/emptyPhoto.png';
     if ('images_area' in area && area.images_area) {
       const imageArray = area.images_area.map((img) =>
-        typeof img === 'string' ? '' : img.image
+        typeof img === 'string' ? '/img/emptyPhoto.png' : img.image
       );
       if (area.cover_area) imageArray.unshift(area.cover_area);
       if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);

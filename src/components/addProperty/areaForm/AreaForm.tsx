@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Image from 'next/image';
 import { Col, Dropdown, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +13,12 @@ import FileUploader from '../fileUploader/FileUploader';
 import AreaFormDatePicker from './AreaFormDatePicker';
 import DetailsTextarea from '../detailsTextarea/DetailsTextarea';
 import { Area } from '@/types/areaType';
-import { ADD_PLACE_NAMES, COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
+import {
+  ADD_PLACE_NAMES,
+  COLOR_HALL,
+  SCHEME_OF_PAYMENT,
+  TYPE_AREA,
+} from '@/constant';
 import styles from '@/styles/addproperty/AreaForm.module.scss';
 
 type AreaFormProps = {
@@ -31,7 +42,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     detail_location: '',
     scheme_of_payment: '',
     reserved_days: [],
-    area_img: [],
+    // area_img: [],
     bare_lease: false,
   };
   const [area, setArea] = useState<Area>(initialAreaFormState);
