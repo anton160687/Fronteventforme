@@ -42,7 +42,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
     detail_location: '',
     scheme_of_payment: '',
     reserved_days: [],
-    // area_img: [],
+    area_img: [],
     bare_lease: false,
   };
   const [area, setArea] = useState<Area>(initialAreaFormState);
@@ -89,7 +89,7 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
   useEffect(() => {
     setArea((prev) => ({
       ...prev,
-      images_area: areaImg,
+      area_img: areaImg,
     }));
   }, [areaImg]);
 
