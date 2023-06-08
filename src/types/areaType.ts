@@ -20,7 +20,7 @@ export type Area = {
 };
 
 //тип приходящего с бека Area
-export type AreaRecieved = Omit<
+export type AreaReceived = Omit<
   Area,
   'type_area' | 'images_area' | 'place_id' | 'reserved_days' // | 'color_hall'
 > & {
@@ -42,7 +42,7 @@ export type AreaRecieved = Omit<
   //   | 'beige';
 };
 
-type TypeArea = {
+export type TypeArea = {
   id: number;
   type_area: string;
   //закомментировала для облегчения приведения типов в Preview, но лучше все-таки в Area это прописать

@@ -1,11 +1,11 @@
 import { Col, Row } from 'react-bootstrap';
-import { Place, PlaceReceived } from '@/types/placeType';
+import { PlaceReceived } from '@/types/placeType';
 import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextDescriptionProps = {
-  item: PlaceReceived | Place;
+  item: PlaceReceived;
 };
 
 function TextDescription({ item }: TextDescriptionProps) {
@@ -18,15 +18,15 @@ function TextDescription({ item }: TextDescriptionProps) {
     }
   });
 
-  const start_time =
-    typeof item?.start_time === 'string'
-      ? item.start_time
-      : item?.start_time.toDateString();
+  // const start_time =
+  //   typeof item?.start_time === 'string'
+  //     ? item.start_time
+  //     : item?.start_time.toDateString();
 
-  const finish_time =
-    typeof item?.finish_time === 'string'
-      ? item.finish_time
-      : item?.finish_time.toString();
+  // const finish_time =
+  //   typeof item?.finish_time === 'string'
+  //     ? item.finish_time
+  //     : item?.finish_time.toString();
 
   function renderLocations() {
     if (locations.length !== 0) {
@@ -54,8 +54,8 @@ function TextDescription({ item }: TextDescriptionProps) {
           <li className="d-flex align-items-center justify-content-between text-dark">
             Время работы{' '}
             <strong>
-              {start_time.substring(0, 5) || 'Не указано'} -{' '}
-              {finish_time.substring(0, 5) || 'Не указано'}
+              {item?.start_time.substring(0, 5) || 'Не указано'} -{' '}
+              {item?.finish_time.substring(0, 5) || 'Не указано'}
             </strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">

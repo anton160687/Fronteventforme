@@ -22,15 +22,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
-import { AreaRecieved } from '@/types/areaType';
+import { AreaReceived } from '@/types/areaType';
 import {
   COLOR_HALL,
   SCHEME_OF_PAYMENT,
+  //поменять на TYPE_AREA и функцию из хелперов
   TYPE_AREA_DICTIONARY,
 } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaRecieved[] | undefined;
+  areas: AreaReceived[] | undefined;
   average_check: number;
 };
 
@@ -46,7 +47,7 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
 }
 
 type PlaceAreaProps = {
-  area: AreaRecieved;
+  area: AreaReceived;
   average_check: number;
 };
 

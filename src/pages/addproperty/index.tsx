@@ -104,7 +104,7 @@ function AddPropertyPage() {
           index={index}
           areas={areas}
           setAreas={setAreas}
-          setPreviewAreas={setPreviewAreas}
+          setPreviewAreasImg={setPreviewAreasImg}
         />
         <p className="text-primary mb-3" onClick={addArea}>
           <i className="fi-plus-circle me-3"></i> Добавить помещение
@@ -175,7 +175,7 @@ function AddPropertyPage() {
   const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
   const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
   //preview images
-  const [previewAreas, setPreviewAreas] = useState<string[][]>([]);
+  const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
   const [validated, setValidated] = useState(false);
@@ -324,10 +324,10 @@ function AddPropertyPage() {
         place={place}
         areas={areas}
         mainPhotos={previewMainPhotos}
-        territoryImg={previewTerritoryImg}
-        welcomeImg={previewWelcomeImg}
-        outregImg={previewOutregImg}
-        previewAreas={previewAreas}
+        previewTerritoryImg={previewTerritoryImg}
+        previewWelcomeImg={previewWelcomeImg}
+        previewOutregImg={previewOutregImg}
+        previewAreasImg={previewAreasImg}
       />
     </>
   );

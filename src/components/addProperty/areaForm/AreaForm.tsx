@@ -26,10 +26,15 @@ type AreaFormProps = {
   index: number;
   areas: Area[];
   setAreas: Dispatch<SetStateAction<Area[]>>;
-  setPreviewAreas?: Dispatch<SetStateAction<string[][]>>;
+  setPreviewAreasImg: Dispatch<SetStateAction<string[][]>>;
 };
 
-function AreaForm({ index, areas, setAreas, setPreviewAreas }: AreaFormProps) {
+function AreaForm({
+  index,
+  areas,
+  setAreas,
+  setPreviewAreasImg,
+}: AreaFormProps) {
   let initialAreaFormState: Area = {
     title: '',
     type_area: '',
@@ -104,7 +109,7 @@ function AreaForm({ index, areas, setAreas, setPreviewAreas }: AreaFormProps) {
         ? area.images_area.map((img) => RESTORE_IMG + img)
         : []
     );
-    if (setPreviewAreas) setPreviewAreas(areasImages);
+    setPreviewAreasImg(areasImages);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areas]);
