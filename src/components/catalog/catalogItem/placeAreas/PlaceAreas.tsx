@@ -40,9 +40,15 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
       {areas &&
         areas.map((area, index) => {
           if (area) {
-            return  <PlaceArea area={area} average_check={average_check} key={index} />
+            return (
+              <PlaceArea
+                area={area}
+                average_check={average_check}
+                key={index}
+              />
+            );
           } else {
-            return <div key={index}></div>
+            return <div key={index}></div>;
           }
         })}
     </>
@@ -153,7 +159,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
     const emptyPhoto = '/img/emptyPhoto.png';
     if ('images_area' in area && area.images_area) {
       const imageArray = area.images_area.map((img) =>
-        typeof img === 'string' ? img : img.image
+        typeof img === 'string' ? '/img/emptyPhoto.png' : img.image
       );
       if (area.cover_area) imageArray.unshift(area.cover_area);
       if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
@@ -236,7 +242,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               }
             >
               <DatePicker
-                onChange={() => { }}
+                onChange={() => {}}
                 minDate={new Date(Date.now())}
                 //на год от сегодняшней даты
                 maxDate={new Date(Date.now() + 3.156e10)}
@@ -302,8 +308,9 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                         thumb={[img, 313, 230]}
                         data-external-thumb-image={img}
                         imgAlt={area.title}
-                        className={`${indx === 0 ? styles.rounded_left : ''}${indx === photos.length - 1 ? styles.rounded_right : ''
-                          }  `}
+                        className={`${indx === 0 ? styles.rounded_left : ''}${
+                          indx === photos.length - 1 ? styles.rounded_right : ''
+                        }  `}
                         light=""
                         caption=""
                         video={false}
