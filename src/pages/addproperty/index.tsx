@@ -210,6 +210,8 @@ function AddPropertyPage() {
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
+
+  // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -221,6 +223,8 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
+
+          // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId) {
             addTerritoryImages(placeId, territoryImg, token);

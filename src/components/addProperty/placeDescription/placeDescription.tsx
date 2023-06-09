@@ -77,7 +77,6 @@ function PlaceDescription({
             <Form.Check
               type="radio"
               name="children_kitchen"
-              id="children_kitchen-Да"
               label="Да"
               value={1}
               checked={children_kitchen}
