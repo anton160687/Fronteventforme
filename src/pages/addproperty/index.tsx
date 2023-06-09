@@ -1,5 +1,12 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import {
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Button,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -8,7 +15,13 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -111,19 +124,22 @@ function AddPropertyPage() {
             id={`${ADD_PLACE_NAMES.area.id}${index}`}
             className="card card-body border-0 shadow-sm p-4 mb-4"
           >
-            {!!index &&
-              <p className="text-primary mb-3" onClick={(e) => deleteAreaForm(e, index)}>
+            {!!index && (
+              <p
+                className="text-primary mb-3"
+                onClick={(e) => deleteAreaForm(e, index)}
+              >
                 <i className="fi-minus-circle me-3"></i> Удалить помещение
               </p>
-            }
+            )}
             <AreaForm index={index} areas={areas} setAreas={setAreas} />
             <p className="text-primary mb-3" onClick={addArea}>
               <i className="fi-plus-circle me-3"></i> Добавить помещение
             </p>
           </section>
-        )
+        );
       } else {
-        return <div key={i}></div>
+        return <div key={i}></div>;
       }
     });
   }
@@ -193,7 +209,7 @@ function AddPropertyPage() {
     let isFresh = checkIfTokenIsFresh();
     if (refreshToken && isFresh) {
       let response = await authoriseUser(refreshToken);
-      if (response === "success") {
+      if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
           // setValidated(true);
@@ -203,7 +219,12 @@ function AddPropertyPage() {
               if (area) {
                 addTerritoryImages(placeId, territoryImg, token);
                 createArea(area, placeId, token);
-                createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
+                createWelcomeZone(
+                  place.welcome_desc!,
+                  placeId,
+                  welcomeImg,
+                  token
+                );
                 createOutReg(
                   place.outreg_price!,
                   place.outreg_conditions!,
@@ -308,7 +329,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  // disabled={!isFormFilled}
+                  //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
@@ -332,10 +353,10 @@ function AddPropertyPage() {
         handlePreviewClose={handlePreviewClose}
         place={place}
         areas={areas}
-        mainPhotos={mainPhotos}
-        territoryImg={territoryImg}
-        welcomeImg={welcomeImg}
-        outregImg={outregImg}
+        mainPhotos={[]}
+        territoryImg={[]}
+        welcomeImg={[]}
+        outregImg={[]}
       />
     </>
   );

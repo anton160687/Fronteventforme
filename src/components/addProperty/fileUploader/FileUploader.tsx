@@ -57,7 +57,7 @@ function FileUploader({
 
   useEffect(() => {
     const newArr: string[] = [];
-    files.map((file) => newArr.push(RESTORE_IMG + file.serverId));
+    files.map((file) => newArr.push(file.serverId));
     setGallery(newArr);
   }, [files]);
 
@@ -75,8 +75,8 @@ function FileUploader({
         server={{
           url: 'http://188.225.24.70:8080/fp/',
           process: 'process/',
-          // revert: 'revert/',
-          // restore: 'restore/',
+          revert: 'revert/',
+          restore: 'restore/',
           // load: 'load/',
           // fetch: 'fetch/',
         }}
