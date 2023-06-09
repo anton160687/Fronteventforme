@@ -16,6 +16,7 @@ import { Area } from '@/types/areaType';
 import {
   ADD_PLACE_NAMES,
   COLOR_HALL,
+  RESTORE_IMG,
   SCHEME_OF_PAYMENT,
   TYPE_AREA,
 } from '@/constant';
@@ -25,9 +26,15 @@ type AreaFormProps = {
   index: number;
   areas: (Area | null)[];
   setAreas: Dispatch<SetStateAction<(Area | null)[]>>;
+  setPreviewAreasImg: Dispatch<SetStateAction<string[][]>>;
 };
 
-function AreaForm({ index, areas, setAreas }: AreaFormProps) {
+function AreaForm({
+  index,
+  areas,
+  setAreas,
+  setPreviewAreasImg,
+}: AreaFormProps) {
   let initialAreaFormState: Area = {
     title: '',
     type_area: '',
@@ -91,7 +98,19 @@ function AreaForm({ index, areas, setAreas }: AreaFormProps) {
       ...prev,
       area_img: areaImg,
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areaImg]);
+
+  useEffect(() => {
+    const areasImages = areas.map((area) =>
+      area.area_img !== undefined
+        ? area.area_img.map((img) => RESTORE_IMG + img)
+        : []
+    );
+    setPreviewAreasImg(areasImages);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [areas]);
 
   return (
     <>

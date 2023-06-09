@@ -1,11 +1,10 @@
 import { Row } from 'react-bootstrap';
-import { Feature, TypePlace } from '@/types/placeType';
+import { Feature } from '@/types/placeType';
 import { FEATURES, TERRITORY } from '@/constant';
-import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextFeaturesProps = {
-  features: Feature[] | number[];
-  territories: TypePlace[] | number[];
+  features: Feature[];
+  territories: number[];
 };
 
 function TextFeatures({ features, territories }: TextFeaturesProps) {
@@ -13,9 +12,9 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
   let featureListSecond: string[] = [];
   let featureListThird: string[] = [];
 
-  makeUniversalNumberArr(features).forEach((feature) => {
-    let res = FEATURES.filter((value) => value[0] === feature);
-    let featureName = res.length !==0 ? res[0][1] as string : '';
+  features.forEach(({ id }) => {
+    let res = FEATURES.filter((value) => value[0] === id);
+    let featureName = res.length !== 0 ? (res[0][1] as string) : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(featureName);
@@ -26,9 +25,9 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
     }
   });
 
-  makeUniversalNumberArr(territories).forEach((territory) => {
-    let res = TERRITORY.filter((value) => value[0] === territory);
-    let territoryName = res.length !==0 ? res[0][1] as string : '';
+  territories.forEach((item) => {
+    let res = TERRITORY.filter((value) => value[0] === item);
+    let territoryName = res.length !== 0 ? (res[0][1] as string) : '';
 
     if (featureListFirst.length < 3) {
       featureListFirst.push(territoryName);

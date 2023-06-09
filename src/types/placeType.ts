@@ -1,4 +1,4 @@
-import { Area, AreaRecieved } from './areaType';
+import { Area, AreaReceived } from './areaType';
 
 export type Place = {
   title: string;
@@ -27,7 +27,6 @@ export type Place = {
   type_feature: number[];
   type_territory: number[];
   //areas?: Area[]
-  // territory: number[];
   place_img: string[];
   territory_desc: string;
   // под эти поля еще нет бэка или есть отдельные модели?
@@ -40,6 +39,7 @@ export type Place = {
 export type Album = {
   title: string;
   album_img: string[];
+  preview_album_img?: string[];
 };
 
 //тип приходящего с бека Place
@@ -53,8 +53,13 @@ export type PlaceReceived = Omit<
   | 'type_feature'
   | 'type_place'
   | 'kitchen'
+  | 'welcome_desc'
+  | 'outreg_price'
+  | 'outreg_desc'
+  | 'outreg_conditions'
+  | 'place_img'
 > & {
-  areas: AreaRecieved[] | [];
+  areas: AreaReceived[];
   cover_place: string;
   event: Event[];
   start_time: string;
@@ -67,6 +72,8 @@ export type PlaceReceived = Omit<
   type_feature: Feature[];
   type_place: TypePlace[];
   welcome_zones: WelcomeZone[];
+  images_wedding: ImagesWedding[];
+  territory?: Territory[];
 };
 
 export type Event = {
@@ -74,7 +81,7 @@ export type Event = {
   event: string;
 };
 
-type ImagesPlace = {
+export type ImagesPlace = {
   id: number;
   image: string;
   place: number;
@@ -82,15 +89,16 @@ type ImagesPlace = {
 
 export type Location = {
   id: number;
-  location:
-    | 'sea'
-    | 'river'
-    | 'outc'
-    | 'inc'
-    | 'icc'
-    | 'forest'
-    | 'lake'
-    | 'imt';
+  location: string;
+  //закомментировала для облегчения приведения типов в Preview
+  // | 'sea'
+  // | 'river'
+  // | 'outc'
+  // | 'inc'
+  // | 'icc'
+  // | 'forest'
+  // | 'lake'
+  // | 'imt';
 };
 
 export type Kitchen = {
@@ -107,7 +115,7 @@ export type OutsideReg = {
   place: number;
 };
 
-type OutsideRegImages = {
+export type OutsideRegImages = {
   id: number;
   image: string;
   outsite_reg: number;
@@ -115,48 +123,50 @@ type OutsideRegImages = {
 
 export type Feature = {
   id: number;
-  type_feature:
-    | 'guestr'
-    | 'room'
-    | 'proj'
-    | 'tv'
-    | 'dance'
-    | 'scen'
-    | 'brid'
-    | 'dress'
-    | 'pan'
-    | 'phot';
+  type_feature: string;
+  //закомментировала для облегчения приведения типов в Preview
+  // | 'guestr'
+  // | 'room'
+  // | 'proj'
+  // | 'tv'
+  // | 'dance'
+  // | 'scen'
+  // | 'brid'
+  // | 'dress'
+  // | 'pan'
+  // | 'phot';
 };
 
 export type TypePlace = {
   id: number;
-  type_place:
-    | 'site'
-    | 'zags'
-    | 'present'
-    | 'photo'
-    | 'design'
-    | 'org'
-    | 'dj'
-    | 'invit'
-    | 'video'
-    | 'flor'
-    | 'style'
-    | 'visage'
-    | 'music'
-    | 'anim'
-    | 'chor'
-    | 'show'
-    | 'las'
-    | 'bah'
-    | 'cad'
-    | 'weddr'
-    | 'mensuit'
-    | 'wedri'
-    | 'brsmdr'
-    | 'transp'
-    | 'barmen'
-    | 'firew';
+  type_place: string;
+  //закомментировала для облегчения приведения типов в Preview
+  // | 'site'
+  //   | 'zags'
+  //   | 'present'
+  //   | 'photo'
+  //   | 'design'
+  //   | 'org'
+  //   | 'dj'
+  //   | 'invit'
+  //   | 'video'
+  //   | 'flor'
+  //   | 'style'
+  //   | 'visage'
+  //   | 'music'
+  //   | 'anim'
+  //   | 'chor'
+  //   | 'show'
+  //   | 'las'
+  //   | 'bah'
+  //   | 'cad'
+  //   | 'weddr'
+  //   | 'mensuit'
+  //   | 'wedri'
+  //   | 'brsmdr'
+  //   | 'transp'
+  //   | 'barmen'
+  //   | 'firew';
 };
 
 export type WelcomeZone = {
@@ -166,8 +176,29 @@ export type WelcomeZone = {
   place: number;
 };
 
-type WelcomeZoneImage = {
+export type WelcomeZoneImage = {
   id: number;
   image: string;
   welcome_zone: number;
+};
+
+export type ImagesWedding = {
+  id: number;
+  image: string;
+  place: number;
+};
+
+//полностью придумала сама
+export type Territory = {
+  id: number;
+  images_territory: TerritoryImage[];
+  territory_desc: string;
+  place: number;
+  type_territory: number[];
+};
+
+export type TerritoryImage = {
+  id: number;
+  image: string;
+  territory: number;
 };

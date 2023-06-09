@@ -4,9 +4,10 @@ import { ADD_PLACE_NAMES } from '@/constant';
 
 type MainPhotosProps = {
   setMainPhotos: Dispatch<SetStateAction<string[]>>;
+  setPreviewMainPhotos: Dispatch<SetStateAction<string[]>>;
 };
 
-function MainPhotos({ setMainPhotos }: MainPhotosProps) {
+function MainPhotos({ setMainPhotos, setPreviewMainPhotos }: MainPhotosProps) {
   return (
     <section
       id={ADD_PLACE_NAMES.mainPhotos.id}
@@ -18,6 +19,7 @@ function MainPhotos({ setMainPhotos }: MainPhotosProps) {
       </h2>
       <FileUploader
         setGallery={setMainPhotos}
+        setPreviewGallery={setPreviewMainPhotos}
         maxFiles={5}
         required={true}
         warning={

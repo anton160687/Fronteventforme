@@ -1,7 +1,6 @@
 import {
   ChangeEvent,
   Dispatch,
-  MouseEvent,
   SetStateAction,
   useEffect,
   useState,
@@ -23,8 +22,13 @@ export default function WeddingAlbums({
   setAlbums,
 }: WeddingAlbumsProps) {
   const [lettersLeft, setLettersLeft] = useState<number>(50);
-  const [album, setAlbum] = useState<Album>({ title: '', album_img: [] });
+  const [album, setAlbum] = useState<Album>({
+    title: '',
+    album_img: [],
+    preview_album_img: [],
+  });
   const [albumImg, setAlbumImg] = useState<string[]>([]);
+  const [previewAlbumImg, setPreviewAlbumImg] = useState<string[]>([]);
 
   function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
     handleChange(e);
@@ -36,12 +40,16 @@ export default function WeddingAlbums({
   }
 
   useEffect(() => {
-    setAlbum({ ...album, album_img: albumImg });
+    setAlbum({
+      ...album,
+      album_img: albumImg,
+      preview_album_img: previewAlbumImg,
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [albumImg]);
+  }, [albumImg, previewAlbumImg]);
 
-  //при изменении Альбома - прокидываем в общий список 
+  //при изменении Альбома - прокидываем в общий список
   useEffect(() => {
     let newAlbumsArr = [...albums];
     newAlbumsArr[index] = album;
@@ -75,6 +83,7 @@ export default function WeddingAlbums({
 
           <FileUploader
             setGallery={setAlbumImg}
+            setPreviewGallery={setPreviewAlbumImg}
             maxFiles={5}
             warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />

@@ -1,9 +1,22 @@
 import { Breadcrumb, Card, Col, Container, Modal, Row } from 'react-bootstrap';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
-import { Place } from '@/types/placeType';
+import {
+  Event,
+  Feature,
+  ImagesPlace,
+  ImagesWedding,
+  Kitchen,
+  Location,
+  OutsideRegImages,
+  Place,
+  PlaceReceived,
+  Territory,
+  TerritoryImage,
+  TypePlace,
+  WelcomeZoneImage,
+} from '@/types/placeType';
 import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
@@ -14,18 +27,21 @@ import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFe
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
 import { cards } from '@/mocks/cards';
-import { Area } from '@/types/areaType';
+import { Area, AreaImages, AreaReceived, TypeArea } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import { useMemo } from 'react';
 
 type PreviewProps = {
   previewShow: boolean;
   handlePreviewClose: () => void;
   place: Place;
   areas: (Area | null)[];
-  mainPhotos: string[];
-  territoryImg: string[];
-  welcomeImg: string[];
-  outregImg: string[];
+  previewMainPhotos: string[];
+  previewTerritoryImg: string[];
+  previewWelcomeImg: string[];
+  previewOutregImg: string[];
+  previewAreasImg: string[][];
 };
 
 function Preview({
@@ -33,28 +49,152 @@ function Preview({
   handlePreviewClose,
   place,
   areas,
-  mainPhotos,
-  territoryImg,
-  welcomeImg,
-  outregImg,
+  previewMainPhotos,
+  previewTerritoryImg,
+  previewWelcomeImg,
+  previewOutregImg,
+  previewAreasImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
 
-  let outside_reg: OutsideReg[] = [{
-    id: 0,
-    images_out_reg: [],
-    outreg_price: place.outreg_price!,
-    outreg_conditions: place.outreg_conditions!,
-    outreg_include: place.outreg_desc!,
-    place: 0,
-  }];
+  const makeUniAreas = (): AreaReceived[] => {
+    const newArray: AreaReceived[] = areas.map((area, index) =>
+      makeAreaRecievedArr(area, index)
+    );
+    return newArray;
+  };
 
-  let welcome_zones: WelcomeZone[] = [{
-    id: 0,
-    images_welcome: [],
-    welcome_desc: place.welcome_desc!,
-    place: 0,
-  }]
+  const makeAreaRecievedArr = (area: Area, index: number): AreaReceived => {
+    const reservedDays: string = area.reserved_days.toString();
+    const typeArea: TypeArea = { id: Number(area.type_area), type_area: '' };
+
+    const imagesArea: AreaImages[] = [];
+    previewAreasImg[index].map((image) => {
+      const item = { id: 0, image: image, area: 0 };
+      imagesArea.push(item);
+    });
+
+    const newArea = {
+      ...area,
+      type_area: typeArea,
+      place: 0,
+      reserved_days: reservedDays,
+      images_area: imagesArea,
+    };
+
+    return newArea;
+  };
+
+  const makePlaceRecieved = (): PlaceReceived => {
+    const startTime = place.start_time?.toString();
+    const finishTime = place.finish_time?.toString();
+    const typePlace: TypePlace[] = place.type_place.map((item) => ({
+      id: item,
+      type_place: '',
+    }));
+    const typeFeature: Feature[] = place.type_feature.map((item) => ({
+      id: item,
+      type_feature: '',
+    }));
+
+    const newLocation: Location[] = place.location.map((item) => ({
+      id: item,
+      location: '',
+    }));
+
+    const newEvent: Event[] = place.event.map((item) => ({
+      id: item,
+      event: '',
+    }));
+
+    const newKitchen: Kitchen[] = place.kitchen.map((item) => ({
+      id: item,
+      kitchen: '',
+    }));
+
+    const imagesPlace: ImagesPlace[] = previewMainPhotos.map((img) => ({
+      id: 0,
+      image: img,
+      place: 0,
+    }));
+
+    const welcomeZoneImg: WelcomeZoneImage[] = previewWelcomeImg.map((img) => ({
+      id: 0,
+      image: img,
+      welcome_zone: 0,
+    }));
+
+    const welcomeZone: WelcomeZone[] = [
+      {
+        id: 0,
+        images_welcome: welcomeZoneImg,
+        welcome_desc: place.welcome_desc || '',
+        place: 0,
+      },
+    ];
+
+    const outsideRegImg: OutsideRegImages[] = previewOutregImg.map((img) => ({
+      id: 0,
+      image: img,
+      outsite_reg: 0,
+    }));
+
+    const outsideReg: OutsideReg[] = [
+      {
+        id: 0,
+        images_out_reg: outsideRegImg,
+        outreg_price: place.outreg_price || 0,
+        outreg_conditions: place.outreg_conditions || '',
+        outreg_include: place.outreg_desc || '',
+        place: 0,
+      },
+    ];
+
+    const territoryImg: TerritoryImage[] = previewTerritoryImg.map((img) => ({
+      id: 0,
+      image: img,
+      territory: 0,
+    }));
+
+    const newTerritory: Territory[] = [
+      {
+        id: 0,
+        images_territory: territoryImg,
+        territory_desc: place.territory_desc,
+        place: 0,
+        type_territory: place.type_territory,
+      },
+    ];
+
+    //! поправить, как будет готова загрузка свадебных альбомов в форме
+    const imagesWedding: ImagesWedding[] = [];
+
+    const newPlace = {
+      ...place,
+      id: 0,
+      start_time: startTime,
+      finish_time: finishTime,
+      type_place: typePlace,
+      type_feature: typeFeature,
+      location: newLocation,
+      event: newEvent,
+      kitchen: newKitchen,
+      cover_place: '',
+      images_place: imagesPlace,
+      images_wedding: imagesWedding,
+      welcome_zones: welcomeZone,
+      outsites_reg: outsideReg,
+      territory: newTerritory,
+      areas: makeUniAreas(),
+    };
+
+    return newPlace;
+  };
+
+  const uniPlace: PlaceReceived = useMemo(() => {
+    return makePlaceRecieved();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewShow]);
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
@@ -75,10 +215,9 @@ function Preview({
               <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
             </Breadcrumb>
 
-            <LocationPhotos photoUrls={mainPhotos} />
+            <LocationPhotos photoUrls={uniPlace.images_place} />
 
             <Row className={styles.main__container}>
-
               <Col xl={8} className={styles.left__container}>
                 <LocationDescription
                   title={place.title}
@@ -87,28 +226,28 @@ function Preview({
                   metro={place.metro}
                 />
                 <AnchorBtns />
-                <TextDescription item={place} />
-                <TextEvents events={place.event} />
+                <TextDescription item={uniPlace} />
+                <TextEvents events={uniPlace.event} />
                 <TextKitchen
-                  kids={place.children_kitchen}
-                  kitchens={place.kitchen}
+                  kids={uniPlace.children_kitchen}
+                  kitchens={uniPlace.kitchen}
                 />
 
-                <PlaceAreas areas={areas} average_check={place.average_check} />
+                <PlaceAreas
+                  areas={uniPlace.areas}
+                  average_check={uniPlace.average_check}
+                />
 
-                <TextDetails description={place.description} />
+                <TextDetails description={uniPlace.description} />
                 <TextFeatures
-                  features={place.type_feature}
-                  territories={place.type_place}
+                  features={uniPlace.type_feature}
+                  territories={place.type_territory}
                 />
 
                 <AlbumCardContainer
-                  territory={place.territory_desc}
-                  welcome_zones={welcome_zones}
-                  outside_reg={outside_reg}
-                  territoryImg={territoryImg}
-                  welcomeImg={welcomeImg}
-                  outregImg={outregImg}
+                  territory={uniPlace.territory!}
+                  welcome_zones={uniPlace.welcome_zones}
+                  outside_reg={uniPlace.outsites_reg}
                 />
 
                 <Row className="my-xl-4 my-md-3 my-sm-2">
