@@ -210,7 +210,6 @@ function AddPropertyPage() {
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
-  const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -222,27 +221,28 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
-          setValidated(true);
           let placeId: number = await createPlace(place, token);
+          if (placeId) {
+            addTerritoryImages(placeId, territoryImg, token);
+            createWelcomeZone(
+              place.welcome_desc!,
+              placeId,
+              welcomeImg,
+              token
+            );
+            createOutReg(
+              place.outreg_price!,
+              place.outreg_conditions!,
+              place.outreg_desc!,
+              placeId,
+              outregImg,
+              token
+            );
+          }
           if (placeId && areas.length !== 0) {
             areas.forEach((area) => {
               if (area) {
-                addTerritoryImages(placeId, territoryImg, token);
                 createArea(area, placeId, token);
-                createWelcomeZone(
-                  place.welcome_desc!,
-                  placeId,
-                  welcomeImg,
-                  token
-                );
-                createOutReg(
-                  place.outreg_price!,
-                  place.outreg_conditions!,
-                  place.outreg_desc!,
-                  placeId,
-                  outregImg,
-                  token
-                );
               }
             });
           }

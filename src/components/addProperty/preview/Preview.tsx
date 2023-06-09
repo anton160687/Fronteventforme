@@ -29,7 +29,7 @@ import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/Weddi
 import { cards } from '@/mocks/cards';
 import { Area, AreaImages, AreaReceived, TypeArea } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import { useMemo } from 'react';
 
 type PreviewProps = {
@@ -58,13 +58,20 @@ function Preview({
   const { weddingPhotos } = cards || {};
 
   const makeUniAreas = (): AreaReceived[] => {
-    const newArray: AreaReceived[] = areas.map((area, index) =>
+    let notNullAreasOnly: Area[] = [];
+    areas.forEach((area)=> {
+      if (area) {
+        notNullAreasOnly.push(area);
+      }
+    })
+    const newArray: AreaReceived[] = notNullAreasOnly.map((area, index) => 
       makeAreaRecievedArr(area, index)
     );
     return newArray;
   };
 
   const makeAreaRecievedArr = (area: Area, index: number): AreaReceived => {
+
     const reservedDays: string = area.reserved_days.toString();
     const typeArea: TypeArea = { id: Number(area.type_area), type_area: '' };
 
