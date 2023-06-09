@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FocusEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import { Button, Form, Col, Row } from 'react-bootstrap';
+import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
@@ -95,9 +95,13 @@ function Info() {
   }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
-
+    <LKNavigation accountPageTitle={''}>
       <Form onSubmit={handleSubmit}>
+      <Alert variant="info" className="d-flex mb-4">
+        <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
+        <div> Для добавления бизнеса заполните все необходимые поля "Основной информации".</div>
+      </Alert>
+      <h2>{LKSectionsTitles.Info}</h2>
         <div className='mb-2 pt-1'>Заполнено на {info.is_company ? companyProgress : personProgress}% </div>
         <ProgressBar variant='warning' now={info.is_company ? companyProgress : personProgress} className='mb-4' style={{ height: '.25rem' }} />
 
@@ -143,7 +147,6 @@ function Info() {
               <h2 className='form-label fw-bold'>Имя <span className="text-danger">*</span></h2>
             </Form.Label>
             <Form.Control
-              className='mt-3'
               name='first_name'
               value={info.first_name}
               onChange={handleChange}
@@ -158,7 +161,6 @@ function Info() {
               <h2 className='form-label fw-bold'>Фамилия <span className="text-danger">*</span></h2>
             </Form.Label>
             <Form.Control
-              className='mt-3'
               name='last_name'
               value={info.last_name}
               onChange={handleChange}
@@ -224,7 +226,6 @@ function Info() {
               <h2 className='form-label fw-bold'>ИНН {info.is_company ? 'организации' : ''} <span className="text-danger">*</span></h2>
             </Form.Label>
             <Form.Control
-              className='mt-3'
               value={info.tin === 0 ? '' : info.tin}
               name='tin'
               onChange={handleNumberChange}
