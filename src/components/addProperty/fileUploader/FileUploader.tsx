@@ -84,8 +84,8 @@ function FileUploader({
           process: 'process/',
           revert: 'revert/',
           restore: 'restore/',
-          // load: 'load/',
-          // fetch: 'fetch/',
+          load: 'load/',
+          fetch: 'fetch/',
         }}
         name="filepond"
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i> Загрузите фото</div><div>или перетащите их сюда</div>'

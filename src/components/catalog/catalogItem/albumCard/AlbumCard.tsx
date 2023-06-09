@@ -86,7 +86,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                               ? styles.rounded_left
                               : styles.rounded_right
                           }
-                          light={false}
+                          light="false"
                           caption=""
                           video={false}
                         />
@@ -106,7 +106,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
                 }
-                light={false}
+                light="false"
                 caption=""
                 video={false}
               />

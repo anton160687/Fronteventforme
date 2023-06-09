@@ -63,7 +63,9 @@ function TextDescription({ item }: TextDescriptionProps) {
         <ul className={styles.text__description_column + ' list-unstyled'}>
           <li className="d-flex align-items-center justify-content-between text-dark">
             Продление аренды{' '}
-            <strong>{item?.lease_extension ? 'Возможно' : 'Невозможно'}</strong>
+            <strong>
+              {item?.lease_extension_price > 0 ? 'Возможно' : 'Невозможно'}
+            </strong>
           </li>
           <li className="d-flex align-items-center justify-content-between text-dark">
             Стоимость продления{' '}
