@@ -26,7 +26,7 @@ export default function SetPassword(): JSX.Element {
 
   const initialDataState: PasswordFromData = {
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
   };
   const [data, setData] = useState<PasswordFromData>(initialDataState);
   const requestData = {

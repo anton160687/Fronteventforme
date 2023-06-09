@@ -267,10 +267,20 @@
 
 // для верхнего слайдера
 .icon {
-  color: $gray800;
+  .iconi {
+    color: $gray600;
+  }
+  .iconp {
+    color: $gray800;
+  }
 
   &:hover {
-    color: $primary;
+    .iconi {
+      color: $primary;
+    }
+    .iconp {
+      color: $primary;
+    }
   }
 
   @media (max-width: 992px) {

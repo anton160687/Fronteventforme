@@ -1,4 +1,5 @@
 import { addPlaceName } from './types/addPlaceNames';
+import { LkSectionsType } from './types/lkSectionsType';
 export const URL = 'http://188.225.24.70:8080/api/v1/';
 export const AUTH_URL = 'http://188.225.24.70:8080/';
 export const RESTORE_IMG = `${AUTH_URL}fp/restore/?id=`;
@@ -116,6 +117,13 @@ export enum Paths {
   Places = '/catalog/places',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
+  Account = '/lk',
+  Business = '/business',
+  Bride = '/bride',
+  AccInfo = '/info',
+  AccReviews = '/reviews',
+  AccSecurity = '/security',
+  AccWishlist = '/wishlist',
 }
 
 // для форм регистрации, авторизации
@@ -133,7 +141,12 @@ export enum FormFields {
   Username = 'username',
   Email = 'email',
   Password = 'password',
-  ConfirmPassword = 'confirmPassword',
+  ConfirmPassword = 'confirm_password',
+  OldPassword = 'old_password',
+  NewPassword = 'new_password',
+  Phone = 'phone',
+  FirstName = 'first_name',
+  LastName = 'last_name',
 }
 
 // для футера
@@ -324,4 +337,38 @@ export const TYPE_AREA_DICTIONARY = [
   ['cst', 'Замок'],
   ['cntc', 'Загородный клуб'],
   ['cntn', 'Столовая'],
+];
+
+export enum LKSectionsTitles {
+  Info = 'Основная информация',
+  Security = 'Пароль и безопасность',
+  Wishlist = 'Избранное',
+  Business = 'Мои бизнесы',
+  Reviews = 'Отзывы',
+  Notification = 'Настройки уведомлений',
+  Help = 'Помощь',
+  Tariff = 'Тарифы',
+  Payment = 'Кабинет для платежей',
+  Logout = 'Выйти',
+}
+
+export const LKSections: LkSectionsType[] = [
+  { title: LKSectionsTitles.Info, link: Paths.AccInfo, icon: 'fi-user' },
+  {
+    title: LKSectionsTitles.Security,
+    link: Paths.AccSecurity,
+    icon: 'fi-lock',
+  },
+  { title: LKSectionsTitles.Business, link: '#', icon: 'fi-home' },
+  {
+    title: LKSectionsTitles.Wishlist,
+    link: Paths.AccWishlist,
+    icon: 'fi-heart',
+  },
+  { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
+  { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
+  { title: LKSectionsTitles.Help, link: '', icon: 'fi-help' },
+  { title: LKSectionsTitles.Tariff, link: '', icon: 'fi-cash' },
+  { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
+  { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];

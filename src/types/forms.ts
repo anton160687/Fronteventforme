@@ -1,3 +1,5 @@
+import { FormFields } from '@/constant';
+
 export type BookingData = {
   name: string;
   guests: number;
@@ -6,33 +8,39 @@ export type BookingData = {
 };
 
 export type CreateUserData = {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  [FormFields.Username]: string;
+  [FormFields.Email]: string;
+  [FormFields.Password]: string;
+  [FormFields.ConfirmPassword]: string;
 };
 
 export type SigninUserData = {
-  is_bride: boolean;
-  email: string;
-  password: string;
+  [FormFields.IsBride]: boolean;
+  [FormFields.Email]: string;
+  [FormFields.Password]: string;
 };
 
 export type ContactsFormData = {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
+  [FormFields.FirstName]: string;
+  [FormFields.LastName]: string;
+  [FormFields.Email]: string;
+  [FormFields.Phone]: string;
 };
 
 export type PasswordFromData = {
-  password: string;
-  confirmPassword: string;
+  [FormFields.Password]: string;
+  [FormFields.ConfirmPassword]: string;
 };
 
 export type ResetPasswordConfirm = {
   uid: string;
   token: string;
-  new_password: string;
+  [FormFields.NewPassword]: string;
+};
+
+export type ChangePasswordType = {
+  [FormFields.OldPassword]: string;
+  [FormFields.NewPassword]: string;
+  [FormFields.ConfirmPassword]: string;
 };

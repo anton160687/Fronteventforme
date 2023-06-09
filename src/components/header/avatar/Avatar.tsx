@@ -11,8 +11,15 @@ type AvatarProps = {
   is_bride?: boolean;
 };
 
-function Avatar({ is_bride, first_name, last_name, username, avatar }: AvatarProps) {
+function Avatar({
+  is_bride,
+  first_name,
+  last_name,
+  username,
+  avatar,
+}: AvatarProps) {
   let path = Paths.Home;
+
   //на тот случай, если путь к ЛК будет меняться в зависимости от роли
   // switch (is_bride) {
   //   case true:
@@ -33,7 +40,7 @@ function Avatar({ is_bride, first_name, last_name, username, avatar }: AvatarPro
         alt="avatar"
       />
       <p className={styles.avatar__name}>
-        {username}
+        {username || 'Имя Фамилия'}
         {/* {first_name || 'Имя'}&nbsp;{last_name || 'Фамилия'} */}
       </p>
     </a>

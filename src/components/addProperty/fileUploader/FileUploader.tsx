@@ -64,8 +64,6 @@ function FileUploader({
     files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
     setGallery(serverIdArr);
     if (setPreviewGallery) setPreviewGallery(previewArr);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);
 
   return (

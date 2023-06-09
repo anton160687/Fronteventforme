@@ -16,7 +16,7 @@ export default function SignUp(): JSX.Element {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
   });
 
   return (

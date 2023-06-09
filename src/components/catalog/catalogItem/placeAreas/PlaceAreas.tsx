@@ -26,7 +26,7 @@ import { AreaReceived } from '@/types/areaType';
 import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaReceived[] | undefined;
+  areas: AreaRecieved[] | (Area | null)[] | undefined;
   average_check: number;
 };
 
@@ -34,9 +34,19 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
   return (
     <>
       {areas &&
-        areas.map((area, index) => (
-          <PlaceArea area={area} average_check={average_check} key={index} />
-        ))}
+        areas.map((area, index) => {
+          if (area) {
+            return (
+              <PlaceArea
+                area={area}
+                average_check={average_check}
+                key={index}
+              />
+            );
+          } else {
+            return <div key={index}></div>;
+          }
+        })}
     </>
   );
 }
@@ -140,11 +150,14 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const combinePhotos = () => {
     const emptyPhoto = '/img/emptyPhoto.png';
-
-    const imageArray = area.images_area.map((img) => img.image);
-    if (area.cover_area) imageArray.unshift(area.cover_area);
-    if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
-    else setPhotos(imageArray);
+    if ('images_area' in area && area.images_area) {
+      const imageArray = area.images_area.map((img) =>
+        typeof img === 'string' ? '/img/emptyPhoto.png' : img.image
+      );
+      if (area.cover_area) imageArray.unshift(area.cover_area);
+      if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
+      else setPhotos(imageArray);
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

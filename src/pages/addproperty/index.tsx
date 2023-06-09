@@ -25,7 +25,10 @@ import {
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/weddingAlbums';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
+import { checkIfTokenIsFresh } from '@/services/auth.service';
+import { authoriseUser } from '@/store/user/userAPI';
+
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -86,31 +89,60 @@ function AddPropertyPage() {
   }
 
   // Площадки
-  const [areas, setAreas] = useState<Area[]>([]);
-  const [areaIndexArray, setAreaIndexArray] = useState<number[]>([0]);
+  const [areas, setAreas] = useState<(Area | null)[]>([]);
+  const [areaIndexArray, setAreaIndexArray] = useState<(number | null)[]>([0]);
+
   function addArea(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
-    let last = areaIndexArray[areaIndexArray.length - 1];
+    let last = areaIndexArray.length - 1;
     setAreaIndexArray([...areaIndexArray, ++last]);
   }
+
+  function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
+    e.preventDefault;
+
+    if (index !== 0) {
+      let copyIndexArray = areaIndexArray;
+      copyIndexArray[index] = null;
+
+      let copyAreasArray = areas;
+      copyAreasArray[index] = null;
+      console.log('копии');
+      console.log(copyIndexArray);
+      setAreaIndexArray([...copyIndexArray]);
+      setAreas([...copyAreasArray]);
+    } else {
+      alert('Должно быть хотя бы 1 помещение');
+    }
+  }
+
   function renderAreaForms() {
-    return areaIndexArray.map((index) => (
-      <section
-        key={index}
-        id={`${ADD_PLACE_NAMES.area.id}${index}`}
-        className="card card-body border-0 shadow-sm p-4 mb-4"
-      >
-        <AreaForm
-          index={index}
-          areas={areas}
-          setAreas={setAreas}
-          setPreviewAreasImg={setPreviewAreasImg}
-        />
-        <p className="text-primary mb-3" onClick={addArea}>
-          <i className="fi-plus-circle me-3"></i> Добавить помещение
-        </p>
-      </section>
-    ));
+    return areaIndexArray.map((index, i) => {
+      if (index !== null) {
+        return (
+          <section
+            key={index}
+            id={`${ADD_PLACE_NAMES.area.id}${index}`}
+            className="card card-body border-0 shadow-sm p-4 mb-4"
+          >
+            {!!index && (
+              <p
+                className="text-primary mb-3"
+                onClick={(e) => deleteAreaForm(e, index)}
+              >
+                <i className="fi-minus-circle me-3"></i> Удалить помещение
+              </p>
+            )}
+            <AreaForm index={index} areas={areas} setAreas={setAreas} setPreviewAreasImg={setPreviewAreasImg}/>
+            <p className="text-primary mb-3" onClick={addArea}>
+              <i className="fi-plus-circle me-3"></i> Добавить помещение
+            </p>
+          </section>
+        );
+      } else {
+        return <div key={i}></div>;
+      }
+    });
   }
 
   // Загрузка картинок
@@ -182,25 +214,39 @@ function AddPropertyPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const token = localStorage.getItem(Token.Access);
-
-    if (form.checkValidity() && token) {
-      setValidated(true);
-      let placeId: number = await createPlace(place, token);
-      if (placeId && areas.length !== 0) {
-        areas.forEach((area) => {
-          addTerritoryImages(placeId, territoryImg, token);
-          createArea(area, placeId, token);
-          createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
-          createOutReg(
-            place.outreg_price!,
-            place.outreg_conditions!,
-            place.outreg_desc!,
-            placeId,
-            outregImg,
-            token
-          );
-        });
+    //access токены имеют очень короткий срок жизни, поэтому сначала будем отправлять refresh
+    let refreshToken = localStorage.getItem(Token.Refresh);
+    let isFresh = checkIfTokenIsFresh();
+    if (refreshToken && isFresh) {
+      let response = await authoriseUser(refreshToken);
+      if (response === 'success') {
+        const token = localStorage.getItem(Token.Access);
+        if (form.checkValidity() && token) {
+          setValidated(true);
+          let placeId: number = await createPlace(place, token);
+          if (placeId && areas.length !== 0) {
+            areas.forEach((area) => {
+              if (area) {
+                addTerritoryImages(placeId, territoryImg, token);
+                createArea(area, placeId, token);
+                createWelcomeZone(
+                  place.welcome_desc!,
+                  placeId,
+                  welcomeImg,
+                  token
+                );
+                createOutReg(
+                  place.outreg_price!,
+                  place.outreg_conditions!,
+                  place.outreg_desc!,
+                  placeId,
+                  outregImg,
+                  token
+                );
+              }
+            });
+          }
+        }
       }
     }
   }
@@ -299,7 +345,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  disabled={!isFormFilled}
+                  //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
