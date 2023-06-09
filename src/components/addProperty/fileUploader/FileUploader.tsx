@@ -10,7 +10,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { RESTORE_IMG } from '@/constant';
+import { AUTH_URL, RESTORE_IMG } from '@/constant';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
@@ -36,6 +36,10 @@ function FileUploader({
   required = false,
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
+  const API =
+    process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_AUTHURL
+      : AUTH_URL;
 
   const onProcess = (
     error: FilePondErrorDescription | null,
@@ -73,7 +77,7 @@ function FileUploader({
         onremovefile={onRemove}
         required={required}
         server={{
-          url: 'http://188.225.24.70:8080/fp/',
+          url: `${API}fp/`,
           process: 'process/',
           revert: 'revert/',
           restore: 'restore/',
