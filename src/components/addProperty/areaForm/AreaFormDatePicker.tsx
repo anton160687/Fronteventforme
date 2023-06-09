@@ -23,7 +23,7 @@ function AreaFormDatePicker({
   function renderDateForm(index: number) {
     return (
       <div key={index}>
-        <Form.Group controlId="date-input" className="mb-3">
+        <Form.Group className="mb-3">
         <Form.Label className='w-100'> 
           <InputGroup>
             <Form.Control
