@@ -12,6 +12,7 @@ import { LKSections, LKSectionsTitles, Paths } from '@/constant';
 import Avatar from '@/components/_finder/Avatar';
 import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
+import { Container } from 'react-bootstrap';
 
 type LKNavigationPropd = {
   //временно опциоональные
@@ -49,6 +50,7 @@ function LKNavigation({
   };
 
   return (
+    <Container>
     <section className="pt-5 pb-lg-4 mt-5 mb-sm-2 mx-lg-auto mx-5">
       <Breadcrumb className="mb-4 pt-md-3">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
@@ -157,6 +159,7 @@ function LKNavigation({
         </Col>
       </Row>
     </section>
+    </Container>
   );
 }
 

@@ -184,7 +184,7 @@ function AddPropertyPage() {
   const handlePreviewShow = () => setPreviewShow(true);
 
   //Валидация, отправка формы
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -196,7 +196,7 @@ function AddPropertyPage() {
       if (response === "success") {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
-          setValidated(true);
+          // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId && areas.length !== 0) {
             areas.forEach((area) => {
@@ -308,7 +308,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  disabled={!isFormFilled}
+                  // disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>

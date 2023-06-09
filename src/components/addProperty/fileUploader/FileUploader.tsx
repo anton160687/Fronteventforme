@@ -37,10 +37,6 @@ function FileUploader({
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
 
-  useEffect(() => {
-    console.log('files', files);
-  }, [files]);
-
   const onProcess = (
     error: FilePondErrorDescription | null,
     file: FilePondFile
@@ -63,8 +59,6 @@ function FileUploader({
     const newArr: string[] = [];
     files.map((file) => newArr.push(RESTORE_IMG + file.serverId));
     setGallery(newArr);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);
 
   return (
