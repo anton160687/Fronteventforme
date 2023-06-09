@@ -103,7 +103,7 @@ function AreaForm({
 
   useEffect(() => {
     const areasImages = areas.map((area) =>
-      area.area_img !== undefined
+      area?.area_img !== undefined
         ? area.area_img.map((img) => RESTORE_IMG + img)
         : []
     );
