@@ -16,8 +16,11 @@ type PlaceDetailsProps = {
   outreg_desc?: string;
   outreg_conditions?: string;
   setTerritoryImg: Dispatch<SetStateAction<string[]>>;
+  setPreviewTerritoryImg: Dispatch<SetStateAction<string[]>>;
   setWelcomeImg: Dispatch<SetStateAction<string[]>>;
+  setPreviewWelcomeImg: Dispatch<SetStateAction<string[]>>;
   setOutregImg: Dispatch<SetStateAction<string[]>>;
+  setPreviewOutregImg: Dispatch<SetStateAction<string[]>>;
 };
 
 function PlaceDetails({
@@ -31,10 +34,16 @@ function PlaceDetails({
   outreg_desc,
   outreg_conditions,
   setTerritoryImg,
+  setPreviewTerritoryImg,
   setWelcomeImg,
+  setPreviewWelcomeImg,
   setOutregImg,
+  setPreviewOutregImg,
 }: PlaceDetailsProps) {
-  const uploaderRender = (setPhotos: Dispatch<SetStateAction<string[]>>) => {
+  const uploaderRender = (
+    setPhotos: Dispatch<SetStateAction<string[]>>,
+    setPreviewPhotos: Dispatch<SetStateAction<string[]>>
+  ) => {
     return (
       <Row className="mb-4">
         <Form.Group>
@@ -44,6 +53,7 @@ function PlaceDetails({
 
           <FileUploader
             setGallery={setPhotos}
+            setPreviewGallery={setPreviewPhotos}
             required={true}
             maxFiles={1}
             warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
@@ -147,7 +157,7 @@ function PlaceDetails({
           placeholder={'Опишите территорию'}
           required={false}
         />
-        {uploaderRender(setTerritoryImg)}
+        {uploaderRender(setTerritoryImg, setPreviewTerritoryImg)}
       </Row>
 
       <Row className="mb-4">
@@ -162,7 +172,7 @@ function PlaceDetails({
           placeholder={'Описание welcome-зоны'}
           required={false}
         />
-        {uploaderRender(setWelcomeImg)}
+        {uploaderRender(setWelcomeImg, setPreviewWelcomeImg)}
       </Row>
       <Row className="mb-4">
         <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
@@ -208,7 +218,7 @@ function PlaceDetails({
           placeholder={'Описание условий'}
           required={false}
         />
-        {uploaderRender(setOutregImg)}
+        {uploaderRender(setOutregImg, setPreviewOutregImg)}
       </Row>
     </section>
   );

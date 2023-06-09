@@ -24,6 +24,7 @@ registerPlugin(
 
 type FileUploaderProps = {
   setGallery: Dispatch<SetStateAction<string[]>>;
+  setPreviewGallery?: Dispatch<SetStateAction<string[]>>;
   warning?: string;
   maxFiles: number;
   required?: boolean;
@@ -31,11 +32,13 @@ type FileUploaderProps = {
 
 function FileUploader({
   setGallery,
+  setPreviewGallery,
   maxFiles,
   warning,
   required = false,
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
+
   const API =
     process.env.NODE_ENV === 'production'
       ? process.env.NEXT_PUBLIC_AUTHURL
@@ -60,9 +63,12 @@ function FileUploader({
   };
 
   useEffect(() => {
-    const newArr: string[] = [];
-    files.map((file) => newArr.push(file.serverId));
-    setGallery(newArr);
+    const serverIdArr: string[] = [];
+    const previewArr: string[] = [];
+    files.map((file) => serverIdArr.push(file.serverId));
+    files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
+    setGallery(serverIdArr);
+    if (setPreviewGallery) setPreviewGallery(previewArr);
   }, [files]);
 
   return (
@@ -81,8 +87,8 @@ function FileUploader({
           process: 'process/',
           revert: 'revert/',
           restore: 'restore/',
-          // load: 'load/',
-          // fetch: 'fetch/',
+          load: 'load/',
+          fetch: 'fetch/',
         }}
         name="filepond"
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i> Загрузите фото</div><div>или перетащите их сюда</div>'

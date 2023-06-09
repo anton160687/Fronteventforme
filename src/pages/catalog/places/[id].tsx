@@ -14,7 +14,6 @@ import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDet
 import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
 import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
 import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
@@ -25,6 +24,7 @@ import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import { cards } from '@/mocks/cards';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -34,9 +34,17 @@ type CatalogItemProps = {
 export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
-  const placeImgList = place.images_place.map((item) => {
-    return item.image;
-  });
+  const territory = [
+    {
+      id: 0,
+      images_territory: [],
+      territory_desc: place.territory_desc,
+      place: 0,
+      type_territory: place.type_territory,
+    },
+  ];
+
+  console.log('place', place);
 
   return (
     <Container className="px-5">
@@ -53,7 +61,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      <LocationPhotos photoUrls={placeImgList} />
+      <LocationPhotos photoUrls={place.images_place} />
 
       {/* общий контейнер страницы на все блоки под верхними фото */}
       <Row className={styles.main__container}>
@@ -75,13 +83,11 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <TextDetails description={place.description} />
           <TextFeatures
             features={place.type_feature}
-            territories={place.type_place}
+            territories={place.type_territory}
           />
 
           <AlbumCardContainer
-            territory={place.territory_desc}
-            // TODO - с бэка должна возвращаться картинка территории
-            // territory_img = {}
+            territory={territory}
             welcome_zones={place.welcome_zones}
             outside_reg={place.outsites_reg}
           />
@@ -161,7 +167,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
+  const API =
+    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {

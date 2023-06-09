@@ -36,73 +36,9 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
     </div>
   );
 
-  const sliderRender = () => {
-    return (
-      <LightGallery
-        plugins={[lgThumbnail, lgZoom, lgFullScreen]}
-        selector=".gallery-item"
-        zoomFromOrigin={false}
-        exThumbImage="data-external-thumb-image"
-      >
-        <Swiper
-          modules={[Navigation]}
-          onSlideChange={(swiper) => {
-            setCurrentSlide(swiper.realIndex + 1);
-          }}
-          onInit={(swiper) => {
-            setCurrentSlide(swiper.realIndex + 1);
-            setTotalSlides(swiper.slides.length - 2);
-          }}
-          navigation
-          spaceBetween={12}
-          loop
-          grabCursor
-          className="swiper-nav-onhover m-0"
-        >
-          {images.length > 0 ? (
-            <>
-              {images.map((img, index) => (
-                <SwiperSlide key={index + (id % 2)}>
-                  <GalleryItem
-                    href={img}
-                    thumb={[img, 500, 270]}
-                    data-external-thumb-image={img}
-                    imgAlt={title}
-                    quality={100}
-                    className={
-                      id % 2 === 0 ? styles.rounded_left : styles.rounded_right
-                    }
-                    light={false}
-                    caption=""
-                    video={false}
-                  />
-                </SwiperSlide>
-              ))}
-            </>
-          ) : (
-            <ImageLoader
-              src="/img/emptyPhoto.png"
-              height={270}
-              width={500}
-              imgalt={'No image'}
-              quality={100}
-              className={
-                id % 2 === 0 ? styles.rounded_left : styles.rounded_right
-              }
-              light={false}
-              caption=""
-              video={false}
-            />
-          )}
-          {images.length > 1 && <SlidesCount />}
-        </Swiper>
-      </LightGallery>
-    );
-  };
-
   return (
     <>
-      {(description || images.length > 0) && (
+      {(description || images?.length > 0) && (
         <figure
           className={
             id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
@@ -114,7 +50,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
           </figcaption>
 
           <div className="w-md-50 w-75">
-            {images.length > 1 ? (
+            {images?.length > 1 ? (
               <LightGallery
                 plugins={[lgThumbnail, lgZoom, lgFullScreen]}
                 selector=".gallery-item"
@@ -150,7 +86,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                               ? styles.rounded_left
                               : styles.rounded_right
                           }
-                          light={false}
+                          light="false"
                           caption=""
                           video={false}
                         />
@@ -162,15 +98,15 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
               </LightGallery>
             ) : (
               <ImageLoader
-                src={images.length === 1 ? images[0] : '/img/emptyPhoto.png'}
+                src={images?.length === 1 ? images[0] : '/img/emptyPhoto.png'}
                 height={270}
                 width={500}
-                imgalt={images.length === 1 ? title : 'No image'}
+                imgalt={images?.length === 1 ? title : 'No image'}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
                 }
-                light={false}
+                light="false"
                 caption=""
                 video={false}
               />
@@ -183,41 +119,3 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
 }
 
 export default AlbumCard;
-
-// {images.length > 0 ? (
-// 	<>
-// 		{images.map((img, index) => (
-// 			<SwiperSlide key={index + (id % 2)}>
-// 				<GalleryItem
-// 					href={img}
-// 					thumb={[img, 500, 270]}
-// 					data-external-thumb-image={img}
-// 					imgAlt={title}
-// 					quality={100}
-// 					className={
-// 						id % 2 === 0
-// 							? styles.rounded_left
-// 							: styles.rounded_right
-// 					}
-// 					light={false}
-// 					caption=""
-// 					video={false}
-// 				/>
-// 			</SwiperSlide>
-// 		))}
-// 	</>
-// ) : (
-// 	<ImageLoader
-// 		src="/img/emptyPhoto.png"
-// 		height={270}
-// 		width={500}
-// 		imgalt={'No image'}
-// 		quality={100}
-// 		className={
-// 			id % 2 === 0 ? styles.rounded_left : styles.rounded_right
-// 		}
-// 		light={false}
-// 		caption=""
-// 		video={false}
-// 	/>
-// )}

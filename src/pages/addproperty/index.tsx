@@ -29,6 +29,7 @@ import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums'
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 
+
 function AddPropertyPage() {
   const initialPlaceState: Place = {
     title: '',
@@ -132,7 +133,7 @@ function AddPropertyPage() {
                 <i className="fi-minus-circle me-3"></i> Удалить помещение
               </p>
             )}
-            <AreaForm index={index} areas={areas} setAreas={setAreas} />
+            <AreaForm index={index} areas={areas} setAreas={setAreas} setPreviewAreasImg={setPreviewAreasImg}/>
             <p className="text-primary mb-3" onClick={addArea}>
               <i className="fi-plus-circle me-3"></i> Добавить помещение
             </p>
@@ -149,8 +150,10 @@ function AddPropertyPage() {
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
   const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
   const [outregImg, setOutregImg] = useState<string[]>([]);
+  // Альбомы
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
+
   //! хуки для разных галлерей
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
@@ -198,8 +201,16 @@ function AddPropertyPage() {
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
   const handlePreviewShow = () => setPreviewShow(true);
+  // Фото в Превью
+  const [previewMainPhotos, setPreviewMainPhotos] = useState<string[]>([]);
+  const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
+  const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
+  const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
+  //preview images
+  const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
+
   // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -212,27 +223,30 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
+
           // setValidated(true);
           let placeId: number = await createPlace(place, token);
+          if (placeId) {
+            addTerritoryImages(placeId, territoryImg, token);
+            createWelcomeZone(
+              place.welcome_desc!,
+              placeId,
+              welcomeImg,
+              token
+            );
+            createOutReg(
+              place.outreg_price!,
+              place.outreg_conditions!,
+              place.outreg_desc!,
+              placeId,
+              outregImg,
+              token
+            );
+          }
           if (placeId && areas.length !== 0) {
             areas.forEach((area) => {
               if (area) {
-                addTerritoryImages(placeId, territoryImg, token);
                 createArea(area, placeId, token);
-                createWelcomeZone(
-                  place.welcome_desc!,
-                  placeId,
-                  welcomeImg,
-                  token
-                );
-                createOutReg(
-                  place.outreg_price!,
-                  place.outreg_conditions!,
-                  place.outreg_desc!,
-                  placeId,
-                  outregImg,
-                  token
-                );
               }
             });
           }
@@ -295,7 +309,10 @@ function AddPropertyPage() {
                 alco={place.alco}
               />
 
-              <MainPhotos setMainPhotos={setMainPhotos} />
+              <MainPhotos
+                setMainPhotos={setMainPhotos}
+                setPreviewMainPhotos={setPreviewMainPhotos}
+              />
 
               {renderAreaForms()}
 
@@ -310,8 +327,11 @@ function AddPropertyPage() {
                 outreg_desc={place.outreg_desc}
                 outreg_conditions={place.outreg_conditions}
                 setTerritoryImg={setTerritoryImg}
+                setPreviewTerritoryImg={setPreviewTerritoryImg}
                 setWelcomeImg={setWelcomeImg}
+                setPreviewWelcomeImg={setPreviewWelcomeImg}
                 setOutregImg={setOutregImg}
+                setPreviewOutregImg={setPreviewOutregImg}
               />
 
               {renderWeddingAlbum()}
@@ -353,10 +373,11 @@ function AddPropertyPage() {
         handlePreviewClose={handlePreviewClose}
         place={place}
         areas={areas}
-        mainPhotos={[]}
-        territoryImg={[]}
-        welcomeImg={[]}
-        outregImg={[]}
+        previewMainPhotos={previewMainPhotos}
+        previewTerritoryImg={previewTerritoryImg}
+        previewWelcomeImg={previewWelcomeImg}
+        previewOutregImg={previewOutregImg}
+        previewAreasImg={previewAreasImg}
       />
     </>
   );
