@@ -2,7 +2,6 @@ import { Col, Row } from 'react-bootstrap';
 import { PlaceReceived } from '@/types/placeType';
 import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { makeUniversalNumberArr } from '@/components/helpers';
 
 type TextDescriptionProps = {
   item: PlaceReceived;
@@ -11,8 +10,8 @@ type TextDescriptionProps = {
 function TextDescription({ item }: TextDescriptionProps) {
   let locations: (string | number)[] = [];
 
-  makeUniversalNumberArr(item.location).forEach((location) => {
-    let res = LOCATION.filter((value) => value[0] === location);
+  item.location.forEach(({ id }) => {
+    let res = LOCATION.filter((value) => value[0] === id);
     if (res.length !== 0) {
       locations.push(res[0][1]);
     }
