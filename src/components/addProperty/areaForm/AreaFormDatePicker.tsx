@@ -41,7 +41,10 @@ function AreaFormDatePicker({
           </InputGroup>
           </Form.Label>
         </Form.Group>
-        <p className="cursor-pointer text-primary mb-3" onClick={handleClick}>
+        <p
+          className="cursor-pointer text-primary mb-3 d-inline-block"
+          onClick={handleClick}
+        >
           <i className="fi-plus-circle me-3"></i> Добавить дату
         </p>
       </div>

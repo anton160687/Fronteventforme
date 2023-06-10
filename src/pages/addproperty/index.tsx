@@ -29,7 +29,6 @@ import { Album, Place } from '@/types/placeType';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 
-
 function AddPropertyPage() {
   const initialPlaceState: Place = {
     title: '',
@@ -127,14 +126,24 @@ function AddPropertyPage() {
           >
             {!!index && (
               <p
-                className="text-primary mb-3"
+                className="text-primary mb-3 cursor-pointer d-flex align-items-center"
                 onClick={(e) => deleteAreaForm(e, index)}
+                style={{ width: 'fit-content' }}
               >
                 <i className="fi-minus-circle me-3"></i> Удалить помещение
               </p>
             )}
-            <AreaForm index={index} areas={areas} setAreas={setAreas} setPreviewAreasImg={setPreviewAreasImg}/>
-            <p className="text-primary mb-3" onClick={addArea}>
+            <AreaForm
+              index={index}
+              areas={areas}
+              setAreas={setAreas}
+              setPreviewAreasImg={setPreviewAreasImg}
+            />
+            <p
+              className="text-primary mb-3 cursor-pointer d-flex align-items-center"
+              onClick={addArea}
+              style={{ width: 'fit-content' }}
+            >
               <i className="fi-plus-circle me-3"></i> Добавить помещение
             </p>
           </section>
@@ -223,17 +232,11 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
-
           // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId) {
             addTerritoryImages(placeId, territoryImg, token);
-            createWelcomeZone(
-              place.welcome_desc!,
-              placeId,
-              welcomeImg,
-              token
-            );
+            createWelcomeZone(place.welcome_desc!, placeId, welcomeImg, token);
             createOutReg(
               place.outreg_price!,
               place.outreg_conditions!,
