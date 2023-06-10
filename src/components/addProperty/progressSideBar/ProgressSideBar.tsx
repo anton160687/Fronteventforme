@@ -14,6 +14,9 @@ type ProgressSideBarProps = {
   percent: number;
   setIsFormFilled: Dispatch<SetStateAction<boolean>>;
   mainPhotos: string[];
+  territoryImg: string[];
+  welcomeImg: string[];
+  outregImg: string[];
 };
 
 const initialAnchors: Anchor[] = [
@@ -62,6 +65,9 @@ function ProgressSideBar({
   setPercent,
   setIsFormFilled,
   mainPhotos,
+  territoryImg,
+  welcomeImg,
+  outregImg,
 }: ProgressSideBarProps) {
   const [anchors, setAnchors] = useState<Anchor[]>(initialAnchors);
   const step = Math.round(100 / anchors.length);
@@ -94,7 +100,7 @@ function ProgressSideBar({
       ...prev.slice(index + 1),
     ]);
   };
-  //! TODO: добавить проверки на наличие картинок
+
   const isCompletedPlace = () => {
     //Базовая информация
     if (place.title) {
@@ -142,7 +148,10 @@ function ProgressSideBar({
       place.type_feature.length &&
       place.max_serving &&
       place.outreg_price &&
-      place.outreg_desc
+      place.outreg_desc &&
+      territoryImg.length &&
+      welcomeImg.length &&
+      outregImg.length
     ) {
       changeAnchor(ADD_PLACE_NAMES.details, true);
     }
@@ -152,16 +161,21 @@ function ProgressSideBar({
         place.type_feature.length &&
         place.max_serving &&
         place.outreg_price &&
-        place.outreg_desc
+        place.outreg_desc &&
+        territoryImg.length &&
+        welcomeImg.length &&
+        outregImg.length
       )
     ) {
       changeAnchor(ADD_PLACE_NAMES.details, false);
     }
   };
-  //! TODO: добавить проверки на наличие картинок
+
   const isCompletedAreas = () => {
     //Помещения
     let areasFilledCount = 0;
+    let areasNotFilledCount = 0;
+
     areas.map((area) => {
       if (
         area &&
@@ -174,15 +188,28 @@ function ProgressSideBar({
         area.min_price_rent &&
         area.deposit &&
         area.scheme_of_payment &&
-        area.detail_location
+        area.detail_location &&
+        area.area_img.length
       ) {
         areasFilledCount++;
-      }
+      } else if (area === null) areasNotFilledCount++;
     });
-    if (areasFilledCount === areas.length && areas.length) {
+    if (
+      ((areasNotFilledCount &&
+        areasFilledCount === areas.length - areasNotFilledCount) ||
+        (!areasNotFilledCount && areasFilledCount === areas.length)) &&
+      areas.length
+    ) {
       changeAnchor(ADD_PLACE_NAMES.area, true);
     }
-    if (!(areasFilledCount === areas.length && areas.length)) {
+    if (
+      !(
+        ((areasNotFilledCount &&
+          areasFilledCount === areas.length - areasNotFilledCount) ||
+          (!areasNotFilledCount && areasFilledCount === areas.length)) &&
+        areas.length
+      )
+    ) {
       changeAnchor(ADD_PLACE_NAMES.area, false);
     }
   };

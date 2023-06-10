@@ -106,8 +106,6 @@ function AddPropertyPage() {
 
       let copyAreasArray = areas;
       copyAreasArray[index] = null;
-      console.log('копии');
-      console.log(copyIndexArray);
       setAreaIndexArray([...copyIndexArray]);
       setAreas([...copyAreasArray]);
     } else {
@@ -367,6 +365,9 @@ function AddPropertyPage() {
               percent={percent}
               setIsFormFilled={setIsFormFilled}
               mainPhotos={mainPhotos}
+              territoryImg={territoryImg}
+              welcomeImg={welcomeImg}
+              outregImg={outregImg}
             />
           </Col>
         </Row>
