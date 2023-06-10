@@ -10,10 +10,16 @@ import Button from 'react-bootstrap/Button';
 import PasswordToggle from '@/components/_finder/PasswordToggle';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { PASSWORD_REQUIREMENTS, PASSWORD_TITLE, FormFields, Paths } from '@/constant';
+import {
+  PASSWORD_REQUIREMENTS,
+  PASSWORD_TITLE,
+  FormFields,
+  Paths,
+  EMAIL_REQUIREMENTS,
+  EMAIL_TITLE,
+} from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
-
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -115,6 +121,8 @@ export default function SignInForm(): JSX.Element {
           required
           name={FormFields.Email}
           onChange={handleChange}
+          pattern={EMAIL_REQUIREMENTS}
+          title={EMAIL_TITLE}
         />
       </Form.Group>
       <Form.Group className="mb-4">
