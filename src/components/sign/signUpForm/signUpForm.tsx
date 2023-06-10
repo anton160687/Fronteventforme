@@ -15,6 +15,7 @@ import {
   FormFields,
   USERNAME_REQUIREMENTS,
   USERNAME_TITLE,
+  EMAIL_REQUIREMENTS,
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
@@ -94,6 +95,7 @@ export default function SignUpForm({
                   required
                   name={FormFields.Email}
                   onChange={handleChange}
+                  pattern={EMAIL_REQUIREMENTS}
                 />
               </Form.Group>
               <Form.Group className="mb-4">
