@@ -15,6 +15,7 @@ import AreaForm from '@/components/addProperty/areaForm/AreaForm';
 import PlaceDescription from '@/components/addProperty/placeDescription/placeDescription';
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
+import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
 import {
   addTerritoryImages,
   createArea,
@@ -25,7 +26,6 @@ import {
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
-import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 

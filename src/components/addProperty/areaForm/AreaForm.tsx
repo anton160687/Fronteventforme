@@ -98,7 +98,6 @@ function AreaForm({
       ...prev,
       area_img: areaImg,
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areaImg]);
 
   useEffect(() => {
@@ -108,8 +107,6 @@ function AreaForm({
         : []
     );
     setPreviewAreasImg(areasImages);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areas]);
 
   return (

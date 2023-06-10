@@ -33,7 +33,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="footer bg-secondary p-5 px-xl-0">
+    <footer className="footer bg-secondary p-5">
       <Container className="pt-lg-4 p-0">
         <div className="d-md-flex d-block flex-sm-row flex-column justify-content-between mx-n2">
           {/* Logo + contacts */}
