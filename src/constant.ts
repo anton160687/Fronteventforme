@@ -124,6 +124,8 @@ export enum Paths {
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
+  AccOffers = '/offers',
+  AccHelp = '/help',
 }
 
 // для форм регистрации, авторизации
@@ -325,29 +327,11 @@ export enum Token {
   CreatedAt = 'createdAt',
 }
 
-export const TYPE_AREA_DICTIONARY = [
-  ['bqh', 'Банкетный зал'],
-  ['tent', 'Шатер'],
-  ['vrnd', 'Веранда'],
-  ['ycc', 'Яхт-клуб'],
-  ['mts', 'Теплоход'],
-  ['loft', 'Лофт'],
-  ['mnr', 'Усадьба'],
-  ['rsrn', 'Ресторан'],
-  ['cafe', 'Кафе'],
-  ['rct', 'База отдыха'],
-  ['ctg', 'Коттедж'],
-  ['htl', 'Отель'],
-  ['cst', 'Замок'],
-  ['cntc', 'Загородный клуб'],
-  ['cntn', 'Столовая'],
-];
-
 export enum LKSectionsTitles {
   Info = 'Основная информация',
   Security = 'Пароль и безопасность',
   Wishlist = 'Избранное',
-  Business = 'Мои бизнесы',
+  Offers = 'Мои бизнесы',
   Reviews = 'Отзывы',
   Notification = 'Настройки уведомлений',
   Help = 'Помощь',
@@ -363,7 +347,7 @@ export const LKSections: LkSectionsType[] = [
     link: Paths.AccSecurity,
     icon: 'fi-lock',
   },
-  { title: LKSectionsTitles.Business, link: '#', icon: 'fi-home' },
+  { title: LKSectionsTitles.Offers, link: Paths.AccOffers, icon: 'fi-home' },
   {
     title: LKSectionsTitles.Wishlist,
     link: Paths.AccWishlist,
@@ -371,7 +355,7 @@ export const LKSections: LkSectionsType[] = [
   },
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
   { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
-  { title: LKSectionsTitles.Help, link: '', icon: 'fi-help' },
+  { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
   { title: LKSectionsTitles.Tariff, link: '', icon: 'fi-cash' },
   { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
