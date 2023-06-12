@@ -60,7 +60,6 @@ export const LOCATION = [
   [7, 'Около озера'],
   [8, 'В горах'],
 ];
-
 export const FEATURES = [
   [1, 'Номер для гостей'],
   [2, 'Номер для новобрачных'],
@@ -73,7 +72,6 @@ export const FEATURES = [
   [9, 'Панорамный вид'],
   [10, 'Фотозона'],
 ];
-
 export const TERRITORY: [number, string][] = [
   [1, 'Своя парковка'],
   [2, 'Welcome-зона'],
@@ -100,7 +98,6 @@ export const COLOR_HALL = [
   ['purple', 'Фиолетовый'],
   ['beige', 'Бежевый'],
 ];
-
 export const SCHEME_OF_PAYMENT = [
   ['bah', 'Аренда зала + банкет'],
   ['ban', 'Только аренда зала'],
@@ -115,15 +112,19 @@ export enum Paths {
   Renew = '/renew',
   Catalog = '/catalog',
   Places = '/catalog/places',
-  AddProperty = '/addproperty',
-  AddContacts = '/addcontacts',
   Account = '/lk',
   Business = '/business',
   Bride = '/bride',
+  LKBusiness = '/lk/business',
+  LKBride = '/lk/bride',
   AccInfo = '/info',
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
+  AddPlace = '/lk/business/add/place',
+  AddBusiness = '/lk/business/add/business',
+  AddProperty = '/addproperty',
+  AddContacts = '/addcontacts',
 }
 
 // для форм регистрации, авторизации
@@ -198,7 +199,6 @@ export const SERVICES: FooterType = {
     },
   ],
 };
-
 export const PAGES: FooterType = {
   title: 'Страницы',
   data: [
@@ -234,7 +234,6 @@ export const PAGES: FooterType = {
     },
   ],
 };
-
 export const PLACES: FooterType = {
   title: 'Площадки',
   data: [
@@ -270,7 +269,6 @@ export const PLACES: FooterType = {
     },
   ],
 };
-
 export const ACTORS: FooterType = {
   title: 'Исполнители',
   data: [
@@ -325,24 +323,6 @@ export enum Token {
   CreatedAt = 'createdAt',
 }
 
-export const TYPE_AREA_DICTIONARY = [
-  ['bqh', 'Банкетный зал'],
-  ['tent', 'Шатер'],
-  ['vrnd', 'Веранда'],
-  ['ycc', 'Яхт-клуб'],
-  ['mts', 'Теплоход'],
-  ['loft', 'Лофт'],
-  ['mnr', 'Усадьба'],
-  ['rsrn', 'Ресторан'],
-  ['cafe', 'Кафе'],
-  ['rct', 'База отдыха'],
-  ['ctg', 'Коттедж'],
-  ['htl', 'Отель'],
-  ['cst', 'Замок'],
-  ['cntc', 'Загородный клуб'],
-  ['cntn', 'Столовая'],
-];
-
 export enum LKSectionsTitles {
   Info = 'Основная информация',
   Security = 'Пароль и безопасность',
@@ -376,3 +356,35 @@ export const LKSections: LkSectionsType[] = [
   { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];
+
+//для боковой навигации в каталоге и типов бизнеса в ЛК
+export const BusinessTypes = [
+  { name: 'Площадки', path: '/catalog/places' },
+  { name: 'Дворец бракосочетания', path: '#', },
+  { name: 'Фотографы', path: '/catalog/photo' },
+  { name: 'Музыкальные группы', path: '/catalog/music' },
+  { name: 'Свадебные платья', path: '/catalog/dresses' },
+  { name: 'Мужские костюмы', path: '#' },
+  { name: 'Обручальные кольца', path: '#' },
+  { name: 'Платья подружек невесты', path: 'dresses' },
+  { name: 'Стилисты', path: '#', },
+  { name: 'Визажисты', path: '#', },
+  { name: 'Оформление и декор', path: '#', },
+  { name: 'Приглашения', path: '#', },
+  { name: 'Флористика и букеты', path: '#', },
+  { name: 'Видеографы', path: '#', },
+  { name: 'Хореографы', path: '#', },
+  { name: 'Диджеи', path: '#', },
+  { name: 'Ведущие', path: '#', },
+  { name: 'Организаторы', path: '#', },
+  { name: 'Детские аниматоры', path: '#', },
+  { name: 'Шоу-программа', path: '#', },
+  { name: 'Свет и звук', path: '#', },
+  { name: 'Кейтеринг', path: '#', },
+  { name: 'Торты и десерты', path: '#', },
+  { name: 'Красота и здоровье', path: '#', },
+  { name: 'Транспорт', path: '#', },
+  { name: 'Бармены', path: '#', },
+  { name: 'Фейерверки', path: '#', },
+ 
+]

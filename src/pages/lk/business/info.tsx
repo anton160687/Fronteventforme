@@ -99,13 +99,12 @@ function Info() {
 
   return (
     <>
-      <LKNavigation accountPageTitle={''}>
+      <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
         <Form onSubmit={handleSubmit}>
           <Alert variant="info" className="d-flex mb-4">
             <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
             <div> Для добавления бизнеса заполните все необходимые поля "Основной информации".</div>
           </Alert>
-          <h2>{LKSectionsTitles.Info}</h2>
           <div className='mb-2 pt-1'>Заполнено на {info.is_company ? companyProgress : personProgress}% </div>
           <ProgressBar variant='warning' now={info.is_company ? companyProgress : personProgress} className='mb-4' style={{ height: '.25rem' }} />
 
