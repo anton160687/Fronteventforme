@@ -51,6 +51,7 @@ function PlaceFilters() {
 
     function handleRefresh(e: MouseEvent<HTMLAnchorElement>) {
         e.preventDefault();
+        setCity('');
         setFilterParams(initialFilterParamsState);
         router.push('/catalog/places');
     }
@@ -91,6 +92,7 @@ function PlaceFilters() {
                     <Dropdown.Toggle
                         variant='outline-secondary'
                         className={styles.catalog__dropdown_icon + ' px-2'}
+                        style={city === ''? {color: "#454056"}:  {color: "#FE9589"}}
                     >
                         <i className={`fi-map-pin fs-lg opacity-60 me-1`} />
                         <p className={styles.catalog__dropdown_text}>Город</p>

@@ -14,12 +14,12 @@ type DropdownCBProps = {
 };
 
 function DropdownCB ({ name, text, options, icon, filterParams, setFilterParams}: DropdownCBProps) {
-  const initialState: string[] = [];
+  const initialState: string[] = filterParams;
   const [selectedArray, setSelectedArray] = useState(initialState);  
 
   useEffect(()=>{
-    setSelectedArray(filterParams);
-  }, [filterParams])
+    setSelectedArray(initialState);
+  }, [initialState])
 
   const iconEl = icon ? (
     <i className={`${icon} fs-lg opacity-60 me-1`}></i>
