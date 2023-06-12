@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FocusEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
+import { Button, Form, Col, Row } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';

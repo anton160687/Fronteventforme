@@ -138,7 +138,7 @@ export const USERNAME_REQUIREMENTS = '^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$';
 export const USERNAME_TITLE =
   'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры и буквы латинского алфавита. При этом первый символ обязательно буква.';
 
-export const EMAIL_REQUIREMENTS = '[a-z0-9]+@[a-z]+\\.[a-z]{2,3}';
+export const EMAIL_REQUIREMENTS = '[_*a-z0-9]+@[a-z]+\\.[a-z]{2,3}';
 export const EMAIL_TITLE =
   'Адрес электронной почты имеет стандартный вид: обязательно наличие знаков до @ и после, а так же 2-3 символов после точки.';
 

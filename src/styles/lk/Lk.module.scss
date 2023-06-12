@@ -1,5 +1,12 @@
 @import '@/styles/_mixins';
 
-.userInfo {
+.textGray800 {
   color: $gray800;
+}
+
+.clearBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
 }

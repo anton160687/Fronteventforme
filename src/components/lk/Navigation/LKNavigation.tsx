@@ -99,7 +99,7 @@ function LKNavigation({
                 <ul
                   className={
                     'd-flex flex-column d-md-block  align-items-center w-100 list-unstyled fs-sm  mb-0 ' +
-                    styles.userInfo
+                    styles.textGray800
                   }
                 >
                   <li>
@@ -154,7 +154,7 @@ function LKNavigation({
           </Col>
 
           {/* Page content */}
-          <Col md={7} lg={8} className="mb-5">
+          <Col md={7} lg={8} className="mb-5 position-relative">
             {alert && (
               <Alert variant="info" className="d-flex mb-4">
                 <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
