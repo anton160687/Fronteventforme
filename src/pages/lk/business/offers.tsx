@@ -62,11 +62,11 @@ function Offers() {
     },
   ];
 
-  const [properties, setProperties] = useState(initialProperties);
+  const [cards, setCards] = useState(initialProperties);
 
   const clearAll = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    setProperties([]);
+    setCards([]);
   };
 
   return (
@@ -84,9 +84,12 @@ function Offers() {
           Тариф — <span className="text-primary fw-bold">Стандартный</span>
         </p>
 
-        <Nav variant="tabs" className="flex-nowrap fs-base mb-3">
+        <Nav
+          variant="tabs"
+          className="fs-base mb-3 justify-content-center justify-content-sm-start"
+        >
           {navItems.map((item, index) => (
-            <Nav.Item key={index}>
+            <Nav.Item key={index} className="mb-2">
               <Nav.Link
                 href={item.link}
                 style={{ fontWeight: '500' }}
@@ -100,8 +103,8 @@ function Offers() {
         </Nav>
 
         {/* List of properties or empty state */}
-        {properties.length ? (
-          properties.map((property, indx) => (
+        {cards.length > 0 ? (
+          cards.map((property, indx) => (
             <PropertyCard
               key={indx}
               href={property.href}
@@ -120,7 +123,7 @@ function Offers() {
                 ['fi-car', property.amenities[2]],
               ]}
               horizontal
-              className={indx === properties.length - 1 ? '' : 'mb-4'}
+              className={indx === setCards.length - 1 ? '' : 'mb-4'}
             >
               {renderCardText(
                 'Вместимость',
@@ -136,7 +139,6 @@ function Offers() {
             </PropertyCard>
           ))
         ) : (
-          //! спросить у Евы
           // Empty state
           <div className="text-center pt-2 pt-md-4 pt-lg-5 pb-2 pb-md-0">
             <i className="fi-heart display-6 text-muted mb-4"></i>

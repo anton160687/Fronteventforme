@@ -159,7 +159,7 @@ function LKNavigation({
           </Col>
 
           {/* Page content */}
-          <Col md={7} lg={8} className="mb-5">
+          <Col md={7} lg={8} className="mb-5 position-relative">
             <h2>{accountPageTitle}</h2>
             {children}
           </Col>
