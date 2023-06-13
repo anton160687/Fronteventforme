@@ -49,7 +49,8 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
             <p className="mb-2">{description}</p>
           </figcaption>
 
-          <div className="w-md-50 w-75">
+          {/* // className="w-md-50 w-75" */}
+          <div className="align-self-center">
             {images?.length > 1 ? (
               <LightGallery
                 plugins={[lgThumbnail, lgZoom, lgFullScreen]}

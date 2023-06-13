@@ -10,7 +10,12 @@ type LocationDescriptionProps = {
   metro?: string;
 };
 
-function LocationDescription({ title, areasNumber=0, address, metro }: LocationDescriptionProps) {
+function LocationDescription({
+  title,
+  areasNumber = 0,
+  address,
+  metro,
+}: LocationDescriptionProps) {
   return (
     <>
       <div className={styles.location__flex_container}>
@@ -25,7 +30,7 @@ function LocationDescription({ title, areasNumber=0, address, metro }: LocationD
       </div>
 
       <div className={styles.location__flex_container}>
-        <p>{address}</p>
+        <p>{address || 'Адрес не указан'}</p>
         <Link href="#map" className={styles.location__map}>
           <i className="fi-map" /> <p>На карте</p>
         </Link>

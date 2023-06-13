@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { OutsideReg, Territory, WelcomeZone } from '@/types/placeType';
 import AlbumCard from './AlbumCard';
 
