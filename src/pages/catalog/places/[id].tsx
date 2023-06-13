@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Breadcrumb, Col, Row, Card, Button } from 'react-bootstrap';
+import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
@@ -24,7 +24,7 @@ import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import { cards } from '@/mocks/cards';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -43,6 +43,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
       type_territory: place.type_territory,
     },
   ];
+
+  console.log('place', place);
 
   return (
     <Container className="px-5">
@@ -159,7 +161,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         </Col>
       </Row>
       <SimilarItemsSlider />
-      <Button as={Link} href='#'>К началу страницы</Button>
     </Container>
   );
 }

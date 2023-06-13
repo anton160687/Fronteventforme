@@ -24,6 +24,7 @@ function ChangePassword() {
   // Form validation
   const [validated, setValidated] = useState(false);
 
+  //!пока нет логики смены пароля без предоставления uid
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     const form = event.currentTarget;
 
