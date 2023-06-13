@@ -3,3 +3,57 @@
 .userInfo {
   color: $gray800;
 }
+
+.lk__header {
+  margin-top: 48px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+
+  &>i {
+    width: 18px;
+    height: 18px;
+    color: $primary;
+  }
+}
+
+.lk__business_btn {
+  padding: 14px 32px;
+
+  &>div {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+.lk__text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: $gray900;
+}
+
+//info
+.lk__info_row {
+  @media (max-width: 520px) {
+    flex-direction: column;
+  }  
+}
+
+.lk__info_btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 995px) {
+    flex-direction: column;
+  }
+}
+
+.lk__info_delete {
+  color: #9691A4;
+  font-weight: 500;
+  @media (max-width: 995px) {
+    margin-top: 80px;
+  }
+}

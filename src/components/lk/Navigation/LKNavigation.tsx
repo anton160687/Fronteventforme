@@ -14,22 +14,19 @@ import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import { Container } from 'react-bootstrap';
 
-type LKNavigationPropd = {
+type LKNavigationProps = {
+  is_bride?: boolean;
   //временно опциоональные
   accountPageTitle?: string;
   children?: JSX.Element;
 };
 
-function LKNavigation({
-  accountPageTitle,
-  children,
-}: LKNavigationPropd): JSX.Element {
+function LKNavigation({is_bride = false, accountPageTitle, children}: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
 
   // State to control Collapse
   const [open, setOpen] = useState(false);
-  const is_bride = false;
-
+  
   type SectionRenderProps = {
     index: number;
     section: LkSectionsType;
@@ -59,11 +56,9 @@ function LKNavigation({
         <Breadcrumb.Item
           linkAs={Link}
           active={accountPageTitle ? false : true}
-          //! продумать ссылки
-          //  href={Paths.Account + is_bride ? Paths.Bride : Paths.Business}
-          href={Paths.Account}
+          href={is_bride? Paths.LKBride : Paths.LKBusiness}
         >
-          Аккаунт
+          Личный кабинет
         </Breadcrumb.Item>
         {accountPageTitle && (
           <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
@@ -122,7 +117,8 @@ function LKNavigation({
               </ul>
             </Col>
             {/* </div> */}
-            <Button as={Link} href="#" size="lg" className="w-100 mb-4">
+            {/* @ts-ignore: bootstrap bag*/}
+            <Button as={Link} href="/lk/business/add" size="lg" className="w-100 mb-4">
               <i className="fi-plus me-2"></i>
               Добавить бизнес
             </Button>
