@@ -1,4 +1,4 @@
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 
 function LKBusiness(): JSX.Element {
   return <LKNavigation />;

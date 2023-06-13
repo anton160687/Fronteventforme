@@ -1,4 +1,4 @@
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles } from '@/constant';
 
 function Reviews() {
