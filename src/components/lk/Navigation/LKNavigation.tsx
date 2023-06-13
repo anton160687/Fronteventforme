@@ -12,26 +12,25 @@ import { LKSections, LKSectionsTitles, Paths } from '@/constant';
 import Avatar from '@/components/_finder/Avatar';
 import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
-import { Alert, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
-type LKNavigationPropd = {
+type LKNavigationProps = {
+  is_bride?: boolean;
   //временно опциональные
   accountPageTitle?: string;
   children?: JSX.Element;
-  alert?: string;
 };
 
 function LKNavigation({
+  is_bride = false,
   accountPageTitle,
   children,
-  alert,
-}: LKNavigationPropd): JSX.Element {
+}: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
+  const link = is_bride ? Paths.LKBride : Paths.LKBusiness;
 
   // State to control Collapse
   const [open, setOpen] = useState(false);
-  const is_bride = false;
-  const link = is_bride ? Paths.Bride : Paths.Business;
 
   type SectionRenderProps = {
     index: number;
@@ -42,7 +41,7 @@ function LKNavigation({
     return (
       <CardNav.Item
         key={index}
-        href={Paths.Account + link + section.link}
+        href={link + section.link}
         icon={section.icon}
         active={accountPageTitle === section.title ? true : false}
         className=""
@@ -62,9 +61,9 @@ function LKNavigation({
           <Breadcrumb.Item
             linkAs={Link}
             active={accountPageTitle ? false : true}
-            href={Paths.Account + link}
+            href={link}
           >
-            Аккаунт
+            Личный кабинет
           </Breadcrumb.Item>
           {accountPageTitle && (
             <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
@@ -99,7 +98,7 @@ function LKNavigation({
                 <ul
                   className={
                     'd-flex flex-column d-md-block  align-items-center w-100 list-unstyled fs-sm  mb-0 ' +
-                    styles.textGray800
+                    styles.userInfo
                   }
                 >
                   <li>
@@ -122,8 +121,14 @@ function LKNavigation({
                   </li>
                 </ul>
               </Col>
-              {/* </div> */}
-              <Button as={Link} href="#" size="lg" className="w-100 mb-4">
+
+              <Button
+                // @ts-ignore: bootstrap bag*
+                as={Link}
+                href="/lk/business/add"
+                size="lg"
+                className="w-100 mb-4"
+              >
                 <i className="fi-plus me-2"></i>
                 Добавить бизнес
               </Button>
@@ -154,13 +159,7 @@ function LKNavigation({
           </Col>
 
           {/* Page content */}
-          <Col md={7} lg={8} className="mb-5 position-relative">
-            {alert && (
-              <Alert variant="info" className="d-flex mb-4">
-                <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
-                <div> {alert}</div>
-              </Alert>
-            )}
+          <Col md={7} lg={8} className="mb-5">
             <h2>{accountPageTitle}</h2>
             {children}
           </Col>

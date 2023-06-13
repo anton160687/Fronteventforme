@@ -1,12 +1,25 @@
-import { ChangeEvent, FormEvent, FocusEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  FocusEvent,
+  useEffect,
+  useState,
+  SetStateAction,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import { Button, Form, Col, Row } from 'react-bootstrap';
+import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
-import { LKSectionsTitles } from '@/constant';
+import DeleteModal from '@/components/lk/modal/DeleteModal';
+import {
+  LKSectionsTitles,
+  USERNAME_REQUIREMENTS,
+  EMAIL_REQUIREMENTS,
+} from '@/constant';
+import styles from '@/styles/lk/Lk.module.scss';
 
 function Info() {
   const initialInfoState: BusinessInfo = {
@@ -92,273 +105,288 @@ function Info() {
     console.log(info);
     console.log(profile);
   }
+  //Modal
+  const [show, setShow] = useState<boolean>(false);
 
   return (
-    <LKNavigation
-      accountPageTitle={LKSectionsTitles.Info}
-      alert='Для добавления бизнеса заполните все необходимые поля "Основной
-		информации".'
-    >
-      <Form onSubmit={handleSubmit}>
-        <div className="mb-2 pt-1">
-          Заполнено на {info.is_company ? companyProgress : personProgress}%{' '}
-        </div>
-        <ProgressBar
-          variant="warning"
-          now={info.is_company ? companyProgress : personProgress}
-          className="mb-4"
-          style={{ height: '.25rem' }}
-        />
+    <>
+      <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
+        <Form onSubmit={handleSubmit}>
+          <Alert variant="info" className="d-flex mb-4">
+            <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
+            <div>
+              {' '}
+              Для добавления бизнеса заполните все необходимые поля
+              &quot;Основной информации&quot;.
+            </div>
+          </Alert>
+          <div className="mb-2 pt-1">
+            Заполнено на {info.is_company ? companyProgress : personProgress}%{' '}
+          </div>
+          <ProgressBar
+            variant="warning"
+            now={info.is_company ? companyProgress : personProgress}
+            className="mb-4"
+            style={{ height: '.25rem' }}
+          />
 
-        <Form.Group
-          className="border-bottom pb-3 mb-4"
-          controlId="info-is_company"
-        >
-          <Form.Label>
-            <h2 className="form-label fw-bold">
-              Ваш статус: <span className="text-danger">*</span>
-            </h2>
-          </Form.Label>
-          <Form.Check
-            type="radio"
-            name="is_company"
-            label="ИП/самозанятый"
-            value={0}
-            checked={!info.is_company}
-            onChange={handleRadio}
-          />
-          <Form.Check
-            type="radio"
-            name="is_company"
-            label="Организация"
-            value={1}
-            checked={info.is_company}
-            onChange={handleRadio}
-          />
-        </Form.Group>
-        {/* Username */}
-        <Form.Group
-          className="border-bottom pb-3 mb-4"
-          controlId="info-username"
-        >
-          <Form.Label>
-            <h2 className="form-label fw-bold">
-              Имя пользователя <span className="text-danger">*</span>
-            </h2>
-          </Form.Label>
-          <Form.Control
-            name="username"
-            value={info.username}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder="Введите имя пользователя"
-            required
-          />
-        </Form.Group>
-        {/* Full name */}
-        <Form.Group
-          as={Row}
-          controlId="info-fullname"
-          className="border-bottom pb-3 mb-4"
-        >
-          <Col>
+          <Form.Group
+            className="border-bottom pb-3 mb-4"
+            controlId="info-is_company"
+          >
             <Form.Label>
               <h2 className="form-label fw-bold">
-                Имя <span className="text-danger">*</span>
+                Ваш статус: <span className="text-danger">*</span>
+              </h2>
+            </Form.Label>
+            <Form.Check
+              type="radio"
+              name="is_company"
+              label="ИП/самозанятый"
+              value={0}
+              checked={!info.is_company}
+              onChange={handleRadio}
+            />
+            <Form.Check
+              type="radio"
+              name="is_company"
+              label="Организация"
+              value={1}
+              checked={info.is_company}
+              onChange={handleRadio}
+            />
+          </Form.Group>
+          {/* Username */}
+          <Form.Group
+            className="border-bottom pb-3 mb-4"
+            controlId="info-username"
+          >
+            <Form.Label>
+              <h2 className="form-label fw-bold">
+                Имя пользователя <span className="text-danger">*</span>
               </h2>
             </Form.Label>
             <Form.Control
-              name="first_name"
-              value={info.first_name}
+              name="username"
+              value={info.username}
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Имя"
+              placeholder="Введите имя пользователя"
+              pattern={USERNAME_REQUIREMENTS}
               required
             />
-          </Col>
-          {/* Last name */}
-          <Col>
-            <Form.Label>
-              <h2 className="form-label fw-bold">
-                Фамилия <span className="text-danger">*</span>
-              </h2>
-            </Form.Label>
-            <Form.Control
-              name="last_name"
-              value={info.last_name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Фамилия"
-              required
-            />
-          </Col>
-        </Form.Group>
-        {/* Email, Phone */}
-        <Form.Group
-          as={Row}
-          className="border-bottom pb-3 mb-4"
-          controlId="info-contacts"
-        >
-          <Col>
-            <Form.Label>
-              <h2 className="form-label fw-bold">
-                Электронная почта <span className="text-danger">*</span>
-              </h2>
-            </Form.Label>
-            <Form.Control
-              type="email"
-              className="mt-3"
-              value={info.email}
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Введите электронную почту"
-              required
-            />
-          </Col>
-          <Col>
-            <Form.Label>
-              <h2 className="form-label fw-bold">Номер телефона</h2>
-            </Form.Label>
-            <Form.Control
-              type="tel"
-              pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
-              className="mt-3"
-              name="phone"
-              value={info.phone}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Введите номер телефона"
-            />
-          </Col>
-        </Form.Group>
-        {/* Company, TIN */}
-        <Form.Group
-          as={Row}
-          className="border-bottom pb-3 mb-4"
-          controlId="info-law"
-        >
-          {info.is_company && (
+          </Form.Group>
+          {/* Full name */}
+          <Form.Group
+            as={Row}
+            controlId="info-fullname"
+            className={`${styles.lk__info_row} border-bottom pb-3 mb-4`}
+          >
             <Col>
               <Form.Label>
                 <h2 className="form-label fw-bold">
-                  Наименование организации{' '}
+                  Имя <span className="text-danger">*</span>
+                </h2>
+              </Form.Label>
+              <Form.Control
+                name="first_name"
+                value={info.first_name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Имя"
+                required
+              />
+            </Col>
+            {/* Last name */}
+            <Col>
+              <Form.Label>
+                <h2 className="form-label fw-bold">
+                  Фамилия <span className="text-danger">*</span>
+                </h2>
+              </Form.Label>
+              <Form.Control
+                name="last_name"
+                value={info.last_name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Фамилия"
+                required
+              />
+            </Col>
+          </Form.Group>
+          {/* Email, Phone */}
+          <Form.Group
+            as={Row}
+            controlId="info-contacts"
+            className={`${styles.lk__info_row} border-bottom pb-3 mb-4`}
+          >
+            <Col>
+              <Form.Label>
+                <h2 className="form-label fw-bold">
+                  Электронная почта <span className="text-danger">*</span>
+                </h2>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                className="mt-3"
+                value={info.email}
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Введите электронную почту"
+                pattern={EMAIL_REQUIREMENTS}
+                required
+              />
+            </Col>
+            <Col>
+              <Form.Label>
+                <h2 className="form-label fw-bold">Номер телефона</h2>
+              </Form.Label>
+              <Form.Control
+                type="tel"
+                pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+                className="mt-3"
+                name="phone"
+                value={info.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Введите номер телефона"
+              />
+            </Col>
+          </Form.Group>
+          {/* Company, TIN */}
+          <Form.Group
+            as={Row}
+            className="border-bottom pb-3 mb-4"
+            controlId="info-law"
+          >
+            {info.is_company && (
+              <Col>
+                <Form.Label>
+                  <h2 className="form-label fw-bold">
+                    Наименование организации{' '}
+                    <span className="text-danger">*</span>
+                  </h2>
+                </Form.Label>
+                <Form.Control
+                  className="mt-3"
+                  name="company"
+                  value={info.company ? info.company : ''}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Наименование организации"
+                  required
+                />
+              </Col>
+            )}
+            <Col>
+              <Form.Label>
+                <h2 className="form-label fw-bold">
+                  ИНН {info.is_company ? 'организации' : ''}{' '}
                   <span className="text-danger">*</span>
                 </h2>
               </Form.Label>
               <Form.Control
-                className="mt-3"
-                name="company"
-                value={info.company ? info.company : ''}
-                onChange={handleChange}
+                value={info.tin === 0 ? '' : info.tin}
+                name="tin"
+                onChange={handleNumberChange}
                 onBlur={handleBlur}
-                placeholder="Наименование организации"
+                placeholder="Введите ИНН"
+                maxLength={10}
                 required
               />
             </Col>
-          )}
-          <Col>
+          </Form.Group>
+          {/* Description, avatar */}
+          <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
             <Form.Label>
-              <h2 className="form-label fw-bold">
-                ИНН {info.is_company ? 'организации' : ''}{' '}
-                <span className="text-danger">*</span>
-              </h2>
+              <h2 className="form-label fw-bold">Небольшое описание</h2>
             </Form.Label>
-            <Form.Control
-              value={info.tin === 0 ? '' : info.tin}
-              name="tin"
-              onChange={handleNumberChange}
-              onBlur={handleBlur}
-              placeholder="Введите ИНН"
-              maxLength={10}
-              required
-            />
-          </Col>
-        </Form.Group>
-        {/* Description, avatar */}
-        <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
-          <Form.Label>
-            <h2 className="form-label fw-bold">Небольшое описание</h2>
-          </Form.Label>
-          <Col lg={9} sm={8} className="mb-4">
-            <Form.Control
-              as="textarea"
-              className="h-100"
-              name="bio"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Добавьте небольшое описание..."
-            />
-          </Col>
+            <Col lg={9} sm={8} className="mb-4">
+              <Form.Control
+                as="textarea"
+                className="h-100"
+                name="bio"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Добавьте небольшое описание..."
+              />
+            </Col>
 
-          <Col sm={4} lg={3} className="mb-4">
-            <InfoProfile profile={profile} setProfile={setProfile} />
-          </Col>
-        </Form.Group>
-        {/* Socials */}
-        <Form.Group as={Row} className="pt-2" controlId="info-socials">
-          <Form.Label>
-            <h2 className="form-label fw-bold">Социальные сети</h2>
-          </Form.Label>
-          <div className="d-flex align-items-center mb-3">
-            <Button
-              size="sm"
-              variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
-            >
-              <i className="fi-vk text-body"></i>
-            </Button>
-            <Form.Control
-              name="social_vk"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Ваш аккаунт во ВКонтакте"
-            />
-          </div>
-          <div className="d-flex align-items-center mb-3">
-            <Button
-              size="sm"
-              variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
-            >
-              <i className="fi-odnoklassniki text-body"></i>
-            </Button>
-            <Form.Control
-              name="social_ok"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Ваш аккаунт в Одноклассники"
-            />
-          </div>
-          <div className="d-flex align-items-center mb-3">
-            <Button
-              size="sm"
-              variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
-            >
-              <i className="fi-telegram text-body"></i>
-            </Button>
-            <Form.Control
-              name="social_tel"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              placeholder="Ваш аккаунт в Телеграм"
-            />
-          </div>
-        </Form.Group>
+            <Col sm={4} lg={3} className="mb-4">
+              <InfoProfile profile={profile} setProfile={setProfile} />
+            </Col>
+          </Form.Group>
+          {/* Socials */}
+          <Form.Group as={Row} className="pt-2" controlId="info-socials">
+            <Form.Label>
+              <h2 className="form-label fw-bold">Социальные сети</h2>
+            </Form.Label>
+            <div className="d-flex align-items-center mb-3">
+              <Button
+                size="sm"
+                variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
+              >
+                <i className="fi-vk text-body"></i>
+              </Button>
+              <Form.Control
+                name="social_vk"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Ваш аккаунт во ВКонтакте"
+              />
+            </div>
+            <div className="d-flex align-items-center mb-3">
+              <Button
+                size="sm"
+                variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
+              >
+                <i className="fi-odnoklassniki text-body"></i>
+              </Button>
+              <Form.Control
+                name="social_ok"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Ваш аккаунт в Одноклассники"
+              />
+            </div>
+            <div className="d-flex align-items-center mb-3">
+              <Button
+                size="sm"
+                variant="icon btn-light shadow-sm rounded-circle pe-none flex-shrink-0 me-3"
+              >
+                <i className="fi-telegram text-body"></i>
+              </Button>
+              <Form.Control
+                name="social_tel"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="Ваш аккаунт в Телеграм"
+              />
+            </div>
+          </Form.Group>
 
-        <div className="d-flex align-items-center justify-content-between border-top mt-4 pt-4 pb-1">
-          <Button type="submit" className="px-3 px-sm-4">
-            Сохранить изменения
-          </Button>
+          <div className={`${styles.lk__info_btns} border-top mt-4 pt-4 pb-1`}>
+            <Button type="submit" className="px-3 px-sm-4">
+              Сохранить изменения
+            </Button>
 
-          <Button
-            variant="link btn-sm px-0"
-            style={{ color: '#9691A4', fontWeight: '500' }}
-          >
-            <i className="fi-trash me-2"></i>
-            Удалить аккаунт
-          </Button>
-        </div>
-      </Form>
-    </LKNavigation>
+            <Button
+              variant="link btn-sm px-0"
+              className={styles.lk__info_delete}
+              onClick={() => setShow(true)}
+            >
+              <i className="fi-trash me-2"></i> Удалить аккаунт
+            </Button>
+          </div>
+        </Form>
+      </LKNavigation>
+      <DeleteModal
+        show={show}
+        setShow={setShow}
+        message={'Вы действительно хотите безвозвратно удалить аккаунт?'}
+      />
+    </>
   );
 }
 

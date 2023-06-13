@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Button, Form,  Row,  Col,  Container,  ProgressBar } from 'react-bootstrap';
+import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -9,7 +9,13 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -204,6 +210,7 @@ function AddPropertyPage() {
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
+
   // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

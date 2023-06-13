@@ -308,12 +308,29 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+
   @include adaptiv-value('margin-bottom', 48, 15);
 
   figcaption {
-    min-width: 50%;
+    width: 62%;
   }
 
+  @media (max-width: 1300px) {
+    figcaption {
+      width: 70%;
+    }
+    img {
+      width: 30%;
+    }
+  }
+  @media (max-width: 1200px) {
+    figcaption {
+      width: 60%;
+    }
+    img {
+      width: 40%;
+    }
+  }
   @media (max-width: 800px) {
     width: 100%;
     justify-content: center;
@@ -325,14 +342,10 @@
     }
     figcaption {
       padding: 0;
-      margin: 0 auto;
-    }
-  }
-  @media (max-width: 700px) {
-    figcaption {
       width: 100%;
     }
   }
+
   @media (max-width: 600px) {
     figcaption {
       text-align: justify;
@@ -349,7 +362,7 @@
   }
 }
 
-.articlesWeddings_figure{
+.articlesWeddings_figure {
   @include adaptiv-value('max-width', 450, 280);
   text-decoration: none;
   margin: 15px 0;

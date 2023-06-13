@@ -138,7 +138,11 @@ function AreaForm({
 
       {/* Тип, Вместимость, Цвет */}
       <Row className={styles.group_container + ' mb-4'}>
-        <Form.Group as={Col} controlId="type_area">
+        <Form.Group
+          as={Col}
+          controlId="type_area"
+          style={{ maxWidth: 'fit-content' }}
+        >
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             {'Тип\u00a0'}
             <span className="text-danger">*</span>

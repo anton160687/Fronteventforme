@@ -9,16 +9,14 @@ type TextKitchenProps = {
 };
 
 function TextKitchen({ kids, kitchens }: TextKitchenProps) {
-  function renderKitchens() {
-    let cuisines = '';
-    kitchens.forEach(({ id }) => {
-      let res = KITCHEN.filter((value) => value[0] === id);
-      if (res.length !== 0) {
-        cuisines += `${res[0][1]} `;
-      }
-    });
-    return cuisines;
-  }
+  let cuisines = '';
+  kitchens.forEach(({ id }) => {
+    let res = KITCHEN.filter((value) => value[0] === id);
+    if (res.length !== 0) {
+      cuisines += `${res[0][1]} `;
+    }
+  });
+
   return (
     <div
       id="details"
@@ -31,10 +29,12 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
         <Card.Title as="h4" className="mb-3">
           Детали о кухне площадки:
         </Card.Title>
-        <Card.Text className="mb-2">
-          <i className="fi-union me-2 fs-sm" />
-          {renderKitchens()}
-        </Card.Text>
+        {cuisines && (
+          <Card.Text className="mb-2">
+            <i className="fi-union me-2 fs-sm" />
+            {cuisines}
+          </Card.Text>
+        )}
         <Card.Text className="mb-2">
           <i className="fi-ticket me-2 fs-sm" />
           {kids ? 'Есть детское меню' : 'Детского меню нет'}
