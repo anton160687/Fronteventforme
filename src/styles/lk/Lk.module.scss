@@ -33,3 +33,27 @@
   line-height: 150%;
   color: $gray900;
 }
+
+//info
+.lk__info_row {
+  @media (max-width: 520px) {
+    flex-direction: column;
+  }  
+}
+
+.lk__info_btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 995px) {
+    flex-direction: column;
+  }
+}
+
+.lk__info_delete {
+  color: #9691A4;
+  font-weight: 500;
+  @media (max-width: 995px) {
+    margin-top: 80px;
+  }
+}

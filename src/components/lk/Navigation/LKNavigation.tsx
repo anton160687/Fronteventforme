@@ -14,14 +14,14 @@ import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import { Container } from 'react-bootstrap';
 
-type LKNavigationPropd = {
+type LKNavigationProps = {
   is_bride?: boolean;
   //временно опциоональные
   accountPageTitle?: string;
   children?: JSX.Element;
 };
 
-function LKNavigation({is_bride = false, accountPageTitle, children}: LKNavigationPropd): JSX.Element {
+function LKNavigation({is_bride = false, accountPageTitle, children}: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
 
   // State to control Collapse

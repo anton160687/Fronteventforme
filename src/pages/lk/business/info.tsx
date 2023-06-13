@@ -6,8 +6,10 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
-import { LKSectionsTitles } from '@/constant';
 import DeleteModal from '@/components/lk/modal/DeleteModal';
+import { LKSectionsTitles, USERNAME_REQUIREMENTS, EMAIL_REQUIREMENTS } from '@/constant';
+import styles from '@/styles/lk/Lk.module.scss';
+
 
 function Info() {
   const initialInfoState: BusinessInfo = {
@@ -140,11 +142,12 @@ function Info() {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder='Введите имя пользователя'
+              pattern={USERNAME_REQUIREMENTS}
               required
             />
           </Form.Group>
           {/* Full name */}
-          <Form.Group as={Row} controlId="info-fullname" className='border-bottom pb-3 mb-4'>
+          <Form.Group as={Row} controlId="info-fullname" className={`${styles.lk__info_row} border-bottom pb-3 mb-4`}>
             <Col>
               <Form.Label>
                 <h2 className='form-label fw-bold'>Имя <span className="text-danger">*</span></h2>
@@ -174,7 +177,7 @@ function Info() {
             </Col>
           </Form.Group>
           {/* Email, Phone */}
-          <Form.Group as={Row} className='border-bottom pb-3 mb-4' controlId="info-contacts">
+          <Form.Group as={Row} controlId="info-contacts" className={`${styles.lk__info_row} border-bottom pb-3 mb-4`}>
             <Col>
               <Form.Label>
                 <h2 className='form-label fw-bold'>Электронная почта <span className="text-danger">*</span></h2>
@@ -187,6 +190,7 @@ function Info() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder='Введите электронную почту'
+                pattern={EMAIL_REQUIREMENTS}
                 required
               />
             </Col>
@@ -298,10 +302,10 @@ function Info() {
             </div>
           </Form.Group>
 
-          <div className='d-flex align-items-center justify-content-between border-top mt-4 pt-4 pb-1'>
+          <div className={`${styles.lk__info_btns} border-top mt-4 pt-4 pb-1`}>
             <Button type='submit' className='px-3 px-sm-4'>Сохранить изменения</Button>
 
-            <Button variant='link btn-sm px-0' style={{ color: '#9691A4', fontWeight: '500' }} onClick={() => setShow(true)}>
+            <Button variant='link btn-sm px-0' className={styles.lk__info_delete} onClick={() => setShow(true)}>
               <i className='fi-trash me-2'></i> Удалить аккаунт
             </Button>
           </div>
