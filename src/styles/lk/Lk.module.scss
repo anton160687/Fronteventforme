@@ -1,7 +1,14 @@
 @import '@/styles/_mixins';
 
-.userInfo {
+.textGray800 {
   color: $gray800;
+}
+
+.clearBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
 }
 
 .lk__header {
@@ -10,7 +17,7 @@
   align-items: baseline;
   gap: 16px;
 
-  &>i {
+  & > i {
     width: 18px;
     height: 18px;
     color: $primary;
@@ -20,7 +27,7 @@
 .lk__business_btn {
   padding: 14px 32px;
 
-  &>div {
+  & > div {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -38,7 +45,7 @@
 .lk__info_row {
   @media (max-width: 520px) {
     flex-direction: column;
-  }  
+  }
 }
 
 .lk__info_btns {
@@ -51,7 +58,7 @@
 }
 
 .lk__info_delete {
-  color: #9691A4;
+  color: #9691a4;
   font-weight: 500;
   @media (max-width: 995px) {
     margin-top: 80px;

@@ -4,28 +4,22 @@ import ImageLoader from '@/components/_finder/ImageLoader';
 import { PlaceCardType } from '@/types/catalog';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { numberOfAreas } from '@/services/parse.service';
+import { renderCardText } from '@/components/helpers';
 
 type PlaceCardProps = {
   place: PlaceCardType;
 };
 
 function PlaceCard({ place }: PlaceCardProps) {
-  function renderCardText(title: string, description: string) {
-    return (
-      <Card.Text className="d-flex align-items-center justify-content-between fs-6">
-        <span className="m-0">{title}</span>
-        <span className="m-0 text-end">
-          <strong>{description}</strong>
-        </span>
-      </Card.Text>
-    );
-  }
-
   return (
     <Card className="card-horizontal card-hover my-5">
       <Link href={`/catalog/places/${place.id}`} className="card-img-top">
         <ImageLoader
-          src={place.cover_place || place.images_place[0]?.image|| 'http://placekitten.com/200/300'}
+          src={
+            place.cover_place ||
+            place.images_place[0]?.image ||
+            'http://placekitten.com/200/300'
+          }
           quality={100}
           layout="fill"
           objectFit="cover"
@@ -66,8 +60,9 @@ function PlaceCard({ place }: PlaceCardProps) {
 
         <hr className="text-secondary" />
         <Card.Footer className="d-flex align-items-center justify-content-evenly px-0 text-center">
-          
-          <span>{place.areas.length} {numberOfAreas(place.areas.length)}</span>
+          <span>
+            {place.areas.length} {numberOfAreas(place.areas.length)}
+          </span>
         </Card.Footer>
       </Card.Body>
     </Card>
