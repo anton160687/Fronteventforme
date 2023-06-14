@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import { LocationCard } from '@/types/locationCard';
 import styles from '@/styles/main/Main.module.scss';
-
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 type LocationProps = {
   locations: LocationCard[];
@@ -58,13 +58,18 @@ export function Locations({
               </div>
             </div>
             <div className={`${styles.locations__icon_wrapper} pt-3 pe-3`}>
-              <button
-                type="button"
-                className={`${styles.locations__icon} btn btn-icon btn-light btn-xs rounded-circle`}
-                onClick={addToFav}
+              <OverlayTrigger
+                placement="left"
+                overlay={<Tooltip>Добавить в Избранное</Tooltip>}
               >
-                <i className="fi-heart" />
-              </button>
+                <Button
+                  type="button"
+                  className="text-primary btn btn-icon btn-light btn-xs rounded-circle"
+                  onClick={addToFav}
+                >
+                  <i className="fi-heart" />
+                </Button>
+              </OverlayTrigger>
             </div>
           </div>
         </Link>

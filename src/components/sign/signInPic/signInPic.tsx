@@ -6,7 +6,7 @@ import { Paths } from '@/constant';
 export default function SignInPic(): JSX.Element {
   return (
     <>
-      <h2 className="h3 mb-4 mb-sm-5 text-center text-lg-start">
+      <h2 className="h3 mb-4 mb-sm-5 pb-5 text-center text-lg-start">
         Привет. <br />
         Рады видеть вас снова!
       </h2>

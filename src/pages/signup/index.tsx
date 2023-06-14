@@ -27,8 +27,8 @@ export default function SignUp(): JSX.Element {
           <div className="container-fluid d-flex h-100 align-items-center justify-content-center">
             {/* Sign up card */}
             <div
-              className="card card-body"
-              style={{ maxWidth: '1040px', border: 'none' }}
+              className="card card-body border-none"
+              style={{ border: 'none' }}
             >
               <div className="row mx-0 align-items-center">
                 <div className="col-lg-6 border-end-lg p-2 pe-lg-5">

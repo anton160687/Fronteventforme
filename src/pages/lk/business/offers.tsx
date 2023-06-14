@@ -135,7 +135,7 @@ function Offers() {
           </Button>
         )}
         <p style={{ fontWeight: '500' }}>
-          Тариф — <span className="text-primary fw-bold">Стандартный</span>
+          Тариф — <span className="text-primary fw-bold">{'Стандартный'}</span>
         </p>
 
         <Nav
@@ -174,7 +174,7 @@ function Offers() {
               width={544}
               height={517}
               alt="Человек через лупу смотрит на дом с долларом"
-              src="/img/emptyBusiness.png"
+              src="/img/emptyBusiness.svg"
             />
           </>
         )}

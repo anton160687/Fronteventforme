@@ -53,7 +53,7 @@ function LKNavigation({
 
   return (
     <Container>
-      <section className="pb-lg-4 my-md-5 my-sm-2 mx-lg-auto mx-5">
+      <section className="mx-lg-auto mx-5">
         <Breadcrumb className="mb-4 pt-md-3">
           <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
             Главная
@@ -72,7 +72,7 @@ function LKNavigation({
 
         <Row>
           {/* Sidebar (Account nav) */}
-          <Col md={5} lg={4} className="pe-xl-4 mb-5">
+          <Col md={5} lg={4} className="pe-xl-4">
             <div className="card card-body border-0 shadow-sm pb-1 me-lg-1">
               {/* <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4"> */}
               <div className="d-flex flex-column flex-md-row align-items-center w-100">
@@ -159,7 +159,7 @@ function LKNavigation({
           </Col>
 
           {/* Page content */}
-          <Col md={7} lg={8} className="mb-5 position-relative">
+          <Col md={6} lg={7} className="position-relative ms-md-3 ms-lg-5 ms-0">
             <h2>{accountPageTitle}</h2>
             {children}
           </Col>

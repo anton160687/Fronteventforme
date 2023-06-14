@@ -397,4 +397,5 @@ export enum contextMenuTypeEnum {
   Draft = 'draft',
   Archive = 'archive',
   Wishlist = 'wishlist',
+	Base = 'base',
 }

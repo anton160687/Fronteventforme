@@ -1,7 +1,13 @@
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { PlaceCardType } from '@/types/catalog';
 import Link from 'next/link';
-import { Button, Card, Dropdown } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Dropdown,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { numberOfAreas } from '@/services/parse.service';
 import { useState } from 'react';
@@ -10,7 +16,7 @@ import { contextMenuTypeEnum } from '@/constant';
 
 type LKCardProps = {
   card: PlaceCardType;
-  deleteCard: (id: number) => void;
+  deleteCard?: (id: number) => void;
   contextMenu?: string;
 };
 
@@ -39,7 +45,7 @@ const archiveContextMenu: ContextMenuType[] = [
 function LKCard({
   card,
   deleteCard,
-  contextMenu = contextMenuTypeEnum.Wishlist,
+  contextMenu = contextMenuTypeEnum.Base,
 }: LKCardProps) {
   //Modal
   const [show, setShow] = useState<boolean>(false);
@@ -134,12 +140,28 @@ function LKCard({
             >
               <h5>{card.title}</h5>
             </Link>
-            {contextMenu === contextMenuTypeEnum.Wishlist ? (
-              <Button
-                className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle shadow-sm`}
+            {contextMenu === contextMenuTypeEnum.Wishlist ||
+            contextMenu === contextMenuTypeEnum.Base ? (
+              <OverlayTrigger
+                placement="left"
+                overlay={
+                  <Tooltip>
+                    {contextMenu === contextMenuTypeEnum.Wishlist
+                      ? 'Убрать из Избранного'
+                      : 'Добавить в Избранное'}
+                  </Tooltip>
+                }
               >
-                <i className="fi-heart"></i>
-              </Button>
+                <Button className="text-primary btn btn-icon btn-light btn-xs rounded-circle shadow-sm">
+                  <i
+                    className={`${
+                      contextMenu === contextMenuTypeEnum.Wishlist
+                        ? 'fi-heart-filled'
+                        : 'fi-heart'
+                    }`}
+                  ></i>
+                </Button>
+              </OverlayTrigger>
             ) : (
               contextMenuRender()
             )}
@@ -174,14 +196,16 @@ function LKCard({
           <p>{card.comment}</p>
         </>
       )}
-      <DeleteModal
-        show={show}
-        setShow={setShow}
-        message={
-          'Удаленный бизнес не будет виден на сайте и останется в вашем архиве.'
-        }
-        deleteFunc={() => deleteCard(card.id)}
-      />
+      {deleteCard && (
+        <DeleteModal
+          show={show}
+          setShow={setShow}
+          message={
+            'Удаленный бизнес не будет виден на сайте и останется в вашем архиве.'
+          }
+          deleteFunc={() => deleteCard(card.id)}
+        />
+      )}
     </>
   );
 }
