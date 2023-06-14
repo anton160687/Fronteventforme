@@ -16,7 +16,7 @@ function MainPhotos({ title, setMainPhotos, setPreviewMainPhotos }: MainPhotosPr
     >
       <h2 className="h4 mb-4">
         <i className="fi-image text-primary fs-5 mt-n1 me-2"></i>
-        {title}
+        {title} <span className="text-danger">*</span>
       </h2>
       <FileUploader
         setGallery={setMainPhotos}
