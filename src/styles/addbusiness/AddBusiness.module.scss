@@ -1,0 +1,13 @@
+.city__dropdown {
+  position: absolute;
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+  & > p {
+    margin: 8px;
+  }
+  @media (max-width: 990px) {
+    top: 24px;
+  }
+}

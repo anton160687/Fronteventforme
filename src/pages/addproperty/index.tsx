@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Button, Form,  Row,  Col,  Container,  ProgressBar } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container, ProgressBar } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -297,6 +297,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
+                title = 'Фото площадки'
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
@@ -336,7 +337,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  //  disabled={!isFormFilled}
+                //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>

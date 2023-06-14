@@ -92,13 +92,9 @@ function AreaForm({
   }, [area]);
 
   //images
-  const [areaImg, setAreaImg] = useState<string[]>([]);
-  useEffect(() => {
-    setArea((prev) => ({
-      ...prev,
-      area_img: areaImg,
-    }));
-  }, [areaImg]);
+  function setAreaImages (imageIds: string[]) {
+    setArea({...area, area_img: imageIds});
+  }
 
   useEffect(() => {
     const areasImages = areas.map((area) =>
@@ -128,7 +124,7 @@ function AreaForm({
           </Form.Label>
 
           <FileUploader
-            setGallery={setAreaImg}
+            setGallery={setAreaImages}
             required={true}
             maxFiles={5}
             warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."

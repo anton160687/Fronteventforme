@@ -23,7 +23,8 @@ registerPlugin(
 );
 
 type FileUploaderProps = {
-  setGallery: Dispatch<SetStateAction<string[]>>;
+  // setGallery: Dispatch<SetStateAction<string[]>>;
+  setGallery: (imageIds: string[]) => void;
   setPreviewGallery?: Dispatch<SetStateAction<string[]>>;
   warning?: string;
   maxFiles: number;
