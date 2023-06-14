@@ -390,3 +390,11 @@ export const BusinessTypes = [
   { name: 'Бармены', path: '#' },
   { name: 'Фейерверки', path: '#' },
 ];
+
+export enum contextMenuTypeEnum {
+  Published = 'published',
+  Moderation = 'moderation',
+  Draft = 'draft',
+  Archive = 'archive',
+  Wishlist = 'wishlist',
+}

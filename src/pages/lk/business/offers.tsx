@@ -1,6 +1,6 @@
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
-import { LKSectionsTitles } from '@/constant';
-import { MouseEvent, useState } from 'react';
+import { LKSectionsTitles, contextMenuTypeEnum } from '@/constant';
+import { useState } from 'react';
 import { Button, Nav } from 'react-bootstrap';
 import Link from 'next/link';
 import styles from '@/styles/lk/Lk.module.scss';
@@ -13,51 +13,68 @@ import {
   placesModerate,
 } from '@/mocks/catalogPlaces';
 import LKCard from '@/components/lk/card/Card';
+import DeleteModal from '@/components/lk/modal/DeleteModal';
+import ImageLoader from '@/components/_finder/ImageLoader';
+
+const navItems = [
+  {
+    title: 'Опубликовано',
+    value: contextMenuTypeEnum.Published,
+    icon: 'fi-file',
+  },
+  {
+    title: 'На модерации',
+    value: contextMenuTypeEnum.Moderation,
+    icon: 'fi-users',
+  },
+  {
+    title: 'Черновики',
+    value: contextMenuTypeEnum.Draft,
+    icon: 'fi-file-clean',
+  },
+  {
+    title: 'Архив',
+    value: contextMenuTypeEnum.Archive,
+    icon: 'fi-archive',
+  },
+];
 
 function Offers() {
-  const navItems = [
-    {
-      title: 'Опубликовано',
-      value: 'published',
-      icon: 'fi-file',
-    },
-    {
-      title: 'Модерация',
-      value: 'moderation',
-      icon: 'fi-users',
-    },
-    {
-      title: 'Черновики',
-      value: 'draft',
-      icon: 'fi-file-clean',
-    },
-    {
-      title: 'Архив',
-      value: 'archive',
-      icon: 'fi-archive',
-    },
-  ];
-
+  //places
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
+  //context menu content
+  const [menuType, setMenuType] = useState<string>(
+    contextMenuTypeEnum.Published
+  );
 
-  const clearAll = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setCards([]);
-  };
+  //Modal
+  const [show, setShow] = useState<boolean>(false);
 
-  const handleSelect = (eventKey: string) => {
+  //Nav
+  const handleSelect = (
+    eventKey: string | null,
+    e: React.SyntheticEvent<unknown>
+  ) => {
     switch (eventKey) {
-      case 'published':
+      case contextMenuTypeEnum.Published:
+        setMenuType(contextMenuTypeEnum.Published);
         setCards(placesPublished);
         break;
-      case 'moderation':
+      case contextMenuTypeEnum.Moderation:
+        //!под вопросом у Евы
+        setMenuType(contextMenuTypeEnum.Published);
         setCards(placesModerate);
         break;
-      case 'draft':
+      case contextMenuTypeEnum.Draft:
+        setMenuType(contextMenuTypeEnum.Draft);
         setCards(placesDraft);
         break;
-      case 'archive':
+      case contextMenuTypeEnum.Archive:
+        setMenuType(contextMenuTypeEnum.Archive);
         setCards(placesArchive);
+        break;
+      case null:
+        console.error('eventKey = null');
         break;
     }
   };
@@ -70,14 +87,18 @@ function Offers() {
   return (
     <LKNavigation accountPageTitle={LKSectionsTitles.Offers}>
       <>
-        <a
-          href="#"
-          className={'fw-bold text-decoration-none ' + styles.clearBtn}
-          onClick={clearAll}
-        >
-          <i className="fi-trash mt-n1 me-2"></i>
-          Удалить все
-        </a>
+        {cards.length > 0 && (
+          <Button
+            variant="link"
+            className={
+              'fw-bold text-decoration-none text-primary ' + styles.clearBtn
+            }
+            onClick={() => setShow(true)}
+          >
+            <i className="fi-trash mt-n1 me-2"></i>
+            Удалить все
+          </Button>
+        )}
         <p style={{ fontWeight: '500' }}>
           Тариф — <span className="text-primary fw-bold">Стандартный</span>
         </p>
@@ -85,7 +106,7 @@ function Offers() {
         <Nav
           variant="tabs"
           defaultActiveKey="published"
-          className="fs-base border-bottom mb-4 justify-content-center justify-content-sm-start"
+          className="fs-base border-bottom justify-content-center justify-content-sm-start"
           onSelect={handleSelect}
         >
           {navItems.map((item, index) => (
@@ -105,23 +126,39 @@ function Offers() {
         {/* List of properties or empty state */}
         {cards.length > 0 ? (
           cards.map((card, indx) => (
-            <LKCard deleteCard={deleteCard} card={card} key={indx} />
+            <LKCard
+              contextMenu={menuType}
+              deleteCard={deleteCard}
+              card={card}
+              key={indx}
+            />
           ))
         ) : (
           // Empty state
-          <div className="text-center pt-2 pt-md-4 pt-lg-5 pb-2 pb-md-0">
-            <i className="fi-heart display-6 text-muted mb-4"></i>
-            <h2 className="h5 mb-2">Your Wishlist is empty!</h2>
+          <>
+            <h3 className="h3 mb-2">Нет опубликованных бизнесов</h3>
             <p className="pb-1">
-              Search our catalog for relevant properties and add them to you
-              Wishlist to buy or rent them later.
+              Начните создавать свою первую публикацию прямо сейчас или
+              проверьте уже готовые бизнесы во вкладках “Модерация” и
+              “Черновики”.
             </p>
-            {/* @ts-ignore: bootstrap bag*/}
-            <Button as={Link} href="/real-estate/catalog?category=rent">
-              Go to Catalog
-            </Button>
-          </div>
+            <ImageLoader
+              width={544}
+              height={517}
+              alt="Человек через лупу смотрит на дом с долларом"
+              src="/img/emptyBusiness.png"
+            />
+          </>
         )}
+
+        <DeleteModal
+          show={show}
+          setShow={setShow}
+          message={
+            'Все бизнесы не будут видны на сайте и останутся в вашем архиве.'
+          }
+          deleteFunc={() => setCards([])}
+        />
       </>
     </LKNavigation>
   );

@@ -5,26 +5,54 @@ import { Button, Card, Dropdown } from 'react-bootstrap';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { numberOfAreas } from '@/services/parse.service';
 import { useState } from 'react';
+import DeleteModal from '../modal/DeleteModal';
+import { contextMenuTypeEnum } from '@/constant';
 
 type LKCardProps = {
   card: PlaceCardType;
-  isWishList: boolean;
   deleteCard: (id: number) => void;
+  contextMenu?: string;
 };
 
-const publishedContextMenu = [
+type ContextMenuType = {
+  icon: string;
+  title: string;
+  value: string;
+};
+
+const publishedContextMenu: ContextMenuType[] = [
   { icon: 'fi-edit', title: 'Редактировать', value: 'edit' },
   { icon: 'fi-flame', title: 'Продвигать', value: 'promote' },
   { icon: 'fi-trash', title: 'Удалить', value: 'delete' },
 ];
 
-function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
+const draftContextMenu: ContextMenuType[] = [
+  { icon: 'fi-edit', title: 'Редактировать', value: 'edit' },
+  { icon: 'fi-trash', title: 'Удалить', value: 'delete' },
+];
+
+const archiveContextMenu: ContextMenuType[] = [
+  { icon: 'fi-rotate-right', title: 'Восстановить', value: 'restore' },
+];
+
+//!копия PlaceCard с некоторыми изменениями, как договоримся с Евой - объединю с PlaceCard
+function LKCard({
+  card,
+  deleteCard,
+  contextMenu = contextMenuTypeEnum.Wishlist,
+}: LKCardProps) {
+  //Modal
+  const [show, setShow] = useState<boolean>(false);
+
   //SelectCallback
-  const handleSelect = (eventKey: string) => {
+  const handleSelect = (
+    eventKey: string | null,
+    e: React.SyntheticEvent<unknown>
+  ) => {
     console.log('eventKey', eventKey);
 
     if (eventKey === 'delete') {
-      deleteCard(card.id);
+      setShow(true);
     }
   };
 
@@ -39,6 +67,24 @@ function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
     );
   }
 
+  //context menu
+  let menu: ContextMenuType[] = [];
+
+  switch (contextMenu) {
+    case contextMenuTypeEnum.Published:
+      menu = publishedContextMenu;
+      break;
+    case contextMenuTypeEnum.Moderation:
+      menu = publishedContextMenu;
+      break;
+    case contextMenuTypeEnum.Draft:
+      menu = draftContextMenu;
+      break;
+    case contextMenuTypeEnum.Archive:
+      menu = archiveContextMenu;
+      break;
+  }
+
   const contextMenuRender = () => {
     return (
       <div className="align-self-center ms-auto">
@@ -49,8 +95,8 @@ function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
           >
             <i className="fi-dots-vertical"></i>
           </Dropdown.Toggle>
-          <Dropdown.Menu align="end" className="pb-3 my-1">
-            {publishedContextMenu.map((item, index) => (
+          <Dropdown.Menu align="end" className="pb-3">
+            {menu.map((item, index) => (
               <Dropdown.Item key={index} eventKey={item.value}>
                 <i className={`${item.icon} fs-lg opacity-60 me-2`}></i>
                 {item.title}
@@ -74,7 +120,7 @@ function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
           quality={100}
           layout="fill"
           objectFit="cover"
-          alt="Card image"
+          alt={card.title}
         />
       </Link>
       <Card.Body className="py-0">
@@ -87,7 +133,7 @@ function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
           >
             <h5>{card.title}</h5>
           </Link>
-          {isWishList ? (
+          {contextMenu === contextMenuTypeEnum.Wishlist ? (
             <Button
               className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle shadow-sm`}
             >
@@ -120,6 +166,14 @@ function LKCard({ card, isWishList, deleteCard }: LKCardProps) {
           </span>
         </Card.Footer>
       </Card.Body>
+      <DeleteModal
+        show={show}
+        setShow={setShow}
+        message={
+          'Удаленный бизнес не будет виден на сайте и останется в вашем архиве.'
+        }
+        deleteFunc={() => deleteCard(card.id)}
+      />
     </Card>
   );
 }
