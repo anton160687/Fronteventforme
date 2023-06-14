@@ -1,8 +1,6 @@
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles, contextMenuTypeEnum } from '@/constant';
 import { useState } from 'react';
-import { Button, Nav } from 'react-bootstrap';
-import Link from 'next/link';
 import styles from '@/styles/lk/Lk.module.scss';
 import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import { PlaceCardType } from '@/types/catalog';
@@ -11,10 +9,12 @@ import {
   placesDraft,
   placesArchive,
   placesModerate,
+  placesDeclined,
 } from '@/mocks/catalogPlaces';
 import LKCard from '@/components/lk/card/Card';
 import DeleteModal from '@/components/lk/modal/DeleteModal';
 import ImageLoader from '@/components/_finder/ImageLoader';
+import { Button, Nav } from 'react-bootstrap';
 
 const navItems = [
   {
@@ -42,6 +42,8 @@ const navItems = [
 function Offers() {
   //places
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
+  const [declinedCards, setDeclinedCards] =
+    useState<PlaceCardType[]>(placesPublished);
   //context menu content
   const [menuType, setMenuType] = useState<string>(
     contextMenuTypeEnum.Published
@@ -62,8 +64,9 @@ function Offers() {
         break;
       case contextMenuTypeEnum.Moderation:
         //!под вопросом у Евы
-        setMenuType(contextMenuTypeEnum.Published);
+        setMenuType(contextMenuTypeEnum.Moderation);
         setCards(placesModerate);
+        setDeclinedCards(placesDeclined);
         break;
       case contextMenuTypeEnum.Draft:
         setMenuType(contextMenuTypeEnum.Draft);
@@ -82,6 +85,38 @@ function Offers() {
   const deleteCard = (id: number) => {
     const newCards = cards.filter((place) => place.id !== id);
     setCards(newCards);
+  };
+
+  const moderationCardsRenderCheck = () => {
+    return (
+      <>
+        {menuType === contextMenuTypeEnum.Moderation ? (
+          <>
+            <h3>На проверке</h3>
+            {cardsRender(cards)}
+            <h3>Отклонено</h3>
+            {cardsRender(declinedCards)}
+          </>
+        ) : (
+          cardsRender(cards)
+        )}
+      </>
+    );
+  };
+
+  const cardsRender = (anyCards: PlaceCardType[]) => {
+    return (
+      <>
+        {anyCards.map((card, indx) => (
+          <LKCard
+            contextMenu={menuType}
+            deleteCard={deleteCard}
+            card={card}
+            key={indx}
+          />
+        ))}
+      </>
+    );
   };
 
   return (
@@ -125,14 +160,7 @@ function Offers() {
 
         {/* List of properties or empty state */}
         {cards.length > 0 ? (
-          cards.map((card, indx) => (
-            <LKCard
-              contextMenu={menuType}
-              deleteCard={deleteCard}
-              card={card}
-              key={indx}
-            />
-          ))
+          moderationCardsRenderCheck()
         ) : (
           // Empty state
           <>

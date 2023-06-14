@@ -109,63 +109,71 @@ function LKCard({
   };
 
   return (
-    <Card className="card-horizontal card-hover my-5">
-      <Link href={`/catalog/places/${card.id}`} className="card-img-top">
-        <ImageLoader
-          src={
-            card.cover_place ||
-            card.images_place[0]?.image ||
-            'http://placekitten.com/200/300'
-          }
-          quality={100}
-          layout="fill"
-          objectFit="cover"
-          alt={card.title}
-        />
-      </Link>
-      <Card.Body className="py-0">
-        <Card.Title
-          className={`d-flex align-items-baseline justify-content-between my-4`}
-        >
-          <Link
-            href={`/catalog/places/${card.id}`}
-            className="m-0 text-decoration-none fs-base"
+    <>
+      <Card className="card-horizontal card-hover my-4">
+        <Link href={`/catalog/places/${card.id}`} className="card-img-top">
+          <ImageLoader
+            src={
+              card.cover_place ||
+              card.images_place[0]?.image ||
+              'http://placekitten.com/200/300'
+            }
+            quality={100}
+            layout="fill"
+            objectFit="cover"
+            alt={card.title}
+          />
+        </Link>
+        <Card.Body className="py-0">
+          <Card.Title
+            className={`d-flex align-items-baseline justify-content-between my-4`}
           >
-            <h5>{card.title}</h5>
-          </Link>
-          {contextMenu === contextMenuTypeEnum.Wishlist ? (
-            <Button
-              className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle shadow-sm`}
+            <Link
+              href={`/catalog/places/${card.id}`}
+              className="m-0 text-decoration-none fs-base"
             >
-              <i className="fi-heart"></i>
-            </Button>
-          ) : (
-            contextMenuRender()
-          )}
-        </Card.Title>
+              <h5>{card.title}</h5>
+            </Link>
+            {contextMenu === contextMenuTypeEnum.Wishlist ? (
+              <Button
+                className={`${styles.heart__icon} btn btn-icon btn-light btn-xs rounded-circle shadow-sm`}
+              >
+                <i className="fi-heart"></i>
+              </Button>
+            ) : (
+              contextMenuRender()
+            )}
+          </Card.Title>
 
-        {card.areas.length !== 0 &&
-          renderCardText(
-            'Вместимость',
-            `${card.areas[0].min_capacity} - ${card.areas[0].max_capacity} человек`
-          )}
+          {card.areas.length !== 0 &&
+            renderCardText(
+              'Вместимость',
+              `${card.areas[0].min_capacity} - ${card.areas[0].max_capacity} человек`
+            )}
 
-        {card.areas.length !== 0 &&
-          renderCardText(
-            'Стоимость',
-            `Аренда ${card.areas[0].min_price_rent} ₽ + от ${card.areas[0].min_price_banquet} ₽/ч`
-          )}
+          {card.areas.length !== 0 &&
+            renderCardText(
+              'Стоимость',
+              `Аренда ${card.areas[0].min_price_rent} ₽ + от ${card.areas[0].min_price_banquet} ₽/ч`
+            )}
 
-        {card.areas.length !== 0 &&
-          renderCardText('Схема оплаты', 'За аренду зала + за банкет')}
+          {card.areas.length !== 0 &&
+            renderCardText('Схема оплаты', 'За аренду зала + за банкет')}
 
-        <hr className="text-secondary" />
-        <Card.Footer className="d-flex align-items-center justify-content-evenly px-0 text-center">
-          <span>
-            {card.areas.length} {numberOfAreas(card.areas.length)}
-          </span>
-        </Card.Footer>
-      </Card.Body>
+          <hr className="text-secondary" />
+          <Card.Footer className="d-flex align-items-center justify-content-evenly px-0 text-center">
+            <span>
+              {card.areas.length} {numberOfAreas(card.areas.length)}
+            </span>
+          </Card.Footer>
+        </Card.Body>
+      </Card>
+      {card.comment && (
+        <>
+          <h5>Комментарий модератора:</h5>
+          <p>{card.comment}</p>
+        </>
+      )}
       <DeleteModal
         show={show}
         setShow={setShow}
@@ -174,7 +182,7 @@ function LKCard({
         }
         deleteFunc={() => deleteCard(card.id)}
       />
-    </Card>
+    </>
   );
 }
 
