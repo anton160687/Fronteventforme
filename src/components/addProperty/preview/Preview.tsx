@@ -56,27 +56,34 @@ function Preview({
   previewAreasImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
+  const notNullAreasImgOnly: string[][] = [];
 
   const makeUniAreas = (): AreaReceived[] => {
     let notNullAreasOnly: Area[] = [];
-    areas.forEach((area)=> {
+    areas.forEach((area) => {
       if (area) {
         notNullAreasOnly.push(area);
       }
-    })
-    const newArray: AreaReceived[] = notNullAreasOnly.map((area, index) => 
+    });
+
+    previewAreasImg.forEach((img) => {
+      if (img.length) {
+        notNullAreasImgOnly.push(img);
+      }
+    });
+
+    const newArray: AreaReceived[] = notNullAreasOnly.map((area, index) =>
       makeAreaRecievedArr(area, index)
     );
     return newArray;
   };
 
   const makeAreaRecievedArr = (area: Area, index: number): AreaReceived => {
-
     const reservedDays: string = area.reserved_days.toString();
     const typeArea: TypeArea = { id: Number(area.type_area), type_area: '' };
 
     const imagesArea: AreaImages[] = [];
-    previewAreasImg[index].map((image) => {
+    notNullAreasImgOnly[index]?.map((image) => {
       const item = { id: 0, image: image, area: 0 };
       imagesArea.push(item);
     });
@@ -194,7 +201,7 @@ function Preview({
       territory: newTerritory,
       areas: makeUniAreas(),
     };
-
+    console.log('newPlace', newPlace);
     return newPlace;
   };
 
@@ -228,7 +235,7 @@ function Preview({
               <Col xl={8} className={styles.left__container}>
                 <LocationDescription
                   title={place.title}
-                  areasNumber={areas.length}
+                  areasNumber={areas.filter((area) => area !== null).length}
                   address={place.address}
                   metro={place.metro}
                 />

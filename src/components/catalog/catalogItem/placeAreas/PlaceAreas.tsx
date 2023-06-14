@@ -26,7 +26,7 @@ import { AreaReceived } from '@/types/areaType';
 import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
 
 type PlaceAreasProps = {
-  areas: AreaRecieved[] | (Area | null)[] | undefined;
+  areas: (AreaReceived | null)[] | undefined;
   average_check: number;
 };
 
@@ -282,7 +282,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 {photos.length === 1 ? (
                   <GalleryItem
                     href={photos[0]}
-                    thumb={[photos[0], 900, 230]}
+                    thumb={[photos[0], 1000, 230]}
                     data-external-thumb-image={photos[0]}
                     imgAlt={area.title}
                     light=""
@@ -395,10 +395,12 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 </Badge>
               </div>
             )}
-            <div className={styles.slider_details + ' order-1 mt-5 mt-md-0'}>
-              <h4 className="h4">Детали</h4>
-              {detailsRender(area.detail_location)}
-            </div>
+            {area.detail_location.length > 0 && (
+              <div className={styles.slider_details + ' order-1 mt-5 mt-md-0'}>
+                <h4 className="h4">Детали</h4>
+                {detailsRender(area.detail_location)}
+              </div>
+            )}
           </div>
         </div>
       </section>
