@@ -27,7 +27,7 @@ function LKNavigation({
   children,
 }: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
-  const link = is_bride ? Paths.LKBride : Paths.LKBusiness;
+  const link = is_bride ? Paths.AccBride : Paths.AccBusiness;
 
   // State to control Collapse
   const [open, setOpen] = useState(false);
