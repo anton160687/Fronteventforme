@@ -15,6 +15,7 @@ function AddBusiness() {
         return array.map((el, i) => (
             <Form.Check
                 key={i}
+                id={el.name}
                 type="radio"
                 value={el.name}
                 label={el.name}
@@ -26,7 +27,7 @@ function AddBusiness() {
     }
 
     return (
-        <Container>
+        <Container className="px-5">
             <Breadcrumb className="mb-4 pt-md-3">
                 <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
                     Главная

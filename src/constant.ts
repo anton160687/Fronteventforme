@@ -123,8 +123,10 @@ export enum Paths {
   AccWishlist = '/wishlist',
   AddPlace = '/lk/business/add/place',
   AddBusiness = '/lk/business/add/business',
+  AccMyBusiness = '/lk/business/my',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
+  Success = '/lk/business/add/success',
   AccOffers = '/offers',
   AccHelp = '/help',
 }
@@ -140,9 +142,10 @@ export const USERNAME_REQUIREMENTS = '[a-zA-Z][a-zA-Z0-9_]{1,20}';
 export const USERNAME_TITLE =
   'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры, буквы латинского алфавита и знак нижнего подчеркивания. При этом первый символ обязательно буква.';
 
-export const EMAIL_REQUIREMENTS = '[\\w]+@[a-z]+\\.[a-z]{2,3}';
+export const EMAIL_REQUIREMENTS =
+  '[\\w.\\$\\*\\+\\-\\=\\?\\!\\^\\{\\|\\}\\~\\&\\%\\#\\/\\`]+@[a-z]+\\.[a-z]{2,3}';
 export const EMAIL_TITLE =
-  'Адрес электронной почты имеет стандартный вид: обязательно наличие знаков до @ и после, а так же 2-3 символов после точки.';
+  'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя может содержать цифры, латинские буквы и специальные символы: $.*+-=?!_^{|}~&%#/. Почтовый домен и знаки после точки состоят только из латинских букв.';
 
 export enum FormFields {
   IsBride = 'is_bride',
@@ -309,7 +312,7 @@ export const ACTORS: FooterType = {
 };
 
 //names для формы добавления площадки - для progressbar
-export const ADD_PLACE_NAMES: addPlaceName = {
+export const ADD_PLACE_NAMES = {
   basic: { id: 'basic-info', name: 'Базовая информация' },
   location: { id: 'location', name: 'Локация' },
   description: { id: 'description', name: 'Описание площадки' },
@@ -317,6 +320,9 @@ export const ADD_PLACE_NAMES: addPlaceName = {
   area: { id: 'area-', name: 'Помещения' },
   details: { id: 'details', name: 'Детали площадки' },
   weddingAlbum: { id: 'wedding', name: 'Альбомы проведенных свадеб' },
+  basicBusiness: { id: 'basic-bus', name: 'О себе' },
+  detailsBusiness: { id: 'details-bus', name: 'Детали работы' },
+  service: { id: 'service-', name: 'Услуги' },
 };
 
 //для авторизации
