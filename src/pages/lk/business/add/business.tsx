@@ -35,8 +35,8 @@ function AddBusinessPage() {
     setBusiness((prev) => ({ ...prev, main_photos: mainPhotos }));
   }, [mainPhotos]);
 
-// Площадки
-const [services, setServices] = useState<( | null)[]>([]);
+// Площадки - TODO указать тип!
+const [services, setServices] = useState<( any | null)[]>([]);
 const [serviceIndexArray, setServiceIndexArray] = useState<(number | null)[]>([0]);
 
 function addService(e: MouseEvent<HTMLParagraphElement>) {

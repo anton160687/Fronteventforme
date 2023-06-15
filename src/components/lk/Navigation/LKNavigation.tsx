@@ -56,7 +56,7 @@ function LKNavigation({is_bride = false, accountPageTitle, children}: LKNavigati
         <Breadcrumb.Item
           linkAs={Link}
           active={accountPageTitle ? false : true}
-          href={is_bride? Paths.LKBride : Paths.LKBusiness}
+          href={is_bride? Paths.AccBride : Paths.AccBusiness}
         >
           Личный кабинет
         </Breadcrumb.Item>

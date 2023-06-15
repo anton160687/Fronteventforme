@@ -4,7 +4,7 @@ import { Breadcrumb, Button, Container, Image, Row } from "react-bootstrap";
 
 function SuccessPage() {
     return (
-        <Container>
+        <Container className="px-5">
             <Breadcrumb className="mb-4 pt-md-3">
                 <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
                     Главная

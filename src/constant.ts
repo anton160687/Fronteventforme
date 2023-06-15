@@ -115,18 +115,19 @@ export enum Paths {
   Account = '/lk',
   Business = '/business',
   Bride = '/bride',
-  LKBusiness = '/lk/business',
-  LKBride = '/lk/bride',
+  AccBusiness = '/lk/business',
+  AccBride = '/lk/bride',
   AccInfo = '/info',
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
+  AccMyBusiness = '/lk/business/my',
+  AccBusinessReviews = '/lk/business/reviews',
   AddPlace = '/lk/business/add/place',
   AddBusiness = '/lk/business/add/business',
-  AccMyBusiness = '/lk/business/my',
+  Success = '/lk/business/add/success',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
-  Success = '/lk/business/add/success',
 }
 
 // для форм регистрации, авторизации
