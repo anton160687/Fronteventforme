@@ -60,14 +60,22 @@ function TextEvents({ events }: TextEventProps) {
 
   return (
     <Row className="mb-xl-5 mb-md-4 mb-sm-3">
-      <h4>Подходит для:</h4>
-      <Row className="d-flex justify-content-between">
-        <ul className="list-unstyled w-auto">{renderEvents(eventListFirst)}</ul>
-        <ul className="list-unstyled w-auto">
-          {renderEvents(eventListSecond)}
-        </ul>
-        <ul className="list-unstyled w-auto">{renderEvents(eventListThird)}</ul>
-      </Row>
+      {eventListFirst.length > 0 && (
+        <>
+          <h4>Подходит для:</h4>
+          <Row className="d-flex justify-content-between">
+            <ul className="list-unstyled w-auto">
+              {renderEvents(eventListFirst)}
+            </ul>
+            <ul className="list-unstyled w-auto">
+              {renderEvents(eventListSecond)}
+            </ul>
+            <ul className="list-unstyled w-auto">
+              {renderEvents(eventListThird)}
+            </ul>
+          </Row>
+        </>
+      )}
     </Row>
   );
 }

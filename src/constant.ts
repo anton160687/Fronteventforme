@@ -125,9 +125,11 @@ export enum Paths {
   AccBusinessReviews = '/lk/business/reviews',
   AddPlace = '/lk/business/add/place',
   AddBusiness = '/lk/business/add/business',
-  Success = '/lk/business/add/success',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
+  Success = '/lk/business/add/success',
+  AccOffers = '/offers',
+  AccHelp = '/help',
 }
 
 // для форм регистрации, авторизации
@@ -141,9 +143,10 @@ export const USERNAME_REQUIREMENTS = '[a-zA-Z][a-zA-Z0-9_]{1,20}';
 export const USERNAME_TITLE =
   'Имя пользователя должно содержать от 2 до 20 символов, в нем можно использовать цифры, буквы латинского алфавита и знак нижнего подчеркивания. При этом первый символ обязательно буква.';
 
-export const EMAIL_REQUIREMENTS = '[\\w]+@[a-z]+\\.[a-z]{2,3}';
+export const EMAIL_REQUIREMENTS =
+  '[\\w.\\$\\*\\+\\-\\=\\?\\!\\^\\{\\|\\}\\~\\&\\%\\#\\/\\`]+@[a-z]+\\.[a-z]{2,3}';
 export const EMAIL_TITLE =
-  'Адрес электронной почты имеет стандартный вид: обязательно наличие знаков до @ и после, а так же 2-3 символов после точки.';
+  'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя может содержать цифры, латинские буквы и специальные символы: $.*+-=?!_^{|}~&%#/. Почтовый домен и знаки после точки состоят только из латинских букв.';
 
 export enum FormFields {
   IsBride = 'is_bride',
@@ -334,7 +337,7 @@ export enum LKSectionsTitles {
   Info = 'Основная информация',
   Security = 'Пароль и безопасность',
   Wishlist = 'Избранное',
-  Business = 'Мои бизнесы',
+  Offers = 'Мои бизнесы',
   Reviews = 'Отзывы',
   Notification = 'Настройки уведомлений',
   Help = 'Помощь',
@@ -350,7 +353,7 @@ export const LKSections: LkSectionsType[] = [
     link: Paths.AccSecurity,
     icon: 'fi-lock',
   },
-  { title: LKSectionsTitles.Business, link: '#', icon: 'fi-home' },
+  { title: LKSectionsTitles.Offers, link: Paths.AccOffers, icon: 'fi-home' },
   {
     title: LKSectionsTitles.Wishlist,
     link: Paths.AccWishlist,
@@ -358,7 +361,7 @@ export const LKSections: LkSectionsType[] = [
   },
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
   { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
-  { title: LKSectionsTitles.Help, link: '', icon: 'fi-help' },
+  { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
   { title: LKSectionsTitles.Tariff, link: '', icon: 'fi-cash' },
   { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
@@ -367,31 +370,30 @@ export const LKSections: LkSectionsType[] = [
 //для боковой навигации в каталоге и типов бизнеса в ЛК
 export const BusinessTypes = [
   { name: 'Площадки', path: '/catalog/places' },
-  { name: 'Дворец бракосочетания', path: '#', },
+  { name: 'Дворец бракосочетания', path: '#' },
   { name: 'Фотографы', path: '/catalog/photo' },
   { name: 'Музыкальные группы', path: '/catalog/music' },
   { name: 'Свадебные платья', path: '/catalog/dresses' },
   { name: 'Мужские костюмы', path: '#' },
   { name: 'Обручальные кольца', path: '#' },
   { name: 'Платья подружек невесты', path: 'dresses' },
-  { name: 'Стилисты', path: '#', },
-  { name: 'Визажисты', path: '#', },
-  { name: 'Оформление и декор', path: '#', },
-  { name: 'Приглашения', path: '#', },
-  { name: 'Флористика и букеты', path: '#', },
-  { name: 'Видеографы', path: '#', },
-  { name: 'Хореографы', path: '#', },
-  { name: 'Диджеи', path: '#', },
-  { name: 'Ведущие', path: '#', },
-  { name: 'Организаторы', path: '#', },
-  { name: 'Детские аниматоры', path: '#', },
-  { name: 'Шоу-программа', path: '#', },
-  { name: 'Свет и звук', path: '#', },
-  { name: 'Кейтеринг', path: '#', },
-  { name: 'Торты и десерты', path: '#', },
-  { name: 'Красота и здоровье', path: '#', },
-  { name: 'Транспорт', path: '#', },
-  { name: 'Бармены', path: '#', },
-  { name: 'Фейерверки', path: '#', },
- 
-]
+  { name: 'Стилисты', path: '#' },
+  { name: 'Визажисты', path: '#' },
+  { name: 'Оформление и декор', path: '#' },
+  { name: 'Приглашения', path: '#' },
+  { name: 'Флористика и букеты', path: '#' },
+  { name: 'Видеографы', path: '#' },
+  { name: 'Хореографы', path: '#' },
+  { name: 'Диджеи', path: '#' },
+  { name: 'Ведущие', path: '#' },
+  { name: 'Организаторы', path: '#' },
+  { name: 'Детские аниматоры', path: '#' },
+  { name: 'Шоу-программа', path: '#' },
+  { name: 'Свет и звук', path: '#' },
+  { name: 'Кейтеринг', path: '#' },
+  { name: 'Торты и десерты', path: '#' },
+  { name: 'Красота и здоровье', path: '#' },
+  { name: 'Транспорт', path: '#' },
+  { name: 'Бармены', path: '#' },
+  { name: 'Фейерверки', path: '#' },
+];
