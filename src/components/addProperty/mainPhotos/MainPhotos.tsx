@@ -3,11 +3,12 @@ import FileUploader from '../fileUploader/FileUploader';
 import { ADD_PLACE_NAMES } from '@/constant';
 
 type MainPhotosProps = {
+  title: string;
   setMainPhotos: Dispatch<SetStateAction<string[]>>;
   setPreviewMainPhotos: Dispatch<SetStateAction<string[]>>;
 };
 
-function MainPhotos({ setMainPhotos, setPreviewMainPhotos }: MainPhotosProps) {
+function MainPhotos({ title, setMainPhotos, setPreviewMainPhotos }: MainPhotosProps) {
   return (
     <section
       id={ADD_PLACE_NAMES.mainPhotos.id}
@@ -15,7 +16,7 @@ function MainPhotos({ setMainPhotos, setPreviewMainPhotos }: MainPhotosProps) {
     >
       <h2 className="h4 mb-4">
         <i className="fi-image text-primary fs-5 mt-n1 me-2"></i>
-        {ADD_PLACE_NAMES.mainPhotos.name}
+        {title} <span className="text-danger">*</span>
       </h2>
       <FileUploader
         setGallery={setMainPhotos}

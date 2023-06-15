@@ -262,7 +262,7 @@ function ProgressSideBar({
 
   return (
     <div className="sticky-top pt-5">
-      <h6 className="pt-5 mt-3 mb-2">{percent}% профиля заполнено</h6>
+      <h6 className="pt-5 mt-3 mb-2">{percent}% информации заполнено</h6>
       <ProgressBar
         variant="warning"
         now={percent}

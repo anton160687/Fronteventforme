@@ -123,8 +123,10 @@ export enum Paths {
   AccWishlist = '/wishlist',
   AddPlace = '/lk/business/add/place',
   AddBusiness = '/lk/business/add/business',
+  AccMyBusiness = '/lk/business/my',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
+  Success = '/lk/business/add/success',
   AccOffers = '/offers',
   AccHelp = '/help',
 }
@@ -309,7 +311,7 @@ export const ACTORS: FooterType = {
 };
 
 //names для формы добавления площадки - для progressbar
-export const ADD_PLACE_NAMES: addPlaceName = {
+export const ADD_PLACE_NAMES = {
   basic: { id: 'basic-info', name: 'Базовая информация' },
   location: { id: 'location', name: 'Локация' },
   description: { id: 'description', name: 'Описание площадки' },
@@ -317,6 +319,9 @@ export const ADD_PLACE_NAMES: addPlaceName = {
   area: { id: 'area-', name: 'Помещения' },
   details: { id: 'details', name: 'Детали площадки' },
   weddingAlbum: { id: 'wedding', name: 'Альбомы проведенных свадеб' },
+  basicBusiness: { id: 'basic-bus', name: 'О себе' },
+  detailsBusiness: { id: 'details-bus', name: 'Детали работы' },
+  service: { id: 'service-', name: 'Услуги' },
 };
 
 //для авторизации

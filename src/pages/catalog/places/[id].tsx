@@ -161,6 +161,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         </Col>
       </Row>
       <SimilarItemsSlider />
+      {/* @ts-ignore: bootstrap bag*/}
+      <Button as={Link} href='#'>К началу страницы</Button>
     </Container>
   );
 }
