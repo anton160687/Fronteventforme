@@ -39,7 +39,7 @@ const navItems = [
   },
 ];
 
-function Offers() {
+function Offers(): JSX.Element {
   //places
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
   const [declinedCards, setDeclinedCards] =

@@ -1,18 +1,12 @@
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { PlaceCardType } from '@/types/catalog';
 import Link from 'next/link';
-import {
-  Button,
-  Card,
-  Dropdown,
-  OverlayTrigger,
-  Tooltip,
-} from 'react-bootstrap';
-import styles from '@/styles/catalog/places/Places.module.scss';
+import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { numberOfAreas } from '@/services/parse.service';
 import { useState } from 'react';
 import DeleteModal from '../modal/DeleteModal';
 import { contextMenuTypeEnum } from '@/constant';
+import ContextMenu from './contextMenu/ContextMenu';
 
 type LKCardProps = {
   card: PlaceCardType;
@@ -20,47 +14,14 @@ type LKCardProps = {
   contextMenu?: string;
 };
 
-type ContextMenuType = {
-  icon: string;
-  title: string;
-  value: string;
-};
-
-const publishedContextMenu: ContextMenuType[] = [
-  { icon: 'fi-edit', title: 'Редактировать', value: 'edit' },
-  { icon: 'fi-flame', title: 'Продвигать', value: 'promote' },
-  { icon: 'fi-trash', title: 'Удалить', value: 'delete' },
-];
-
-const draftContextMenu: ContextMenuType[] = [
-  { icon: 'fi-edit', title: 'Редактировать', value: 'edit' },
-  { icon: 'fi-trash', title: 'Удалить', value: 'delete' },
-];
-
-const archiveContextMenu: ContextMenuType[] = [
-  { icon: 'fi-rotate-right', title: 'Восстановить', value: 'restore' },
-];
-
 //!копия PlaceCard с некоторыми изменениями, как договоримся с Евой - объединю с PlaceCard
 function LKCard({
   card,
   deleteCard,
   contextMenu = contextMenuTypeEnum.Base,
-}: LKCardProps) {
+}: LKCardProps): JSX.Element {
   //Modal
   const [show, setShow] = useState<boolean>(false);
-
-  //SelectCallback
-  const handleSelect = (
-    eventKey: string | null,
-    e: React.SyntheticEvent<unknown>
-  ) => {
-    console.log('eventKey', eventKey);
-
-    if (eventKey === 'delete') {
-      setShow(true);
-    }
-  };
 
   function renderCardText(title: string, description: string) {
     return (
@@ -72,47 +33,6 @@ function LKCard({
       </Card.Text>
     );
   }
-
-  //context menu
-  let menu: ContextMenuType[] = [];
-
-  switch (contextMenu) {
-    case contextMenuTypeEnum.Published:
-      menu = publishedContextMenu;
-      break;
-    case contextMenuTypeEnum.Moderation:
-      menu = publishedContextMenu;
-      break;
-    case contextMenuTypeEnum.Draft:
-      menu = draftContextMenu;
-      break;
-    case contextMenuTypeEnum.Archive:
-      menu = archiveContextMenu;
-      break;
-  }
-
-  const contextMenuRender = () => {
-    return (
-      <div className="align-self-center ms-auto">
-        <Dropdown onSelect={handleSelect}>
-          <Dropdown.Toggle
-            size="sm"
-            variant="light btn-icon rounded-circle shadow-sm"
-          >
-            <i className="fi-dots-vertical"></i>
-          </Dropdown.Toggle>
-          <Dropdown.Menu align="end" className="pb-3">
-            {menu.map((item, index) => (
-              <Dropdown.Item key={index} eventKey={item.value}>
-                <i className={`${item.icon} fs-lg opacity-60 me-2`}></i>
-                {item.title}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -163,7 +83,7 @@ function LKCard({
                 </Button>
               </OverlayTrigger>
             ) : (
-              contextMenuRender()
+              <ContextMenu setShow={setShow} contextMenu={contextMenu} />
             )}
           </Card.Title>
 
