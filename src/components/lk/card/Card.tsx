@@ -15,7 +15,7 @@ type LKCardProps = {
   contextMenu?: string;
 };
 
-//!копия PlaceCard с некоторыми изменениями, как договоримся с Евой - объединю с PlaceCard
+//!копия PlaceCard с некоторыми изменениями
 function LKCard({
   card,
   deleteCard,
