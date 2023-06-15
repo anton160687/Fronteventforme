@@ -46,7 +46,7 @@ function BusinessReviewsPage() {
               <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
                 <h3 className='h4 mb-sm-0'>
                   <i className='fi-star-filled mt-n1 me-2 lead align-middle text-warning'></i>
-                  4,9 ((32) отзыва)
+                  4,9 (32 отзыва)
                 </h3>
                 {/* <Form.Group controlId='sortby1' className='d-flex align-items-center ms-sm-4'>
                   <Form.Label className='fs-sm text-body fw-normal text-nowrap mb-0 me-2 pe-1'>
