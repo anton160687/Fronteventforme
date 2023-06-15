@@ -123,8 +123,12 @@ export enum Paths {
   AccWishlist = '/wishlist',
   AddPlace = '/lk/business/add/place',
   AddBusiness = '/lk/business/add/business',
+  AccMyBusiness = '/lk/business/my',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
+  Success = '/lk/business/add/success',
+  AccOffers = '/offers',
+  AccHelp = '/help',
 }
 
 // для форм регистрации, авторизации
@@ -308,7 +312,7 @@ export const ACTORS: FooterType = {
 };
 
 //names для формы добавления площадки - для progressbar
-export const ADD_PLACE_NAMES: addPlaceName = {
+export const ADD_PLACE_NAMES = {
   basic: { id: 'basic-info', name: 'Базовая информация' },
   location: { id: 'location', name: 'Локация' },
   description: { id: 'description', name: 'Описание площадки' },
@@ -316,6 +320,9 @@ export const ADD_PLACE_NAMES: addPlaceName = {
   area: { id: 'area-', name: 'Помещения' },
   details: { id: 'details', name: 'Детали площадки' },
   weddingAlbum: { id: 'wedding', name: 'Альбомы проведенных свадеб' },
+  basicBusiness: { id: 'basic-bus', name: 'О себе' },
+  detailsBusiness: { id: 'details-bus', name: 'Детали работы' },
+  service: { id: 'service-', name: 'Услуги' },
 };
 
 //для авторизации
@@ -329,7 +336,7 @@ export enum LKSectionsTitles {
   Info = 'Основная информация',
   Security = 'Пароль и безопасность',
   Wishlist = 'Избранное',
-  Business = 'Мои бизнесы',
+  Offers = 'Мои бизнесы',
   Reviews = 'Отзывы',
   Notification = 'Настройки уведомлений',
   Help = 'Помощь',
@@ -345,7 +352,7 @@ export const LKSections: LkSectionsType[] = [
     link: Paths.AccSecurity,
     icon: 'fi-lock',
   },
-  { title: LKSectionsTitles.Business, link: '#', icon: 'fi-home' },
+  { title: LKSectionsTitles.Offers, link: Paths.AccOffers, icon: 'fi-home' },
   {
     title: LKSectionsTitles.Wishlist,
     link: Paths.AccWishlist,
@@ -353,7 +360,7 @@ export const LKSections: LkSectionsType[] = [
   },
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
   { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
-  { title: LKSectionsTitles.Help, link: '', icon: 'fi-help' },
+  { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
   { title: LKSectionsTitles.Tariff, link: '', icon: 'fi-cash' },
   { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },

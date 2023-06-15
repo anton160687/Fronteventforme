@@ -23,7 +23,8 @@ registerPlugin(
 );
 
 type FileUploaderProps = {
-  setGallery: Dispatch<SetStateAction<string[]>>;
+  // setGallery: Dispatch<SetStateAction<string[]>>;
+  setGallery: (imageIds: string[]) => void;
   setPreviewGallery?: Dispatch<SetStateAction<string[]>>;
   warning?: string;
   maxFiles: number;
@@ -96,6 +97,7 @@ function FileUploader({
         allowMultiple={maxFiles > 1 ? true : false}
         maxFiles={maxFiles}
         maxFileSize="5MB"
+        maxTotalFileSize="25MB"
         className="file-uploader file-uploader-grid"
         checkValidity={true}
         instantUpload={true}
