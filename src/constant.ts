@@ -130,6 +130,7 @@ export enum Paths {
   Success = '/lk/business/add/success',
   AccOffers = '/offers',
   AccHelp = '/help',
+  AccTariff = '/tariff',
 }
 
 // для форм регистрации, авторизации
@@ -362,7 +363,7 @@ export const LKSections: LkSectionsType[] = [
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
   { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
   { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
-  { title: LKSectionsTitles.Tariff, link: '', icon: 'fi-cash' },
+  { title: LKSectionsTitles.Tariff, link: Paths.AccTariff, icon: 'fi-cash' },
   { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];
@@ -404,5 +405,5 @@ export enum contextMenuTypeEnum {
   Draft = 'draft',
   Archive = 'archive',
   Wishlist = 'wishlist',
-	Base = 'base',
+  Base = 'base',
 }
