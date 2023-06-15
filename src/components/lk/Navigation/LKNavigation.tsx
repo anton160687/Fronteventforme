@@ -27,7 +27,7 @@ function LKNavigation({
   children,
 }: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
-  const link = is_bride ? Paths.LKBride : Paths.LKBusiness;
+  const link = is_bride ? Paths.AccBride : Paths.AccBusiness;
 
   // State to control Collapse
   const [open, setOpen] = useState(false);
@@ -53,22 +53,22 @@ function LKNavigation({
 
   return (
     <Container>
-      <section className="mx-lg-auto mx-5">
-        <Breadcrumb className="mb-4 pt-md-3">
-          <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-            Главная
-          </Breadcrumb.Item>
-          <Breadcrumb.Item
-            linkAs={Link}
-            active={accountPageTitle ? false : true}
-            href={link}
-          >
-            Личный кабинет
-          </Breadcrumb.Item>
-          {accountPageTitle && (
-            <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
-          )}
-        </Breadcrumb>
+    <section className="pt-5 pb-lg-4 mt-5 mb-sm-2 mx-lg-auto mx-5">
+      <Breadcrumb className="mb-4 pt-md-3">
+        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
+          Главная
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          linkAs={Link}
+          active={accountPageTitle ? false : true}
+          href={is_bride? Paths.AccBride : Paths.AccBusiness}
+        >
+          Личный кабинет
+        </Breadcrumb.Item>
+        {accountPageTitle && (
+          <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
+        )}
+      </Breadcrumb>
 
         <Row>
           {/* Sidebar (Account nav) */}

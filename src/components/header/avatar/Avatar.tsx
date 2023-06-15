@@ -18,20 +18,9 @@ function Avatar({
   username,
   avatar,
 }: AvatarProps) {
-  let path = Paths.Home;
-
-  //на тот случай, если путь к ЛК будет меняться в зависимости от роли
-  // switch (is_bride) {
-  //   case true:
-  //     path = '#';
-  //     break;
-  //   case false:
-  //     path = '#';
-  //     break;
-  // }
 
   return (
-    <a href={path} className={styles.avatar__link}>
+    <a href={is_bride? Paths.AccBride : Paths.AccBusiness } className={styles.avatar__link}>
       <Image
         className={styles.avatar__image}
         src={avatar || '/img/header/avatar.svg'}
