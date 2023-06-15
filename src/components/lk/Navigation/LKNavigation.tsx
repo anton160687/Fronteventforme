@@ -161,8 +161,8 @@ function LKNavigation({
           {/* Page content */}
           <Col
             md={12}
-            lg={7}
-            className="position-relative ms-md-3 ms-lg-5 ms-0 mt-5 mt-lg-0"
+            lg={8}
+            className="position-relative ps-md-3 ps-lg-5 ps-0 mt-5 mt-lg-0"
           >
             <h2>{accountPageTitle}</h2>
             {children}

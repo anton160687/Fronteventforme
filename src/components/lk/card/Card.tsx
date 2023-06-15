@@ -7,6 +7,7 @@ import { useState } from 'react';
 import DeleteModal from '../modal/DeleteModal';
 import { contextMenuTypeEnum } from '@/constant';
 import ContextMenu from './contextMenu/ContextMenu';
+import styles from '@/styles/lk/Lk.module.scss';
 
 type LKCardProps = {
   card: PlaceCardType;
@@ -25,9 +26,9 @@ function LKCard({
 
   function renderCardText(title: string, description: string) {
     return (
-      <Card.Text className="d-flex align-items-center justify-content-between fs-6">
-        <span className="m-0 fs-sm">{title}</span>
-        <span className="m-0 text-end fs-xs">
+      <Card.Text className="d-flex align-items-center justify-content-between">
+        <span className={'m-0 ' + styles.card__subtitle}>{title}</span>
+        <span className={'m-0 text-end fs-sm ' + styles.card__text}>
           <strong>{description}</strong>
         </span>
       </Card.Text>
@@ -37,7 +38,11 @@ function LKCard({
   return (
     <>
       <Card className="card-horizontal card-hover my-4">
-        <Link href={`/catalog/places/${card.id}`} className="card-img-top">
+        <Link
+          href={`/catalog/places/${card.id}`}
+          className="card-img-top"
+          style={{ minHeight: '16rem' }}
+        >
           <ImageLoader
             src={
               card.cover_place ||
@@ -58,7 +63,7 @@ function LKCard({
               href={`/catalog/places/${card.id}`}
               className="m-0 text-decoration-none fs-base"
             >
-              <h5>{card.title}</h5>
+              <h5 className={styles.card__title}>{card.title}</h5>
             </Link>
             {contextMenu === contextMenuTypeEnum.Wishlist ||
             contextMenu === contextMenuTypeEnum.Base ? (
