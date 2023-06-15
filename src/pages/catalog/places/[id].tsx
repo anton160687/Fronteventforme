@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Breadcrumb, Col, Row, Card } from 'react-bootstrap';
+import { Breadcrumb, Col, Row, Card, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
@@ -162,7 +162,9 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
       </Row>
       <SimilarItemsSlider />
       {/* @ts-ignore: bootstrap bag*/}
-      <Button as={Link} href='#'>К началу страницы</Button>
+      <Button as={Link} href="#">
+        К началу страницы
+      </Button>
     </Container>
   );
 }
