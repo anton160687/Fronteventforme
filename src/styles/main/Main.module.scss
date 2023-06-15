@@ -121,14 +121,6 @@
   }
 
   &__icon {
-    color: $primary;
-    background: $white;
-
-    &:hover {
-      background: $primary;
-      color: $white;
-    }
-
     &_wrapper {
       position: absolute;
       top: 0;

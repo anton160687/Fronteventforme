@@ -2,16 +2,17 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-type DeleteModalProps = {
+interface DeleteModalProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   message: string;
+  deleteFunc: () => void;
 }
 
-function DeleteModal({ show, setShow, message }: DeleteModalProps) {
+function DeleteModal({ show, setShow, message, deleteFunc }: DeleteModalProps) {
   function handleDelete() {
-    //здесь будет логика удаления объекта - перекинуть f пропсом
-    () => setShow(false);
+    deleteFunc();
+    setShow(false);
   }
   return (
     <Modal centered show={show} onHide={() => setShow(false)}>
@@ -20,15 +21,15 @@ function DeleteModal({ show, setShow, message }: DeleteModalProps) {
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
-        <Button variant='primary' size='sm' onClick={handleDelete}>
+        <Button variant="primary" size="sm" onClick={handleDelete}>
           Удалить
         </Button>
-        <Button variant='secondary' size='sm' onClick={() => setShow(false)}>
+        <Button variant="secondary" size="sm" onClick={() => setShow(false)}>
           Оставить
         </Button>
       </Modal.Footer>
     </Modal>
-  )
+  );
 }
 
-export default DeleteModal
+export default DeleteModal;

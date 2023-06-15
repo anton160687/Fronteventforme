@@ -11,7 +11,13 @@ type DropdownCBProps = {
   setFilterParams: (name: string, value: string[]) => void;
 };
 
-function DropdownCB ({ name, text, options, icon, setFilterParams}: DropdownCBProps) {
+function DropdownCB({
+  name,
+  text,
+  options,
+  icon,
+  setFilterParams,
+}: DropdownCBProps) {
   const initialState: string[] = [];
   const [selectedArray, setSelectedArray] = useState(initialState);
 
@@ -46,6 +52,7 @@ function DropdownCB ({ name, text, options, icon, setFilterParams}: DropdownCBPr
         value={option[0]}
         label={option[1]}
         onChange={handleChange}
+        className={styles.text800}
       />
     ));
   }
@@ -53,7 +60,11 @@ function DropdownCB ({ name, text, options, icon, setFilterParams}: DropdownCBPr
   return (
     <Dropdown>
       <Dropdown.Toggle
-        style={selectedArray.length === 0? {color: "#454056"}:  {color: "#FE9589"}}
+        style={
+          selectedArray.length === 0
+            ? { color: '#454056' }
+            : { color: '#FE9589' }
+        }
         variant="outline-secondary"
         className={`${styles.catalog__dropdown_icon} px-2`}
       >
@@ -65,6 +76,6 @@ function DropdownCB ({ name, text, options, icon, setFilterParams}: DropdownCBPr
       </Dropdown.Menu>
     </Dropdown>
   );
-};
+}
 
 export default DropdownCB;

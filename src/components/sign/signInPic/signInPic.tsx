@@ -6,7 +6,7 @@ import { Paths } from '@/constant';
 export default function SignInPic(): JSX.Element {
   return (
     <>
-      <h2 className="h3 mb-4 mb-sm-5 text-center text-lg-start">
+      <h2 className="h3 mb-4 mb-sm-5 pb-5 text-center text-lg-start">
         Привет. <br />
         Рады видеть вас снова!
       </h2>
@@ -15,7 +15,7 @@ export default function SignInPic(): JSX.Element {
           src="/img/signin.svg"
           width={344}
           height={292}
-          alt="Illusration"
+          alt="Девушка с большим телефоном"
         />
       </div>
       <div className="mt-4 mt-sm-5 text-center text-lg-start">

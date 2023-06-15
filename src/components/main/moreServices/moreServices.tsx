@@ -28,7 +28,7 @@ function MoreServices(): JSX.Element {
               src="/img/group.png"
               width={701}
               height={380.41}
-              alt={'more services'}
+              alt="Три человека на фоне карты под лупой"
             />
           </div>
         </div>
