@@ -121,6 +121,11 @@ export enum Paths {
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
+  AccNotification = '/notification',
+  AccOffers = '/offers',
+  AccHelp = '/help',
+  AccTariff = '/tariff',
+  AccPayment = '/payment',
   AccMyBusiness = '/lk/business/my',
   AccBusinessReviews = '/lk/business/reviews',
   AddPlace = '/lk/business/add/place',
@@ -128,9 +133,6 @@ export enum Paths {
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
   Success = '/lk/business/add/success',
-  AccOffers = '/offers',
-  AccHelp = '/help',
-  AccTariff = '/tariff',
 }
 
 // для форм регистрации, авторизации
@@ -361,10 +363,10 @@ export const LKSections: LkSectionsType[] = [
     icon: 'fi-heart',
   },
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
-  { title: LKSectionsTitles.Notification, link: '#', icon: 'fi-bell' },
+  { title: LKSectionsTitles.Notification, link: Paths.AccNotification, icon: 'fi-bell' },
   { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
   { title: LKSectionsTitles.Tariff, link: Paths.AccTariff, icon: 'fi-cash' },
-  { title: LKSectionsTitles.Payment, link: '', icon: 'fi-credit-card' },
+  { title: LKSectionsTitles.Payment, link: Paths.AccPayment, icon: 'fi-credit-card' },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];
 
