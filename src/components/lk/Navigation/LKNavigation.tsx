@@ -53,7 +53,7 @@ function LKNavigation({
 
   return (
     <Container>
-      <section className="pt-5 pb-lg-4 mt-5 mb-sm-2 mx-lg-auto mx-5">
+      <section className="px-5 px-lg-0 pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
         <Breadcrumb className="mb-4 pt-md-3">
           <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
             Главная

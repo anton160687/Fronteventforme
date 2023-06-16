@@ -49,7 +49,8 @@ function City(): JSX.Element {
         body: JSON.stringify(data),
       })
       let result = await response.json();
-      setCity(result?.suggestions[0]?.data?.city);
+      let fetchedCity = result?.suggestions[0]?.data?.city;
+      setCity(fetchedCity || 'Москва');
     }
     fetchCity();
   }, [lat, lng])
