@@ -2,7 +2,7 @@ import Tab from 'react-bootstrap/Tab';
 import Fade from 'react-bootstrap/Fade';
 import Nav from 'react-bootstrap/Nav';
 import Review from '@/components/review/Review';
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles, Paths } from '@/constant';
 import PaginationBar from '@/components/review/pagination/Pagination';
 import { reviewsAboutYou, reviewsByYou } from '@/mocks/reviews';
