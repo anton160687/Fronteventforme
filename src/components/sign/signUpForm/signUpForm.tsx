@@ -38,22 +38,17 @@ export default function SignUpForm({
   data,
   setData,
 }: SignUpFormProps): JSX.Element {
-  const [validated, setValidated] = useState(false);
   const [error, setError] = useState<string>('');
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
 
-    if (form.checkValidity()) {
-      let response = await createUser(data);
-      if (response === 'success') {
-        setError('');
-        setSignUpIsDone(true);
-        setValidated(true);
-      } else {
-        setError(response);
-      }
+    let response = await createUser(data);
+    if (response === 'success') {
+      setError('');
+      setSignUpIsDone(true);
+    } else {
+      setError(response);
     }
   }
 
@@ -76,13 +71,7 @@ export default function SignUpForm({
       ) : (
         <>
           <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4">
-            <Form
-              validated={validated}
-              onSubmit={handleSubmit}
-              className="w-100 fw-semibold"
-              method="post"
-              action="#"
-            >
+            <Form onSubmit={handleSubmit} className="w-100 fw-semibold">
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
                 <Form.Control

@@ -23,7 +23,6 @@ import { SigninUserData } from '@/types/forms';
 import Error from '../error/Error';
 
 export default function SignInForm(): JSX.Element {
-  const [validated, setValidated] = useState(false);
   const initialDataState: SigninUserData = {
     is_bride: true,
     email: '',
@@ -50,17 +49,14 @@ export default function SignInForm(): JSX.Element {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity()) {
-      let response = await signinUser(data);
-      if (response === 'success') {
-        setError('');
-        setValidated(true);
-        dispatch(fetchUserDataWithThunk());
-        router.push('/');
-      } else {
-        setError(response);
-      }
+
+    let response = await signinUser(data);
+    if (response === 'success') {
+      setError('');
+      dispatch(fetchUserDataWithThunk());
+      router.push('/');
+    } else {
+      setError(response);
     }
   }
 
@@ -74,13 +70,7 @@ export default function SignInForm(): JSX.Element {
   }, []);
 
   return (
-    <Form
-      validated={validated}
-      onSubmit={handleSubmit}
-      method="post"
-      action="#"
-      ref={ref}
-    >
+    <Form onSubmit={handleSubmit} ref={ref}>
       <Form.Group controlId="su-radio" className="mb-4">
         <ButtonGroup
           className="w-100"
