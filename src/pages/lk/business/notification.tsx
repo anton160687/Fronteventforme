@@ -36,7 +36,7 @@ const switches = [
   }
 ]
 
-function NotificationSetting() {
+function NotificationSettingPage() {
 
   function renderSwitches() {
     return switches.slice(1).map(({ id, name, title, description }) => (
@@ -126,4 +126,4 @@ function NotificationSetting() {
   )
 }
 
-export default NotificationSetting;
+export default NotificationSettingPage;

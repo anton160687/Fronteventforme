@@ -9,7 +9,7 @@ import { Button, Dropdown, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-function Wishlist(): JSX.Element {
+function WishlistPage(): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
 
   const deleteCard = (id: number) => {
@@ -93,4 +93,4 @@ function Wishlist(): JSX.Element {
     </LKNavigation>
   );
 }
-export default Wishlist;
+export default WishlistPage;

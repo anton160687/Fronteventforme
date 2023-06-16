@@ -21,7 +21,7 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 
-function Info() {
+function InfoPage() {
   const initialInfoState: BrideInfo = {
     username: '',
     first_name: '',
@@ -307,4 +307,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default InfoPage;

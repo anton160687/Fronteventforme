@@ -21,7 +21,8 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 
-function Info() {
+
+function InfoPage() {
   const initialInfoState: BusinessInfo = {
     is_company: false,
     username: '',
@@ -392,4 +393,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default InfoPage;
