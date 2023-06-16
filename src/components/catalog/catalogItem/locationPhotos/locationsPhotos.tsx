@@ -17,18 +17,28 @@ type LocationPhotosProps = {
 
 function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
   // В функции ниже заглушка '/img/emptyPhoto.png' используется для обеспечения безошибочной работы LightGallery
+
+  console.log(
+    '[photoUrls[1]?.image || /img/emptyPhoto.png',
+    photoUrls[1]?.image || '/img/emptyPhoto.png'
+  );
+
   function renderPhotos() {
     return (
       <LightGallery
         selector=".gallery-item"
         plugins={[lgThumbnail, lgZoom, lgFullScreen]}
         zoomFromOrigin={true}
+        exThumbImage="data-external-thumb-image"
       >
         <section className={styles.location__photo_container}>
           <div className={styles.location__photo_main}>
             <GalleryItem
               href={photoUrls[0]?.image || '/img/emptyPhoto.png'}
               thumb={[photoUrls[0]?.image || '/img/emptyPhoto.png', 756, 400]}
+              data-external-thumb-image={
+                photoUrls[0]?.image || '/img/emptyPhoto.png'
+              }
               caption="Gallery image caption"
               style={{ maxWidth: '756px' }}
               light={false}
@@ -49,6 +59,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                       372,
                       187,
                     ]}
+                    data-external-thumb-image={
+                      photoUrls[1]?.image || '/img/emptyPhoto.png'
+                    }
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -63,6 +76,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                       372,
                       187,
                     ]}
+                    data-external-thumb-image={
+                      photoUrls[2]?.image || '/img/emptyPhoto.png'
+                    }
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -79,6 +95,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                       372,
                       187,
                     ]}
+                    data-external-thumb-image={
+                      photoUrls[3]?.image || '/img/emptyPhoto.png'
+                    }
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -93,6 +112,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
                       372,
                       187,
                     ]}
+                    data-external-thumb-image={
+                      photoUrls[4]?.image || '/img/emptyPhoto.png'
+                    }
                     caption="Gallery image caption"
                     style={{ maxWidth: '372px' }}
                     light={false}
@@ -106,6 +128,9 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
               <GalleryItem
                 href={photoUrls[1]?.image || '/img/emptyPhoto.png'}
                 thumb={[photoUrls[1]?.image || '/img/emptyPhoto.png', 756, 400]}
+                data-external-thumb-image={
+                  photoUrls[1]?.image || '/img/emptyPhoto.png'
+                }
                 caption="Gallery image caption"
                 style={{ maxWidth: '765px' }}
                 light={false}
