@@ -3,39 +3,40 @@ import { FormCheck } from "react-bootstrap";
 import LKNavigation from "@/components/lk/Navigation/LKNavigation";
 import { LKSectionsTitles } from "@/constant";
 
+const switches = [
+  {
+    id: '01',
+    name: 'rentNew',
+    title: 'Рассылка новостей',
+    description: 'New rentals that match your Wishlist'
+  },
+  {
+    id: '02',
+    name: 'rentUpdate',
+    title: 'Новые свадебные статьи в блоге',
+    description: 'Updates like price changes and off-market status on your Wishlist'
+  },
+  {
+    id: '03',
+    name: 'recomendations',
+    title: 'Бронирование площадки другим человеком',
+    description: 'Properties for rent / sale we think you\'ll like. These recommendations may be slightly outside your search criteria'
+  },
+  {
+    id: '04',
+    name: 'featuredNews',
+    title: 'Новые личные сообщения на портале',
+    description: 'News and tips you may be interested in'
+  },
+  {
+    id: '05',
+    name: 'extras',
+    title: 'Новые промокоды и специальные акции',
+    description: 'Occasional notifications about new features to make finding the perfect property easy'
+  }
+]
+
 function NotificationSetting() {
-  const switches = [
-    {
-      id: '01',
-      name: 'rentNew',
-      title: 'Рассылка новостей',
-      description: 'New rentals that match your Wishlist'
-    },
-    {
-      id: '02',
-      name: 'rentUpdate',
-      title: 'Новые свадебные статьи в блоге',
-      description: 'Updates like price changes and off-market status on your Wishlist'
-    },
-    {
-      id: '03',
-      name: 'recomendations',
-      title: 'Бронирование площадки другим человеком',
-      description: 'Properties for rent / sale we think you\'ll like. These recommendations may be slightly outside your search criteria'
-    },
-    {
-      id: '04',
-      name: 'featuredNews',
-      title: 'Новые личные сообщения на портале',
-      description: 'News and tips you may be interested in'
-    },
-    {
-      id: '05',
-      name: 'extras',
-      title: 'Новые промокоды и специальные акции',
-      description: 'Occasional notifications about new features to make finding the perfect property easy'
-    }
-  ]
 
   function renderSwitches() {
     return switches.slice(1).map(({ id, name, title, description }) => (

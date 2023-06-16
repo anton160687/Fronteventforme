@@ -26,6 +26,7 @@ function LKNavigation({
   children,
 }: LKNavigationProps): JSX.Element {
   const user: (User | undefined) = useSelector(selectUser);
+  //TODO заменим user?.is_bride ? Paths.AccBride : Paths.AccBusiness на link
   const link = user?.is_bride ? Paths.AccBride : Paths.AccBusiness;
 
   // State to control Collapse
