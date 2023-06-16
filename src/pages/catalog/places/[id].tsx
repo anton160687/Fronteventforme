@@ -84,6 +84,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <TextFeatures
             features={place.type_feature}
             territories={place.type_territory}
+            max_serving={place.max_serving}
           />
 
           <AlbumCardContainer

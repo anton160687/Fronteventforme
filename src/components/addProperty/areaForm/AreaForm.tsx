@@ -92,8 +92,8 @@ function AreaForm({
   }, [area]);
 
   //images
-  function setAreaImages (imageIds: string[]) {
-    setArea({...area, area_img: imageIds});
+  function setAreaImages(imageIds: string[]) {
+    setArea({ ...area, area_img: imageIds });
   }
 
   useEffect(() => {
@@ -281,7 +281,6 @@ function AreaForm({
         <Form.Group as={Col} controlId="min_price_banquet">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             {'Минимальная цена банкета'}
-            <span className="text-danger">*</span>
           </Form.Label>
           <InputGroup>
             <Form.Control
@@ -292,7 +291,6 @@ function AreaForm({
               value={area.min_price_banquet || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
-              required
             />
             <InputGroup.Text id="icon-addon">₽</InputGroup.Text>
           </InputGroup>

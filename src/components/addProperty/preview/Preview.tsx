@@ -256,6 +256,7 @@ function Preview({
                 <TextFeatures
                   features={uniPlace.type_feature}
                   territories={place.type_territory}
+                  max_serving={uniPlace.max_serving}
                 />
 
                 <AlbumCardContainer

@@ -5,9 +5,14 @@ import { FEATURES, TERRITORY } from '@/constant';
 type TextFeaturesProps = {
   features: Feature[];
   territories: number[];
+  max_serving: number;
 };
 
-function TextFeatures({ features, territories }: TextFeaturesProps) {
+function TextFeatures({
+  features,
+  territories,
+  max_serving,
+}: TextFeaturesProps) {
   let featureListFirst: string[] = [];
   let featureListSecond: string[] = [];
   let featureListThird: string[] = [];
@@ -24,6 +29,9 @@ function TextFeatures({ features, territories }: TextFeaturesProps) {
     let territoryName = res.length !== 0 ? (res[0][1] as string) : '';
     allFeatures.push(territoryName);
   });
+
+  if (max_serving)
+    allFeatures.push(`1 официант обслуживает ${max_serving} человек`);
 
   const columnCount = 3; //кол-во столбцов
   const index = Math.round(allFeatures.length / columnCount);

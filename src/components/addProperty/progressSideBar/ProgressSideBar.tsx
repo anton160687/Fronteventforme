@@ -184,7 +184,6 @@ function ProgressSideBar({
         area.min_capacity &&
         area.max_capacity &&
         area.color_hall &&
-        area.min_price_banquet &&
         area.min_price_rent &&
         area.deposit &&
         area.scheme_of_payment &&

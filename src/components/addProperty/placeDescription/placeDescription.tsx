@@ -55,9 +55,7 @@ function PlaceDescription({
       {/* Кухня */}
       <Row className="mb-4">
         <Form.Group controlId="kitchen">
-          <Form.Label className="d-block fw-bold mb-2 pb-1">
-            Кухня
-          </Form.Label>
+          <Form.Label className="d-block fw-bold mb-2 pb-1">Кухня</Form.Label>
           <RenderCheckbox
             options={KITCHEN}
             name="kitchen"
@@ -146,8 +144,7 @@ function PlaceDescription({
         </Form.Group>
         <Form.Group as={Col} controlId="alco">
           <Form.Label className="d-block fw-bold mb-3 p-0">
-            Разрешено приносить свой алкоголь?{' '}
-            <span className="text-danger">*</span>
+            Разрешено приносить свой алкоголь?
           </Form.Label>
           <Form.Check
             type="radio"

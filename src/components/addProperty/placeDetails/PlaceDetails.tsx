@@ -108,10 +108,11 @@ function PlaceDetails({
             type="number"
             size="lg"
             className="w-md-50 w-sm-75 w-xs-100"
-            placeholder="10 человек или 1 стол"
+            placeholder="10 человек"
             onChange={handleNumberChange}
             required
             min={0}
+            max={20}
           />
         </Form.Group>
       </Row>
