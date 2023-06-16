@@ -8,18 +8,17 @@ type DropdownCBProps = {
   text: string;
   options: string[][];
   icon: string;
+  filterParams: string[];
   setFilterParams: (name: string, value: string[]) => void;
 };
 
-function DropdownCB({
-  name,
-  text,
-  options,
-  icon,
-  setFilterParams,
-}: DropdownCBProps) {
-  const initialState: string[] = [];
-  const [selectedArray, setSelectedArray] = useState(initialState);
+function DropdownCB ({ name, text, options, icon, filterParams, setFilterParams}: DropdownCBProps) {
+  const initialState: string[] = filterParams;
+  const [selectedArray, setSelectedArray] = useState(initialState);  
+
+  useEffect(()=>{
+    setSelectedArray(initialState);
+  }, [initialState])
 
   const iconEl = icon ? (
     <i className={`${icon} fs-lg opacity-60 me-1`}></i>
@@ -49,6 +48,7 @@ function DropdownCB({
       <Form.Check
         key={i}
         type="checkbox"
+        checked={!!(filterParams.find((e) => e === option[0]))}
         value={option[0]}
         label={option[1]}
         onChange={handleChange}

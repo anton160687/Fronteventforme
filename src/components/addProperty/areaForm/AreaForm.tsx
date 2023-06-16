@@ -321,7 +321,6 @@ function AreaForm({
         <Form.Group as={Col} controlId="deposit">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
             {'Депозит\u00a0'}
-            <span className="text-danger">*</span>
           </Form.Label>
           <InputGroup>
             <Form.Control
@@ -332,7 +331,6 @@ function AreaForm({
               value={area.deposit || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
-              required
             />
             <InputGroup.Text id="icon-addon">₽</InputGroup.Text>
           </InputGroup>

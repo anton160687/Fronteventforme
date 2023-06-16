@@ -304,6 +304,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
+                title='Главные фотографии'
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
