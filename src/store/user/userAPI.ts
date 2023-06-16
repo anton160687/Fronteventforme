@@ -1,9 +1,16 @@
 import { User } from '@/types/user';
 import { AUTH_URL, Token } from '@/constant';
-import { CreateUserData, ResetPasswordConfirm, SigninUserData } from '@/types/forms';
+import {
+  CreateUserData,
+  ResetPasswordConfirm,
+  SigninUserData,
+} from '@/types/forms';
 import { saveAuthData } from '@/services/auth.service';
 
-const API = process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_AUTHURL : AUTH_URL;
+const API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_AUTHURL
+    : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -11,22 +18,29 @@ export async function createUser(data: CreateUserData) {
     username: data.username,
     password: data.password,
   };
-  try {
-    let response = await fetch(`${API}auth/users/`, {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(request),
-    });
 
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+  let response = await fetch(`${API}auth/users/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
+
+  if (response.ok) {
+    const result: { id: number; email: string; username: string } =
+      await response.json();
+
+    return 'success';
+  } else {
+    const errorBody = await response.clone().json();
+    let errorText = '';
+
+    for (const [key, value] of Object.entries(errorBody)) {
+      errorText += `✖ ${value}` + '\n';
     }
-    const result:{id:number, email: string, username: string} = await response.json();
-  } catch (error) {
-    console.error(error);
+    return errorText;
   }
 }
 
@@ -48,15 +62,22 @@ export async function signinUser(data: SigninUserData) {
   if (response.ok) {
     let result = await response.json();
     saveAuthData(result);
-    return "success";
+    return 'success';
   } else {
-    console.error('signinUser', response);
+    const errorBody = await response.clone().json();
+    let errorText = '';
+
+    for (const [key, value] of Object.entries(errorBody)) {
+      errorText += `✖ ${value}` + '\n';
+    }
+
+    return errorText;
   }
 }
 
-export async function authoriseUser (refreshToken: string) {
+export async function authoriseUser(refreshToken: string) {
   let request = {
-    "refresh": refreshToken
+    refresh: refreshToken,
   };
   let response = await fetch(`${API}auth/jwt/refresh/`, {
     method: 'POST',
@@ -71,9 +92,9 @@ export async function authoriseUser (refreshToken: string) {
     // let result: {access: string, refresh: string} = await response.json();
     // saveAuthData(result);
     // приходит только access токен
-    let result: {access: string} = await response.json();
+    let result: { access: string } = await response.json();
     localStorage.setItem(Token.Access, result.access);
-    return "success";
+    return 'success';
   } else {
     console.error('refreshToken', response);
   }

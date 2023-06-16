@@ -20,6 +20,7 @@ import {
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
+import Error from '../error/Error';
 
 export default function SignInForm(): JSX.Element {
   const [validated, setValidated] = useState(false);
@@ -29,6 +30,7 @@ export default function SignInForm(): JSX.Element {
     password: '',
   };
   const [data, setData] = useState<SigninUserData>(initialDataState);
+  const [error, setError] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -50,13 +52,14 @@ export default function SignInForm(): JSX.Element {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity()) {
-      setValidated(true);
       let response = await signinUser(data);
       if (response === 'success') {
+        setError('');
+        setValidated(true);
         dispatch(fetchUserDataWithThunk());
         router.push('/');
       } else {
-        alert('Ошибка. Повторите попытку еще раз');
+        setError(response);
       }
     }
   }
@@ -153,6 +156,7 @@ export default function SignInForm(): JSX.Element {
           title={PASSWORD_TITLE}
         />
       </Form.Group>
+      <Error error={error} />
       <Button type="submit" size="lg" variant="primary w-100">
         Войти на портал
       </Button>

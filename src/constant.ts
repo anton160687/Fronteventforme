@@ -136,10 +136,10 @@ export enum Paths {
 }
 
 // для форм регистрации, авторизации
-export const PASSWORD_REQUIREMENTS = '^[\\p{L}\\d]*$';
+export const PASSWORD_REQUIREMENTS = '(?=.*\\p{L})^[\\p{L}\\d]*$';
 
 export const PASSWORD_TITLE =
-  'Пароль должен содержать от 8 до 50 символов, в нем можно использовать цифры и буквы любого алфавита.';
+  'Пароль должен содержать от 8 до 50 символов, пароль может содержать цифры и буквы (минимум 1 буква любого алфавита).';
 
 //вылезает warning, избавиться не смогла, но все работает
 export const USERNAME_REQUIREMENTS = '[a-zA-Z][a-zA-Z0-9_]{1,20}';
@@ -363,10 +363,18 @@ export const LKSections: LkSectionsType[] = [
     icon: 'fi-heart',
   },
   { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
-  { title: LKSectionsTitles.Notification, link: Paths.AccNotification, icon: 'fi-bell' },
+  {
+    title: LKSectionsTitles.Notification,
+    link: Paths.AccNotification,
+    icon: 'fi-bell',
+  },
   { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
   { title: LKSectionsTitles.Tariff, link: Paths.AccTariff, icon: 'fi-cash' },
-  { title: LKSectionsTitles.Payment, link: Paths.AccPayment, icon: 'fi-credit-card' },
+  {
+    title: LKSectionsTitles.Payment,
+    link: Paths.AccPayment,
+    icon: 'fi-credit-card',
+  },
   { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];
 

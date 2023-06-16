@@ -21,6 +21,7 @@ import {
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
+import Error from '../error/Error';
 
 type SignUpFormProps = {
   signUpForm: boolean;
@@ -38,15 +39,21 @@ export default function SignUpForm({
   setData,
 }: SignUpFormProps): JSX.Element {
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState<string>('');
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
 
     if (form.checkValidity()) {
-      setSignUpIsDone(true);
-      setValidated(true);
-      createUser(data);
+      let response = await createUser(data);
+      if (response === 'success') {
+        setError('');
+        setSignUpIsDone(true);
+        setValidated(true);
+      } else {
+        setError(response);
+      }
     }
   }
 
@@ -159,6 +166,7 @@ export default function SignUpForm({
                 required
                 className="mb-4"
               />
+              <Error error={error} />
               <Button type="submit" size="lg" variant="primary w-100">
                 Зарегистрироваться
               </Button>
