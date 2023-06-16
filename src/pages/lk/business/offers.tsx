@@ -1,101 +1,157 @@
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
-import { LKSectionsTitles, Paths } from '@/constant';
-import { MouseEvent, useState } from 'react';
-import { Button, Card, Nav } from 'react-bootstrap';
-import PropertyCard from '@/components/_finder/PropertyCard';
-import Link from 'next/link';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
+import { LKSectionsTitles, contextMenuTypeEnum } from '@/constant';
+import { useState } from 'react';
 import styles from '@/styles/lk/Lk.module.scss';
-import { useRouter } from 'next/router';
-import { renderCardText } from '@/components/helpers';
+import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
+import { PlaceCardType } from '@/types/catalog';
+import {
+  placesPublished,
+  placesDraft,
+  placesArchive,
+  placesModerate,
+  placesDeclined,
+} from '@/mocks/catalogPlaces';
+import LKCard from '@/components/lk/card/Card';
+import DeleteModal from '@/components/lk/modal/DeleteModal';
+import ImageLoader from '@/components/_finder/ImageLoader';
+import { Button, Nav } from 'react-bootstrap';
 
-function Offers() {
-  const router = useRouter();
-  const categoryParam = router.query.category;
-  console.log('categoryParam', categoryParam);
-  console.log('router', router);
+const navItems = [
+  {
+    title: 'Опубликовано',
+    value: contextMenuTypeEnum.Published,
+    icon: 'fi-file',
+  },
+  {
+    title: 'На модерации',
+    value: contextMenuTypeEnum.Moderation,
+    icon: 'fi-users',
+  },
+  {
+    title: 'Черновики',
+    value: contextMenuTypeEnum.Draft,
+    icon: 'fi-file-clean',
+  },
+  {
+    title: 'Архив',
+    value: contextMenuTypeEnum.Archive,
+    icon: 'fi-archive',
+  },
+];
 
-  const is_bride = false;
-  // const mainLink = `${Paths.Account}${is_bride ? Paths.Bride : Paths.Business}${
-  //   Paths.AccOffers
-  // }`;
-  const mainLink = router.pathname;
+function Offers(): JSX.Element {
+  //places
+  const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
+  const [declinedCards, setDeclinedCards] =
+    useState<PlaceCardType[]>(placesPublished);
+  //context menu content
+  const [menuType, setMenuType] = useState<string>(
+    contextMenuTypeEnum.Published
+  );
 
-  const navItems = [
-    {
-      title: 'Опубликовано',
-      link: mainLink + '/?category=published',
-      value: 'published',
-      icon: 'fi-file',
-    },
-    {
-      title: 'Модерация',
-      link: mainLink + '?category=moderation',
-      value: 'moderation',
-      icon: 'fi-users',
-    },
-    {
-      title: 'Черновики',
-      link: mainLink + '?category=draft',
-      value: 'draft',
-      icon: 'fi-file-clean',
-    },
-    {
-      title: 'Архив',
-      link: mainLink + '?category=archive',
-      value: 'archive',
-      icon: 'fi-archive',
-    },
-  ];
-  const initialProperties = [
-    {
-      href: '#',
-      images: [['/img/locations/1.png', 'Image']],
-      title: 'Площадка Villa Arcobaleno',
-      min_capacity: 30,
-      max_capacity: 80,
-      scheme_of_payment: 'За аренду зала + за банкет', //'bah',
-      min_price_banquet: 1000,
-      min_price_rent: 1000,
-      deposit: 4000,
+  //Modal
+  const [show, setShow] = useState<boolean>(false);
 
-      amenities: [3, 2, 2],
-    },
-  ];
+  //Nav
+  const handleSelect = (
+    eventKey: string | null,
+    e: React.SyntheticEvent<unknown>
+  ) => {
+    switch (eventKey) {
+      case contextMenuTypeEnum.Published:
+        setMenuType(contextMenuTypeEnum.Published);
+        setCards(placesPublished);
+        break;
+      case contextMenuTypeEnum.Moderation:
+        //!под вопросом у Евы
+        setMenuType(contextMenuTypeEnum.Moderation);
+        setCards(placesModerate);
+        setDeclinedCards(placesDeclined);
+        break;
+      case contextMenuTypeEnum.Draft:
+        setMenuType(contextMenuTypeEnum.Draft);
+        setCards(placesDraft);
+        break;
+      case contextMenuTypeEnum.Archive:
+        setMenuType(contextMenuTypeEnum.Archive);
+        setCards(placesArchive);
+        break;
+      case null:
+        console.error('eventKey = null');
+        break;
+    }
+  };
 
-  const [cards, setCards] = useState(initialProperties);
+  const deleteCard = (id: number) => {
+    const newCards = cards.filter((place) => place.id !== id);
+    setCards(newCards);
+  };
 
-  const clearAll = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setCards([]);
+  const moderationCardsRenderCheck = () => {
+    return (
+      <>
+        {menuType === contextMenuTypeEnum.Moderation ? (
+          <>
+            <h3>На проверке</h3>
+            {cardsRender(cards)}
+            <h3>Отклонено</h3>
+            {cardsRender(declinedCards)}
+          </>
+        ) : (
+          cardsRender(cards)
+        )}
+      </>
+    );
+  };
+
+  const cardsRender = (anyCards: PlaceCardType[]) => {
+    return (
+      <>
+        {anyCards.map((card, indx) => (
+          <LKCard
+            contextMenu={menuType}
+            deleteCard={deleteCard}
+            card={card}
+            key={indx}
+          />
+        ))}
+      </>
+    );
   };
 
   return (
     <LKNavigation accountPageTitle={LKSectionsTitles.Offers}>
       <>
-        <a
-          href="#"
-          className={'fw-bold text-decoration-none ' + styles.clearBtn}
-          onClick={clearAll}
-        >
-          <i className="fi-trash mt-n1 me-2"></i>
-          Удалить все
-        </a>
+        {cards.length > 0 && (
+          <Button
+            variant="link"
+            className={
+              'fw-bold text-decoration-none text-primary ' + styles.clearBtn
+            }
+            onClick={() => setShow(true)}
+          >
+            <i className="fi-trash mt-n1 me-2"></i>
+            Удалить все
+          </Button>
+        )}
         <p style={{ fontWeight: '500' }}>
-          Тариф — <span className="text-primary fw-bold">Стандартный</span>
+          Тариф — <span className="text-primary fw-bold">{'Стандартный'}</span>
         </p>
 
         <Nav
           variant="tabs"
-          className="fs-base mb-3 justify-content-center justify-content-sm-start"
+          defaultActiveKey="published"
+          className="fs-base border-bottom justify-content-center justify-content-sm-start"
+          onSelect={handleSelect}
         >
           {navItems.map((item, index) => (
-            <Nav.Item key={index} className="mb-2">
+            <Nav.Item key={index} className="mb-3">
               <Nav.Link
-                href={item.link}
                 style={{ fontWeight: '500' }}
-                active={categoryParam === item.value ? true : false}
+                eventKey={item.value}
+                data-index={item.value}
               >
-                <i className={`${item.icon} mt-n1 me-2`}></i>
+                <i className={`${item.icon} mt-n1 me-3`}></i>
                 {item.title}
               </Nav.Link>
             </Nav.Item>
@@ -104,54 +160,33 @@ function Offers() {
 
         {/* List of properties or empty state */}
         {cards.length > 0 ? (
-          cards.map((property, indx) => (
-            <PropertyCard
-              key={indx}
-              href={property.href}
-              images={property.images}
-              category={null}
-              title={property.title}
-              location={null}
-              price={null}
-              badges=""
-              light={false}
-              dropdown={false}
-              wishlistButton={null}
-              footer={[
-                ['fi-bed', property.amenities[0]],
-                ['fi-bath', property.amenities[1]],
-                ['fi-car', property.amenities[2]],
-              ]}
-              horizontal
-              className={indx === setCards.length - 1 ? '' : 'mb-4'}
-            >
-              {renderCardText(
-                'Вместимость',
-                `${property.min_capacity} - ${property.max_capacity} человек`
-              )}
-
-              {renderCardText(
-                'Стоимость',
-                `Аренда ${property.min_price_rent}₽ + от ${property.min_price_banquet}₽/ч`
-              )}
-
-              {renderCardText('Схема оплаты', property.scheme_of_payment)}
-            </PropertyCard>
-          ))
+          moderationCardsRenderCheck()
         ) : (
           // Empty state
-          <div className="text-center pt-2 pt-md-4 pt-lg-5 pb-2 pb-md-0">
-            <i className="fi-heart display-6 text-muted mb-4"></i>
-            <h2 className="h5 mb-2">Your Wishlist is empty!</h2>
+          <>
+            <h3 className="h3 mb-2">Нет опубликованных бизнесов</h3>
             <p className="pb-1">
-              Search our catalog for relevant properties and add them to you
-              Wishlist to buy or rent them later.
+              Начните создавать свою первую публикацию прямо сейчас или
+              проверьте уже готовые бизнесы во вкладках “Модерация” и
+              “Черновики”.
             </p>
-            <Button as={Link} href="/real-estate/catalog?category=rent">
-              Go to Catalog
-            </Button>
-          </div>
+            <ImageLoader
+              width={544}
+              height={517}
+              alt="Человек через лупу смотрит на дом с долларом"
+              src="/img/emptyBusiness.svg"
+            />
+          </>
         )}
+
+        <DeleteModal
+          show={show}
+          setShow={setShow}
+          message={
+            'Все бизнесы не будут видны на сайте и останутся в вашем архиве.'
+          }
+          deleteFunc={() => setCards([])}
+        />
       </>
     </LKNavigation>
   );

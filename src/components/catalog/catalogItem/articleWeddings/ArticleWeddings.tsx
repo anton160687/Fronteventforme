@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import ImageLoader from '@/components/_finder/ImageLoader';
 
-type  ArticleWeddingsProps = {
+type ArticleWeddingsProps = {
   title: string;
   description: string;
   pathImg: string;
   dateText: string;
 };
 
-function ArticleWeddings ({ title, description, pathImg, dateText}: ArticleWeddingsProps) {
+function ArticleWeddings({
+  title,
+  description,
+  pathImg,
+  dateText,
+}: ArticleWeddingsProps) {
   //* для дополнительного текста
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const new_description = description.slice(0, 120) + '...';
@@ -24,7 +29,7 @@ function ArticleWeddings ({ title, description, pathImg, dateText}: ArticleWeddi
         height={230}
         quality={100}
         layout="responsive"
-        alt="Card image"
+        alt={`Обложка статьи ${title}`}
         className="card-img-top"
       />
       <figcaption className="p-3">
@@ -64,6 +69,6 @@ function ArticleWeddings ({ title, description, pathImg, dateText}: ArticleWeddi
       </figcaption>
     </figure>
   );
-};
+}
 
 export default ArticleWeddings;

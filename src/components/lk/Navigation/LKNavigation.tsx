@@ -72,10 +72,10 @@ function LKNavigation({
 
         <Row>
           {/* Sidebar (Account nav) */}
-          <Col md={5} lg={4} className="pe-xl-4 mb-5">
+          <Col md={12} lg={4} className="pe-xl-4">
             <div className="card card-body border-0 shadow-sm pb-1 me-lg-1">
               {/* <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4"> */}
-              <div className="d-flex flex-column flex-md-row align-items-center w-100">
+              <div className="d-flex flex-column flex-lg-row align-items-center w-100">
                 <Col lg={2} className="p-0">
                   <Avatar
                     img={{
@@ -88,16 +88,16 @@ function LKNavigation({
                     className=""
                   />
                 </Col>
-                <Col md={9} className="p-0 ps-1">
+                <Col lg={9} className="p-0 ps-1">
                   <h2 className="fs-lg mb-0">
                     {user?.username || 'Имя Фамилия'}
                   </h2>
                 </Col>
               </div>
-              <Col md={11} lg={10} className="ms-md-auto mt-3 mb-4 ps-1">
+              <Col md={12} lg={10} className="ms-md-auto mt-3 mb-4 ps-1">
                 <ul
                   className={
-                    'd-flex flex-column d-md-block  align-items-center w-100 list-unstyled fs-sm  mb-0 ' +
+                    'd-flex flex-column d-lg-block  align-items-center w-100 list-unstyled fs-sm  mb-0 ' +
                     styles.userInfo
                   }
                 >
@@ -134,7 +134,7 @@ function LKNavigation({
               </Button>
               <Button
                 variant="outline-secondary"
-                className="d-block d-md-none w-100 mb-3"
+                className="d-block d-lg-none w-100 mb-3"
                 onClick={() => setOpen(!open)}
                 aria-controls="account-menu"
                 aria-expanded={open}
@@ -142,7 +142,7 @@ function LKNavigation({
                 <i className="fi-align-justify me-2"></i>
                 Меню
               </Button>
-              <Collapse in={open} className="d-md-block">
+              <Collapse in={open} className="d-lg-block">
                 <div id="account-menu">
                   <CardNav className="pt-3">
                     {LKSections.map((section, index) =>
@@ -159,7 +159,11 @@ function LKNavigation({
           </Col>
 
           {/* Page content */}
-          <Col md={7} lg={8} className="mb-5 position-relative">
+          <Col
+            md={12}
+            lg={8}
+            className="position-relative ps-md-3 ps-lg-5 ps-0 mt-5 mt-lg-0"
+          >
             <h2>{accountPageTitle}</h2>
             {children}
           </Col>

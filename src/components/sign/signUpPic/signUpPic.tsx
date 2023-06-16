@@ -30,7 +30,7 @@ export default function SignUpPic() {
           src="/img/signup.svg"
           width={344}
           height={404}
-          alt="Illusration"
+          alt="Девушка с формой для регистрации"
         />
       </div>
       <div className="mt-4 mt-sm-5 text-center text-lg-start">

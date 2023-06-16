@@ -97,7 +97,7 @@ function FileUploader({
         allowMultiple={maxFiles > 1 ? true : false}
         maxFiles={maxFiles}
         maxFileSize="5MB"
-        maxTotalFileSize="25MB"
+        // maxTotalFileSize="25MB"
         className="file-uploader file-uploader-grid"
         checkValidity={true}
         instantUpload={true}

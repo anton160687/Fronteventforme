@@ -4,6 +4,7 @@
   color: $gray800;
 }
 
+//Удалить все
 .clearBtn {
   position: absolute;
   top: 0;
@@ -62,5 +63,20 @@
   font-weight: 500;
   @media (max-width: 995px) {
     margin-top: 80px;
+  }
+}
+
+//Card
+@media screen and (max-width: 480px) {
+  .card {
+    &__title {
+      font-size: 16px !important;
+    }
+    &__subtitle {
+      font-size: 14px !important;
+    }
+    &__text {
+      font-size: 12px !important;
+    }
   }
 }

@@ -18,6 +18,7 @@ export type PlaceCardType = {
     image: string;
     place: number;
   }[];
+  comment?: string;
 };
 
 export type Place = {
