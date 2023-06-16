@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChangeEvent, FocusEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FocusEvent, MouseEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FormControl } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
@@ -43,6 +43,13 @@ function PlaceFilters() {
             queryParams += value
         })
         return queryParams
+    }
+
+    function handleRefresh(e: MouseEvent<HTMLAnchorElement>) {
+        e.preventDefault();
+        setCity('');
+        setFilterParams(initialFilterParamsState);
+        router.push('/catalog/places');
     }
 
     useEffect(() => {
@@ -91,6 +98,7 @@ function PlaceFilters() {
                     name='capacity'
                     text='Вместимость'
                     icon='fi-building'
+                    filterParams={filterParams.capacity}
                     setFilterParams={filterParamsCallback}
                     options={options.CAPACITY}
                 />
@@ -99,6 +107,7 @@ function PlaceFilters() {
                     name='scheme_of_payment'
                     text='Схема оплаты'
                     icon='fi-home'
+                    filterParams={filterParams.scheme_of_payment}
                     setFilterParams={filterParamsCallback}
                     options={options.SCHEME}
                 />
@@ -107,6 +116,7 @@ function PlaceFilters() {
                     name='price'
                     text='Средний чек'
                     icon='fi-wallet'
+                    filterParams={filterParams.price}
                     setFilterParams={filterParamsCallback}
                     options={options.PRICE}
                 />
@@ -115,6 +125,7 @@ function PlaceFilters() {
                     name='territory'
                     text='Территория'
                     icon='fi-grid'
+                    filterParams={filterParams.territory}
                     setFilterParams={filterParamsCallback}
                     options={options.TERRITORY}
                 />
@@ -123,11 +134,13 @@ function PlaceFilters() {
                     name='more'
                     text='Еще на площадке'
                     icon='fi-grid'
+                    filterParams={filterParams.more}
                     setFilterParams={filterParamsCallback}
                     options={options.MORE}
                 />
                 <hr className={styles.catalog__dropdown_hr} />
                 <Link
+                    onClick={handleRefresh}
                     className={styles.catalog__clear_all}
                     href='/catalog/places'>
                     <i className='fi-refresh' />
