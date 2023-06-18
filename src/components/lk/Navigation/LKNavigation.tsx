@@ -25,7 +25,7 @@ function LKNavigation({
   accountPageTitle,
   children,
 }: LKNavigationProps): JSX.Element {
-  const user: (User | undefined) = useSelector(selectUser);
+  const user: User | undefined = useSelector(selectUser);
   //TODO заменим user?.is_bride ? Paths.AccBride : Paths.AccBusiness на link
   const link = user?.is_bride ? Paths.AccBride : Paths.AccBusiness;
 
@@ -72,8 +72,8 @@ function LKNavigation({
 
         <Row>
           {/* Sidebar (Account nav) */}
-          <Col md={12} lg={4} className="pe-xl-4">
-            <div className="card card-body border-0 shadow-sm pb-1 me-lg-1">
+          <Col md={12} lg={4}>
+            <div className="card card-body border-0 shadow-sm pb-1 mx-lg-1">
               {/* <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4"> */}
               <div className="d-flex flex-column flex-lg-row align-items-center w-100">
                 <Col lg={2} className="p-0">
@@ -146,11 +146,11 @@ function LKNavigation({
                 <div id="account-menu">
                   <CardNav className="pt-3">
                     {LKSections.map((section, index) =>
-                      user?.is_bride ?
-                        section.title !== LKSectionsTitles.Offers &&
-                        sectionRender({ section, index })
+                      user?.is_bride
+                        ? section.title !== LKSectionsTitles.Offers &&
+                          sectionRender({ section, index })
                         : section.title !== LKSectionsTitles.Wishlist &&
-                        sectionRender({ section, index })
+                          sectionRender({ section, index })
                     )}
                   </CardNav>
                 </div>
@@ -162,7 +162,7 @@ function LKNavigation({
           <Col
             md={12}
             lg={8}
-            className="position-relative ps-md-3 ps-lg-5 ps-0 mt-5 mt-lg-0"
+            className="position-relative ps-lg-5 ps-0 mt-5 mt-lg-0"
           >
             <h2>{accountPageTitle}</h2>
             {children}
