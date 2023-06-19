@@ -20,9 +20,13 @@ import {
   EMAIL_REQUIREMENTS,
   MOBILE_REQUIREMENTS,
   MOBILE_TITLE,
+  EMAIL_TITLE,
+  NAME_REQUIREMENTS,
+  LAST_NAME_TITLE,
+  NAME_TITLE,
+  USERNAME_TITLE,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
-
 
 function InfoPage() {
   const initialInfoState: BusinessInfo = {
@@ -176,6 +180,7 @@ function InfoPage() {
               onBlur={handleBlur}
               placeholder="Введите имя пользователя"
               pattern={USERNAME_REQUIREMENTS}
+              title={USERNAME_TITLE}
               required
             />
           </Form.Group>
@@ -197,6 +202,8 @@ function InfoPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Имя"
+                pattern={NAME_REQUIREMENTS}
+                title={NAME_TITLE}
                 required
               />
             </Col>
@@ -213,6 +220,8 @@ function InfoPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Фамилия"
+                pattern={NAME_REQUIREMENTS}
+                title={LAST_NAME_TITLE}
                 required
               />
             </Col>
@@ -238,6 +247,7 @@ function InfoPage() {
                 onBlur={handleBlur}
                 placeholder="Введите электронную почту"
                 pattern={EMAIL_REQUIREMENTS}
+                title={EMAIL_TITLE}
                 required
               />
             </Col>
