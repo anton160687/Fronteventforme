@@ -8,7 +8,11 @@ type MainPhotosProps = {
   setPreviewMainPhotos: Dispatch<SetStateAction<string[]>>;
 };
 
-function MainPhotos({ title, setMainPhotos, setPreviewMainPhotos }: MainPhotosProps) {
+function MainPhotos({
+  title,
+  setMainPhotos,
+  setPreviewMainPhotos,
+}: MainPhotosProps) {
   return (
     <section
       id={ADD_PLACE_NAMES.mainPhotos.id}
@@ -21,10 +25,10 @@ function MainPhotos({ title, setMainPhotos, setPreviewMainPhotos }: MainPhotosPr
       <FileUploader
         setGallery={setMainPhotos}
         setPreviewGallery={setPreviewMainPhotos}
-        maxFiles={5}
+        // maxFiles={5}
         required={true}
         warning={
-          'Макс. размер фото 5 МБ. Форматы: jpeg, jpg, png. Не более 5 фотографий. Сначала загрузите обложку.'
+          'Макс. общий объем 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите обложку.'
         }
       />
     </section>
