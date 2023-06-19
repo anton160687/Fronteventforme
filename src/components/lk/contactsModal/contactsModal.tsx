@@ -1,3 +1,9 @@
+import {
+  MOBILE_REQUIREMENTS,
+  MOBILE_TITLE,
+  NAME_REQUIREMENTS,
+  NAME_TITLE,
+} from '@/constant';
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import { Button, CloseButton, Form, Modal } from 'react-bootstrap';
 
@@ -50,21 +56,24 @@ function ContactsModal({ isShown, setIsShown }: ContactsModalProps) {
               size="lg"
               required
               placeholder="Как к вам можно обращаться?"
+              pattern={NAME_REQUIREMENTS}
+              title={NAME_TITLE}
             />
-            {/* <Form.Control.Feedback type="invalid">
-              Как к вам можно обращаться?
-            </Form.Control.Feedback> */}
+            <Form.Control.Feedback type="invalid">
+              {NAME_TITLE}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="c-tel" className="mb-4">
             <Form.Label>Телефон</Form.Label>
             <Form.Control
               size="lg"
               type="tel"
-              pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+              pattern={MOBILE_REQUIREMENTS}
+              title={MOBILE_TITLE}
               placeholder="Введите номер телефона"
             />
             <Form.Control.Feedback type="invalid">
-              Введите номер телефона
+              {MOBILE_TITLE}
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="c-message" className="mb-4">

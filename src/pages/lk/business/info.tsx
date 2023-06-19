@@ -18,6 +18,8 @@ import {
   LKSectionsTitles,
   USERNAME_REQUIREMENTS,
   EMAIL_REQUIREMENTS,
+  MOBILE_REQUIREMENTS,
+  MOBILE_TITLE,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 
@@ -244,7 +246,9 @@ function Info() {
               </Form.Label>
               <Form.Control
                 type="tel"
-                pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+                // pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+                pattern={MOBILE_REQUIREMENTS}
+                title={MOBILE_TITLE}
                 className="mt-3"
                 name="phone"
                 value={info.phone}
@@ -292,6 +296,7 @@ function Info() {
                 onChange={handleNumberChange}
                 onBlur={handleBlur}
                 placeholder="Введите ИНН"
+                type="number"
                 maxLength={10}
                 required
               />
