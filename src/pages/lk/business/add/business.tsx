@@ -56,8 +56,6 @@ function deleteServiceForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
     copyServicesArray[index] = null;
     setServiceIndexArray([...copyIndexArray]);
     setServices([...copyServicesArray]);
-  } else {
-    alert('Должна быть хотя бы 1 услуга');
   }
 }
 
