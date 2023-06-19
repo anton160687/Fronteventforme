@@ -74,7 +74,6 @@ function LKNavigation({
           {/* Sidebar (Account nav) */}
           <Col md={12} lg={4}>
             <div className="card card-body border-0 shadow-sm pb-1 mx-lg-1">
-              {/* <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4"> */}
               <div className="d-flex flex-column flex-lg-row align-items-center w-100">
                 <Col lg={2} className="p-0">
                   <Avatar

@@ -13,7 +13,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
-import DeleteModal from '@/components/lk/modal/DeleteModal';
+import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 import {
   LKSectionsTitles,
   USERNAME_REQUIREMENTS,
@@ -298,7 +298,7 @@ function Info() {
             </Col>
           </Form.Group>
           {/* Description, avatar */}
-          <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
+          <Form.Group as={Row} className="pb-2" controlId="info-bio">
             <Form.Label>
               <h2 className="form-label fw-bold">Небольшое описание</h2>
             </Form.Label>

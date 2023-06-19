@@ -7,8 +7,12 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import ImageLoader from '@/components/_finder/ImageLoader';
+import { useState } from 'react';
+import ContactsModal from '../contactsModal/contactsModal';
+import { truncate } from 'fs/promises';
 
 function Help() {
+  const [isShown, setIsShown] = useState(false);
   return (
     <>
       <p>Ответы на все задаваемые вопросы.</p>
@@ -204,11 +208,13 @@ function Help() {
               // href="/real-estate/contacts"
               size="lg"
               variant="primary"
+              onClick={() => setIsShown(true)}
             >
-              Обратитесь к нам?
+              Обратитесь к нам
             </Button>
           </Col>
         </Row>
+        <ContactsModal isShown={isShown} setIsShown={setIsShown} />
       </Container>
     </>
   );
