@@ -27,7 +27,7 @@ function BrideReviewsPage() {
   return (
     <LKNavigation accountPageTitle={LKSectionsTitles.Reviews}>
       <>
-        {reviewsByYou.length !== 0 ?
+        {reviewsByYou.length === 0 ?
           <EmptyReviews />
           :
           <>
