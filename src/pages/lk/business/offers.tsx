@@ -39,7 +39,7 @@ const navItems = [
   },
 ];
 
-function Offers(): JSX.Element {
+function OffersPage(): JSX.Element {
   //places
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
   const [declinedCards, setDeclinedCards] =
@@ -191,4 +191,4 @@ function Offers(): JSX.Element {
     </LKNavigation>
   );
 }
-export default Offers;
+export default OffersPage;

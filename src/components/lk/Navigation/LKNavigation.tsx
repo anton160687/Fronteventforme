@@ -121,17 +121,19 @@ function LKNavigation({
                   </li>
                 </ul>
               </Col>
+              {/* кнопка Добавить бизнес или Начать планирование свадьбы */}
 
-              <Button
-                // @ts-ignore: bootstrap bag*
-                as={Link}
-                href="/lk/business/add"
-                size="lg"
-                className="w-100 mb-4"
-              >
-                <i className="fi-plus me-2"></i>
-                Добавить бизнес
-              </Button>
+                <Button
+                  // @ts-ignore: bootstrap bag*
+                  as={Link}
+                  href={!user?.is_bride ? "/lk/business/add" : "#"}
+                  size="lg"
+                  className="w-100 mb-4"
+                >
+                  <i className="fi-plus me-2"></i>
+                  {!user?.is_bride ? "Добавить бизнес" : "Начать планирование свадьбы"}
+                </Button>
+                
               <Button
                 variant="outline-secondary"
                 className="d-block d-lg-none w-100 mb-3"

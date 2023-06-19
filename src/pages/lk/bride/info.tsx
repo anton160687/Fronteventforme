@@ -11,7 +11,7 @@ import { selectUser } from '@/store/user/userSlice';
 import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
-import { BusinessInfo } from '@/types/lkInfoType';
+import { BrideInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
 import DeleteModal from '@/components/lk/modal/DeleteModal';
 import {
@@ -21,17 +21,13 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 
-
 function InfoPage() {
-  const initialInfoState: BusinessInfo = {
-    is_company: false,
+  const initialInfoState: BrideInfo = {
     username: '',
     first_name: '',
     last_name: '',
     email: '',
     phone: '',
-    tin: 0,
-    company: undefined,
     bio: '',
     avatar: [],
     social_vk: '',
@@ -51,7 +47,7 @@ function InfoPage() {
     }
   }, []);
 
-  const [info, setInfo] = useState<BusinessInfo>(initialInfoState);
+  const [info, setInfo] = useState<BrideInfo>(initialInfoState);
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInfo({ ...info, [e.target.name]: e.target.value });
   }
@@ -72,28 +68,22 @@ function InfoPage() {
     last_name: 0,
     email: 0,
     phone: 0,
-    tin: 0,
-    company: 0,
     bio: 0,
     social_vk: 0,
     social_ok: 0,
     social_tel: 0,
   };
   const [progress, setProgress] = useState(initialProgres);
-  let companyProgress = 0;
   let personProgress = 0;
   for (let key in progress) {
-    companyProgress += progress[key as keyof typeof progress];
-    if (companyProgress === 99) {
-      companyProgress = 100;
-    }
-    if (key !== ' company' && progress[key as keyof typeof progress] !== 0) {
-      personProgress += 10;
+    personProgress += progress[key as keyof typeof progress];
+    if (personProgress === 99.99) {
+      personProgress = 100;
     }
   }
   function handleBlur(e: FocusEvent<HTMLInputElement>) {
     if (e.target.value !== '') {
-      setProgress({ ...progress, [e.target.name]: 9 });
+      setProgress({ ...progress, [e.target.name]: 11.11 });
     } else {
       setProgress({ ...progress, [e.target.name]: 0 });
     }
@@ -113,50 +103,16 @@ function InfoPage() {
     <>
       <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
         <Form onSubmit={handleSubmit}>
-          <Alert variant="info" className="d-flex mb-4">
-            <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
-            <div>
-              {' '}
-              Для добавления бизнеса заполните все необходимые поля
-              &quot;Основной информации&quot;.
-            </div>
-          </Alert>
           <div className="mb-2 pt-1">
-            Заполнено на {info.is_company ? companyProgress : personProgress}%{' '}
+            Заполнено на { personProgress }%
           </div>
           <ProgressBar
             variant="warning"
-            now={info.is_company ? companyProgress : personProgress}
+            now={ personProgress }
             className="mb-4"
             style={{ height: '.25rem' }}
           />
 
-          <Form.Group
-            className="border-bottom pb-3 mb-4"
-            controlId="info-is_company"
-          >
-            <Form.Label>
-              <h2 className="form-label fw-bold">
-                Ваш статус: <span className="text-danger">*</span>
-              </h2>
-            </Form.Label>
-            <Form.Check
-              type="radio"
-              name="is_company"
-              label="ИП/самозанятый"
-              value={0}
-              checked={!info.is_company}
-              onChange={handleRadio}
-            />
-            <Form.Check
-              type="radio"
-              name="is_company"
-              label="Организация"
-              value={1}
-              checked={info.is_company}
-              onChange={handleRadio}
-            />
-          </Form.Group>
           {/* Username */}
           <Form.Group
             className="border-bottom pb-3 mb-4"
@@ -255,49 +211,7 @@ function InfoPage() {
               />
             </Col>
           </Form.Group>
-          {/* Company, TIN */}
-          <Form.Group
-            as={Row}
-            className="border-bottom pb-3 mb-4"
-            controlId="info-law"
-          >
-            {info.is_company && (
-              <Col>
-                <Form.Label>
-                  <h2 className="form-label fw-bold">
-                    Наименование организации{' '}
-                    <span className="text-danger">*</span>
-                  </h2>
-                </Form.Label>
-                <Form.Control
-                  className="mt-3"
-                  name="company"
-                  value={info.company ? info.company : ''}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Наименование организации"
-                  required
-                />
-              </Col>
-            )}
-            <Col>
-              <Form.Label>
-                <h2 className="form-label fw-bold">
-                  ИНН {info.is_company ? 'организации' : ''}{' '}
-                  <span className="text-danger">*</span>
-                </h2>
-              </Form.Label>
-              <Form.Control
-                value={info.tin === 0 ? '' : info.tin}
-                name="tin"
-                onChange={handleNumberChange}
-                onBlur={handleBlur}
-                placeholder="Введите ИНН"
-                maxLength={10}
-                required
-              />
-            </Col>
-          </Form.Group>
+         
           {/* Description, avatar */}
           <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
             <Form.Label>
@@ -387,7 +301,7 @@ function InfoPage() {
         setShow={setShow}
         message={'Вы действительно хотите безвозвратно удалить аккаунт?'}
         //тут должна быть функция по удалению
-        deleteFunc={() => {}}
+        deleteFunc={() => { }}
       />
     </>
   );
