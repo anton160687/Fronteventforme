@@ -138,6 +138,9 @@ function InfoPage() {
               title={USERNAME_TITLE}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {USERNAME_TITLE}
+            </Form.Control.Feedback>
           </Form.Group>
           {/* Full name */}
           <Form.Group
@@ -161,6 +164,9 @@ function InfoPage() {
                 title={NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
             {/* Last name */}
             <Col>
@@ -179,6 +185,9 @@ function InfoPage() {
                 title={LAST_NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {LAST_NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           {/* Email, Phone */}
@@ -205,6 +214,9 @@ function InfoPage() {
                 title={EMAIL_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {EMAIL_TITLE}
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Label>
@@ -222,6 +234,9 @@ function InfoPage() {
                 onBlur={handleBlur}
                 placeholder="Введите номер телефона"
               />
+              <Form.Control.Feedback type="invalid">
+                {MOBILE_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
 

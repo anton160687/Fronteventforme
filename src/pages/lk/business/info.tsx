@@ -57,6 +57,8 @@ function InfoPage() {
     }
   }, []);
 
+  const [validated, setValidated] = useState(false);
+
   const [info, setInfo] = useState<BusinessInfo>(initialInfoState);
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -108,9 +110,12 @@ function InfoPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    form.checkValidity();
-    console.log(info);
-    console.log(profile);
+
+    if (form.checkValidity()) {
+      setValidated(true);
+      console.log(info);
+      console.log(profile);
+    }
   }
   //Modal
   const [show, setShow] = useState<boolean>(false);
@@ -118,7 +123,7 @@ function InfoPage() {
   return (
     <>
       <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} validated={validated}>
           <Alert variant="info" className="d-flex mb-4">
             <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
             <div>
@@ -183,6 +188,9 @@ function InfoPage() {
               title={USERNAME_TITLE}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {USERNAME_TITLE}
+            </Form.Control.Feedback>
           </Form.Group>
           {/* Full name */}
           <Form.Group
@@ -206,6 +214,9 @@ function InfoPage() {
                 title={NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
             {/* Last name */}
             <Col>
@@ -224,6 +235,9 @@ function InfoPage() {
                 title={LAST_NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {LAST_NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           {/* Email, Phone */}
@@ -250,6 +264,9 @@ function InfoPage() {
                 title={EMAIL_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {EMAIL_TITLE}
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Label>
@@ -267,6 +284,9 @@ function InfoPage() {
                 onBlur={handleBlur}
                 placeholder="Введите номер телефона"
               />
+              <Form.Control.Feedback type="invalid">
+                {MOBILE_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           {/* Company, TIN */}
