@@ -27,14 +27,14 @@ type FileUploaderProps = {
   setGallery: (imageIds: string[]) => void;
   setPreviewGallery?: Dispatch<SetStateAction<string[]>>;
   warning?: string;
-  maxFiles: number;
+  maxFiles?: number;
   required?: boolean;
 };
 
 function FileUploader({
   setGallery,
   setPreviewGallery,
-  maxFiles,
+  maxFiles = 100,
   warning,
   required = false,
 }: FileUploaderProps) {
@@ -94,10 +94,10 @@ function FileUploader({
         name="filepond"
         labelIdle='<div class="btn btn-primary mb-3"><i class="fi-cloud-upload me-1"></i> Загрузите фото</div><div>или перетащите их сюда</div>'
         acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg']}
-        allowMultiple={maxFiles > 1 ? true : false}
+        allowMultiple={maxFiles === undefined || maxFiles > 1 ? true : false}
         maxFiles={maxFiles}
         maxFileSize="5MB"
-        // maxTotalFileSize="25MB"
+        maxTotalFileSize="25MB"
         className="file-uploader file-uploader-grid"
         checkValidity={true}
         instantUpload={true}

@@ -40,6 +40,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
     <>
       {(description || images?.length > 0) && (
         <figure
+          id="territory"
           className={
             id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
           }

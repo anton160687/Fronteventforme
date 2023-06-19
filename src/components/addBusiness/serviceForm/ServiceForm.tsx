@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { Alert, Col, InputGroup, Row } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import FileUploader from '@/components/addProperty/fileUploader/FileUploader';
@@ -14,7 +20,12 @@ type ServiceFormProps = {
   setPreviewServicesImg: Dispatch<SetStateAction<string[][]>>;
 };
 
-function ServiceForm({ index, services, setServices, setPreviewServicesImg }: ServiceFormProps) {
+function ServiceForm({
+  index,
+  services,
+  setServices,
+  setPreviewServicesImg,
+}: ServiceFormProps) {
   let initialServiceFormState: any = {
     specialisation: '',
     title: '',
@@ -22,9 +33,11 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
     price: 0,
     sale: '',
     reserved_days: [new Date()],
-    service_img: ['']
+    service_img: [''],
   };
-  const [service, setService] = useState<typeof initialServiceFormState>(initialServiceFormState);
+  const [service, setService] = useState<typeof initialServiceFormState>(
+    initialServiceFormState
+  );
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setService({ ...service, [e.target.name]: e.target.value });
   }
@@ -61,7 +74,7 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
   }, [services]);
 
   return (
-    <section className='mb-2'>
+    <section className="mb-2">
       <h2 className="h4 mb-4">
         <i className="fi-party-popper text-primary fs-5 mt-n1 me-2"></i>
         {ADD_PLACE_NAMES.service.name}
@@ -80,22 +93,23 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
             onChange={handleChange}
             required
           />
-        <Alert variant="info" className="d-flex mt-3 mb-4">
-          <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
-          <div> Рекомендуемое количество категорий услуг — не более 8. </div>
-        </Alert>
+          <Alert variant="info" className="d-flex mt-3 mb-4">
+            <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
+            <div> Рекомендуемое количество категорий услуг — не более 8. </div>
+          </Alert>
         </Form.Group>
       </Row>
 
       <Row className="mb-4">
         <Form.Group>
           <Form.Label className="d-block mb-2 mt-2 pb-1">
-            Загрузите фотографии/видео услуги <span className="text-danger">*</span>
+            Загрузите фотографии/видео услуги{' '}
+            <span className="text-danger">*</span>
           </Form.Label>
           <FileUploader
             setGallery={setServiceImages}
             required={true}
-            maxFiles={5}
+            // maxFiles={5}
             warning="Максимальный размер фото 400 КБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>
@@ -105,15 +119,16 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
       <Row className="align-items-end mb-4">
         <Form.Group as={Col} controlId="title">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-            {'Название\u00a0услуги\u00a0'}<span className="text-danger">*</span>
+            {'Название\u00a0услуги\u00a0'}
+            <span className="text-danger">*</span>
           </Form.Label>
           <Form.Control
-              name="title"
-              placeholder="Например, Фотосессия: полный день"
-              value={service.title}
-              onChange={handleChange}
-              required
-            />         
+            name="title"
+            placeholder="Например, Фотосессия: полный день"
+            value={service.title}
+            onChange={handleChange}
+            required
+          />
         </Form.Group>
 
         <Form.Group as={Col} controlId="sale">
@@ -133,7 +148,8 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
       <Row className="align-items-end mb-4">
         <Form.Group as={Col} controlId="title">
           <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
-            {'Стоимость\u00a0'}<span className="text-danger">*</span>
+            {'Стоимость\u00a0'}
+            <span className="text-danger">*</span>
           </Form.Label>
           <InputGroup>
             <Form.Control
@@ -163,7 +179,6 @@ function ServiceForm({ index, services, setServices, setPreviewServicesImg }: Se
           />
         </Form.Group>
       </Row>
-
 
       {/* Недоступные даты */}
       <Row>
