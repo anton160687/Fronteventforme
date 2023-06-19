@@ -13,8 +13,6 @@ export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    //access токены имеют очень короткий срок жизни, поэтому при заходе на сайт будем отправлять refresh
-    //TODO уточнить у бэка время жизни refresh-токена И продлить его (хотя бы день?)
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
 
@@ -30,7 +28,6 @@ export default function Header() {
     } else {
       console.log('Нет свежих токенов');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <HeaderNavbar isAuth={isAuth} />;
