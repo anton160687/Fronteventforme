@@ -13,7 +13,6 @@ function PlaceTypesSlider() {
   const activeStyle = {
     color: '#FE9589',
   }
-  console.log(fullPath);
 
   function renderIconSlides(array: iconSlidesArray) {
     return array.map(({ icon, text, path }, index) => (
