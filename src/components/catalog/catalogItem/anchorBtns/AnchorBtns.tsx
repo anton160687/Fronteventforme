@@ -5,13 +5,13 @@ export default function AnchorBtns() {
   const anchorList = [
     {
       id: 1,
-      text: 'Обзор',
+      text: 'Описание',
       anchor: '#review',
     },
     {
       id: 2,
-      text: 'Территория',
-      anchor: '#territory',
+      text: 'Помещения',
+      anchor: '#areas',
     },
     {
       id: 3,
@@ -20,7 +20,7 @@ export default function AnchorBtns() {
     },
     {
       id: 4,
-      text: 'Альбом',
+      text: 'Фото',
       anchor: '#album',
     },
     {
