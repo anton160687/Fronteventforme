@@ -189,7 +189,12 @@ export default function SignUpForm({
                 id="terms-agree"
                 label={[
                   <span key={1}>Я согласен с </span>,
-                  <Link className={styles.link} key={2} href={Paths.TermsOfUse}>
+                  <Link
+                    className={styles.link}
+                    key={2}
+                    href={Paths.TermsOfUse}
+                    target="_blank"
+                  >
                     Условиями пользования
                   </Link>,
                   <span key={3}> и </span>,
@@ -197,6 +202,7 @@ export default function SignUpForm({
                     className={styles.link}
                     key={4}
                     href={Paths.PrivacyPolicy}
+                    target="_blank"
                   >
                     Политикой конфиденциальности
                   </Link>,
