@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderNavbar from './navbar/Navbar';
-import { selectIsAuth } from '@/store/user/userSlice';
+import { selectIsAuth, setAuth } from '@/store/user/userSlice';
 import { useEffect } from 'react';
 import { Token } from '@/constant';
 import { AppDispatch } from '@/store';
@@ -10,13 +10,15 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 
 export default function Header() {
   const isAuth = useSelector(selectIsAuth);
+  console.log ('статус из хедера ' + isAuth);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
 
-    async function getNewAccessToken(token: string) {
+    async function getUserData(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
@@ -24,9 +26,9 @@ export default function Header() {
     }
 
     if (refreshToken && isFresh) {
-      getNewAccessToken(refreshToken);
+      getUserData(refreshToken);
     } else {
-      console.log('Нет свежих токенов');
+      console.log(isAuth);
     }
   }, []);
 

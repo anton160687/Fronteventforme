@@ -47,7 +47,6 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const [role, setRole] = useState<boolean>();
   useEffect(()=> {
     let stored = localStorage.getItem('role');
-    console.log ('из хранилища ' + stored);
     if (stored) {
       setRole(!!(+stored))
     }

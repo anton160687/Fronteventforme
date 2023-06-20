@@ -13,6 +13,7 @@ import {
   EMAIL_REQUIREMENTS,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
+import withAuth from '@/hoc/WithAuth';
 
 function InfoPage() {
   const initialInfoState: BrideInfo = {
@@ -292,4 +293,4 @@ function InfoPage() {
   );
 }
 
-export default InfoPage;
+export default withAuth(InfoPage);

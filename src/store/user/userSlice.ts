@@ -26,6 +26,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setAuth: (state, action) => {
+      state.isAuth = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -44,11 +47,12 @@ export const userSlice = createSlice({
       )
       .addCase(fetchUserDataWithThunk.rejected, (state: UserState) => {
         state.status = 'failed';
+        state.isAuth = false;
       });
   },
 });
 
-export const {} = userSlice.actions;
+export const { setAuth } = userSlice.actions;
 //кастомный селект
 export const selectUser = (state: RootState) => state.user.userData;
 export const selectUserReqStatus = (state: RootState) => state.user.status;

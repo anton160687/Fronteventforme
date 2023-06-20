@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from '@/styles/header/Avatar.module.scss';
 import { Paths } from '@/constant';
@@ -20,7 +21,7 @@ function Avatar({
 }: AvatarProps) {
 
   return (
-    <a href={is_bride? Paths.AccBride : Paths.AccBusiness } className={styles.avatar__link}>
+    <Link href={is_bride? Paths.AccBride : Paths.AccBusiness } className={styles.avatar__link}>
       <Image
         className={styles.avatar__image}
         src={avatar || '/img/header/avatar.svg'}
@@ -32,7 +33,7 @@ function Avatar({
         {username || 'Имя Фамилия'}
         {/* {first_name || 'Имя'}&nbsp;{last_name || 'Фамилия'} */}
       </p>
-    </a>
+    </Link>
   );
 }
 

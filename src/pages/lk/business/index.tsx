@@ -4,7 +4,6 @@ import {
   FocusEvent,
   useEffect,
   useState,
-  SetStateAction,
 } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
@@ -20,6 +19,7 @@ import {
   EMAIL_REQUIREMENTS,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
+import withAuth from '@/hoc/WithAuth';
 
 
 function InfoPage() {
@@ -393,4 +393,4 @@ function InfoPage() {
   );
 }
 
-export default InfoPage;
+export default withAuth(InfoPage);
