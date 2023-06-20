@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { numberOfAreas } from '@/services/parse.service';
 import { useState } from 'react';
-import DeleteModal from '../modal/DeleteModal';
+import DeleteModal from '../deleteModal/DeleteModal';
 import { contextMenuTypeEnum } from '@/constant';
 import ContextMenu from './contextMenu/ContextMenu';
 import styles from '@/styles/lk/Lk.module.scss';

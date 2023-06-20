@@ -12,7 +12,7 @@ import {
   placesDeclined,
 } from '@/mocks/catalogPlaces';
 import LKCard from '@/components/lk/card/Card';
-import DeleteModal from '@/components/lk/modal/DeleteModal';
+import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { Button, Nav } from 'react-bootstrap';
 import withAuth from '@/hoc/WithAuth';

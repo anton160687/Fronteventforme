@@ -20,6 +20,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
   const user = useSelector(selectUser);
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
 
+
   const [open, setOpen] = useState(false);
   type SectionRenderProps = {
     index: number;
