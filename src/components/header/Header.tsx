@@ -10,8 +10,6 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 
 export default function Header() {
   const isAuth = useSelector(selectIsAuth);
-  console.log ('статус из хедера ' + isAuth);
-
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -27,8 +25,6 @@ export default function Header() {
 
     if (refreshToken && isFresh) {
       getUserData(refreshToken);
-    } else {
-      console.log(isAuth);
     }
   }, []);
 

@@ -16,6 +16,7 @@ import { Container, Spinner } from 'react-bootstrap';
 import { User } from '@/types/user';
 import { useRouter } from 'next/router';
 import LkNavigationLogout from './LKNaviagtionLogout';
+import LKNavigationCard from './LKNavigationCard';
 
 type LKNavigationProps = {
   //временно опциональные
@@ -27,7 +28,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
   const router = useRouter();
   const user: (User | undefined) = useSelector(selectUser);
   //если роль будет приходить с бэка - убрать
-  const [role, setRole] = useState<boolean>();
+  const [role, setRole] = useState<boolean>(true);
 
   useEffect(() => {
     let stored = localStorage.getItem('role');
@@ -42,7 +43,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
       setRole(!!(+stored))
     }
   }, []);
-  
+
   const link = role ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
   type SectionRenderProps = {
@@ -51,15 +52,22 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
   };
   const sectionRender = ({ section, index }: SectionRenderProps) => {
     return (
-      <CardNav.Item
+      <LKNavigationCard
         key={index}
         href={link + section.link}
         icon={section.icon}
         active={accountPageTitle === section.title ? true : false}
-        className=""
-      >
-        {section.title}
-      </CardNav.Item>
+        text = {section.title}
+      />
+      // <CardNav.Item
+      //   key={index}
+      //   href={link + section.link}
+      //   icon={section.icon}
+      //   active={accountPageTitle === section.title ? true : false}
+      //   className=""
+      // >
+      //   {section.title}
+      // </CardNav.Item>
     );
   };
 
@@ -161,7 +169,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 </Button>
                 <Collapse in={open} className="d-lg-block">
                   <div id="account-menu">
-                    <CardNav className="pt-3">
+                    <nav className="card-nav pt-3">
                       {LKSections.map((section, index) =>
                         role ?
                           section.title !== LKSectionsTitles.Offers &&
@@ -170,7 +178,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                           sectionRender({ section, index })
                       )}
                       < LkNavigationLogout />
-                    </CardNav>
+                    </nav>
                   </div>
                 </Collapse>
               </div>
