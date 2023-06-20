@@ -1,6 +1,7 @@
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import PricePlan from '@/components/lk/pricePlan/PricePlan';
 import { LKSectionsTitles } from '@/constant';
+import withAuth from '@/hoc/WithAuth';
 import {
   Button,
   Card,
@@ -210,4 +211,4 @@ function Tariff() {
     </LKNavigation>
   );
 }
-export default Tariff;
+export default withAuth(Tariff);

@@ -8,6 +8,7 @@ import PaginationBar from '@/components/review/pagination/Pagination';
 import { reviewsAboutYou, reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
+import withAuth from '@/hoc/WithAuth';
 
 function BusinessReviewsPage() {
 
@@ -126,4 +127,4 @@ function BusinessReviewsPage() {
   )
 }
 
-export default BusinessReviewsPage;
+export default withAuth(BusinessReviewsPage);

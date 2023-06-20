@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, Form, Col, Row, Button, Breadcrumb } from "react-bootstrap";
 import { BusinessTypes, Paths } from "@/constant";
 import styles from '@/styles/lk/Lk.module.scss';
+import withAuth from "@/hoc/WithAuth";
 
 function AddBusiness() {
     const [business, setBusiness] = useState<string>('');
@@ -82,4 +83,4 @@ function AddBusiness() {
 
 }
 
-export default AddBusiness;
+export default withAuth(AddBusiness);

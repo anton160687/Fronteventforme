@@ -1,6 +1,7 @@
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import ChangePassword from '@/components/lk/changePassword/ChangePassword';
 import { LKSectionsTitles } from '@/constant';
+import withAuth from '@/hoc/WithAuth';
 
 function SecurityPage() {
   return (
@@ -9,4 +10,4 @@ function SecurityPage() {
     </LKNavigation>
   );
 }
-export default SecurityPage;
+export default withAuth(SecurityPage);

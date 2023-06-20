@@ -1,4 +1,5 @@
 import { Paths } from '@/constant';
+import withAuth from '@/hoc/WithAuth';
 import { selectUser } from '@/store/user/userSlice';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -16,4 +17,4 @@ function Account() {
   return <></>
 }
 
-export default Account;
+export default withAuth(Account);

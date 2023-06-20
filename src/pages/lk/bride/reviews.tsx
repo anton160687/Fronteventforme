@@ -5,6 +5,7 @@ import PaginationBar from '@/components/review/pagination/Pagination';
 import { reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
+import withAuth from '@/hoc/WithAuth';
 
 function BrideReviewsPage() {
 
@@ -66,4 +67,4 @@ function BrideReviewsPage() {
   )
 }
 
-export default BrideReviewsPage;
+export default withAuth(BrideReviewsPage);

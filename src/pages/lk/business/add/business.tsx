@@ -8,6 +8,7 @@ import BusinessDetails from "@/components/addBusiness/BusinessDetails";
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { ADD_PLACE_NAMES, Paths } from "@/constant";
 import ServiceForm from "@/components/addBusiness/serviceForm/ServiceForm";
+import withAuth from "@/hoc/WithAuth";
 
 function AddBusinessPage() {
   const router = useRouter();
@@ -186,4 +187,4 @@ function renderServiceForms() {
   )
 }
 
-export default AddBusinessPage;
+export default withAuth(AddBusinessPage);
