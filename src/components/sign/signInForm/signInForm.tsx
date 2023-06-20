@@ -111,7 +111,10 @@ export default function SignInForm(): JSX.Element {
           </ToggleButton>
         </ButtonGroup>
       </Form.Group>
-      <Form.Group controlId="si-email" className="mb-4">
+      <Form.Group
+        controlId="si-email"
+        className={`mb-4 ${error.length > 0 ? styles.invalid : ''}`}
+      >
         <Form.Label style={{ fontWeight: '500' }}>Электронная почта</Form.Label>
         <Form.Control
           type="email"
@@ -119,12 +122,16 @@ export default function SignInForm(): JSX.Element {
           required
           name={FormFields.Email}
           onChange={handleChange}
+          value={data.email}
           pattern={EMAIL_REQUIREMENTS}
           title={EMAIL_TITLE}
+          isInvalid={error.length > 0 ? true : false}
         />
-        <Form.Control.Feedback type="invalid">
-          {EMAIL_TITLE}
-        </Form.Control.Feedback>
+        {!error && (
+          <Form.Control.Feedback type="invalid">
+            {EMAIL_TITLE}
+          </Form.Control.Feedback>
+        )}
       </Form.Group>
       <Form.Group className="mb-4">
         <div className="d-flex align-items-center justify-content-between mb-2">
@@ -144,18 +151,24 @@ export default function SignInForm(): JSX.Element {
           placeholder="Введите пароль"
           name={FormFields.Password}
           onChange={handleChange}
+          value={data.password}
           required
           style={{}}
           light={false}
-          className=""
           size=""
           autoComplete="off"
           pattern={PASSWORD_REQUIREMENTS}
           title={PASSWORD_TITLE}
+          className={`${error.length > 0 ? styles.invalid : ''}`}
+          //className=""
+          isValid={!(error.length > 0) ? true : false}
+          isInvalid={error.length > 0 ? true : false}
         />
-        <Form.Control.Feedback type="invalid">
-          {PASSWORD_TITLE}
-        </Form.Control.Feedback>
+        {!error && (
+          <Form.Control.Feedback type="invalid">
+            {PASSWORD_TITLE}
+          </Form.Control.Feedback>
+        )}
       </Form.Group>
       <Error error={error} />
       <Button type="submit" size="lg" variant="primary w-100">
