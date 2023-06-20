@@ -12,7 +12,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
-import DeleteModal from '@/components/lk/modal/DeleteModal';
+import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 import {
   LKSectionsTitles,
   USERNAME_REQUIREMENTS,
