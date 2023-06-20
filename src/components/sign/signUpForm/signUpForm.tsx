@@ -82,7 +82,10 @@ export default function SignUpForm({
               className="w-100 fw-semibold"
               validated={validated}
             >
-              <Form.Group controlId="su-name" className="mb-4">
+              <Form.Group
+                controlId="su-name"
+                className={`mb-4 ${error.length > 0 ? styles.invalid : ''}`}
+              >
                 <Form.Label>Имя</Form.Label>
                 <Form.Control
                   placeholder="Введите имя пользователя"
@@ -92,12 +95,18 @@ export default function SignUpForm({
                   pattern={USERNAME_REQUIREMENTS}
                   title={USERNAME_TITLE}
                   type="username"
+                  isInvalid={error.length > 0 ? true : false}
                 />
-                <Form.Control.Feedback type="invalid">
-                  {USERNAME_TITLE}
-                </Form.Control.Feedback>
+                {!error && (
+                  <Form.Control.Feedback type="invalid">
+                    {USERNAME_TITLE}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
-              <Form.Group controlId="su-email" className="mb-4">
+              <Form.Group
+                controlId="su-email"
+                className={`mb-4 ${error.length > 0 ? styles.invalid : ''}`}
+              >
                 <Form.Label>Электронная почта</Form.Label>
                 <Form.Control
                   type="email"
@@ -107,10 +116,13 @@ export default function SignUpForm({
                   onChange={handleChange}
                   pattern={EMAIL_REQUIREMENTS}
                   title={EMAIL_TITLE}
+                  isInvalid={error.length > 0 ? true : false}
                 />
-                <Form.Control.Feedback type="invalid">
-                  {EMAIL_TITLE}
-                </Form.Control.Feedback>
+                {!error && (
+                  <Form.Control.Feedback type="invalid">
+                    {EMAIL_TITLE}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-password">
@@ -124,7 +136,6 @@ export default function SignUpForm({
                   required
                   size=""
                   light={false}
-                  className=""
                   style={{}}
                   placeholder="Введите пароль"
                   name={FormFields.Password}
@@ -132,10 +143,16 @@ export default function SignUpForm({
                   title={PASSWORD_TITLE}
                   onChange={handleChange}
                   autoComplete="off"
+                  className={`${error.length > 0 ? styles.invalid : ''}`}
+                  //className=""
+                  isValid={!(error.length > 0) ? true : false}
+                  isInvalid={error.length > 0 ? true : false}
                 />
-                <Form.Control.Feedback type="invalid">
-                  {PASSWORD_TITLE}
-                </Form.Control.Feedback>
+                {!error && (
+                  <Form.Control.Feedback type="invalid">
+                    {PASSWORD_TITLE}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-confirm-password">
@@ -148,7 +165,6 @@ export default function SignUpForm({
                   required
                   size=""
                   light={false}
-                  className=""
                   style={{}}
                   placeholder="Повторите пароль"
                   name={FormFields.ConfirmPassword}
@@ -156,10 +172,16 @@ export default function SignUpForm({
                   title={'Пароли должны совпадать.'}
                   autoComplete="off"
                   onChange={handleChange}
+                  className={`${error.length > 0 ? styles.invalid : ''}`}
+                  //className=""
+                  isValid={!(error.length > 0) ? true : false}
+                  isInvalid={error.length > 0 ? true : false}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Пароли должны совпадать.
-                </Form.Control.Feedback>
+                {!error && (
+                  <Form.Control.Feedback type="invalid">
+                    Пароли должны совпадать.
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Check
                 type="checkbox"
