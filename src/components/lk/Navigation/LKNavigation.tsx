@@ -1,55 +1,31 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import Button from 'react-bootstrap/Button';
-import Collapse from 'react-bootstrap/Collapse';
-import CardNav from '@/components/_finder/CardNav';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import { LKSections, LKSectionsTitles, Paths } from '@/constant';
-import Avatar from '@/components/_finder/Avatar';
-import styles from '@/styles/lk/Lk.module.scss';
-import { LkSectionsType } from '@/types/lkSectionsType';
-import { Container, Spinner } from 'react-bootstrap';
-import { User } from '@/types/user';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import LkNavigationLogout from './LKNaviagtionLogout';
 import LKNavigationCard from './LKNavigationCard';
+import { Container, Spinner, Row, Col, Breadcrumb, Button, Collapse } from 'react-bootstrap';
+import { LKSections, LKSectionsTitles, Paths } from '@/constant';
+import { LkSectionsType } from '@/types/lkSectionsType';
+import styles from '@/styles/lk/Lk.module.scss';
+import Image from 'next/image';
+
 
 type LKNavigationProps = {
-  //временно опциональные
   accountPageTitle?: string;
   children?: JSX.Element;
 };
 
 function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.Element {
-  const router = useRouter();
-  const user: (User | undefined) = useSelector(selectUser);
-  //если роль будет приходить с бэка - убрать
-  const [role, setRole] = useState<boolean>(true);
+  const user = useSelector(selectUser);
+  const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
 
-  useEffect(() => {
-    let stored = localStorage.getItem('role');
-    if (stored) {
-      //перенаправление в ЛК другой роли, если человек вручную вбил адрес не того ЛК
-      if (!!(+stored) && router.pathname.substring(0, 12) === Paths.AccBusiness) {
-        router.push(Paths.AccBride);
-      }
-      if (!(+stored) && router.pathname.substring(0, 9) === Paths.AccBride) {
-        router.push(Paths.AccBusiness);
-      }
-      setRole(!!(+stored))
-    }
-  }, []);
-
-  const link = role ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
   type SectionRenderProps = {
     index: number;
     section: LkSectionsType;
   };
+
   const sectionRender = ({ section, index }: SectionRenderProps) => {
     return (
       <LKNavigationCard
@@ -57,28 +33,19 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
         href={link + section.link}
         icon={section.icon}
         active={accountPageTitle === section.title ? true : false}
-        text = {section.title}
+        text={section.title}
       />
-      // <CardNav.Item
-      //   key={index}
-      //   href={link + section.link}
-      //   icon={section.icon}
-      //   active={accountPageTitle === section.title ? true : false}
-      //   className=""
-      // >
-      //   {section.title}
-      // </CardNav.Item>
     );
   };
 
   return (
     <Container>
-      {role === undefined ?
+      {user.is_bride === undefined ?
         <div className='w-100 h-100 d-flex justify-content-center mt-5'>
           <Spinner className='centered' />
         </div>
         :
-        <section className="px-5 px-lg-0 pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
+        <section className="pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
           <Breadcrumb className="mb-4 pt-md-3">
             <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
               Главная
@@ -102,20 +69,17 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 {/* <div className="d-flex d-md-block d-lg-flex align-items-start pt-lg-2 mb-4"> */}
                 <div className="d-flex flex-column flex-lg-row align-items-center w-100">
                   <Col lg={2} className="p-0">
-                    <Avatar
-                      img={{
-                        src: `${user?.avatar || '/img/header/avatar.svg'}`,
-                        alt: `${user?.username || 'Имя Фамилия'}`,
-                      }}
-                      size={[48, 48]}
-                      rounded={true}
-                      light={false}
-                      className=""
+                    <Image
+                      src={`${user.avatar || '/img/header/avatar.svg'}`}
+                      width={48}
+                      height={48}
+                      alt={`${user.username || 'Имя Фамилия'}`}
+                      className='rounded'
                     />
                   </Col>
                   <Col lg={9} className="p-0 ps-1">
                     <h2 className="fs-lg mb-0">
-                      {user?.username || 'Имя Фамилия'}
+                      {user.username || 'Имя Фамилия'}
                     </h2>
                   </Col>
                 </div>
@@ -128,20 +92,20 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                   >
                     <li>
                       <a
-                        href={`tel:${user?.phone || ''}`}
+                        href={`tel:${user.phone || ''}`}
                         className="nav-link fw-normal p-0"
                       >
                         <i className="fi-phone opacity-60 me-2"></i>
-                        {user?.phone || 'Данные не предоставлены'}
+                        {user.phone || 'Данные не предоставлены'}
                       </a>
                     </li>
                     <li>
                       <a
-                        href={`mailto:${user?.email || ''}`}
+                        href={`mailto:${user.email || ''}`}
                         className="nav-link fw-normal p-0"
                       >
                         <i className="fi-mail opacity-60 me-2"></i>
-                        {user?.email || 'Данные не предоставлены'}
+                        {user.email || 'Данные не предоставлены'}
                       </a>
                     </li>
                   </ul>
@@ -149,12 +113,12 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 <Button
                   // @ts-ignore: bootstrap bag*
                   as={Link}
-                  href={!role ? "/lk/business/add" : "#"}
+                  href={!user.is_bride ? "/lk/business/add" : "#"}
                   size="lg"
                   className="w-100 mb-4"
                 >
                   <i className="fi-plus me-2"></i>
-                  {!role ? "Добавить бизнес" : "Начать планирование свадьбы"}
+                  {!user.is_bride ? "Добавить бизнес" : "Начать планирование свадьбы"}
                 </Button>
 
                 <Button
@@ -171,7 +135,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                   <div id="account-menu">
                     <nav className="card-nav pt-3">
                       {LKSections.map((section, index) =>
-                        role ?
+                        user.is_bride ?
                           section.title !== LKSectionsTitles.Offers &&
                           sectionRender({ section, index })
                           : section.title !== LKSectionsTitles.Wishlist &&

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderNavbar from './navbar/Navbar';
-import { selectIsAuth, setAuth } from '@/store/user/userSlice';
+import { selectIsAuth, setAuth, setRole } from '@/store/user/userSlice';
 import { useEffect } from 'react';
 import { Token } from '@/constant';
 import { AppDispatch } from '@/store';
@@ -15,15 +15,17 @@ export default function Header() {
   useEffect(() => {
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
+    let role = localStorage.getItem('role');
 
     async function getUserData(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
+        dispatch(setRole(!!role));
       }
     }
-
-    if (refreshToken && isFresh) {
+    
+    if (refreshToken && isFresh && role) {
       getUserData(refreshToken);
     }
   }, []);

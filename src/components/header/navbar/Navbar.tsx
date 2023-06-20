@@ -43,15 +43,7 @@ const navigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
-  //если роль будет приходить с бэка - убрать
-  const [role, setRole] = useState<boolean>();
-  useEffect(()=> {
-    let stored = localStorage.getItem('role');
-    if (stored) {
-      setRole(!!(+stored))
-    }
-  }, [isAuth]);
-
+  
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
       <Nav.Item key={id} className={styles.navbar__item}>
@@ -89,13 +81,13 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
             {!isAuth && <RegButton />}
 
             {/* {isAuth && <Search />} */}
-            {isAuth && role !== undefined && (
+            {isAuth && user.is_bride !== undefined && (
               <Avatar
-                is_bride={role}
-                username={user?.username}
-                first_name={user?.first_name}
-                last_name={user?.last_name}
-                avatar={user?.avatar}
+                is_bride={user.is_bride}
+                username={user.username}
+                first_name={user.first_name}
+                last_name={user.last_name}
+                avatar={user.avatar}
               />
             )}
           </Nav>
