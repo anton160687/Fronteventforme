@@ -18,6 +18,13 @@ import {
   LKSectionsTitles,
   USERNAME_REQUIREMENTS,
   EMAIL_REQUIREMENTS,
+  EMAIL_TITLE,
+  USERNAME_TITLE,
+  MOBILE_REQUIREMENTS,
+  MOBILE_TITLE,
+  NAME_REQUIREMENTS,
+  NAME_TITLE,
+  LAST_NAME_TITLE,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 
@@ -103,12 +110,10 @@ function InfoPage() {
     <>
       <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
         <Form onSubmit={handleSubmit}>
-          <div className="mb-2 pt-1">
-            Заполнено на { personProgress }%
-          </div>
+          <div className="mb-2 pt-1">Заполнено на {personProgress}%</div>
           <ProgressBar
             variant="warning"
-            now={ personProgress }
+            now={personProgress}
             className="mb-4"
             style={{ height: '.25rem' }}
           />
@@ -130,8 +135,12 @@ function InfoPage() {
               onBlur={handleBlur}
               placeholder="Введите имя пользователя"
               pattern={USERNAME_REQUIREMENTS}
+              title={USERNAME_TITLE}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {USERNAME_TITLE}
+            </Form.Control.Feedback>
           </Form.Group>
           {/* Full name */}
           <Form.Group
@@ -151,8 +160,13 @@ function InfoPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Имя"
+                pattern={NAME_REQUIREMENTS}
+                title={NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
             {/* Last name */}
             <Col>
@@ -167,8 +181,13 @@ function InfoPage() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Фамилия"
+                pattern={NAME_REQUIREMENTS}
+                title={LAST_NAME_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {LAST_NAME_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
           {/* Email, Phone */}
@@ -192,8 +211,12 @@ function InfoPage() {
                 onBlur={handleBlur}
                 placeholder="Введите электронную почту"
                 pattern={EMAIL_REQUIREMENTS}
+                title={EMAIL_TITLE}
                 required
               />
+              <Form.Control.Feedback type="invalid">
+                {EMAIL_TITLE}
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Label>
@@ -201,7 +224,9 @@ function InfoPage() {
               </Form.Label>
               <Form.Control
                 type="tel"
-                pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+                // pattern="\+?(7|8)\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}"
+                pattern={MOBILE_REQUIREMENTS}
+                title={MOBILE_TITLE}
                 className="mt-3"
                 name="phone"
                 value={info.phone}
@@ -209,9 +234,12 @@ function InfoPage() {
                 onBlur={handleBlur}
                 placeholder="Введите номер телефона"
               />
+              <Form.Control.Feedback type="invalid">
+                {MOBILE_TITLE}
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
-         
+
           {/* Description, avatar */}
           <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
             <Form.Label>
@@ -301,7 +329,7 @@ function InfoPage() {
         setShow={setShow}
         message={'Вы действительно хотите безвозвратно удалить аккаунт?'}
         //тут должна быть функция по удалению
-        deleteFunc={() => { }}
+        deleteFunc={() => {}}
       />
     </>
   );

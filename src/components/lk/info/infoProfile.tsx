@@ -59,7 +59,7 @@ function InfoProfile({ profile, setProfile }: InfoProfileProps) {
       }}
       name="filepond"
       labelIdle='<i class="d-inline-block fi-camera-plus fs-2 text-muted mb-2"></i><br><span class="fw-bold">Сменить фото</span>'
-      acceptedFileTypes={['image/png', 'image/jpeg']}
+      acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg']}
       stylePanelLayout="compact"
       imagePreviewHeight={160}
       imageCropAspectRatio="1:1"

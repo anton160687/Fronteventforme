@@ -39,16 +39,22 @@ export default function SignUpForm({
   setData,
 }: SignUpFormProps): JSX.Element {
   const [error, setError] = useState<string>('');
+  const [validated, setValidated] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
 
-    let response = await createUser(data);
-    if (response === 'success') {
-      setError('');
-      setSignUpIsDone(true);
-    } else {
-      setError(response);
+    if (form.checkValidity()) {
+      setValidated(true);
+      let response = await createUser(data);
+      setValidated(true);
+      if (response === 'success') {
+        setError('');
+        setSignUpIsDone(true);
+      } else {
+        setError(response);
+      }
     }
   }
 
@@ -71,7 +77,11 @@ export default function SignUpForm({
       ) : (
         <>
           <div className="container-fluid d-flex h-100 align-items-center justify-content-center py-4">
-            <Form onSubmit={handleSubmit} className="w-100 fw-semibold">
+            <Form
+              onSubmit={handleSubmit}
+              className="w-100 fw-semibold"
+              validated={validated}
+            >
               <Form.Group controlId="su-name" className="mb-4">
                 <Form.Label>Имя</Form.Label>
                 <Form.Control
@@ -83,6 +93,9 @@ export default function SignUpForm({
                   title={USERNAME_TITLE}
                   type="username"
                 />
+                <Form.Control.Feedback type="invalid">
+                  {USERNAME_TITLE}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="su-email" className="mb-4">
                 <Form.Label>Электронная почта</Form.Label>
@@ -95,6 +108,9 @@ export default function SignUpForm({
                   pattern={EMAIL_REQUIREMENTS}
                   title={EMAIL_TITLE}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {EMAIL_TITLE}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-password">
@@ -117,6 +133,9 @@ export default function SignUpForm({
                   onChange={handleChange}
                   autoComplete="off"
                 />
+                <Form.Control.Feedback type="invalid">
+                  {PASSWORD_TITLE}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-4">
                 <Form.Label htmlFor="su-confirm-password">
@@ -138,6 +157,9 @@ export default function SignUpForm({
                   autoComplete="off"
                   onChange={handleChange}
                 />
+                <Form.Control.Feedback type="invalid">
+                  Пароли должны совпадать.
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Check
                 type="checkbox"
