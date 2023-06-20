@@ -133,6 +133,7 @@ export enum Paths {
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
   Success = '/lk/business/add/success',
+  TermsOfUse = '/terms',
 }
 
 // для форм регистрации, авторизации

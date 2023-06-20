@@ -17,6 +17,7 @@ import {
   USERNAME_TITLE,
   EMAIL_REQUIREMENTS,
   EMAIL_TITLE,
+  Paths,
 } from '@/constant';
 import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
@@ -188,7 +189,7 @@ export default function SignUpForm({
                 id="terms-agree"
                 label={[
                   <span key={1}>Я согласен с </span>,
-                  <Link className={styles.link} key={2} href="#">
+                  <Link className={styles.link} key={2} href={Paths.TermsOfUse}>
                     Условиями пользования
                   </Link>,
                   <span key={3}> и </span>,
