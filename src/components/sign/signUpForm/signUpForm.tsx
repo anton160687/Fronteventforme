@@ -193,7 +193,11 @@ export default function SignUpForm({
                     Условиями пользования
                   </Link>,
                   <span key={3}> и </span>,
-                  <Link className={styles.link} key={4} href="#">
+                  <Link
+                    className={styles.link}
+                    key={4}
+                    href={Paths.PrivacyPolicy}
+                  >
                     Политикой конфиденциальности
                   </Link>,
                 ]}

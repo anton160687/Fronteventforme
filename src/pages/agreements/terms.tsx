@@ -17,7 +17,7 @@ function Terms(): JSX.Element {
   };
 
   return (
-    <Container className={`mt-5 w-lg-75 mx-auto ` + styles.terms}>
+    <Container className={`px-5 px-lg-0 mt-5 w-lg-75 mx-auto ` + styles.terms}>
       <h2 className="mb-md-4 mb-3 pb-md-2">Пользовательское Соглашение</h2>
       <>
         <p>
@@ -67,43 +67,43 @@ function Terms(): JSX.Element {
             Условия действия Соглашения
           </h4>
           <ul>
-            <li>
-              <p className="fs-base">
+            <li className="fs-base">
+              <p>
                 Данное Соглашение вступает в силу при регистрации на интернет –
                 портале.
               </p>
             </li>
-            <li>
-              <p className="fs-base">
+            <li className="fs-base">
+              <p>
                 Соглашение перестает действовать при появлении его новой версии
-                в разделе условия использования по{' '}
+                в разделе условия использования по адресу:{' '}
                 <Link
                   href="https://eventforme.ru/faq/vash-akkaunt/kakovy-usloviya-ispolzovaniya-eventforme/"
                   target="_blank"
                   className="text-decoration-none"
                 >
-                  адресу
+                  https://eventforme.ru/faq/vash-akkaunt/kakovy-usloviya-ispolzovaniya-eventforme/
                 </Link>
                 .
               </p>
             </li>
-            <li>
-              <p className="fs-base">
+            <li className="fs-base">
+              <p>
                 Администрация оставляет за собой право в одностороннем порядке
                 изменять данное соглашение по своему усмотрению.
               </p>
             </li>
-            <li>
-              <p className="fs-base">
+            <li className="fs-base">
+              <p>
                 При любом изменении данного соглашения, администрация будет
                 оповещать пользователей удобным для нее способом путем
-                публикации новой версии соглашения по{' '}
+                публикации новой версии соглашения по адресу:{' '}
                 <Link
                   href="https://eventforme.ru/faq/vash-akkaunt/kakovy-usloviya-ispolzovaniya-eventforme/"
                   target="_blank"
                   className="text-decoration-none"
                 >
-                  адресу
+                  https://eventforme.ru/faq/vash-akkaunt/kakovy-usloviya-ispolzovaniya-eventforme/
                 </Link>
                 .
               </p>

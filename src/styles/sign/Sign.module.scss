@@ -43,12 +43,17 @@
   }
 }
 
-.terms {
+.terms,
+.privacy {
   ol {
     counter-reset: item;
   }
   ol > li {
     display: block;
+
+    &:first-line {
+      white-space: nowrap;
+    }
   }
   ol > li:before {
     content: counters(item, '.') '. ';
@@ -56,7 +61,12 @@
   }
 
   ul > li {
-    list-style: none;
+    //list-style: none;
+    list-style-type: square;
     font-weight: 400;
+  }
+
+  .title {
+    line-height: 2;
   }
 }
