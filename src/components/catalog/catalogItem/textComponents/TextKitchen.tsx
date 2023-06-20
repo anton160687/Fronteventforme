@@ -19,7 +19,6 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
 
   return (
     <div
-      id="details"
       className={
         styles.text__cuisine_container +
         ' border-0 mb-xl-5 mb-md-4 mb-sm-3 d-flex'

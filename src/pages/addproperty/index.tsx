@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Button, Form, Row, Col, Container, ProgressBar } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container, ProgressBar, Alert } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -86,17 +86,13 @@ function AddPropertyPage() {
 
   function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
     e.preventDefault;
-
     if (index !== 0) {
       let copyIndexArray = areaIndexArray;
       copyIndexArray[index] = null;
-
       let copyAreasArray = areas;
       copyAreasArray[index] = null;
       setAreaIndexArray([...copyIndexArray]);
       setAreas([...copyAreasArray]);
-    } else {
-      alert('Должно быть хотя бы 1 помещение');
     }
   }
 

@@ -32,7 +32,7 @@ type PlaceAreasProps = {
 
 function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
   return (
-    <>
+    <div id='areas'>
       {areas &&
         areas.map((area, index) => {
           if (area) {
@@ -47,7 +47,7 @@ function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
             return <div key={index}></div>;
           }
         })}
-    </>
+    </div>
   );
 }
 

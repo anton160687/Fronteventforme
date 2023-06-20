@@ -99,7 +99,8 @@
 .anchor__btns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
 
   @media (max-width: 800px) {
     display: none;
@@ -114,7 +115,6 @@
   font-size: 18px;
   line-height: 150%;
   color: #9691a4;
-  margin: 1rem;
 
   &:hover {
     background-color: $primary;

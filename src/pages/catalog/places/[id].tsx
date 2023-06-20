@@ -24,7 +24,7 @@ import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
 import { cards } from '@/mocks/cards';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/locationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
 
 type CatalogItemProps = {
   place: PlaceReceived;

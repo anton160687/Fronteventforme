@@ -7,6 +7,8 @@ import { LKSectionsTitles, Paths } from '@/constant';
 import PaginationBar from '@/components/review/pagination/Pagination';
 import { reviewsAboutYou, reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
+import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
+import withAuth from '@/hoc/WithAuth';
 
 function BusinessReviewsPage() {
 
@@ -43,12 +45,16 @@ function BusinessReviewsPage() {
           <Tab.Content>
             {/* Отзывы на бизнесы поставщика */}
             <Tab.Pane eventKey='reviewsAboutYou'>
-              <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
-                <h3 className='h4 mb-sm-0'>
-                  <i className='fi-star-filled mt-n1 me-2 lead align-middle text-warning'></i>
-                  4,9 (32 отзыва)
-                </h3>
-                {/* <Form.Group controlId='sortby1' className='d-flex align-items-center ms-sm-4'>
+              {reviewsAboutYou.length === 0 ?
+                <EmptyReviews />
+                :
+                <>
+                  <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
+                    <h3 className='h4 mb-sm-0'>
+                      <i className='fi-star-filled mt-n1 me-2 lead align-middle text-warning'></i>
+                      4,9 (32 отзыва)
+                    </h3>
+                    {/* <Form.Group controlId='sortby1' className='d-flex align-items-center ms-sm-4'>
                   <Form.Label className='fs-sm text-body fw-normal text-nowrap mb-0 me-2 pe-1'>
                     <i className='fi-arrows-sort opacity-60 mt-n1 me-2'></i>
                     Sort by:
@@ -61,8 +67,10 @@ function BusinessReviewsPage() {
                     <option value='Low rating'>Low rating</option>
                   </Form.Select>
                 </Form.Group> */}
-              </div>
-              {renderReviews(reviewsAboutYou)}
+                  </div>
+                  {renderReviews(reviewsAboutYou)}
+                </>
+              }
 
               <nav className='py-2' aria-label='Reviews pagination'>
                 <PaginationBar
@@ -77,9 +85,12 @@ function BusinessReviewsPage() {
             </Tab.Pane>
 
             <Tab.Pane eventKey='reviewsByYou'>
-              <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
-                <h3 className='h4 mb-sm-0'>3 reviews</h3>
-                {/* <Form.Group controlId='sortby2' className='d-flex align-items-center ms-sm-4'>
+              {reviewsByYou.length === 0 ?
+                <EmptyReviews /> :
+                <>
+                  <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
+                    <h3 className='h4 mb-sm-0'>3 reviews</h3>
+                    {/* <Form.Group controlId='sortby2' className='d-flex align-items-center ms-sm-4'>
                   <Form.Label className='fs-sm text-body fw-normal text-nowrap mb-0 me-2 pe-1'>
                     <i className='fi-arrows-sort opacity-60 mt-n1 me-2'></i>
                     Сортировать по:
@@ -92,8 +103,10 @@ function BusinessReviewsPage() {
                     <option value='Low rating'>Low rating</option>
                   </Form.Select>
                 </Form.Group> */}
-              </div>
-              {renderReviews(reviewsByYou)}
+                  </div>
+                  {renderReviews(reviewsByYou)}
+                </>
+              }
 
               <nav className='py-2' aria-label='Reviews pagination'>
                 <PaginationBar
@@ -114,4 +127,4 @@ function BusinessReviewsPage() {
   )
 }
 
-export default BusinessReviewsPage;
+export default withAuth(BusinessReviewsPage);

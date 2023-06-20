@@ -44,7 +44,7 @@ function CatalogPlaces({
   }
 
   return (
-    <Container className="px-5 px-xl-0 ">
+    <Container className="px-5">
       <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная

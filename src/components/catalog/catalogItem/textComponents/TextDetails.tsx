@@ -11,7 +11,7 @@ function TextDetails({ description }: TextDetailsProps) {
   const new_description = description.slice(0, summaryLength) + '...';
 
   return (
-    <Card className="border-0 mb-xl-5 mb-4">
+    <Card id="details" className="border-0 mb-xl-5 mb-4">
       {description.length > 0 && (
         <Card.Body className="p-0">
           <Card.Title as="h4" className="text-center text-sm-start mb-3">

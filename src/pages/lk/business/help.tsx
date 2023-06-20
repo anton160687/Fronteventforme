@@ -1,6 +1,7 @@
 import Help from '@/components/lk/help/help';
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles } from '@/constant';
+import withAuth from '@/hoc/WithAuth';
 
 function BusinessHelpPage() {
   return (
@@ -9,4 +10,4 @@ function BusinessHelpPage() {
     </LKNavigation>
   );
 }
-export default BusinessHelpPage;
+export default withAuth(BusinessHelpPage);
