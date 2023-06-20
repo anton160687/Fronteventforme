@@ -2,7 +2,6 @@ import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles, contextMenuTypeEnum } from '@/constant';
 import { useState } from 'react';
 import styles from '@/styles/lk/Lk.module.scss';
-import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import { PlaceCardType } from '@/types/catalog';
 import {
   placesPublished,
@@ -12,9 +11,9 @@ import {
   placesDeclined,
 } from '@/mocks/catalogPlaces';
 import LKCard from '@/components/lk/card/Card';
-import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { Button, Nav } from 'react-bootstrap';
+import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 
 const navItems = [
   {
@@ -93,23 +92,23 @@ function OffersPage(): JSX.Element {
         {menuType === contextMenuTypeEnum.Moderation ? (
           <>
             <h3>На проверке</h3>
-            {cardsRender(cards)}
+            {cardsRender(cards, menuType)}
             <h3>Отклонено</h3>
-            {cardsRender(declinedCards)}
+            {cardsRender(declinedCards, contextMenuTypeEnum.Declined)}
           </>
         ) : (
-          cardsRender(cards)
+          cardsRender(cards, menuType)
         )}
       </>
     );
   };
 
-  const cardsRender = (anyCards: PlaceCardType[]) => {
+  const cardsRender = (anyCards: PlaceCardType[], anyMenuType: string) => {
     return (
       <>
         {anyCards.map((card, indx) => (
           <LKCard
-            contextMenu={menuType}
+            contextMenu={anyMenuType}
             deleteCard={deleteCard}
             card={card}
             key={indx}

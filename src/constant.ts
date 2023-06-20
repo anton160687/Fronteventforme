@@ -423,4 +423,5 @@ export enum contextMenuTypeEnum {
   Archive = 'archive',
   Wishlist = 'wishlist',
   Base = 'base',
+  Declined = 'declined',
 }
