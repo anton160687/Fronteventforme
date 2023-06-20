@@ -9,3 +9,5 @@ function PaymentPage () {
     </LKNavigation>
   )
 }
+
+export default PaymentPage;

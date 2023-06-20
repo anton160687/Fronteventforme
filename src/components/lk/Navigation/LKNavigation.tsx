@@ -14,6 +14,7 @@ import styles from '@/styles/lk/Lk.module.scss';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import { Container, Spinner } from 'react-bootstrap';
 import { User } from '@/types/user';
+import { useRouter } from 'next/router';
 
 type LKNavigationProps = {
   //временно опциональные
@@ -22,18 +23,26 @@ type LKNavigationProps = {
 };
 
 function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.Element {
+  const router = useRouter();
   const user: (User | undefined) = useSelector(selectUser);
   //если роль будет приходить с бэка - убрать
   const [role, setRole] = useState<boolean>();
+
   useEffect(() => {
     let stored = localStorage.getItem('role');
-    console.log('из хранилища ' + stored);
     if (stored) {
+      //перенаправление в ЛК другой роли, если человек вручную вбил адрес не того ЛК
+      if (!!(+stored) && router.pathname.substring(0, 12) === Paths.AccBusiness) {
+        router.push(Paths.AccBride);
+      }
+      if (!(+stored) && router.pathname.substring(0, 9) === Paths.AccBride) {
+        router.push(Paths.AccBusiness);
+      }
       setRole(!!(+stored))
     }
   }, []);
+  
   const link = role ? Paths.AccBride : Paths.AccBusiness;
-
   const [open, setOpen] = useState(false);
   type SectionRenderProps = {
     index: number;

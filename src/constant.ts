@@ -117,7 +117,7 @@ export enum Paths {
   Bride = '/bride',
   AccBusiness = '/lk/business',
   AccBride = '/lk/bride',
-  AccInfo = '/info',
+  AccInfo = '/',
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
