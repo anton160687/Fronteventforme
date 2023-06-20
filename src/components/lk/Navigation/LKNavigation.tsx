@@ -15,6 +15,7 @@ import { LkSectionsType } from '@/types/lkSectionsType';
 import { Container, Spinner } from 'react-bootstrap';
 import { User } from '@/types/user';
 import { useRouter } from 'next/router';
+import LkNavigationLogout from './LKNaviagtionLogout';
 
 type LKNavigationProps = {
   //временно опциональные
@@ -168,6 +169,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                           : section.title !== LKSectionsTitles.Wishlist &&
                           sectionRender({ section, index })
                       )}
+                      < LkNavigationLogout />
                     </CardNav>
                   </div>
                 </Collapse>
