@@ -8,6 +8,7 @@ import { ChangeEvent, useState } from 'react';
 import { Button, Dropdown, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import withAuth from '@/hoc/WithAuth';
 
 function WishlistPage(): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
@@ -93,4 +94,4 @@ function WishlistPage(): JSX.Element {
     </LKNavigation>
   );
 }
-export default WishlistPage;
+export default withAuth(WishlistPage);

@@ -117,7 +117,7 @@ export enum Paths {
   Bride = '/bride',
   AccBusiness = '/lk/business',
   AccBride = '/lk/bride',
-  AccInfo = '/info',
+  AccInfo = '/',
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
@@ -382,7 +382,6 @@ export const LKSections: LkSectionsType[] = [
     link: Paths.AccPayment,
     icon: 'fi-credit-card',
   },
-  { title: LKSectionsTitles.Logout, link: '', icon: 'fi-logout' },
 ];
 
 //для боковой навигации в каталоге и типов бизнеса в ЛК

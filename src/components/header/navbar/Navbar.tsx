@@ -12,37 +12,38 @@ import Login from '../login/Login';
 import Avatar from '../avatar/Avatar';
 import styles from '@/styles/header/Navbar.module.scss';
 import { Paths } from '@/constant';
+import { useEffect, useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
 };
 
+const navigation = [
+  {
+    id: 1,
+    path: '#',
+    text: 'Свадебные\u00A0сайты',
+  },
+  {
+    id: 2,
+    path: '#',
+    text: 'Хештеги',
+  },
+  {
+    id: 3,
+    path: '#',
+    text: 'Приглашения',
+  },
+  {
+    id: 4,
+    path: '#',
+    text: 'Блог',
+  },
+];
+
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
-
-  const navigation = [
-    {
-      id: 1,
-      path: '#',
-      text: 'Свадебные\u00A0сайты',
-    },
-    {
-      id: 2,
-      path: '#',
-      text: 'Хештеги',
-    },
-    {
-      id: 3,
-      path: '#',
-      text: 'Приглашения',
-    },
-    {
-      id: 4,
-      path: '#',
-      text: 'Блог',
-    },
-  ];
-
+  
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
       <Nav.Item key={id} className={styles.navbar__item}>
@@ -80,13 +81,13 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
             {!isAuth && <RegButton />}
 
             {/* {isAuth && <Search />} */}
-            {isAuth && (
+            {isAuth && user.is_bride !== undefined && (
               <Avatar
-                is_bride={user?.is_bride}
-                username={user?.username}
-                first_name={user?.first_name}
-                last_name={user?.last_name}
-                avatar={user?.avatar}
+                is_bride={user.is_bride}
+                username={user.username}
+                first_name={user.first_name}
+                last_name={user.last_name}
+                avatar={user.avatar}
               />
             )}
           </Nav>

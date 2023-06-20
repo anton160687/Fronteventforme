@@ -61,7 +61,7 @@ export async function signinUser(data: SigninUserData) {
 
   if (response.ok) {
     let result = await response.json();
-    saveAuthData(result);
+    saveAuthData(result, data.is_bride);
     return 'success';
   } else {
     const errorBody = await response.clone().json();
@@ -89,8 +89,6 @@ export async function authoriseUser(refreshToken: string) {
   });
 
   if (response.ok) {
-    // let result: {access: string, refresh: string} = await response.json();
-    // saveAuthData(result);
     // приходит только access токен
     let result: { access: string } = await response.json();
     localStorage.setItem(Token.Access, result.access);

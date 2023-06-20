@@ -1,5 +1,6 @@
 import LKNavigation from "@/components/lk/navigation/LKNavigation";
 import { LKSectionsTitles } from "@/constant";
+import withAuth from "@/hoc/WithAuth";
 
 function PaymentPage () {
   return (
@@ -9,3 +10,5 @@ function PaymentPage () {
     </LKNavigation>
   )
 }
+
+export default withAuth(PaymentPage);

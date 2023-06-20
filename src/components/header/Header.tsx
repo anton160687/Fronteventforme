@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderNavbar from './navbar/Navbar';
-import { selectIsAuth } from '@/store/user/userSlice';
+import { selectIsAuth, setAuth, setRole } from '@/store/user/userSlice';
 import { useEffect } from 'react';
 import { Token } from '@/constant';
 import { AppDispatch } from '@/store';
@@ -13,24 +13,21 @@ export default function Header() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    //access токены имеют очень короткий срок жизни, поэтому при заходе на сайт будем отправлять refresh
-    //TODO уточнить у бэка время жизни refresh-токена И продлить его (хотя бы день?)
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
+    let role = localStorage.getItem('role');
 
-    async function getNewAccessToken(token: string) {
+    async function getUserData(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {
         dispatch(fetchUserDataWithThunk());
+        dispatch(setRole(!!role));
       }
     }
-
-    if (refreshToken && isFresh) {
-      getNewAccessToken(refreshToken);
-    } else {
-      console.log('Нет свежих токенов');
+    
+    if (refreshToken && isFresh && role) {
+      getUserData(refreshToken);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <HeaderNavbar isAuth={isAuth} />;
