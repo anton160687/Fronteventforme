@@ -56,7 +56,7 @@ function PlaceDetails({
             setPreviewGallery={setPreviewPhotos}
             required={true}
             maxFiles={1}
-            warning="Максимальный размер фото 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
+            warning="Максимальный размер фото – 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
           />
         </Form.Group>
       </Row>

@@ -35,8 +35,6 @@ function LKCard({
     );
   }
 
-  console.log('card', card);
-
   return (
     <>
       <Card className="card-horizontal card-hover my-4">
