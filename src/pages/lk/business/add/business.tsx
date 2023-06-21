@@ -108,7 +108,7 @@ function renderServiceForms() {
 
   //здесь логика отправки формы
   function handleSubmit() {
-    router.push(Paths.Success);
+    // router.push(Paths.Success);
   }
 
   return (
