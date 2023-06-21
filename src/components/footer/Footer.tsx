@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'next/image';
 import SocialButton from '../_finder/SocialButton';
-import { SERVICES, PLACES, PAGES, ACTORS, FooterType } from '@/constant';
+import { SERVICES, PLACES, PAGES, ACTORS, FooterType, Paths } from '@/constant';
 import styles from '@/styles/footer/Footer.module.scss';
 import Button from 'react-bootstrap/Button';
 
@@ -135,7 +135,7 @@ export default function Footer() {
               {renderRow(ACTORS)}
             </div>
           </div>
-          <Nav.Link as={Link} href="/addproperty" active={false}>
+          <Nav.Link as={Link} href={Paths.AddChoicePage} active={false}>
             <Button className="d-flex mx-auto me-md-0">
               Хочу быть в каталоге
             </Button>

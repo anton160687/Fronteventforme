@@ -2,7 +2,7 @@ import { ChangeEvent, MouseEvent, useState } from "react";
 import { FormCheck } from "react-bootstrap";
 import LKNavigation from "@/components/lk/navigation/LKNavigation";
 import { LKSectionsTitles } from "@/constant";
-import withAuth from "@/hoc/WithAuth";
+import withAuth from "@/hoc/withAuth";
 
 const switches = [
   {

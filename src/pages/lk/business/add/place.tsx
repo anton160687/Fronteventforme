@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import Link from 'next/link';
+import { Button, Form, Row, Col, Container, ProgressBar, Breadcrumb } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -9,18 +10,14 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import {
-  addTerritoryImages,
-  createArea,
-  createOutReg,
-  createPlace,
-  createWelcomeZone,
-} from '@/components/addProperty/placeAPI';
-import { ADD_PLACE_NAMES, Token } from '@/constant';
+import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import { ADD_PLACE_NAMES, Paths, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
+import withAuth from '@/hoc/withAuth';
+
 
 function AddPropertyPage() {
   const initialPlaceState: Place = {
@@ -92,17 +89,13 @@ function AddPropertyPage() {
 
   function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
     e.preventDefault;
-
     if (index !== 0) {
       let copyIndexArray = areaIndexArray;
       copyIndexArray[index] = null;
-
       let copyAreasArray = areas;
       copyAreasArray[index] = null;
       setAreaIndexArray([...copyIndexArray]);
       setAreas([...copyAreasArray]);
-    } else {
-      alert('Должно быть хотя бы 1 помещение');
     }
   }
 
@@ -153,8 +146,7 @@ function AddPropertyPage() {
   // Альбомы
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
-
-  //! хуки для разных галлерей
+  //хуки
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
   }, [mainPhotos]);
@@ -210,12 +202,9 @@ function AddPropertyPage() {
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
-
-  // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    //access токены имеют очень короткий срок жизни, поэтому сначала будем отправлять refresh
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
     if (refreshToken && isFresh) {
@@ -223,7 +212,6 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
-          // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId) {
             addTerritoryImages(placeId, territoryImg, token);
@@ -252,6 +240,17 @@ function AddPropertyPage() {
   return (
     <>
       <Container className="py-5">
+      <Breadcrumb className="mb-4 pt-md-3">
+          <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
+            Главная
+          </Breadcrumb.Item>
+          <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
+            Личный кабинет
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Добавить бизнес
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <Row>
           <Col lg={8}>
             <Form onSubmit={handleSubmit}>
@@ -304,7 +303,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title='Главные фотографии'
+                title = 'Фото площадки'
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
@@ -344,7 +343,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  //  disabled={!isFormFilled}
+                //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
@@ -381,4 +380,4 @@ function AddPropertyPage() {
   );
 }
 
-export default AddPropertyPage;
+export default withAuth(AddPropertyPage);

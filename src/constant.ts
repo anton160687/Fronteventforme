@@ -129,6 +129,7 @@ export enum Paths {
   AccMyBusiness = '/lk/business/my',
   AccBusinessReviews = '/lk/business/reviews',
   AddPlace = '/lk/business/add/place',
+  AddChoicePage = '/lk/business/add',
   AddBusiness = '/lk/business/add/business',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',

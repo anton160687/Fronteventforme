@@ -13,7 +13,7 @@ import {
   EMAIL_REQUIREMENTS,
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
-import withAuth from '@/hoc/WithAuth';
+import withAuth from '@/hoc/withAuth';
 
 function InfoPage() {
   const initialInfoState: BrideInfo = {
