@@ -9,18 +9,7 @@ type SignInTextProps = {
 
 export default function SignInText({ email }: SignInTextProps) {
   const [isDisabled, setIsDisabled] = useState(true);
-  const minutes: number = 2;
-
-  const countDownRender = () => {
-    return (
-      <CountDown
-        minutes={minutes}
-        setTimeIsUp={() => {
-          setIsDisabled(false);
-        }}
-      />
-    );
-  };
+  const minutes: number = 1;
 
   const handleClick = () => {
     resetPassword(email);
@@ -42,7 +31,14 @@ export default function SignInText({ email }: SignInTextProps) {
         disabled={isDisabled}
       >
         {'Выслать ссылку повторно\u00A0'}
-        {isDisabled && countDownRender()}
+        {isDisabled && (
+          <CountDown
+            minutes={minutes}
+            setTimeIsUp={() => {
+              setIsDisabled(false);
+            }}
+          />
+        )}
       </Button>
     </div>
   );

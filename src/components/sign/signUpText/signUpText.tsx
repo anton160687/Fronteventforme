@@ -12,17 +12,6 @@ export default function SignUpText({ data }: SignUpTextProps) {
   const [isDisabled, setIsDisabled] = useState(true);
   const minutes: number = 1;
 
-  const countDownRender = () => {
-    return (
-      <CountDown
-        minutes={minutes}
-        setTimeIsUp={() => {
-          setIsDisabled(false);
-        }}
-      />
-    );
-  };
-
   const handleClick = () => {
     resendActivationLink(data.email);
     setIsDisabled(true);
@@ -42,7 +31,14 @@ export default function SignUpText({ data }: SignUpTextProps) {
         disabled={isDisabled}
       >
         {'Выслать ссылку повторно\u00A0'}
-        {isDisabled && countDownRender()}
+        {isDisabled && (
+          <CountDown
+            minutes={minutes}
+            setTimeIsUp={() => {
+              setIsDisabled(false);
+            }}
+          />
+        )}
       </Button>
     </div>
   );
