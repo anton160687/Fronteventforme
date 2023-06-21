@@ -13,8 +13,8 @@ function RegisterBtn() {
       href={Paths.SignUp}
       className={styles.btn__link}
     >
-      {'Регистрация\u00A0'}
-      <Image src="/img/arrow.png" alt="arrow" width={6.67} height={11.67} />
+      Регистрация
+      <i className="fi-chevron-right ms-2 fs-xs"></i>
     </Button>
   );
 }

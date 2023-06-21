@@ -21,13 +21,8 @@ function RegButton() {
       className="ms-3 fs-sm"
     >
       {/* <Link href={Paths.SignUp} className={styles.regbtn__text}> */}
-      {'Регистрация\u00A0'}
-      <Image
-        src="/img/header/arrowRight.png"
-        alt="arrow"
-        width={6.67}
-        height={11.67}
-      />
+      Регистрация
+      <i className="fi-chevron-right ms-2 fs-xs"></i>
       {/* </Link> */}
     </Button>
   );
