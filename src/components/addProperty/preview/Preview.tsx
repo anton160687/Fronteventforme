@@ -229,7 +229,10 @@ function Preview({
               <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
             </Breadcrumb>
 
-            <LocationPhotos photoUrls={uniPlace.images_place} />
+            <LocationPhotos
+              photoUrls={uniPlace.images_place}
+              title={uniPlace.title}
+            />
 
             <Row className={styles.main__container}>
               <Col xl={8} className={styles.left__container}>

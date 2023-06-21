@@ -13,15 +13,14 @@ import { ImagesPlace } from '@/types/placeType';
 
 type LocationPhotosProps = {
   photoUrls: ImagesPlace[];
+  title: string;
 };
 
-function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
+function LocationPhotos({
+  photoUrls,
+  title,
+}: LocationPhotosProps): JSX.Element {
   // В функции ниже заглушка '/img/emptyPhoto.png' используется для обеспечения безошибочной работы LightGallery
-
-  console.log(
-    '[photoUrls[1]?.image || /img/emptyPhoto.png',
-    photoUrls[1]?.image || '/img/emptyPhoto.png'
-  );
 
   function renderPhotos() {
     return (
@@ -43,7 +42,7 @@ function LocationPhotos({ photoUrls }: LocationPhotosProps): JSX.Element {
               style={{ maxWidth: '756px' }}
               light={false}
               video={false}
-              imgAlt="Фото имущества"
+              imgAlt={title}
               className={styles.location__photo_main_left}
             />
           </div>

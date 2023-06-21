@@ -61,7 +61,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
         <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
       </Breadcrumb>
 
-      <LocationPhotos photoUrls={place.images_place} />
+      <LocationPhotos photoUrls={place.images_place} title={place.title} />
 
       {/* общий контейнер страницы на все блоки под верхними фото */}
       <Row className={styles.main__container}>
