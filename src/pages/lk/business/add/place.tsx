@@ -17,9 +17,11 @@ import { Album, Place } from '@/types/placeType';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 import withAuth from '@/hoc/withAuth';
+import { useRouter } from 'next/router';
 
 
 function AddPropertyPage() {
+  const router = useRouter();
   const initialPlaceState: Place = {
     title: '',
     city: '',
@@ -76,7 +78,6 @@ function AddPropertyPage() {
   function setCity(data: string) {
     setPlace({ ...place, ['city']: data });
   }
-
   // Площадки
   const [areas, setAreas] = useState<(Area | null)[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<(number | null)[]>([0]);
@@ -187,8 +188,6 @@ function AddPropertyPage() {
 
   //Progress Bar
   const [percent, setPercent] = useState<number>(0);
-  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
-
   // Превью
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
@@ -198,7 +197,6 @@ function AddPropertyPage() {
   const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
   const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
   const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
-  //preview images
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
@@ -231,6 +229,11 @@ function AddPropertyPage() {
                 createArea(area, placeId, token);
               }
             });
+          }
+          if (!placeId) {
+            alert('Что-то пошло не так. Повторите попытку позже');
+          } else {
+            router.push(Paths.Success);
           }
         }
       }
@@ -343,7 +346,6 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
@@ -356,7 +358,6 @@ function AddPropertyPage() {
               areas={areas}
               setPercent={setPercent}
               percent={percent}
-              setIsFormFilled={setIsFormFilled}
               mainPhotos={mainPhotos}
               territoryImg={territoryImg}
               welcomeImg={welcomeImg}

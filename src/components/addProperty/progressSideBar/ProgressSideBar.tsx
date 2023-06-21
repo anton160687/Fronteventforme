@@ -12,7 +12,7 @@ type ProgressSideBarProps = {
   areas: (Area | null)[];
   setPercent: Dispatch<SetStateAction<number>>;
   percent: number;
-  setIsFormFilled: Dispatch<SetStateAction<boolean>>;
+  // setIsFormFilled: Dispatch<SetStateAction<boolean>>;
   mainPhotos: string[];
   territoryImg: string[];
   welcomeImg: string[];
@@ -63,7 +63,7 @@ function ProgressSideBar({
   areas,
   percent,
   setPercent,
-  setIsFormFilled,
+  // setIsFormFilled,
   mainPhotos,
   territoryImg,
   welcomeImg,
@@ -171,8 +171,8 @@ function ProgressSideBar({
     }
   };
 
+  //Помещения
   const isCompletedAreas = () => {
-    //Помещения
     let areasFilledCount = 0;
     let areasNotFilledCount = 0;
 
@@ -214,7 +214,6 @@ function ProgressSideBar({
   };
 
   const isCompletedPhotos = () => {
-    //Фото площадки
     if (mainPhotos.length) {
       changeAnchor(ADD_PLACE_NAMES.mainPhotos, true);
     }
@@ -225,18 +224,14 @@ function ProgressSideBar({
 
   useEffect(() => {
     isCompletedPlace();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [place]);
 
   useEffect(() => {
     isCompletedAreas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areas]);
 
   useEffect(() => {
     isCompletedPhotos();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainPhotos]);
 
   useEffect(() => {
@@ -249,14 +244,13 @@ function ProgressSideBar({
       }
     });
 
-    if (completedCount === anchors.length) {
-      setPercent(100);
-      setIsFormFilled(true);
-    } else {
-      setIsFormFilled(false);
-    }
+    // if (completedCount === anchors.length) {
+    //   setPercent(100);
+    //   setIsFormFilled(true);
+    // } else {
+    //   setIsFormFilled(false);
+    // }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchors]);
 
   return (
