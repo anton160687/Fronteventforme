@@ -32,7 +32,7 @@ type PlaceAreasProps = {
 
 function PlaceAreas({ areas, average_check }: PlaceAreasProps): JSX.Element {
   return (
-    <div id='areas'>
+    <div id="areas">
       {areas &&
         areas.map((area, index) => {
           if (area) {
@@ -235,7 +235,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 onChange={() => {}}
                 minDate={new Date(Date.now())}
                 //на год от сегодняшней даты
-                maxDate={new Date(Date.now() + 3.156e10)}
+                //maxDate={new Date(Date.now() + 3.156e10)}
                 placeholderText="Select a date"
                 className="rounded-1 pe-5"
                 readOnly
