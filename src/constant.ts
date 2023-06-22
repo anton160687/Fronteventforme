@@ -357,32 +357,25 @@ export enum LKSectionsTitles {
   Logout = 'Выйти',
 }
 
-export const LKSections: LkSectionsType[] = [
-  { title: LKSectionsTitles.Info, link: Paths.AccInfo, icon: 'fi-user' },
-  {
-    title: LKSectionsTitles.Security,
-    link: Paths.AccSecurity,
-    icon: 'fi-lock',
-  },
-  { title: LKSectionsTitles.Offers, link: Paths.AccOffers, icon: 'fi-home' },
-  {
-    title: LKSectionsTitles.Wishlist,
-    link: Paths.AccWishlist,
-    icon: 'fi-heart',
-  },
-  { title: LKSectionsTitles.Reviews, link: Paths.AccReviews, icon: 'fi-star' },
-  {
-    title: LKSectionsTitles.Notification,
-    link: Paths.AccNotification,
-    icon: 'fi-bell',
-  },
-  { title: LKSectionsTitles.Help, link: Paths.AccHelp, icon: 'fi-help' },
-  { title: LKSectionsTitles.Tariff, link: Paths.AccTariff, icon: 'fi-cash' },
-  {
-    title: LKSectionsTitles.Payment,
-    link: Paths.AccPayment,
-    icon: 'fi-credit-card',
-  },
+export const LKBusinessSections: LkSectionsType[] = [
+  { id: 1, title: LKSectionsTitles.Info, path: Paths.AccInfo, icon: 'fi-user' },
+  { id: 2, title: LKSectionsTitles.Security, path: Paths.AccSecurity, icon: 'fi-lock' },
+  { id: 3, title: LKSectionsTitles.Offers, path: Paths.AccOffers, icon: 'fi-home' },
+  { id: 4, title: LKSectionsTitles.Reviews, path: Paths.AccReviews, icon: 'fi-star' },
+  { id: 5, title: LKSectionsTitles.Notification, path: Paths.AccNotification, icon: 'fi-bell' },
+  { id: 6, title: LKSectionsTitles.Help, path: Paths.AccHelp, icon: 'fi-help' },
+  { id: 7, title: LKSectionsTitles.Tariff, path: Paths.AccTariff, icon: 'fi-cash' },
+  { id: 8, title: LKSectionsTitles.Payment, path: Paths.AccPayment, icon: 'fi-credit-card' },
+];
+
+export const LKBrideSections: LkSectionsType[] = [
+  { id: 1, title: LKSectionsTitles.Info, path: Paths.AccInfo, icon: 'fi-user' },
+  { id: 2, title: LKSectionsTitles.Security, path: Paths.AccSecurity, icon: 'fi-lock' },
+  { id: 3, title: LKSectionsTitles.Wishlist, path: Paths.AccWishlist, icon: 'fi-heart' },
+  { id: 4, title: LKSectionsTitles.Reviews, path: Paths.AccReviews, icon: 'fi-star' },
+  { id: 5, title: LKSectionsTitles.Notification, path: Paths.AccNotification, icon: 'fi-bell' },
+  { id: 6, title: LKSectionsTitles.Help, path: Paths.AccHelp, icon: 'fi-help' },
+  { id: 7, title: LKSectionsTitles.Payment, path: Paths.AccPayment, icon: 'fi-credit-card' },
 ];
 
 //для боковой навигации в каталоге и типов бизнеса в ЛК

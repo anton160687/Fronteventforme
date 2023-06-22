@@ -5,11 +5,10 @@ import Link from 'next/link';
 import LkNavigationLogout from './LKNaviagtionLogout';
 import LKNavigationCard from './LKNavigationCard';
 import { Container, Spinner, Row, Col, Breadcrumb, Button, Collapse } from 'react-bootstrap';
-import { LKSections, LKSectionsTitles, Paths } from '@/constant';
+import { LKBusinessSections, LKBrideSections, LKSectionsTitles, Paths } from '@/constant';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
 import Image from 'next/image';
-
 
 type LKNavigationProps = {
   accountPageTitle?: string;
@@ -19,25 +18,19 @@ type LKNavigationProps = {
 function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
-
-
   const [open, setOpen] = useState(false);
-  type SectionRenderProps = {
-    index: number;
-    section: LkSectionsType;
-  };
-
-  const sectionRender = ({ section, index }: SectionRenderProps) => {
-    return (
+ 
+  function renderLKNavbar(lkSections: LkSectionsType[]) {
+    return lkSections.map(({ id, title, path, icon }) => (
       <LKNavigationCard
-        key={index}
-        href={link + section.link}
-        icon={section.icon}
-        active={accountPageTitle === section.title ? true : false}
-        text={section.title}
+        key={id}
+        href={link + path}
+        icon={icon}
+        active={accountPageTitle === title ? true : false}
+        text={title}
       />
-    );
-  };
+    ))
+  }
 
   return (
     <Container>
@@ -135,13 +128,11 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 <Collapse in={open} className="d-lg-block">
                   <div id="account-menu">
                     <nav className="card-nav pt-3">
-                      {LKSections.map((section, index) =>
-                        user.is_bride ?
-                          section.title !== LKSectionsTitles.Offers &&
-                          sectionRender({ section, index })
-                          : section.title !== LKSectionsTitles.Wishlist &&
-                          sectionRender({ section, index })
-                      )}
+                      {user.is_bride ?
+                        renderLKNavbar(LKBrideSections)
+                        :
+                        renderLKNavbar(LKBusinessSections)
+                      }
                       < LkNavigationLogout />
                     </nav>
                   </div>
