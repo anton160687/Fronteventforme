@@ -67,6 +67,36 @@ function InfoProfile({ profile, setProfile }: InfoProfileProps) {
       imageResizeTargetHeight={200}
       maxFiles={1}
       className="file-uploader bg-secondary"
+      //Перевод ошибок с англ на русский
+      labelInvalidField={'Поле содержит некорректные файлы'}
+      labelFileWaitingForSize={'Ожидание определения размера файла'}
+      labelFileSizeNotAvailable={'Не удалось определить размер файла'}
+      labelFileLoading={'Загрузка'}
+      labelFileLoadError={'Ошибка во время загрузки'}
+      labelFileProcessing={'Загрузка'}
+      labelFileProcessingComplete={'Загрузка завершена'}
+      labelFileProcessingAborted={'Загрузка отменена'}
+      labelFileProcessingError={'Ошибка во время загрузки'}
+      labelFileProcessingRevertError={'Ошибка во время отмены загрузки'}
+      labelFileRemoveError={'Ошибка во время удаления'}
+      labelTapToCancel={'Нажмите, чтобы отменить'}
+      labelTapToRetry={'Нажмите, чтобы повторить попытку'}
+      labelTapToUndo={'Нажмите, чтобы отменить'}
+      labelButtonRemoveItem={'Удалить'}
+      labelButtonAbortItemLoad={'Прервать'}
+      labelButtonRetryItemLoad={'Повторить попытку'}
+      labelButtonAbortItemProcessing={'Прервать'}
+      labelButtonUndoItemProcessing={'Отменить'}
+      labelButtonRetryItemProcessing={'Повторить попытку'}
+      labelButtonProcessItem={'Загрузить'}
+      labelMaxFileSizeExceeded={'Слишком большой файл'}
+      labelMaxFileSize={'Максимальный размер файла: {filesize}'}
+      labelMaxTotalFileSizeExceeded={'Превышен максимальный общий размер'}
+      labelMaxTotalFileSize={'Максимальный общий размер: {filesize}'}
+      labelFileTypeNotAllowed={'Файл недопустимого типа'}
+      fileValidateTypeLabelExpectedTypes={
+        'Ожидается {allButLastType} или {lastType}'
+      }
     />
   );
 }
