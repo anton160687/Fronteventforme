@@ -11,11 +11,13 @@ import {
   placesDeclined,
 } from '@/mocks/catalogPlaces';
 import LKCard from '@/components/lk/card/Card';
-import ImageLoader from '@/components/_finder/ImageLoader';
 import { Button, Nav } from 'react-bootstrap';
 import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
 import withAuth from '@/hoc/WithAuth';
-
+import EmptyBusiness from '@/components/lk/offers/EmptyBusiness';
+import EmptyModeration from '@/components/lk/offers/EmptyModeration';
+import EmptyArchive from '@/components/lk/offers/EmptyArchive';
+import EmptyDrafts from '@/components/lk/offers/EmptyDrafts';
 
 const navItems = [
   {
@@ -43,8 +45,7 @@ const navItems = [
 function OffersPage(): JSX.Element {
   //places
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
-  const [declinedCards, setDeclinedCards] =
-    useState<PlaceCardType[]>(placesPublished);
+  const [declinedCards, setDeclinedCards] = useState<PlaceCardType[]>([]);
   //context menu content
   const [menuType, setMenuType] = useState<string>(
     contextMenuTypeEnum.Published
@@ -62,9 +63,9 @@ function OffersPage(): JSX.Element {
       case contextMenuTypeEnum.Published:
         setMenuType(contextMenuTypeEnum.Published);
         setCards(placesPublished);
+        setDeclinedCards([]);
         break;
       case contextMenuTypeEnum.Moderation:
-        //!под вопросом у Евы
         setMenuType(contextMenuTypeEnum.Moderation);
         setCards(placesModerate);
         setDeclinedCards(placesDeclined);
@@ -72,10 +73,12 @@ function OffersPage(): JSX.Element {
       case contextMenuTypeEnum.Draft:
         setMenuType(contextMenuTypeEnum.Draft);
         setCards(placesDraft);
+        setDeclinedCards([]);
         break;
       case contextMenuTypeEnum.Archive:
         setMenuType(contextMenuTypeEnum.Archive);
         setCards(placesArchive);
+        setDeclinedCards([]);
         break;
       case null:
         console.error('eventKey = null');
@@ -93,9 +96,9 @@ function OffersPage(): JSX.Element {
       <>
         {menuType === contextMenuTypeEnum.Moderation ? (
           <>
-            <h3>На проверке</h3>
+            {cards.length > 0 && <h3>На проверке</h3>}
             {cardsRender(cards, menuType)}
-            <h3>Отклонено</h3>
+            {declinedCards.length > 0 && <h3>Отклонено</h3>}
             {cardsRender(declinedCards, contextMenuTypeEnum.Declined)}
           </>
         ) : (
@@ -118,6 +121,19 @@ function OffersPage(): JSX.Element {
         ))}
       </>
     );
+  };
+
+  const emptyStateRender = () => {
+    switch (menuType) {
+      case contextMenuTypeEnum.Published:
+        return <EmptyBusiness />;
+      case contextMenuTypeEnum.Moderation:
+        return <EmptyModeration />;
+      case contextMenuTypeEnum.Draft:
+        return <EmptyDrafts />;
+      case contextMenuTypeEnum.Archive:
+        return <EmptyArchive />;
+    }
   };
 
   return (
@@ -160,25 +176,10 @@ function OffersPage(): JSX.Element {
         </Nav>
 
         {/* List of properties or empty state */}
-        {cards.length > 0 ? (
-          moderationCardsRenderCheck()
-        ) : (
-          // Empty state
-          <>
-            <h3 className="h3 mb-2">Нет опубликованных бизнесов</h3>
-            <p className="pb-1">
-              Начните создавать свою первую публикацию прямо сейчас или
-              проверьте уже готовые бизнесы во вкладках “Модерация” и
-              “Черновики”.
-            </p>
-            <ImageLoader
-              width={544}
-              height={517}
-              alt="Человек через лупу смотрит на дом с долларом"
-              src="/img/emptyBusiness.svg"
-            />
-          </>
-        )}
+        {cards.length > 0 || declinedCards.length > 0
+          ? moderationCardsRenderCheck()
+          : // Empty state
+            emptyStateRender()}
 
         <DeleteModal
           show={show}

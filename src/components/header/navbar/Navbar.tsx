@@ -43,7 +43,7 @@ const navigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
-  
+
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
       <Nav.Item key={id} className={styles.navbar__item}>

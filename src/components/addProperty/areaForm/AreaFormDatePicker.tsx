@@ -24,21 +24,24 @@ function AreaFormDatePicker({
     return (
       <div key={index}>
         <Form.Group className="mb-3">
-        <Form.Label className='w-100'> 
-          <InputGroup>
-            <Form.Control
-              as={DatePicker}
-              selected={datesArray[index]}
-              placeholderText="Выберите недоступную дату"
-              className="rounded pe-5"
-              dateFormat="dd/MM/yy"
-              excludeDates={datesArray}
-              onChange={(e: any) => {
-                handleDateChange(e, index);
-              }}
-            />
-            <i className="fi-calendar position-absolute top-50 end-0 translate-middle-y me-3"></i>
-          </InputGroup>
+          <Form.Label className="w-100">
+            <InputGroup>
+              <Form.Control
+                as={DatePicker}
+                selected={datesArray[index]}
+                placeholderText="Выберите недоступную дату"
+                className="rounded pe-5"
+                dateFormat="dd/MM/yy"
+                minDate={new Date(Date.now())}
+                //на год от сегодняшней даты
+                //maxDate={new Date(Date.now() + 3.156e10)}
+                excludeDates={datesArray}
+                onChange={(e: any) => {
+                  handleDateChange(e, index);
+                }}
+              />
+              <i className="fi-calendar position-absolute top-50 end-0 translate-middle-y me-3"></i>
+            </InputGroup>
           </Form.Label>
         </Form.Group>
         <p

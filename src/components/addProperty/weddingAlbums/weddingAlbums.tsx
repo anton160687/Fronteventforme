@@ -85,7 +85,7 @@ export default function WeddingAlbums({
             setGallery={setAlbumImg}
             setPreviewGallery={setPreviewAlbumImg}
             //  maxFiles={5}
-            warning="Максимальный общий объем 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
+            warning="Макс. размер одного файла – 5 МБ. Всего – 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>
       </Row>

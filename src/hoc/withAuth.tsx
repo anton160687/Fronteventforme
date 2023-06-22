@@ -4,10 +4,11 @@ import { selectIsAuth, selectUser } from '@/store/user/userSlice';
 import { useRouter } from 'next/router';
 import { Paths } from '@/constant';
 
-export type WithAuthProps = {}
+export type WithAuthProps = {};
 
-function withAuth<T extends WithAuthProps = WithAuthProps> ( Component: React.ComponentType<T>) {
-
+function withAuth<T extends WithAuthProps = WithAuthProps>(
+  Component: React.ComponentType<T>
+) {
   const ComponentWithAuth = (props: T) => {
     const router = useRouter();
     const isAuth = useSelector(selectIsAuth);
@@ -15,11 +16,9 @@ function withAuth<T extends WithAuthProps = WithAuthProps> ( Component: React.Co
     const role = user?.is_bride;
 
     if (!isAuth) {
-      return (
-        <SignIn />
-      );
+      return <SignIn />;
     }
-        
+
     if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
       router.push(Paths.AccBride);
     }
@@ -29,7 +28,7 @@ function withAuth<T extends WithAuthProps = WithAuthProps> ( Component: React.Co
 
     return <Component {...props} />;
   };
-  
+
   return ComponentWithAuth;
 }
 
