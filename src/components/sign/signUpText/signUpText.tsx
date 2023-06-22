@@ -29,6 +29,7 @@ export default function SignUpText({ data }: SignUpTextProps) {
         className="w-100"
         onClick={handleClick}
         disabled={isDisabled}
+        style={{ whiteSpace: 'break-spaces' }}
       >
         {'Выслать ссылку повторно\u00A0'}
         {isDisabled && (

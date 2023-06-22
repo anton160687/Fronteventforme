@@ -151,10 +151,15 @@ export const NAME_REQUIREMENTS = '^[\\p{L}]*$';
 export const NAME_TITLE = 'Имя должно состоять только из букв.';
 export const LAST_NAME_TITLE = 'Фамиоия должна состоять только из букв.';
 
+//! удалю после тестирования тестировщиками)
+// export const EMAIL_REQUIREMENTS =
+//   '[\\w.\\$\\*\\+\\-\\=\\?\\!\\^\\{\\|\\}\\~\\&\\%\\#\\/\\`]+@[a-z]+\\.[a-z]{2,3}';
+// export const EMAIL_TITLE =
+//   'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя может содержать цифры, латинские буквы и специальные символы: $.*+-=?!_^{|}~&%#/. Почтовый домен и знаки после точки состоят только из латинских букв.';
 export const EMAIL_REQUIREMENTS =
-  '[\\w.\\$\\*\\+\\-\\=\\?\\!\\^\\{\\|\\}\\~\\&\\%\\#\\/\\`]+@[a-z]+\\.[a-z]{2,3}';
+  '[a-zA-Z][a-zA-Z_\\d\\p{P}\\p{Sm}\\$\\^]+@[a-z]+\\.[a-z]{2,3}';
 export const EMAIL_TITLE =
-  'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя может содержать цифры, латинские буквы и специальные символы: $.*+-=?!_^{|}~&%#/. Почтовый домен и знаки после точки состоят только из латинских букв.';
+  'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя должно начинаться с латинской буквы, так же может содержать цифры, и специальные символы: $.*+-=?!_^{|}~&%#/.';
 
 export const MOBILE_REQUIREMENTS =
   '\\+?(7|8)\\(?[0-9]{3}\\)?[0-9]{3}-?[0-9]{2}-?[0-9]{2}';
@@ -361,23 +366,78 @@ export enum LKSectionsTitles {
 
 export const LKBusinessSections: LkSectionsType[] = [
   { id: 1, title: LKSectionsTitles.Info, path: Paths.AccInfo, icon: 'fi-user' },
-  { id: 2, title: LKSectionsTitles.Security, path: Paths.AccSecurity, icon: 'fi-lock' },
-  { id: 3, title: LKSectionsTitles.Offers, path: Paths.AccOffers, icon: 'fi-home' },
-  { id: 4, title: LKSectionsTitles.Reviews, path: Paths.AccReviews, icon: 'fi-star' },
-  { id: 5, title: LKSectionsTitles.Notification, path: Paths.AccNotification, icon: 'fi-bell' },
+  {
+    id: 2,
+    title: LKSectionsTitles.Security,
+    path: Paths.AccSecurity,
+    icon: 'fi-lock',
+  },
+  {
+    id: 3,
+    title: LKSectionsTitles.Offers,
+    path: Paths.AccOffers,
+    icon: 'fi-home',
+  },
+  {
+    id: 4,
+    title: LKSectionsTitles.Reviews,
+    path: Paths.AccReviews,
+    icon: 'fi-star',
+  },
+  {
+    id: 5,
+    title: LKSectionsTitles.Notification,
+    path: Paths.AccNotification,
+    icon: 'fi-bell',
+  },
   { id: 6, title: LKSectionsTitles.Help, path: Paths.AccHelp, icon: 'fi-help' },
-  { id: 7, title: LKSectionsTitles.Tariff, path: Paths.AccTariff, icon: 'fi-cash' },
-  { id: 8, title: LKSectionsTitles.Payment, path: Paths.AccPayment, icon: 'fi-credit-card' },
+  {
+    id: 7,
+    title: LKSectionsTitles.Tariff,
+    path: Paths.AccTariff,
+    icon: 'fi-cash',
+  },
+  {
+    id: 8,
+    title: LKSectionsTitles.Payment,
+    path: Paths.AccPayment,
+    icon: 'fi-credit-card',
+  },
 ];
 
 export const LKBrideSections: LkSectionsType[] = [
   { id: 1, title: LKSectionsTitles.Info, path: Paths.AccInfo, icon: 'fi-user' },
-  { id: 2, title: LKSectionsTitles.Security, path: Paths.AccSecurity, icon: 'fi-lock' },
-  { id: 3, title: LKSectionsTitles.Wishlist, path: Paths.AccWishlist, icon: 'fi-heart' },
-  { id: 4, title: LKSectionsTitles.Reviews, path: Paths.AccReviews, icon: 'fi-star' },
-  { id: 5, title: LKSectionsTitles.Notification, path: Paths.AccNotification, icon: 'fi-bell' },
+  {
+    id: 2,
+    title: LKSectionsTitles.Security,
+    path: Paths.AccSecurity,
+    icon: 'fi-lock',
+  },
+  {
+    id: 3,
+    title: LKSectionsTitles.Wishlist,
+    path: Paths.AccWishlist,
+    icon: 'fi-heart',
+  },
+  {
+    id: 4,
+    title: LKSectionsTitles.Reviews,
+    path: Paths.AccReviews,
+    icon: 'fi-star',
+  },
+  {
+    id: 5,
+    title: LKSectionsTitles.Notification,
+    path: Paths.AccNotification,
+    icon: 'fi-bell',
+  },
   { id: 6, title: LKSectionsTitles.Help, path: Paths.AccHelp, icon: 'fi-help' },
-  { id: 7, title: LKSectionsTitles.Payment, path: Paths.AccPayment, icon: 'fi-credit-card' },
+  {
+    id: 7,
+    title: LKSectionsTitles.Payment,
+    path: Paths.AccPayment,
+    icon: 'fi-credit-card',
+  },
 ];
 
 //для боковой навигации в каталоге и типов бизнеса в ЛК
