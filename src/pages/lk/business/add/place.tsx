@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Form, Row, Col, Container, ProgressBar, Button } from 'react-bootstrap';
+import Link from 'next/link';
+import { Button, Form, Row, Col, Container, ProgressBar, Breadcrumb } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -9,20 +10,18 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import {
-  addTerritoryImages,
-  createArea,
-  createOutReg,
-  createPlace,
-  createWelcomeZone,
-} from '@/components/addProperty/placeAPI';
-import { ADD_PLACE_NAMES, Token } from '@/constant';
+import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import { ADD_PLACE_NAMES, Paths, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
+import withAuth from '@/hoc/withAuth';
+import { useRouter } from 'next/router';
+
 
 function AddPropertyPage() {
+  const router = useRouter();
   const initialPlaceState: Place = {
     title: '',
     city: '',
@@ -79,7 +78,6 @@ function AddPropertyPage() {
   function setCity(data: string) {
     setPlace({ ...place, ['city']: data });
   }
-
   // Площадки
   const [areas, setAreas] = useState<(Area | null)[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<(number | null)[]>([0]);
@@ -92,17 +90,13 @@ function AddPropertyPage() {
 
   function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
     e.preventDefault;
-
     if (index !== 0) {
       let copyIndexArray = areaIndexArray;
       copyIndexArray[index] = null;
-
       let copyAreasArray = areas;
       copyAreasArray[index] = null;
       setAreaIndexArray([...copyIndexArray]);
       setAreas([...copyAreasArray]);
-    } else {
-      alert('Должно быть хотя бы 1 помещение');
     }
   }
 
@@ -153,8 +147,7 @@ function AddPropertyPage() {
   // Альбомы
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
-
-  //! хуки для разных галлерей
+  //хуки
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
   }, [mainPhotos]);
@@ -195,8 +188,6 @@ function AddPropertyPage() {
 
   //Progress Bar
   const [percent, setPercent] = useState<number>(0);
-  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
-
   // Превью
   const [previewShow, setPreviewShow] = useState(false);
   const handlePreviewClose = () => setPreviewShow(false);
@@ -206,16 +197,12 @@ function AddPropertyPage() {
   const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
   const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
   const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
-  //preview images
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
-
-  // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    //access токены имеют очень короткий срок жизни, поэтому сначала будем отправлять refresh
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
     if (refreshToken && isFresh) {
@@ -223,7 +210,6 @@ function AddPropertyPage() {
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
         if (form.checkValidity() && token) {
-          // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId) {
             addTerritoryImages(placeId, territoryImg, token);
@@ -244,6 +230,11 @@ function AddPropertyPage() {
               }
             });
           }
+          if (!placeId) {
+            alert('Что-то пошло не так. Повторите попытку позже');
+          } else {
+            router.push(Paths.Success);
+          }
         }
       }
     }
@@ -252,6 +243,17 @@ function AddPropertyPage() {
   return (
     <>
       <Container className="py-5">
+      <Breadcrumb className="mb-4 pt-md-3">
+          <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
+            Главная
+          </Breadcrumb.Item>
+          <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
+            Личный кабинет
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Добавить бизнес
+          </Breadcrumb.Item>
+        </Breadcrumb>
         <Row>
           <Col lg={8}>
             <Form onSubmit={handleSubmit}>
@@ -304,7 +306,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title='Главные фотографии'
+                title = 'Фото площадки'
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
@@ -344,7 +346,6 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                  //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>
@@ -357,7 +358,6 @@ function AddPropertyPage() {
               areas={areas}
               setPercent={setPercent}
               percent={percent}
-              setIsFormFilled={setIsFormFilled}
               mainPhotos={mainPhotos}
               territoryImg={territoryImg}
               welcomeImg={welcomeImg}
@@ -381,4 +381,4 @@ function AddPropertyPage() {
   );
 }
 
-export default AddPropertyPage;
+export default withAuth(AddPropertyPage);

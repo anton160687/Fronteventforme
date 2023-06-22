@@ -8,7 +8,7 @@ import BusinessDetails from "@/components/addBusiness/BusinessDetails";
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { ADD_PLACE_NAMES, Paths } from "@/constant";
 import ServiceForm from "@/components/addBusiness/serviceForm/ServiceForm";
-import withAuth from "@/hoc/WithAuth";
+import withAuth from "@/hoc/withAuth";
 
 function AddBusinessPage() {
   const router = useRouter();
@@ -108,7 +108,7 @@ function renderServiceForms() {
 
   //здесь логика отправки формы
   function handleSubmit() {
-    router.push(Paths.Success);
+    // router.push(Paths.Success);
   }
 
   return (

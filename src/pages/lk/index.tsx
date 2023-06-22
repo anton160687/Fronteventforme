@@ -1,5 +1,5 @@
 import { Paths } from '@/constant';
-import withAuth from '@/hoc/WithAuth';
+import withAuth from '@/hoc/withAuth';
 import { selectUser } from '@/store/user/userSlice';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

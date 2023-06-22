@@ -13,11 +13,11 @@ import {
 import LKCard from '@/components/lk/card/Card';
 import { Button, Nav } from 'react-bootstrap';
 import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
-import withAuth from '@/hoc/WithAuth';
 import EmptyBusiness from '@/components/lk/offers/EmptyBusiness';
 import EmptyModeration from '@/components/lk/offers/EmptyModeration';
 import EmptyArchive from '@/components/lk/offers/EmptyArchive';
 import EmptyDrafts from '@/components/lk/offers/EmptyDrafts';
+import withAuth from '@/hoc/withAuth';
 
 const navItems = [
   {

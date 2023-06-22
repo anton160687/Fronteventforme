@@ -1,7 +1,7 @@
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import PricePlan from '@/components/lk/pricePlan/PricePlan';
 import { LKSectionsTitles } from '@/constant';
-import withAuth from '@/hoc/WithAuth';
+import withAuth from '@/hoc/withAuth';
 import {
   Button,
   Card,

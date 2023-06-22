@@ -1,7 +1,7 @@
-import { Paths } from '@/constant';
-import withAuth from '@/hoc/WithAuth';
-import Link from 'next/link';
-import { Breadcrumb, Button, Container, Image, Row } from 'react-bootstrap';
+import { Paths } from "@/constant";
+import withAuth from "@/hoc/withAuth";
+import Link from "next/link";
+import { Breadcrumb, Button, Container, Image, Row } from "react-bootstrap";
 
 function SuccessPage() {
   return (

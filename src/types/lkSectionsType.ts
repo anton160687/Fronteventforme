@@ -1,1 +1,1 @@
-export type LkSectionsType = { title: string; link: string; icon: string };
+export type LkSectionsType = { id: number, title: string; path: string; icon: string };
