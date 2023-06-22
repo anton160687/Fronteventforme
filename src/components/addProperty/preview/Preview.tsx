@@ -29,7 +29,7 @@ import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/Weddi
 import { cards } from '@/mocks/cards';
 import { Area, AreaImages, AreaReceived, TypeArea } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
-import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationsPhotos';
+import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import { useMemo } from 'react';
 
 type PreviewProps = {
