@@ -146,8 +146,7 @@ export default function SignUpForm({
                   autoComplete="off"
                   className={`${error.length > 0 ? styles.invalid : ''}`}
                   //className=""
-                  isValid={!(error.length > 0) ? true : false}
-                  isInvalid={error.length > 0 ? true : false}
+                  isInvalid={error.length > 0 ? 'true' : 'false'}
                 />
                 {!error && (
                   <Form.Control.Feedback type="invalid">
@@ -175,8 +174,7 @@ export default function SignUpForm({
                   onChange={handleChange}
                   className={`${error.length > 0 ? styles.invalid : ''}`}
                   //className=""
-                  isValid={!(error.length > 0) ? true : false}
-                  isInvalid={error.length > 0 ? true : false}
+                  isinvalid={error.length > 0 ? 'true' : 'false'}
                 />
                 {!error && (
                   <Form.Control.Feedback type="invalid">
