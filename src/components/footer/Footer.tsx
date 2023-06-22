@@ -135,6 +135,11 @@ export default function Footer() {
               {renderRow(ACTORS)}
             </div>
           </div>
+          <Nav.Link as={Link} href={Paths.AddChoicePage} active={false}>
+            <Button className="d-flex mx-auto me-md-0">
+              Хочу быть в каталоге
+            </Button>
+          </Nav.Link>
           {/* Copyright */}
           <div className={styles.footer_copyright + ' align-items-center'}>
             <p style={{ whiteSpace: 'nowrap', margin: '0px' }}>© EventForMe</p>
