@@ -213,11 +213,6 @@
   }
 }
 
-.summary {
-  @include fz(16, 16);
-  font-weight: 500;
-}
-
 .sale {
   display: flex;
   flex-direction: column;
@@ -255,7 +250,6 @@
 }
 
 .calc_btn {
-  font-weight: 700;
   background-color: $gray100;
   color: $gray800;
   border: none;

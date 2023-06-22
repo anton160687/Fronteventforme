@@ -13,6 +13,7 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'swiper/css/bundle';
 import styles from '@/styles/catalog/places/Places.module.scss';
+import { SlidesCount } from '@/components/helpers';
 
 type AlbumCardProps = {
   id: number;
@@ -24,17 +25,6 @@ type AlbumCardProps = {
 function AlbumCard({ id, title, description, images }: AlbumCardProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
-
-  const SlidesCount = () => (
-    <div className="swiper-slides-count text-dark bg-light rounded-2 p-1">
-      <i className="fi-image fs-lg me-2"></i>
-      <div className="fs-6 fw-bold ps-1 me-2">
-        <span>{currentSlide}</span>
-        <span>/</span>
-        <span>{totalSlides}</span>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -93,7 +83,10 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                           video={false}
                         />
                       </SwiperSlide>
-                      <SlidesCount />
+                      <SlidesCount
+                        currentSlide={currentSlide}
+                        totalSlides={totalSlides}
+                      />
                     </>
                   ))}
                 </Swiper>
