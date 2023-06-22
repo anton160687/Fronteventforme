@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Paths } from '@/constant';
-import styles from '@/styles/header/RegButton.module.scss';
+//import styles from '@/styles/header/RegButton.module.scss';
 
 function RegButton() {
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
@@ -11,16 +11,19 @@ function RegButton() {
   }
 
   return (
-    <Button variant="primary" onClick={handleClick} className={styles.regbtn}>
-      <Link href={Paths.SignUp} className={styles.regbtn__text}>
-        Регистрация
-        <Image
-          src="/img/header/arrowRight.png"
-          alt="arrow"
-          width={6}
-          height={12}
-        />
-      </Link>
+    <Button
+      variant="primary"
+      // @ts-ignore: bootstrap bag*
+      as={Link}
+      href={Paths.SignUp}
+      onClick={handleClick}
+      // className={styles.regbtn}
+      className="ms-3 fs-sm"
+    >
+      {/* <Link href={Paths.SignUp} className={styles.regbtn__text}> */}
+      Регистрация
+      <i className="fi-chevron-right ms-2 fs-xs"></i>
+      {/* </Link> */}
     </Button>
   );
 }

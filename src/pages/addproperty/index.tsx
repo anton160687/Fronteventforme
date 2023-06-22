@@ -1,5 +1,13 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import { Button, Form, Row, Col, Container, ProgressBar, Alert } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Alert,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -9,7 +17,13 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -293,7 +307,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title = 'Фото площадки'
+                title="Фото площадки"
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
@@ -333,7 +347,7 @@ function AddPropertyPage() {
                   type="submit"
                   size="lg"
                   variant="primary d-block w-100 w-sm-auto mb-2"
-                //  disabled={!isFormFilled}
+                  //  disabled={!isFormFilled}
                 >
                   Сохранить
                 </Button>

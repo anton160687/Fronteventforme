@@ -25,10 +25,9 @@ function MainPhotos({
       <FileUploader
         setGallery={setMainPhotos}
         setPreviewGallery={setPreviewMainPhotos}
-        // maxFiles={5}
         required={true}
         warning={
-          'Макс. общий объем 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите обложку.'
+          'Макс. размер одного файла – 5 МБ. Всего – 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото.'
         }
       />
     </section>

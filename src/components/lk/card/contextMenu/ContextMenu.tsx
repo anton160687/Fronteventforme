@@ -21,7 +21,11 @@ const draftContextMenu: ContextMenuType[] = [
 ];
 
 const archiveContextMenu: ContextMenuType[] = [
-  { icon: 'fi-rotate-right', title: 'Восстановить', value: 'restore' },
+  { icon: 'fi-refresh', title: 'Восстановить', value: 'restore' },
+];
+
+const moderateContextMenu: ContextMenuType[] = [
+  { icon: 'fi-rotate-right', title: 'Отозвать заявку', value: 'revoke' },
 ];
 
 type ContextMenuProps = {
@@ -31,13 +35,17 @@ type ContextMenuProps = {
 
 function ContextMenu({ setShow, contextMenu }: ContextMenuProps): JSX.Element {
   let menu: ContextMenuType[] = [];
+  let declined: ContextMenuType[] = draftContextMenu;
 
   switch (contextMenu) {
     case contextMenuTypeEnum.Published:
       menu = publishedContextMenu;
       break;
     case contextMenuTypeEnum.Moderation:
-      menu = publishedContextMenu;
+      menu = moderateContextMenu;
+      break;
+    case contextMenuTypeEnum.Declined:
+      menu = draftContextMenu;
       break;
     case contextMenuTypeEnum.Draft:
       menu = draftContextMenu;

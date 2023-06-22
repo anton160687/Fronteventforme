@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 import ImageLoader from '@/components/_finder/ImageLoader';
 import { useState } from 'react';
 import ContactsModal from '../contactsModal/contactsModal';
-import { truncate } from 'fs/promises';
 
 function Help() {
   const [isShown, setIsShown] = useState(false);
@@ -30,39 +28,39 @@ function Help() {
         <div className="pb-2 mb-2 me-2 flex-shrink-0 fw-bold">
           Популярные запросы:
         </div>
-        <div className="pb-2">
+        <div className="text-nowrap overflow-auto pb-2">
           <div>
             <Button
               // @ts-ignore: bootstrap bag*
-              size="xs"
+              size="sm"
               variant="outline-secondary rounded-pill fw-normal mb-2 me-2"
             >
               Notifications
             </Button>
             <Button
               // @ts-ignore: bootstrap bag*
-              size="xs"
+              size="sm"
               variant="outline-secondary rounded-pill fw-normal mb-2 me-2"
             >
               Getting started
             </Button>
             <Button
               // @ts-ignore: bootstrap bag*
-              size="xs"
+              size="sm"
               variant="outline-secondary rounded-pill fw-normal mb-2 me-2"
             >
               Transactions
             </Button>
             <Button
               // @ts-ignore: bootstrap bag*
-              size="xs"
+              size="sm"
               variant="outline-secondary rounded-pill fw-normal mb-2 me-2"
             >
               Account questions
             </Button>
             <Button
               // @ts-ignore: bootstrap bag*
-              size="xs"
+              size="sm"
               variant="outline-secondary rounded-pill fw-normal mb-2 me-2"
             >
               Mortgage
@@ -72,7 +70,7 @@ function Help() {
       </div>
 
       {/* Page content */}
-      <section className="mb-md-5 mb-4 pb-lg-5">
+      <section className="mb-md-5 mb-4 pb-lg-5 mt-4 pt-lg-3 pt-0">
         <h2 className="mb-md-4 mb-3 pb-md-2">Renters &amp; Rentals</h2>
         <div className="pb-md-2">
           <h3 className="h5">
@@ -204,8 +202,6 @@ function Help() {
             </h2>
             <Button
               // @ts-ignore: bootstrap bag*
-              // as={Link}
-              // href="/real-estate/contacts"
               size="lg"
               variant="primary"
               onClick={() => setIsShown(true)}
