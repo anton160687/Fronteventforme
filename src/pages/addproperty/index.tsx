@@ -199,7 +199,6 @@ function AddPropertyPage() {
 
   //Progress Bar
   const [percent, setPercent] = useState<number>(0);
-  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
 
   // Превью
   const [previewShow, setPreviewShow] = useState(false);
@@ -360,7 +359,6 @@ function AddPropertyPage() {
               areas={areas}
               setPercent={setPercent}
               percent={percent}
-              setIsFormFilled={setIsFormFilled}
               mainPhotos={mainPhotos}
               territoryImg={territoryImg}
               welcomeImg={welcomeImg}
