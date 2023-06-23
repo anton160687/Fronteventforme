@@ -5,5 +5,5 @@ export type filterParamsType = {
     price: string[],
     territory: string[],
     more: string[],
-    additional: string[],
+    // additional: string[],
 }
