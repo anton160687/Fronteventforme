@@ -111,7 +111,7 @@ function PlaceDetails({
             placeholder="10 человек"
             onChange={handleNumberChange}
             required
-            min={0}
+            min={1}
             max={20}
           />
         </Form.Group>
@@ -145,7 +145,7 @@ function PlaceDetails({
             className="w-md-50 w-sm-75 w-xs-100"
             placeholder="100 машин"
             onChange={handleNumberChange}
-            min={0}
+            min={1}
           />
         </Form.Group>
       </Row>
