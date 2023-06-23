@@ -41,7 +41,7 @@ function Header() {
         <section id="logo">
           <Link href={Paths.Home}>
           <Image
-            className={styles.header__logo}
+            className={`${styles.header__logo} me-2 me-xl-4 navbar-brand`}
             src="/img/header/logo.png"
             width={143}
             height={33}

@@ -8,6 +8,7 @@ import RegButton from '../regButton/RegBtn';
 import LoginButton from '../login/LoginBtn';
 import Avatar from '../avatar/Avatar';
 import styles from '@/styles/header/Header.module.scss';
+import { useState } from 'react';
 
 
 type HeaderNavbarProps = {
@@ -39,6 +40,10 @@ const navigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
+  const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
+  function handleToggle() {
+    setIsToggleOpen(!isToggleOpen)
+  }
 
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
@@ -52,7 +57,14 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
 
   return (
     <Navbar bg="light" expand="xl">
-      <Navbar.Collapse id="light-navbar-nav" className="order-lg-2">
+      {/* Меню для мобильных устройств */}
+      <Navbar.Toggle
+        aria-controls="light-navbar-nav"
+        className={`${isToggleOpen && styles.header__toggle_open}`}
+        onClick={handleToggle}
+      />
+
+      <Navbar.Collapse id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2`}>
         <ul className={`${styles.navbar__central_block} navbar-nav`}>
           <CityInput />
           <CatalogDropDown />
@@ -75,8 +87,6 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
           )}
         </ul>
       </Navbar.Collapse>
-      {/* Меню для мобильных устройств */}
-      <Navbar.Toggle aria-controls="light-navbar-nav" className="ms-auto" />
     </Navbar>
   );
 }
