@@ -127,7 +127,7 @@ function AreaForm({
             setGallery={setAreaImages}
             required={true}
             //maxFiles={100}
-            warning="Макс. размер одного файла – 5 МБ. Всего – 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
+            warning="Макс. размер файла – 10 МБ. Не более 30 фотографий. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>
       </Row>

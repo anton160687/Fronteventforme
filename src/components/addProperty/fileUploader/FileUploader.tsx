@@ -11,6 +11,7 @@ import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { AUTH_URL, RESTORE_IMG } from '@/constant';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
 registerPlugin(
@@ -19,7 +20,8 @@ registerPlugin(
   FilePondPluginImagePreview,
   FilePondPluginImageCrop,
   FilePondPluginImageResize,
-  FilePondPluginImageTransform
+  FilePondPluginImageTransform,
+  FilePondPluginImageValidateSize
 );
 
 type FileUploaderProps = {
@@ -34,7 +36,7 @@ type FileUploaderProps = {
 function FileUploader({
   setGallery,
   setPreviewGallery,
-  maxFiles = 100,
+  maxFiles = 30,
   warning,
   required = false,
 }: FileUploaderProps) {
@@ -96,12 +98,14 @@ function FileUploader({
         acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg']}
         allowMultiple={maxFiles === undefined || maxFiles > 1 ? true : false}
         maxFiles={maxFiles}
-        maxFileSize="5MB"
-        maxTotalFileSize="25MB"
+        maxFileSize="10MB"
+        //maxTotalFileSize="25MB"
         className="file-uploader file-uploader-grid"
         checkValidity={true}
         instantUpload={true}
         chunkUploads={true}
+        imageValidateSizeMinWidth={1200}
+        imageValidateSizeMinHeight={900}
         //Перевод ошибок с англ на русский
         labelInvalidField={'Поле содержит некорректные файлы'}
         labelFileWaitingForSize={'Ожидание определения размера файла'}
@@ -132,6 +136,27 @@ function FileUploader({
         fileValidateTypeLabelExpectedTypes={
           'Ожидается {allButLastType} или {lastType}'
         }
+        imageValidateSizeLabelFormatError={'Тип не поддерживается'}
+        imageValidateSizeLabelImageSizeTooSmall={
+          'Изображение слишком маленькое'
+        }
+        imageValidateSizeLabelImageSizeTooBig={'Изображение слишком большое'}
+        imageValidateSizeLabelExpectedMinSize={
+          'Минимальный размер: {minWidth} × {minHeight}'
+        }
+        imageValidateSizeLabelExpectedMaxSize={
+          'Максимальный размер: {maxWidth} × {maxHeight}'
+        }
+        imageValidateSizeLabelImageResolutionTooLow={
+          'Слишком низкое разрешение'
+        }
+        imageValidateSizeLabelImageResolutionTooHigh={
+          'Слишком высокое разрешение'
+        }
+        imageValidateSizeLabelExpectedMinResolution={
+          'Минимальное разрешение^ {minResolution'
+        }
+        imageValidateSizeLabelExpectedMaxResolution={'Максимальное разрешение'}
       />
     </div>
   );

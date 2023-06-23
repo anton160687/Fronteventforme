@@ -109,8 +109,7 @@ function ServiceForm({
           <FileUploader
             setGallery={setServiceImages}
             required={true}
-            // maxFiles={5}
-            warning="Максимальный размер фото 400 КБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
+            warning="Макс. размер файла – 10 МБ. Не более 30 фотографий. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>
       </Row>

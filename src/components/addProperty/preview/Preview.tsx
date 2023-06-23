@@ -201,7 +201,6 @@ function Preview({
       territory: newTerritory,
       areas: makeUniAreas(),
     };
-    console.log('newPlace', newPlace);
     return newPlace;
   };
 
