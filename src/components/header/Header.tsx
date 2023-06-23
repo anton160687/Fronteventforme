@@ -1,14 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux';
-import HeaderNavbar from './navbar/Navbar';
-import { selectIsAuth, setAuth, setRole } from '@/store/user/userSlice';
 import { useEffect } from 'react';
-import { Token } from '@/constant';
+import Image from 'next/image';
+import Link from 'next/link';
+import HeaderNavbar from './navbar/Navbar';
+import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
+import { selectIsAuth, setRole } from '@/store/user/userSlice';
 import { fetchUserDataWithThunk } from '@/store/user/userSlice';
 import { authoriseUser } from '@/store/user/userAPI';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
+import { Paths, Token } from '@/constant';
+import styles from '@/styles/header/Header.module.scss';
 
-export default function Header() {
+
+function Header() {
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -17,8 +22,6 @@ export default function Header() {
     let isFresh = checkIfTokenIsFresh();
     let role = localStorage.getItem('role');
 
-    console.log('это роль ' + role);
-
     async function getUserData(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {
@@ -26,11 +29,31 @@ export default function Header() {
         dispatch(setRole(!!role));
       }
     }
-    
+
     if (refreshToken && isFresh && role) {
       getUserData(refreshToken);
     }
   }, []);
 
-  return <HeaderNavbar isAuth={isAuth} />;
+  return (
+    <header>
+      <Container className={styles.header__container}>
+        <section id="logo">
+          <Link href={Paths.Home}>
+          <Image
+            className={styles.header__logo}
+            src="/img/header/logo.png"
+            width={143}
+            height={33}
+            alt="EventForMe"
+            title="Компания EventForMe"
+          />
+          </Link>
+        </section>
+        <HeaderNavbar isAuth={isAuth} />
+      </Container>
+    </header>
+  )
 }
+
+export default Header;

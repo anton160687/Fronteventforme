@@ -1,18 +1,14 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
-import City from '../city/city';
-import RegButton from '../regButton/regButton';
-import Login from '../login/Login';
+import CityInput from '../city/CityInput';
+import RegButton from '../regButton/RegBtn';
+import LoginButton from '../login/LoginBtn';
 import Avatar from '../avatar/Avatar';
-import styles from '@/styles/header/Navbar.module.scss';
-import { Paths } from '@/constant';
-import { useEffect, useState } from 'react';
+import styles from '@/styles/header/Header.module.scss';
+
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -43,46 +39,31 @@ const navigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
-  console.log ('это роль юзера из навигационного элемента ' + user.is_bride)
 
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
-      <Nav.Item key={id} className={styles.navbar__item}>
-        <Nav.Link as={Link} href={path}>
+      <li key={id} className={`${styles.navbar__item} nav-item`}>
+        <Link href={path} className="nav-link">
           {text}
-        </Nav.Link>
-      </Nav.Item>
+        </Link>
+      </li>
     ));
   }
 
   return (
-    <Navbar bg="light" expand="xl" className="px-5 px-xl-0 ">
-      <Container>
-        <Navbar.Brand as={Link} href={Paths.Home} className="me-2 me-xl-4">
-          <Image
-            className={styles.logo}
-            src="/img/header/logo.png"
-            width={143}
-            height={33}
-            alt="EventForME"
-          />
-        </Navbar.Brand>
+    <Navbar bg="light" expand="xl">
+      <Navbar.Collapse id="light-navbar-nav" className="order-lg-2">
+        <ul className={`${styles.navbar__central_block} navbar-nav`}>
+          <CityInput />
+          <CatalogDropDown />
+          {renderNavigation()}
+        </ul>
+        <ul className="navbar-nav">
+          {!isAuth && <li><LoginButton /></li>}
+          {!isAuth && <li><RegButton /></li>}
 
-        {/* Меню для мобильных устройств */}
-        <Navbar.Toggle aria-controls="light-navbar-nav" className="ms-auto" />
-
-        <Navbar.Collapse id="light-navbar-nav" className="order-lg-2">
-          <Nav className={styles.navbar__central_block}>
-            <City />
-            <CatalogDropDown />
-            {renderNavigation()}
-          </Nav>
-          <Nav>
-            {!isAuth && <Login />}
-            {!isAuth && <RegButton />}
-
-            {/* {isAuth && <Search />} */}
-            {isAuth && user.is_bride !== undefined && (
+          {isAuth && user.is_bride !== undefined && (
+            <li>
               <Avatar
                 is_bride={user.is_bride}
                 username={user.username}
@@ -90,10 +71,12 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
                 last_name={user.last_name}
                 avatar={user.avatar}
               />
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
+            </li>
+          )}
+        </ul>
+      </Navbar.Collapse>
+      {/* Меню для мобильных устройств */}
+      <Navbar.Toggle aria-controls="light-navbar-nav" className="ms-auto" />
     </Navbar>
   );
 }
