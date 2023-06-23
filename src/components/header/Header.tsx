@@ -17,6 +17,8 @@ export default function Header() {
     let isFresh = checkIfTokenIsFresh();
     let role = localStorage.getItem('role');
 
+    console.log('это роль ' + role);
+
     async function getUserData(token: string) {
       let response = await authoriseUser(token);
       if (response === 'success') {

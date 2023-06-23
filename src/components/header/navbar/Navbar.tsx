@@ -43,6 +43,7 @@ const navigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
+  console.log ('это роль юзера из навигационного элемента ' + user.is_bride)
 
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
