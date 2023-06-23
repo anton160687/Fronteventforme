@@ -192,7 +192,7 @@ function PlaceDetails({
                 type="number"
                 onChange={handleNumberChange}
                 required
-                min={0}
+                min={1}
               />
               <InputGroup.Text id="icon-addon">₽</InputGroup.Text>
             </InputGroup>
