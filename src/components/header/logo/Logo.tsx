@@ -5,10 +5,9 @@ import styles from '@/styles/header/Header.module.scss';
 
 function Logo () {
   return (
-    <section id="logo">
+    <section id="logo" className={`${styles.header__logo}`}>
           <Link href={Paths.Home}>
           <Image
-            className={`${styles.header__logo}`}
             src="/img/header/logo.png"
             width={143}
             height={33}

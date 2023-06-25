@@ -2,14 +2,13 @@
   padding: 20px 0px;
 }
 
-.header__toggle_open {
-  margin-left: calc(100% - 99px);
+.header__logo {
+  padding: 16px 0;
 }
 
 .header__navbar {
-  // padding: 0px 24px;
   @media (max-width: 1199px) {
-    width: 100vw;
+    width: 100%;
   }
 }
 

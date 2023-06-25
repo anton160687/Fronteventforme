@@ -4,16 +4,11 @@ import { selectUser } from '@/store/user/userSlice';
 import Navbar from 'react-bootstrap/Navbar';
 import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
 import CityInput from '../city/CityInput';
-import RegButton from '../regButton/RegBtn';
-import LoginButton from '../login/LoginBtn';
-import Avatar from '../avatar/Avatar';
+import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
-import { useState } from 'react';
-
 
 type HeaderNavbarProps = {
   isAuth: boolean;
-  handleToggle: () => void;
 };
 
 const navigation = [
@@ -36,14 +31,32 @@ const navigation = [
     id: 4,
     path: '#',
     text: 'Блог',
-  },
+  }
 ];
 
-function HeaderNavbar({ isAuth, handleToggle }: HeaderNavbarProps) {
+const lkNavigation = [
+  {
+    id: 1,
+    path: Paths.SignIn,
+    text: 'Вход',
+  },
+  {
+    id: 2,
+    path: Paths.SignUp,
+    text: 'Регистрация',
+  },
+  {
+    id: 3,
+    path: Paths.Account,
+    text: 'Личный кабинет',
+  },
+]
+
+function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
 
-  function renderNavigation() {
-    return navigation.map(({ id, path, text }) => (
+  function renderNavigation(array: typeof navigation) {
+    return array.map(({ id, path, text }) => (
       <li key={id} className={`${styles.navbar__item} nav-item`}>
         <Link href={path} className="nav-link">
           {text}
@@ -53,35 +66,18 @@ function HeaderNavbar({ isAuth, handleToggle }: HeaderNavbarProps) {
   }
 
   return (
-    <Navbar bg="light" expand="xl">
+    <Navbar bg="light" expand="xl" className='w-100 justify-content-end'>
       {/* Меню для мобильных устройств */}
       <Navbar.Toggle
         aria-controls="light-navbar-nav"
-        className='ms-auto'
-        onClick={handleToggle}
       />
 
       <Navbar.Collapse id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2`}>
         <ul className={`${styles.navbar__central_block} navbar-nav`}>
           <CityInput />
           <CatalogDropDown />
-          {renderNavigation()}
-        </ul>
-        <ul className="navbar-nav">
-          {!isAuth && <li><LoginButton /></li>}
-          {!isAuth && <li><RegButton /></li>}
-
-          {isAuth && user.is_bride !== undefined && (
-            <li>
-              <Avatar
-                is_bride={user.is_bride}
-                username={user.username}
-                first_name={user.first_name}
-                last_name={user.last_name}
-                avatar={user.avatar}
-              />
-            </li>
-          )}
+          {renderNavigation(navigation)}
+          {!isAuth? renderNavigation(lkNavigation.slice(0,2)): renderNavigation(lkNavigation.slice(2))}
         </ul>
       </Navbar.Collapse>
     </Navbar>
