@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import HeaderNavbar from './navbar/Navbar';
@@ -11,6 +11,7 @@ import { authoriseUser } from '@/store/user/userAPI';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { Paths, Token } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
+import Logo from './logo/Logo';
 
 
 function Header() {
@@ -35,22 +36,20 @@ function Header() {
     }
   }, []);
 
+  //стэйт открытого/закрытого бургер-меню. Необходим для изменения стилей общего контейнера хедера
+  const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
+  function handleToggle() {
+    setIsToggleOpen(!isToggleOpen)
+  }
+
   return (
     <header>
-      <Container className={styles.header__container}>
-        <section id="logo">
-          <Link href={Paths.Home}>
-          <Image
-            className={`${styles.header__logo} me-2 me-xl-4 navbar-brand`}
-            src="/img/header/logo.png"
-            width={143}
-            height={33}
-            alt="EventForMe"
-            title="Компания EventForMe"
-          />
-          </Link>
-        </section>
-        <HeaderNavbar isAuth={isAuth} />
+      <Container className={`${styles.header__container} ${!isToggleOpen && 'd-flex justify-content-between align-items-center'}`}>
+        {!isToggleOpen && <Logo />}
+        <HeaderNavbar
+        isAuth={isAuth}
+        handleToggle={handleToggle}
+        />
       </Container>
     </header>
   )

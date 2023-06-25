@@ -1,11 +1,5 @@
 .header__container {
-  display: flex;
   padding: 20px 0px;
-  justify-content: space-between;
-  align-items: center;
-  @media (max-width: 1199px) {
-    margin: 0 24px;
-  }
 }
 
 .header__toggle_open {
@@ -13,7 +7,7 @@
 }
 
 .header__navbar {
-  padding: 0px 24px;
+  // padding: 0px 24px;
   @media (max-width: 1199px) {
     width: 100vw;
   }

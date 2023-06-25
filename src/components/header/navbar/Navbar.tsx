@@ -13,6 +13,7 @@ import { useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
+  handleToggle: () => void;
 };
 
 const navigation = [
@@ -38,12 +39,8 @@ const navigation = [
   },
 ];
 
-function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
+function HeaderNavbar({ isAuth, handleToggle }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
-  const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
-  function handleToggle() {
-    setIsToggleOpen(!isToggleOpen)
-  }
 
   function renderNavigation() {
     return navigation.map(({ id, path, text }) => (
@@ -60,7 +57,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       {/* Меню для мобильных устройств */}
       <Navbar.Toggle
         aria-controls="light-navbar-nav"
-        className={`${isToggleOpen && styles.header__toggle_open}`}
+        className='ms-auto'
         onClick={handleToggle}
       />
 
