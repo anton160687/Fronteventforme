@@ -55,9 +55,9 @@ const lkNavigation = [
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
 
-  function renderNavigation(array: typeof navigation) {
+  function renderNavigation(array: typeof navigation, customClass?: string) {
     return array.map(({ id, path, text }) => (
-      <li key={id} className={`${styles.navbar__item} nav-item`}>
+      <li key={id} className={`${styles.navbar__item} nav-item ${customClass}`}>
         <Link href={path} className="nav-link">
           {text}
         </Link>
@@ -77,7 +77,11 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
           <CityInput />
           <CatalogDropDown />
           {renderNavigation(navigation)}
-          {!isAuth? renderNavigation(lkNavigation.slice(0,2)): renderNavigation(lkNavigation.slice(2))}
+          {!isAuth ?
+            renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
+            :
+            renderNavigation(lkNavigation.slice(2), 'd-xl-none')
+          }
         </ul>
       </Navbar.Collapse>
     </Navbar>

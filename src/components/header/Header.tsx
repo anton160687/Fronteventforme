@@ -41,13 +41,13 @@ function Header() {
     <header>
       <Container>
         <Row className='align-items-baseline'>
-          <Col className='d-none d-xl-block'>
+          <Col className='d-none d-xl-block col-xl-2'>
             <Logo />
           </Col>
           <Col className='d-flex justify-content-end'>
             <HeaderNavbar isAuth={isAuth} />
           </Col>
-          <Col className='d-none d-xl-block'>
+          <Col className='d-none d-xl-block col-xl-2'>
             {/* кнопки входа/регистрации/ЛК */}
             <nav>
               <ul className="navbar-nav">
