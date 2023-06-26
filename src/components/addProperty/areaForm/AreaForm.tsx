@@ -126,7 +126,6 @@ function AreaForm({
           <FileUploader
             setGallery={setAreaImages}
             required={true}
-            //maxFiles={100}
             warning="Макс. размер файла – 10 МБ. Не более 30 фотографий. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>

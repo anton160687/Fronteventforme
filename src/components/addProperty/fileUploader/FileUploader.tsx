@@ -72,7 +72,22 @@ function FileUploader({
     files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
     setGallery(serverIdArr);
     if (setPreviewGallery) setPreviewGallery(previewArr);
+    console.log('files', files);
   }, [files]);
+
+  const onError = (
+    error: FilePondErrorDescription,
+    file?: FilePondFile | undefined,
+    status?: any
+  ) => {
+    console.log('onError', error);
+    console.log('onError file', file);
+    console.log('onError status', status);
+  };
+
+  const onReorder = (files: FilePondFile[]) => {
+    setFiles(files);
+  };
 
   return (
     <div className="mb-4">
@@ -82,9 +97,14 @@ function FileUploader({
       </Alert>
 
       <FilePond
+        //formnovalidate
         onprocessfile={onProcess}
         onremovefile={onRemove}
         required={required}
+        onerror={onError}
+        allowReorder={true}
+        onreorderfiles={onReorder}
+        checkValidity={true}
         server={{
           url: `${API}fp/`,
           process: 'process/',
