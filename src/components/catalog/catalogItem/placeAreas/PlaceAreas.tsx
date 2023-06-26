@@ -116,8 +116,9 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const calculateCost = () => {
     if (peopleQuantity) {
-      return average_check * peopleQuantity > area.min_price_banquet
-        ? average_check * peopleQuantity
+      const formula = average_check * peopleQuantity + area.min_price_banquet;
+      return formula > area.min_price_banquet
+        ? formula
         : area.min_price_banquet;
     } else return 0;
   };
