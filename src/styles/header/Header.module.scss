@@ -14,11 +14,20 @@
   }
 }
 
-.header__authnav {
+.header__authnav_nonauth {
   display: flex !important;
   flex-direction: row !important;
-  gap: 24px !important;
+  justify-content: space-between;
   align-items: center !important;
+  list-style-type: none;
+}
+
+.header__authnav_auth {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-end;
+  align-items: center !important;
+  list-style-type: none;
 }
 
 .header__logbtn {

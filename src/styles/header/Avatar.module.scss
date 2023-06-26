@@ -1,8 +1,16 @@
-.avatar__link {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+@import '/src/styles/mixins';
+
+.avatar__btn {
+    text-decoration: none  !important;
+    display: flex  !important;
+    align-items: center  !important;
+    gap: 12px  !important;
+    background-color: unset !important;
+    border: none  !important;
+    &:hover {
+        background-color: unset !important;
+        box-shadow: none !important;
+    }
 }
 
 .avatar__name {

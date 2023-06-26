@@ -78,7 +78,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       />
 
       <Navbar.Collapse id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2`}>
-        <ul className={`${styles.navbar__central_block} navbar-nav`}>
+        <ul className='navbar-nav'>
           <CityInput />
           {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
           <CatalogDropDown />

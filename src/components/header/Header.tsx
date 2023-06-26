@@ -51,13 +51,13 @@ function Header() {
             <HeaderNavbar isAuth={isAuth} />
           </Col>
           {/* кнопки входа/регистрации/аватар */}
-          <Col className="d-none d-xl-block col-xl-3">
+          <Col className="d-none d-xl-block col-xl-3 mt-auto mb-auto">
             <nav>
-              <ul className={`${styles.header__authnav} navbar-nav`}>
-                {!isAuth && <li><LoginButton /></li>}
-                {!isAuth && <li><RegButton /></li>}
+              <ul className={`${isAuth? styles.header__authnav_auth : styles.header__authnav_nonauth} m-0 p-0`}>
+                {!isAuth && <li className='m-0'><LoginButton /></li>}
+                {!isAuth && <li className='m-0'><RegButton /></li>}
                 {isAuth && user.is_bride !== undefined && (
-                  <li>
+                  <li className='m-0'>
                     <Avatar
                       is_bride={user.is_bride}
                       username={user.username}
