@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { FilePond, registerPlugin } from 'react-filepond';
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
@@ -41,11 +47,24 @@ function FileUploader({
   required = false,
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
+  const [errorFiles, setErrorFiles] = useState<FilePondFile[]>([]);
+  const [input, setInput] = useState<number | string>('');
 
   const API =
     process.env.NODE_ENV === 'production'
       ? process.env.NEXT_PUBLIC_AUTHURL
       : AUTH_URL;
+
+  useEffect(() => {
+    const serverIdArr: string[] = [];
+    const previewArr: string[] = [];
+    files.map((file) => serverIdArr.push(file.serverId));
+    files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
+    setGallery(serverIdArr);
+    if (setPreviewGallery) setPreviewGallery(previewArr);
+
+    setInput(files.length || '');
+  }, [files]);
 
   const onProcess = (
     error: FilePondErrorDescription | null,
@@ -61,50 +80,56 @@ function FileUploader({
   ) => {
     const newFiles = files.filter((file) => file.id !== delFile.id);
     setFiles(newFiles);
-
+    const newErrorFiles = errorFiles.filter((file) => file.id !== delFile.id);
+    setErrorFiles(newErrorFiles);
     if (error) console.error('FileUploader remove', error);
-  };
-
-  useEffect(() => {
-    const serverIdArr: string[] = [];
-    const previewArr: string[] = [];
-    files.map((file) => serverIdArr.push(file.serverId));
-    files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
-    setGallery(serverIdArr);
-    if (setPreviewGallery) setPreviewGallery(previewArr);
-    console.log('files', files);
-  }, [files]);
-
-  const onError = (
-    error: FilePondErrorDescription,
-    file?: FilePondFile | undefined,
-    status?: any
-  ) => {
-    console.log('onError', error);
-    console.log('onError file', file);
-    console.log('onError status', status);
   };
 
   const onReorder = (files: FilePondFile[]) => {
     setFiles(files);
   };
 
+  const onError = (
+    error: FilePondErrorDescription,
+    file?: FilePondFile | undefined,
+    status?: any
+  ) => {
+    if (file) setErrorFiles((prev) => [...prev, file]);
+  };
+
+  const onChange = (e: FormEvent<HTMLInputElement>) => {
+    if ((errorFiles.length > 0 && files.length > 0) || errorFiles.length > 0) {
+      e.currentTarget.setCustomValidity('Поле содержит некорректные файлы');
+    } else if (files.length === 0)
+      e.currentTarget.setCustomValidity('Выберите один или несколько файлов');
+    else if (files.length > 0) e.currentTarget.setCustomValidity('');
+  };
+
   return (
-    <div className="mb-4">
+    <div className="mb-4 position-relative">
       <Alert variant="info" className="d-flex mb-4">
         <i className="fi-alert-circle me-2 me-sm-3"></i>
         <p className="fs-sm mb-1">{warning}</p>
       </Alert>
-
+      {/* нужен, чтобы при загрузке некорректных картинок и последующем их удалении (при этом корректные остаются) не вылезало ошибки "Поле содержит некорректные файлы", потому что по умолчанию требуется удалить все картинки и загрузить только корректные */}
+      <input
+        type="number"
+        onInvalid={onChange}
+        onChange={onChange}
+        value={input}
+        required
+        className="position-absolute top-50 start-50"
+        style={{ opacity: '0' }}
+        autoFocus={false}
+      />
       <FilePond
-        //formnovalidate
+        // checkValidity={true}
         onprocessfile={onProcess}
         onremovefile={onRemove}
         required={required}
         onerror={onError}
         allowReorder={true}
         onreorderfiles={onReorder}
-        checkValidity={true}
         server={{
           url: `${API}fp/`,
           process: 'process/',
@@ -121,7 +146,6 @@ function FileUploader({
         maxFileSize="10MB"
         //maxTotalFileSize="25MB"
         className="file-uploader file-uploader-grid"
-        checkValidity={true}
         instantUpload={true}
         chunkUploads={true}
         imageValidateSizeMinWidth={1200}
