@@ -13,6 +13,11 @@ type HeaderNavbarProps = {
 
 const navigation = [
   {
+    id: 0,
+    path: Paths.Home,
+    text: 'Главная',
+  },
+  {
     id: 1,
     path: '#',
     text: 'Свадебные\u00A0сайты',
@@ -55,10 +60,10 @@ const lkNavigation = [
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
 
-  function renderNavigation(array: typeof navigation, customClass?: string) {
+  function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
-      <li key={id} className={`${styles.navbar__item} nav-item ${customClass}`}>
-        <Link href={path} className="nav-link">
+      <li key={id} className={`nav-item ${customClass}`}>
+        <Link href={path} className={`${styles.navbar__item} nav-link`}>
           {text}
         </Link>
       </li>
@@ -75,8 +80,9 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       <Navbar.Collapse id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2`}>
         <ul className={`${styles.navbar__central_block} navbar-nav`}>
           <CityInput />
+          {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
           <CatalogDropDown />
-          {renderNavigation(navigation)}
+          {renderNavigation(navigation.slice(1))}
           {!isAuth ?
             renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
             :

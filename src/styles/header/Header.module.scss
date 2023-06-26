@@ -1,3 +1,5 @@
+@import '/src/styles/mixins';
+
 .header__container {
   padding: 20px 0px;
 }
@@ -12,14 +14,45 @@
   }
 }
 
-.navbar__central_block {
-  margin: 0 auto;
+.header__authnav {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 24px !important;
+  align-items: center !important;
 }
 
-.header__log_btn {
-  color: none;
+.header__logbtn {
+  padding-top: 0.6875rem;
+  padding-bottom: 0.6875rem;
+  border: none !important;
+  background-color: unset !important;
+  color: $primary !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  display: flex !important;
+  gap: 4px !important;
+  align-items: baseline !important;
+  & > i {
+    color: $gray800 !important;
+  }
+  &:hover {
+    background-color: unset !important;
+    color: $primary !important;
+    box-shadow: none !important;
+  }
 }
 
-.header__reg_btn {
-  color: none;
+.header__regbtn {
+  padding-top: 0.6875rem;
+  padding-bottom: 0.6875rem;
+  display: flex !important;
+  align-items: baseline !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+}
+
+.navbar__item {
+  color: $gray800;
 }

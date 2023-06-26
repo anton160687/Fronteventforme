@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import HeaderNavbar from './navbar/Navbar';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
@@ -8,10 +7,12 @@ import { fetchUserDataWithThunk } from '@/store/user/userSlice';
 import { authoriseUser } from '@/store/user/userAPI';
 import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { Token } from '@/constant';
+import HeaderNavbar from './navbar/Navbar';
 import Logo from './logo/Logo';
 import LoginButton from './login/LoginBtn';
-import RegButton from './regButton/RegBtn';
+import RegButton from './registration/RegBtn';
 import Avatar from './avatar/Avatar';
+import styles from '@/styles/header/Header.module.scss';
 
 
 function Header() {
@@ -40,20 +41,21 @@ function Header() {
   return (
     <header>
       <Container>
-        <Row className='align-items-baseline'>
-          <Col className='d-none d-xl-block col-xl-2'>
+        <Row className="align-items-baseline">
+          {/* лого */}
+          <Col className="d-none d-xl-block col-xl-2">
             <Logo />
           </Col>
-          <Col className='d-flex justify-content-end'>
+          {/* основная навигация */}
+          <Col className="d-flex justify-content-end col-xl-7">
             <HeaderNavbar isAuth={isAuth} />
           </Col>
-          <Col className='d-none d-xl-block col-xl-2'>
-            {/* кнопки входа/регистрации/ЛК */}
+          {/* кнопки входа/регистрации/аватар */}
+          <Col className="d-none d-xl-block col-xl-3">
             <nav>
-              <ul className="navbar-nav">
+              <ul className={`${styles.header__authnav} navbar-nav`}>
                 {!isAuth && <li><LoginButton /></li>}
                 {!isAuth && <li><RegButton /></li>}
-
                 {isAuth && user.is_bride !== undefined && (
                   <li>
                     <Avatar

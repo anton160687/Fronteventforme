@@ -9,10 +9,10 @@ function LoginButton() {
       // @ts-ignore: bootstrap bag*
       as={Link}
       href={Paths.SignIn}
-      className={styles.header__log_btn}
+      className={styles.header__logbtn}
     >
         <i className='fi-user' />
-        Вход
+        <span>Вход</span>
       </Button>
   );
 }
