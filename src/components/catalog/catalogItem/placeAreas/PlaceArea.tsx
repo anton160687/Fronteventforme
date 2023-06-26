@@ -122,10 +122,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
       >
         <h4 className="h4 text-weight-bold">{capitalize(area.title)}</h4>
         <div className="d-flex mb-3" style={{ fontWeight: '500' }}>
-          <CalculateCost
-            average_check={average_check}
-            min_price_banquet={area.min_price_banquet}
-          />
+          <CalculateCost average_check={average_check} area={area} />
 
           <div className={styles.calendar_wrapper}>
             <button

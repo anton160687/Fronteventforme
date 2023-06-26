@@ -3,16 +3,14 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
 import styles from '@/styles/catalog/places/Places.module.scss';
+import { AreaReceived } from '@/types/areaType';
 
 type CalculateCostProps = {
-  min_price_banquet: number;
+  area: AreaReceived;
   average_check: number;
 };
 
-function CalculateCost({
-  average_check,
-  min_price_banquet,
-}: CalculateCostProps) {
+function CalculateCost({ average_check, area }: CalculateCostProps) {
   const [isCalcShown, setIsCalcShown] = useState(false);
   const handleModalClose = () => setIsCalcShown(false);
   const handleModalShow = () => setIsCalcShown(true);
@@ -24,9 +22,10 @@ function CalculateCost({
 
   const calculateCost = () => {
     if (peopleQuantity) {
-      return average_check * peopleQuantity > min_price_banquet
+      return average_check * peopleQuantity + area.min_price_rent >
+        area.min_price_banquet
         ? average_check * peopleQuantity
-        : min_price_banquet;
+        : area.min_price_banquet;
     } else return 0;
   };
 
@@ -65,7 +64,7 @@ function CalculateCost({
             </Form.Group>
             <Form.Text>
               <p className="mb-0">Минимальная стоимость:</p>
-              <p className="fs-5 fw-bold">{min_price_banquet} ₽</p>
+              <p className="fs-5 fw-bold">{area.min_price_banquet} ₽</p>
             </Form.Text>
             <Form.Text>
               <p className="mb-0 text-dark">Итоговая стоимость:</p>
