@@ -174,7 +174,7 @@ function AreaForm({
               name="min_capacity"
               placeholder="от ..."
               type="number"
-              min={0}
+              min={1}
               // max="60"
               value={area.min_capacity || ''}
               onChange={handleNumberChange}
@@ -287,7 +287,7 @@ function AreaForm({
               name="min_price_banquet"
               placeholder="1000"
               type="number"
-              min={0}
+              min={1}
               value={area.min_price_banquet || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
@@ -306,7 +306,7 @@ function AreaForm({
               name="min_price_rent"
               placeholder="1000"
               type="number"
-              min={0}
+              min={1}
               value={area.min_price_rent || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
@@ -325,7 +325,7 @@ function AreaForm({
               name="deposit"
               placeholder="1000"
               type="number"
-              min={0}
+              min={1}
               value={area.deposit || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}

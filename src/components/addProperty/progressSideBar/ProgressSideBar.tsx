@@ -243,13 +243,13 @@ function ProgressSideBar({
       }
     });
 
-    // if (completedCount === anchors.length) {
-    //   setPercent(100);
-    //   setIsFormFilled(true);
-    // } else {
-    //   setIsFormFilled(false);
+    if (completedCount === anchors.length) {
+      setPercent(100);
+      // setIsFormFilled(true);
+    }
+    //else {
+    // setIsFormFilled(false);
     // }
-
   }, [anchors]);
 
   return (

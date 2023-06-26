@@ -183,7 +183,7 @@ function PlaceDescription({
               placeholder="250"
               className={styles.price_border}
               onChange={handleNumberChange}
-              min={0}
+              min={1}
             />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>
@@ -203,7 +203,7 @@ function PlaceDescription({
               placeholder="250"
               className={styles.price_border}
               onChange={handleNumberChange}
-              min={0}
+              min={1}
             />
             <InputGroup.Text className="border-start-0">₽/час</InputGroup.Text>
           </InputGroup>
@@ -224,7 +224,7 @@ function PlaceDescription({
               className={styles.price_border}
               onChange={handleNumberChange}
               required
-              min={0}
+              min={1}
             />
             <InputGroup.Text className="border-start-0">₽/чел</InputGroup.Text>
           </InputGroup>

@@ -155,7 +155,7 @@ function ServiceForm({
               name="price"
               placeholder="10 000"
               type="number"
-              min={0}
+              min={1}
               value={service.price || ''}
               onChange={handleNumberChange}
               className={styles.capacity__input}
