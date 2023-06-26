@@ -1,72 +1,49 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { BusinessTypes } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
-
-const catalogItems = [
-  {
-    id: 1,
-    path: 'dresses',
-    text: 'Свадебные платья'
-  },
-  {
-    id: 2,
-    path: 'places',
-    text: 'Площадки'
-  },
-  {
-    id: 3,
-    path: 'hosts',
-    text: 'Ведущие'
-  },
-  {
-    id: 4,
-    path: 'photo',
-    text: 'Фотографы'
-  },
-  {
-    id: 5,
-    path: 'video',
-    text: 'Видеографы'
-  },
-  {
-    id: 6,
-    path: 'music',
-    text: 'Музыканты'
-  },
-  {
-    id: 7,
-    path: 'style',
-    text: 'Стилисты'
-  },
-]
+import { useRouter } from 'next/router';
+import { useResize } from '../../../hooks/useResize';
 
 function CatalogDropDown() {
+  const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
+  const checkSize = useResize(()=>{setShow(false)});
+  
   function handleToggle() {
-    setShow(!show);
+    if (checkSize.isScreenXl || checkSize.isScreenXxl) {
+      setShow(false)
+    } else (
+      setShow(!show)
+    )
   }
 
-  function renderItems() {
-    return catalogItems.map(({ id, path, text }) => (
+  function renderItems(array: typeof BusinessTypes) {
+    return array.map(({ id, path, name }) => (
       <li key={id} className="dropdown-item">
-        <Link href={`/catalog/${path}`}>
-          {text}
+        <Link href={path}>
+          {name}
         </Link>
       </li>
     ))
   }
 
   return (
-    <li className={show ? "nav-item dropdown show" : "nav-item dropdown"} onClick={handleToggle}>
-      <Link
-        href=""
+    <li
+      className={show ? "nav-item dropdown show" : "nav-item dropdown"}
+      onClick={handleToggle}
+    >
+      <span
         aria-expanded={show ? "true" : "false"}
-        className={show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}
+        className={`m-0
+          ${router.asPath === "/catalog/places" && "active"}
+          ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}
+        `}
       >
         Каталог
-      </Link>
-      <ul className={show ? 'dropdown-menu show': 'dropdown-menu'}>
-        {renderItems()}
+      </span>
+      <ul className={`dropdown-menu ${show ? "show" : " "}`}>
+        {renderItems(BusinessTypes)}
       </ul>
     </li>
   )
