@@ -8,7 +8,7 @@ function Logo() {
     <section id="logo" className={`${styles.header__logo}`}>
       <Link href={Paths.Home}>
         <Image
-          src="/img/header/logo.png"
+          src="/img/header/logo.svg"
           width={143}
           height={33}
           alt="EventForMe"
