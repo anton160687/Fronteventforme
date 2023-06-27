@@ -1,15 +1,17 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BusinessTypes } from '@/constant';
-import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
 import { useResize } from '../../../hooks/useResize';
+import styles from '@/styles/header/Header.module.scss';
 
 function CatalogDropDown() {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
-  const checkSize = useResize(()=>{setShow(false)});
-  
+  const checkSize = useResize(() => { setShow(false) });
+// Функция для изменения состояния дропдаунменю "Каталог".
+// Состояние должно меняться только на ширине экрана менее xl
+// Для этого подключена проверка при помощи кастомного хука:
   function handleToggle() {
     if (checkSize.isScreenXl || checkSize.isScreenXxl) {
       setShow(false)
@@ -20,8 +22,11 @@ function CatalogDropDown() {
 
   function renderItems(array: typeof BusinessTypes) {
     return array.map(({ id, path, name }) => (
-      <li key={id} className="dropdown-item">
-        <Link href={path}>
+      <li key={id}>
+        <Link
+          href={path}
+          className={`${router.asPath === path ? "active" : ""} dropdown-item`}
+        >
           {name}
         </Link>
       </li>
@@ -36,13 +41,13 @@ function CatalogDropDown() {
       <span
         aria-expanded={show ? "true" : "false"}
         className={`m-0
-          ${router.asPath === "/catalog/places" && "active"}
+          ${router.asPath === "/catalog/places" ? "active" : ""}
           ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}
         `}
       >
         Каталог
       </span>
-      <ul className={`dropdown-menu ${show ? "show" : " "}`}>
+      <ul className={`${styles.header__dropdown} dropdown-menu ${show ? "show" : ""}`}>
         {renderItems(BusinessTypes)}
       </ul>
     </li>

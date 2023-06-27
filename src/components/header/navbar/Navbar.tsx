@@ -6,6 +6,7 @@ import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
 import CityInput from '../city/CityInput';
 import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
+import { useRouter } from 'next/router';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -19,22 +20,22 @@ const navigation = [
   },
   {
     id: 1,
-    path: '#',
+    path: '/#',
     text: 'Свадебные\u00A0сайты',
   },
   {
     id: 2,
-    path: '#',
+    path: '/#',
     text: 'Хештеги',
   },
   {
     id: 3,
-    path: '#',
+    path: '/#',
     text: 'Приглашения',
   },
   {
     id: 4,
-    path: '#',
+    path: '/#',
     text: 'Блог',
   }
 ];
@@ -59,11 +60,14 @@ const lkNavigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
+  const router = useRouter();
+
+  console.log(router.asPath)
 
   function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
       <li key={id} className={`nav-item ${customClass}`}>
-        <Link href={path} className={`${styles.navbar__item} nav-link`}>
+        <Link href={path} className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}>
           {text}
         </Link>
       </li>
