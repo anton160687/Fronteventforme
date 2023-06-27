@@ -150,24 +150,28 @@ export async function resetPassword(data: string) {
   let request = {
     email: data,
   };
-  try {
-    let response = await fetch(`${API}auth/users/reset_password/`, {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(request),
-    });
 
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
+  let response = await fetch(`${API}auth/users/reset_password/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
 
+  if (response.ok) {
     const result = await response.json();
     //ничего в качестве ответа
-  } catch (error) {
-    console.error('resetPassword', error);
+  } else {
+    const errorBody = await response.clone().json();
+    let errorText = '';
+
+    console.error('resetPassword', errorBody);
+
+    for (const [key, value] of Object.entries(errorBody)) {
+      errorText += `✖ ${value}` + '\n';
+    }
   }
 }
 
