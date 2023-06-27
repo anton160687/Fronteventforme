@@ -7,19 +7,21 @@ import {
 } from 'react';
 import { Form, Row } from 'react-bootstrap';
 import FileUploader from '../fileUploader/FileUploader';
-import { ADD_PLACE_NAMES } from '@/constant';
+import { ADD_PLACE_NAMES, RESTORE_IMG } from '@/constant';
 import { Album } from '@/types/placeType';
 
 type WeddingAlbumsProps = {
   index: number;
-  albums: Album[];
-  setAlbums: Dispatch<SetStateAction<Album[]>>;
+  albums: (Album | null)[];
+  setAlbums: Dispatch<SetStateAction<(Album | null)[]>>;
+  setPreviewAlbumsImg: Dispatch<SetStateAction<string[][]>>;
 };
 
 export default function WeddingAlbums({
   index,
   albums,
   setAlbums,
+  setPreviewAlbumsImg,
 }: WeddingAlbumsProps) {
   const [lettersLeft, setLettersLeft] = useState<number>(50);
   const [album, setAlbum] = useState<Album>({
@@ -27,8 +29,7 @@ export default function WeddingAlbums({
     album_img: [],
     preview_album_img: [],
   });
-  const [albumImg, setAlbumImg] = useState<string[]>([]);
-  const [previewAlbumImg, setPreviewAlbumImg] = useState<string[]>([]);
+  //const [albumImg, setAlbumImg] = useState<string[]>([]);
 
   function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
     handleChange(e);
@@ -39,15 +40,15 @@ export default function WeddingAlbums({
     setAlbum({ ...album, title: e.target.value });
   }
 
-  useEffect(() => {
-    setAlbum({
-      ...album,
-      album_img: albumImg,
-      preview_album_img: previewAlbumImg,
-    });
+  // useEffect(() => {
+  //   setAlbum({
+  //     ...album,
+  //     album_img: albumImg,
+  //     preview_album_img: previewAlbumImg,
+  //   });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [albumImg, previewAlbumImg]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [albumImg, previewAlbumImg]);
 
   //при изменении Альбома - прокидываем в общий список
   useEffect(() => {
@@ -56,6 +57,20 @@ export default function WeddingAlbums({
     setAlbums(newAlbumsArr);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [album]);
+
+  //images
+  function setAlbumImages(imageIds: string[]) {
+    setAlbum({ ...album, album_img: imageIds });
+  }
+
+  useEffect(() => {
+    const albumImages = albums.map((album) =>
+      album?.album_img !== undefined
+        ? album.album_img.map((img) => RESTORE_IMG + img)
+        : []
+    );
+    setPreviewAlbumsImg(albumImages);
+  }, [albums]);
 
   return (
     <Form.Group>
@@ -82,8 +97,8 @@ export default function WeddingAlbums({
           </Form.Label>
 
           <FileUploader
-            setGallery={setAlbumImg}
-            setPreviewGallery={setPreviewAlbumImg}
+            setGallery={setAlbumImages}
+            //setPreviewGallery={setPreviewAlbumImg}
             warning="Макс. размер файла – 10 МБ. Не более 30 фотографий. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>

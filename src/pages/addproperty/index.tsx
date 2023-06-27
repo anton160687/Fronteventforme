@@ -6,7 +6,6 @@ import {
   Col,
   Container,
   ProgressBar,
-  Alert,
 } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
@@ -155,8 +154,8 @@ function AddPropertyPage() {
   const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
   const [outregImg, setOutregImg] = useState<string[]>([]);
   // Альбомы
-  const [albums, setAlbums] = useState<Album[]>([]);
-  const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
+  const [albums, setAlbums] = useState<(Album | null)[]>([]);
+  const [albumIndexArr, setAlbumIndexArr] = useState<(number | null)[]>([1]);
 
   console.log('place', place);
   //! хуки для разных галлерей
@@ -178,24 +177,58 @@ function AddPropertyPage() {
 
   function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
-    let last = albumIndexArr[albumIndexArr.length - 1];
+    let last = albumIndexArr.length - 1;
     setAlbumIndexArr([...albumIndexArr, ++last]);
   }
 
+  function deleteAlbum(e: MouseEvent<HTMLParagraphElement>, index: number) {
+    e.preventDefault;
+    if (index !== 0) {
+      let copyIndexArray = albumIndexArr;
+      copyIndexArray[index] = null;
+      let copyAlbumsArray = albums;
+      copyAlbumsArray[index] = null;
+      setAlbumIndexArr([...copyIndexArray]);
+      setAlbums([...copyAlbumsArray]);
+    }
+  }
+
   function renderWeddingAlbum() {
-    return albumIndexArr.map((index) => (
-      <section
-        key={index}
-        id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
-        className="card card-body border-0 shadow-sm p-4 mb-4"
-      >
-        {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
-        <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
-        <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
-          <i className="fi-plus-circle me-3"></i> Добавить альбом
-        </p>
-      </section>
-    ));
+    return albumIndexArr.map((index, i) => {
+      if (index !== null) {
+        <section
+          key={index}
+          id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
+          className="card card-body border-0 shadow-sm p-4 mb-4"
+        >
+          {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
+          {!!index && (
+            <p
+              className="text-primary mb-3 cursor-pointer d-flex align-items-center"
+              onClick={(e) => deleteAlbum(e, index)}
+              style={{ width: 'fit-content' }}
+            >
+              <i className="fi-minus-circle me-3"></i> Удалить альбом
+            </p>
+          )}
+          <WeddingAlbums
+            index={index}
+            albums={albums}
+            setAlbums={setAlbums}
+            setPreviewAlbumsImg={setPreviewAlbumsImg}
+          />
+          <p
+            className="text-primary mb-3 cursor-pointer d-flex align-items-center"
+            onClick={addAlbum}
+            style={{ width: 'fit-content' }}
+          >
+            <i className="fi-plus-circle me-3"></i> Добавить альбом
+          </p>
+        </section>;
+      } else {
+        return <div key={i}>тест</div>;
+      }
+    });
   }
 
   //Progress Bar
@@ -210,8 +243,8 @@ function AddPropertyPage() {
   const [previewTerritoryImg, setPreviewTerritoryImg] = useState<string[]>([]);
   const [previewWelcomeImg, setPreviewWelcomeImg] = useState<string[]>([]);
   const [previewOutregImg, setPreviewOutregImg] = useState<string[]>([]);
-  //preview images
   const [previewAreasImg, setPreviewAreasImg] = useState<string[][]>([]);
+  const [previewAlbumsImg, setPreviewAlbumsImg] = useState<string[][]>([]);
 
   //Валидация, отправка формы
   // const [validated, setValidated] = useState(false);
@@ -383,6 +416,7 @@ function AddPropertyPage() {
         previewWelcomeImg={previewWelcomeImg}
         previewOutregImg={previewOutregImg}
         previewAreasImg={previewAreasImg}
+        previewAlbumsImg={previewAlbumsImg}
       />
     </>
   );

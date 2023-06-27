@@ -42,6 +42,7 @@ type PreviewProps = {
   previewWelcomeImg: string[];
   previewOutregImg: string[];
   previewAreasImg: string[][];
+  previewAlbumsImg: string[][];
 };
 
 function Preview({
@@ -54,6 +55,7 @@ function Preview({
   previewWelcomeImg,
   previewOutregImg,
   previewAreasImg,
+  previewAlbumsImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
   const notNullAreasImgOnly: string[][] = [];
