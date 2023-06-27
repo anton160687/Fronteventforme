@@ -1,66 +1,57 @@
 import Link from 'next/link';
-import Nav from 'react-bootstrap/Nav';
-import Dropdown from 'react-bootstrap/Dropdown';
+import { useState } from 'react';
+import { BusinessTypes } from '@/constant';
 import { useRouter } from 'next/router';
-
+import { useResize } from '../../../hooks/useResize';
+import styles from '@/styles/header/Header.module.scss';
 
 function CatalogDropDown() {
-    let path = useRouter().pathname;
-
-    const catalogItems = [
-        {
-            id: 1,
-            path: 'dresses',
-            text: 'Свадебные платья'
-        },
-        {
-            id: 2,
-            path: 'places',
-            text: 'Площадки'
-        },
-        {
-            id: 3,
-            path: 'hosts',
-            text: 'Ведущие'
-        },
-        {
-            id: 4,
-            path: 'photo',
-            text: 'Фотографы'
-        },
-        {
-            id: 5,
-            path: 'video',
-            text: 'Видеографы'
-        },
-        {
-            id: 6,
-            path: 'music',
-            text: 'Музыканты'
-        },
-        {
-            id: 7,
-            path: 'style',
-            text: 'Стилисты'
-        },
-    ]
-
-    function renderItems() {
-        return catalogItems.map(({ id, path, text }) => (
-            <Dropdown.Item key={id} as={Link} href={`/catalog/${path}`}>
-                {text}
-            </Dropdown.Item>
-        ))
-    }
-
-    return (
-        <Nav.Item as={Dropdown}>
-            <Dropdown.Toggle as={Nav.Link}>Каталог</Dropdown.Toggle>
-            <Dropdown.Menu renderOnMount>
-                {renderItems()}
-            </Dropdown.Menu>
-        </Nav.Item>
+  const router = useRouter();
+  const [show, setShow] = useState<boolean>(false);
+  const checkSize = useResize(() => { setShow(false) });
+// Функция для изменения состояния дропдаунменю "Каталог".
+// Состояние должно меняться только на ширине экрана менее xl
+// Для этого подключена проверка при помощи кастомного хука:
+  function handleToggle() {
+    if (checkSize.isScreenXl || checkSize.isScreenXxl) {
+      setShow(false)
+    } else (
+      setShow(!show)
     )
+  }
+
+  function renderItems(array: typeof BusinessTypes) {
+    return array.map(({ id, path, name }) => (
+      <li key={id}>
+        <Link
+          href={path}
+          className={`${router.asPath === path ? "active" : ""} dropdown-item`}
+        >
+          {name}
+        </Link>
+      </li>
+    ))
+  }
+
+  return (
+    <li
+      className={show ? "nav-item dropdown show" : "nav-item dropdown"}
+      onClick={handleToggle}
+    >
+      <span
+        aria-expanded={show ? "true" : "false"}
+        className={`m-0
+          ${router.asPath === "/catalog/places" ? "active" : ""}
+          ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}
+        `}
+      >
+        Каталог
+      </span>
+      <ul className={`${styles.header__dropdown} dropdown-menu ${show ? "show" : ""}`}>
+        {renderItems(BusinessTypes)}
+      </ul>
+    </li>
+  )
 }
 
 export default CatalogDropDown;

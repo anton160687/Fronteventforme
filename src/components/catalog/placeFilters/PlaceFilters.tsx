@@ -12,6 +12,7 @@ import * as options from './placeFilterOptions';
 
 function PlaceFilters() {
   const router = useRouter();
+
   const initialFilterParamsState: filterParamsType = {
     city: '',
     capacity: [],
@@ -19,10 +20,10 @@ function PlaceFilters() {
     price: [],
     territory: [],
     more: [],
-    additional: [],
   };
   const [filterParams, setFilterParams] = useState(initialFilterParamsState);
   const [city, setCity] = useState<string>('')
+  const [isResetActive, setIsResetActive] = useState<boolean>(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setCity(e.target.value);
@@ -80,8 +81,10 @@ function PlaceFilters() {
     }
     if (queryParams !== '?') {
       router.push(`/catalog/places${queryParams}`);
+      setIsResetActive(true);
     } else {
       router.push(`/catalog/places`);
+      setIsResetActive(false);
     }
   }, [filterParams])
 
@@ -161,7 +164,7 @@ function PlaceFilters() {
         <hr className={styles.catalog__dropdown_hr} />
         <Link
           onClick={handleRefresh}
-          className={styles.catalog__clear_all}
+          className={isResetActive? styles.catalog__clear_active : styles.catalog__clear_disabled}
           href='/catalog/places'>
           <i className='fi-refresh' />
           Сброс фильтров

@@ -82,18 +82,28 @@
   border-top: 40px solid #efecf3;
 }
 
-.catalog__clear_all {
+@mixin catalog__clear {
   text-decoration: none;
   display: flex;
   gap: 6px;
   align-items: center;
   background: #efecf3;
   border-radius: 8px;
-  color: $gray800;
   font-weight: 700;
   font-size: 14px;
   line-height: 150%;
   padding: 8px 27px;
+}
+.catalog__clear_disabled {
+  @include catalog__clear;
+  color: $gray600;
+  &:hover {
+    color: $gray600;
+  }
+}
+.catalog__clear_active {
+  @include catalog__clear;
+  color: $gray800;
 }
 
 .anchor__btns {

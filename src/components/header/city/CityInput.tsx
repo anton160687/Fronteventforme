@@ -1,13 +1,11 @@
 import { useEffect, useState, MouseEvent, useRef } from "react";
-import Image from 'next/image';
-import { Nav } from "react-bootstrap";
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { CITY_URL, SUG_URL, TOKEN } from "@/constant";
 import { DaDataValue, DaDataValues, Nullable } from "@/types/dadata";
 import styles from '@/styles/header/City.module.scss';
 
 
-function City(): JSX.Element {
+function CityInput() {
   const [city, setCity] = useState<string>('Москва');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
@@ -100,9 +98,9 @@ function City(): JSX.Element {
   }
 
   return (
-    <Nav.Item className={styles.city__form_container}>
+    <li className={`${styles.city__form_container} nav-item`}>
       <label className={styles.city__form}>
-        <Image className={styles.city__image} src='/img/header/pin.svg' width={18} height={21} alt="pin" />
+        <i className="fi-map-pin"/>
         <input
           className={styles.city__input}
           type='text'
@@ -119,8 +117,8 @@ function City(): JSX.Element {
           {renderClues(suggestions)}
         </div>
       }
-    </Nav.Item>
+    </li>
   )
 }
 
-export default City;
+export default CityInput;
