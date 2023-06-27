@@ -191,7 +191,11 @@ function AddPropertyPage() {
       >
         {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
         <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
-        <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
+        <p
+          className="cursor-pointer text-primary mb-3"
+          style={{ width: 'fit-content' }}
+          onClick={addAlbum}
+        >
           <i className="fi-plus-circle me-3"></i> Добавить альбом
         </p>
       </section>

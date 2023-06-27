@@ -249,7 +249,7 @@ function ProgressSideBar({
   }, [anchors]);
 
   return (
-    <div className="sticky-top pt-5">
+    <div className="sticky-top pt-5" style={{ zIndex: '3' }}>
       <h6 className="pt-5 mt-3 mb-2">{percent}% информации заполнено</h6>
       <ProgressBar
         variant="warning"
