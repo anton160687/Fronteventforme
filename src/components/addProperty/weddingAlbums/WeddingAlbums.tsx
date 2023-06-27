@@ -32,7 +32,7 @@ export default function WeddingAlbums({
 
   function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
     handleChange(e);
-    setLettersLeft(50 - e.target.value.length);
+    setLettersLeft(1000 - e.target.value.length);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -69,7 +69,7 @@ export default function WeddingAlbums({
       <Form.Control
         name="title"
         placeholder="Напишите имена молодоженов"
-        maxLength={50}
+        maxLength={1000}
         value={album.title}
         onChange={handleChangeInsideForm}
       />
@@ -84,8 +84,7 @@ export default function WeddingAlbums({
           <FileUploader
             setGallery={setAlbumImg}
             setPreviewGallery={setPreviewAlbumImg}
-            //  maxFiles={5}
-            warning="Макс. размер одного файла – 5 МБ. Всего – 25 МБ. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
+            warning="Макс. размер файла – 10 МБ. Не более 30 фотографий. Форматы: jpeg, jpg, png. Сначала загрузите главное фото."
           />
         </Form.Group>
       </Row>

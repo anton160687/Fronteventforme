@@ -47,11 +47,12 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
   return (
     <Container className="px-5">
-      {!place ?
-        <div className='w-100 h-100 d-flex justify-content-center mt-5'>
-          <Spinner className='centered' />
+      {!place ? (
+        <div className="w-100 h-100 d-flex justify-content-center mt-5">
+          <Spinner className="centered" />
         </div>
-        : <>
+      ) : (
+        <>
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
               Главная
@@ -78,9 +79,15 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
               <AnchorBtns />
               <TextDescription item={place} />
               <TextEvents events={place.event} />
-              <TextKitchen kids={place.children_kitchen} kitchens={place.kitchen} />
+              <TextKitchen
+                kids={place.children_kitchen}
+                kitchens={place.kitchen}
+              />
 
-              <PlaceAreas areas={place.areas} average_check={place.average_check} />
+              <PlaceAreas
+                areas={place.areas}
+                average_check={place.average_check}
+              />
 
               <TextDetails description={place.description} />
               <TextFeatures
@@ -133,7 +140,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
               <div id="comments" className={styles.comments__container}>
                 <YaComments id={place.id_yandex} />
               </div>
-              <LocalRating/>
+              <LocalRating />
             </Col>
 
             {/* боковой контейнер справа на странице */}
@@ -169,7 +176,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
           <Button as={Link} href="#">
             К началу страницы
           </Button>
-        </>}
+        </>
+      )}
     </Container>
   );
 }

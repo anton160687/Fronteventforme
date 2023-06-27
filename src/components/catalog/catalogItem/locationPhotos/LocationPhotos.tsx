@@ -38,7 +38,7 @@ function LocationPhotos({
               data-external-thumb-image={
                 photoUrls[0]?.image || '/img/emptyPhoto.png'
               }
-              caption="Gallery image caption"
+              caption=""
               style={{ maxWidth: '756px' }}
               light={false}
               video={false}
@@ -61,7 +61,7 @@ function LocationPhotos({
                     data-external-thumb-image={
                       photoUrls[1]?.image || '/img/emptyPhoto.png'
                     }
-                    caption="Gallery image caption"
+                    caption=""
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
@@ -78,7 +78,7 @@ function LocationPhotos({
                     data-external-thumb-image={
                       photoUrls[2]?.image || '/img/emptyPhoto.png'
                     }
-                    caption="Gallery image caption"
+                    caption=""
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
@@ -97,7 +97,7 @@ function LocationPhotos({
                     data-external-thumb-image={
                       photoUrls[3]?.image || '/img/emptyPhoto.png'
                     }
-                    caption="Gallery image caption"
+                    caption=""
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
@@ -114,7 +114,7 @@ function LocationPhotos({
                     data-external-thumb-image={
                       photoUrls[4]?.image || '/img/emptyPhoto.png'
                     }
-                    caption="Gallery image caption"
+                    caption=""
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
@@ -130,7 +130,7 @@ function LocationPhotos({
                 data-external-thumb-image={
                   photoUrls[1]?.image || '/img/emptyPhoto.png'
                 }
-                caption="Gallery image caption"
+                caption=""
                 style={{ maxWidth: '765px' }}
                 light={false}
                 video={false}

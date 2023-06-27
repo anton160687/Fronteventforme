@@ -120,8 +120,6 @@ function ProgressSideBar({
 
     //Описание площадки
     if (
-      place.location.length &&
-      place.kitchen.length &&
       place.start_time &&
       place.finish_time &&
       place.average_check &&
@@ -131,8 +129,6 @@ function ProgressSideBar({
     }
     if (
       !(
-        place.location.length &&
-        place.kitchen.length &&
         place.start_time &&
         place.finish_time &&
         place.average_check &&

@@ -158,6 +158,7 @@ function AddPropertyPage() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
 
+  console.log('place', place);
   //! хуки для разных галлерей
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
@@ -216,7 +217,11 @@ function AddPropertyPage() {
   // const [validated, setValidated] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    console.log('submit');
+
     const form = event.currentTarget;
+    console.dir('form', form);
+
     //access токены имеют очень короткий срок жизни, поэтому сначала будем отправлять refresh
     let refreshToken = localStorage.getItem(Token.Refresh);
     let isFresh = checkIfTokenIsFresh();
@@ -224,7 +229,8 @@ function AddPropertyPage() {
       let response = await authoriseUser(refreshToken);
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
-        if (form.checkValidity() && token) {
+        //form.checkValidity() &&
+        if (token) {
           // setValidated(true);
           let placeId: number = await createPlace(place, token);
           if (placeId) {
