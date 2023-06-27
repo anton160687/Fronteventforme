@@ -143,7 +143,6 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                 //maxDate={new Date(Date.now() + 3.156e10)}
                 placeholderText="Select a date"
                 className="rounded-1 pe-5"
-                readOnly
                 excludeDates={
                   [new Date(area.reserved_days)]
                   //	[  addDays(new Date(), 1),
