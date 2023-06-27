@@ -59,7 +59,7 @@ export default function SignInForm(): JSX.Element {
         setError('');
         dispatch(fetchUserDataWithThunk());
         dispatch(setRole(data.is_bride));
-        router.push('/');
+        router.push(Paths.Home);
       } else {
         setError(response);
       }
