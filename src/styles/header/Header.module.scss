@@ -65,20 +65,16 @@
   line-height: 21px !important;
 }
 
-.header__dropdown {
-  column-width: 32%;
-  column-count: 3;
-  column-gap: 2%;
-  @media (max-width: 650px) {
-    column-width: 48%;
-    column-count: 2;
-    column-gap: 4%;
-  }
-  @media (max-width: 450px) {
-    column-count: 1;
-  }
-}
-
 .navbar__item {
   color: $gray800;
+}
+
+.header__dropdown {
+  columns: 3 auto;
+  @media (max-width: 650px) {
+    columns: 2 auto;
+  }
+  @media (max-width: 450px) {
+    columns: 1 auto;
+  }
 }
