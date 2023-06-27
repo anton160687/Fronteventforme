@@ -9,6 +9,7 @@
 }
 
 .header__navbar {
+  align-items: unset !important;
   @media (max-width: 1199px) {
     width: 100%;
   }

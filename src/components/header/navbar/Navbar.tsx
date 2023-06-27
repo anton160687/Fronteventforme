@@ -7,6 +7,7 @@ import CityInput from '../city/CityInput';
 import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -61,8 +62,10 @@ const lkNavigation = [
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const user = useSelector(selectUser);
   const router = useRouter();
-
-  console.log(router.asPath)
+  const [show, setShow] = useState<boolean>(false);
+  function handleToggle () {
+    setShow(!show);
+  }
 
   function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
@@ -79,10 +82,10 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       {/* Меню для мобильных устройств */}
       <Navbar.Toggle
         aria-controls="light-navbar-nav"
+        onClick={handleToggle}
       />
 
-      <Navbar.Collapse id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2`}>
-        <ul className='navbar-nav'>
+        <ul id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2 navbar-nav navbar-collapse collapse ${show? "show": ""}`}>
           <CityInput />
           {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
           <CatalogDropDown />
@@ -93,7 +96,6 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
             renderNavigation(lkNavigation.slice(2), 'd-xl-none')
           }
         </ul>
-      </Navbar.Collapse>
     </Navbar>
   );
 }
