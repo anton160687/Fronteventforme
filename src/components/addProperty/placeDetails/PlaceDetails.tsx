@@ -146,6 +146,7 @@ function PlaceDetails({
             placeholder="100 машин"
             onChange={handleNumberChange}
             min={1}
+            max={100}
           />
         </Form.Group>
       </Row>
