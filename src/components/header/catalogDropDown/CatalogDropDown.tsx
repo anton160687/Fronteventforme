@@ -40,14 +40,11 @@ function CatalogDropDown() {
     >
       <span
         aria-expanded={show ? "true" : "false"}
-        className={`m-0
-          ${router.asPath === "/catalog/places" ? "active" : ""}
-          ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}
-        `}
+        className={`m-0 ${router.asPath === "/catalog/places" ? "active" : ""} ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}`}
       >
         Каталог
       </span>
-      <ul className={`${styles.header__dropdown} dropdown-menu ${show ? "show" : ""}`}>
+      <ul className={`dropdown-menu ${show ? "show" : ""} ${styles.header__dropdown}`}>
         {renderItems(BusinessTypes)}
       </ul>
     </li>
