@@ -480,3 +480,34 @@ export enum contextMenuTypeEnum {
   Base = 'base',
   Declined = 'declined',
 }
+
+
+//для микроразметки
+export const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "EventForMe",
+  "url": "https://eventforme.ru",
+  "logo": "https://eventforme.ru/img/header/logo.svg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ленинградский пр-т., 39 стр.14",
+    "addressLocality": "Москва",
+    "postalCode": "109028",
+    "addressCountry": "Россия"
+  },
+  "email": "info@eventforme.ru",
+  "telephone": "[+561-526-8457]",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "telephone": "[+561-526-8457]",
+    "email": "info@eventforme.ru"
+  },
+  "sameAs": [
+    "@https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0",
+    "https://ru.pinterest.com/eventformeru/",
+    "https://vk.com/msk_eventforme",
+    "https://t.me/event_for_me",
+  ]
+}
