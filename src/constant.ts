@@ -471,6 +471,7 @@ export const BusinessTypes = [
   { id: 27, name: 'Фейерверки', path: '#' },
 ];
 
+//для контекстного меню в зависимости от типа карточек (модерация, избранное и тд)
 export enum contextMenuTypeEnum {
   Published = 'published',
   Moderation = 'moderation',
@@ -480,3 +481,41 @@ export enum contextMenuTypeEnum {
   Base = 'base',
   Declined = 'declined',
 }
+
+export const BreadCrumbsLinks = {
+  Home: { link: '/', name: 'Главная' },
+  Account: { link: '/lk', name: 'ЛК' },
+  Business: { link: '/business', name: 'Бизн' },
+  Bride: { link: '/bride', name: 'Невеста' },
+  AccWishlist: { link: '/wishlist', name: 'Избр' },
+  AccHelp: { link: '/help', name: 'Пом' },
+  AccSecurity: { link: '/security', name: 'Безопасность' },
+  Catalog: { link: '/catalog', name: 'Каталог' },
+  Places: { link: '/places', name: 'Площадки' },
+  SignUp: { link: '/signup', name: 'Регистрация' },
+  SignIn: { link: '/signin', name: 'Авторизация' },
+  Renew: { link: '/renew', name: 'Восстановление пароля' },
+  TermsOfUse: { link: '/terms', name: 'Пользовательское Соглашение' },
+  PrivacyPolicy: { link: '/privacy', name: 'Политика конфиденциальности' },
+  Agreements: { link: '/agreements', name: 'Соглашения' },
+};
+
+// AccBusiness = '/lk/business',
+// AccBride = '/lk/bride',
+// AccInfo = '/',
+// AccReviews = '/reviews',
+// AccSecurity = '/security',
+// AccWishlist = '/wishlist',
+// AccNotification = '/notification',
+// AccOffers = '/offers',
+// AccHelp = '/help',
+// AccTariff = '/tariff',
+// AccPayment = '/payment',
+// AccMyBusiness = '/lk/business/my',
+// AccBusinessReviews = '/lk/business/reviews',
+// AddPlace = '/lk/business/add/place',
+// AddChoicePage = '/lk/business/add',
+// AddBusiness = '/lk/business/add/business',
+// AddProperty = '/addproperty',
+// AddContacts = '/addcontacts',
+// Success = '/lk/business/add/success',

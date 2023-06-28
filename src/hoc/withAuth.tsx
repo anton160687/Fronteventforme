@@ -3,6 +3,7 @@ import SignIn from '@/pages/signin';
 import { selectIsAuth, selectUser } from '@/store/user/userSlice';
 import { useRouter } from 'next/router';
 import { Paths } from '@/constant';
+import { useEffect } from 'react';
 
 export type WithAuthProps = {};
 
@@ -15,16 +16,22 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
     const user = useSelector(selectUser);
     const role = user?.is_bride;
 
-    if (!isAuth) {
-      return <SignIn />;
-    }
+    // if (!isAuth) {
+    //   return <SignIn />;
+    // }
 
-    if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
-      router.push(Paths.AccBride);
-    }
-    if (!role && router.pathname.substring(0, 9) === Paths.AccBride) {
-      router.push(Paths.AccBusiness);
-    }
+    useEffect(() => {
+      if (!isAuth) {
+        router.replace(Paths.SignIn);
+      } else {
+        if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
+          router.push(Paths.AccBride);
+        }
+        if (!role && router.pathname.substring(0, 9) === Paths.AccBride) {
+          router.push(Paths.AccBusiness);
+        }
+      }
+    }, [isAuth]);
 
     return <Component {...props} />;
   };

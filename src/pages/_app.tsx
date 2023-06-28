@@ -7,12 +7,12 @@ import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
 import '../styles/scss/theme.scss';
 
-
 export default function App({ Component, pageProps }: AppProps) {
-  let YA_API:string = '';
-  if (process.env.NODE_ENV ==='production') {
-    YA_API = process.env.NEXT_PUBLIC_YA_API!
+  let YA_API: string = '';
+  if (process.env.NODE_ENV === 'production') {
+    YA_API = process.env.NEXT_PUBLIC_YA_API!;
   }
+
   return (
     <Provider store={store}>
       <SSRProvider>
@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <YMaps
           query={{
             lang: 'ru_RU',
-            apikey: YA_API
+            apikey: YA_API,
           }}
         >
           <Layout>
