@@ -12,16 +12,21 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
 ) {
   const ComponentWithAuth = (props: T) => {
     const router = useRouter();
-    const isAuth = useSelector(selectIsAuth);
+    //const isAuth = useSelector(selectIsAuth);
     const user = useSelector(selectUser);
-    const role = user?.is_bride;
+    //const role = user?.is_bride;
+
+    const isAuth = true;
+    const role = false;
 
     // if (!isAuth) {
     //   return <SignIn />;
     // }
 
+    console.log('isAuth', isAuth);
+
     useEffect(() => {
-      if (!isAuth) {
+      if (!isAuth || isAuth === undefined) {
         router.replace(Paths.SignIn);
       } else {
         if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
@@ -31,7 +36,14 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
           router.push(Paths.AccBusiness);
         }
       }
-    }, [isAuth]);
+    }, [isAuth, role]);
+
+    if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
+      router.push(Paths.AccBride);
+    }
+    if (!role && router.pathname.substring(0, 9) === Paths.AccBride) {
+      router.push(Paths.AccBusiness);
+    }
 
     return <Component {...props} />;
   };

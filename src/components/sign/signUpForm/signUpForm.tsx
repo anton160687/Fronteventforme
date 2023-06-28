@@ -120,7 +120,7 @@ export default function SignUpForm({
                   onChange={handleChange}
                   pattern={EMAIL_REQUIREMENTS}
                   title={EMAIL_TITLE}
-                  isInvalid={error.length > 0 ? true : false}
+                  //isinvalid={error.length > 0 ? true : false}
                 />
                 {!error && (
                   <Form.Control.Feedback type="invalid">
@@ -149,7 +149,7 @@ export default function SignUpForm({
                   autoComplete="off"
                   className={`${error.length > 0 ? styles.invalid : ''}`}
                   //className=""
-                  isInvalid={error.length > 0 ? 'true' : 'false'}
+                  //  isinvalid={error.length > 0 ? 'true' : 'false'}
                 />
                 {!error && (
                   <Form.Control.Feedback type="invalid">

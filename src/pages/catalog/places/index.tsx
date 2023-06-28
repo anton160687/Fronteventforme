@@ -102,7 +102,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? getQueryParamsWithoutParam(query, 'ordering')
       : '';
 
-  const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
+  const API =
+    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   const getPlacesURL = queryParams
     ? `${API}catalog/places/${queryParams}`

@@ -11,18 +11,9 @@ const findName = (link: string) => {
   );
 
   console.log('title', title);
-  console.log('link', link);
   if (title !== undefined && title) return title.name;
-  else return 'not found';
+  else return 'Не найдено';
 };
-
-// const _defaultGetTextGenerator = (
-//   param: string,
-//   query: ParsedUrlQuery
-// ): string => {
-//   return findName(param);
-// };
-// const _defaultGetDefaultTextGenerator = (path: string) => path;
 
 const getTextGenerator = (param: string) => {
   return findName(param);
@@ -37,11 +28,8 @@ const generatePathParts = (pathStr: string) => {
 
 function NextBreadcrumbs() {
   const router = useRouter();
+
   console.log('router', router);
-
-  //const getTextGenerator = _defaultGetTextGenerator;
-  //const getDefaultTextGenerator = _defaultGetDefaultTextGenerator;
-
   const breadcrumbs = useMemo(
     function generateBreadcrumbs() {
       const asPathNestedRoutes = generatePathParts(router.asPath);
@@ -50,12 +38,17 @@ function NextBreadcrumbs() {
       // Iterate over the list of nested route parts and build a "crumb" object for each one.
       const crumblist = asPathNestedRoutes.map((subpath, idx) => {
         // Pull out and convert "[post_id]" into "post_id"
-        const param = pathnameNestedRoutes[idx]
-          .replace('[', '')
-          .replace(']', '');
+        // const param = pathnameNestedRoutes[idx]
+        //   ?.replace('[', '')
+        //   ?.replace(']', '');
+        const param = asPathNestedRoutes[idx]
+          ?.replace('[', '')
+          ?.replace(']', '');
         // We can get the partial nested route for the crumb
         // by joining together the path parts up to this point.
         const href = '/' + asPathNestedRoutes.slice(0, idx + 1).join('/');
+        console.log('param', param);
+        console.log('href', href);
 
         // The nested route param'eter and all associated query values (router.query) are passed to a provided getTextGenerator which will return either a null value or a Promise` response that should return the dynamic string to use in the associated breadcrumb.
         return {
@@ -77,8 +70,8 @@ function NextBreadcrumbs() {
     [
       router.asPath,
       router.pathname,
-      router.query,
-      getTextGenerator,
+      // router.query,
+      //  getTextGenerator,
       // getDefaultTextGenerator,
     ]
   );
@@ -103,41 +96,18 @@ type CrumbProps = {
 function Crumb({ text: defaultText, href, last = false }: CrumbProps) {
   const [text, setText] = useState(defaultText);
 
-  // useEffect(() => {
-  //   // If `textGenerator` is nonexistent, then don't do anything
-  //   if (!Boolean(textGenerator)) {
-  //     return;
-  //   }
-  //   // Run the text generator and set the text again
-  //   const finalText = textGenerator!;
-  //   setText(finalText);
-  // }, [textGenerator]);
-
-  // useEffect(async () => {
-  //   // If `textGenerator` is nonexistent, then don't do anything
-  //   if (!Boolean(textGenerator)) {
-  //     return;
-  //   }
-  //   // Run the text generator and set the text again
-  //   const finalText = await textGenerator();
-  //   setText(finalText);
-  // }, [textGenerator]);
-
-  // useEffect(() => {
-  //   if (!Boolean(textGenerator)) return setText(defaultText);
-
-  //   async function fetchData() {
-  //     const currText = await textGenerator();
-  //     setText(currText);
-  //   }
-
-  //   fetchData();
-  // }, [defaultText, textGenerator]);
+  useEffect(() => {
+    setText(defaultText);
+  }, [defaultText]);
 
   return (
-    <Breadcrumb.Item linkAs={Link} href={href} active={last}>
-      {text}
-    </Breadcrumb.Item>
+    <>
+      {text && (
+        <Breadcrumb.Item linkAs={Link} href={href} active={last}>
+          {text}
+        </Breadcrumb.Item>
+      )}
+    </>
   );
 }
 
