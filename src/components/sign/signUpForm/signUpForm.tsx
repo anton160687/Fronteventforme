@@ -23,6 +23,7 @@ import styles from '@/styles/sign/Sign.module.scss';
 import { CreateUserData } from '@/types/forms';
 import { createUser } from '@/store/user/userAPI';
 import Error from '../error/Error';
+import router from 'next/router';
 
 type SignUpFormProps = {
   signUpForm: boolean;
@@ -54,7 +55,9 @@ export default function SignUpForm({
         setError('');
         setSignUpIsDone(true);
       } else {
-        setError(response);
+        if (response.includes('Пользователь с таким Email уже существует.'))
+          router.push(Paths.Renew);
+        else setError(response);
       }
     }
   }
