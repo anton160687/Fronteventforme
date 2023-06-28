@@ -9,8 +9,8 @@ import '../styles/scss/theme.scss';
 
 
 export default function App({ Component, pageProps }: AppProps) {
-  let YA_API:string = '';
-  if (process.env.NODE_ENV ==='production') {
+  let YA_API: string = '';
+  if (process.env.NODE_ENV === 'production') {
     YA_API = process.env.NEXT_PUBLIC_YA_API!
   }
   return (
@@ -22,6 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="description" content="" />
           <meta name="keywords" content="" />
           <meta name="author" content="Event4Me" />
+          {/* заголовок для запрета индексации. Убрать на продакшене */}
+          <meta name="robots" content="noindex" />
           {/* эта строка позволяет обращаться к API на http, не https  */}
           {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta> */}
           {/* <link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
