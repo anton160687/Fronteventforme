@@ -33,12 +33,12 @@ function Footer() {
 
   function renderСol(column: FooterType) {
     return (
-      <nav className={styles.footer__column_nav}>
-        <h2 className={styles.footer__column_title}>{column.title}</h2>
+      <nav className={styles.footer__column_nav} itemScope itemType="https://schema.org/SiteNavigationElement">
+        <h2 className={styles.footer__column_title} itemProp="name">{column.title}</h2>
         <ul className={styles.footer__column_list}>
           {column.data.map(({ id, url, name }) => (
-            <li className="mb-2" key={id}>
-              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`}>
+            <li className="mb-2" key={id} itemProp="name">
+              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`} itemProp="url">
                 {name}
               </Link>
             </li>
@@ -49,18 +49,21 @@ function Footer() {
   }
 
   return (
-    <footer className="footer bg-secondary mt-5">
+    <footer className="footer bg-secondary mt-5" itemScope itemType="http://schema.org/WPFooter">
       <Container className={styles.footer__container}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
-            <section id="footer_logo" className={`${styles.footer__logo} mb-4`}>
-              <Link href="/" className="d-block mb-4" >
+            <section className={`${styles.footer__logo} mb-4`} itemScope itemType="http://schema.org/Organization">
+              <meta itemProp="name" content="EventForMe"/>
+              <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14"/>
+              <Link href="https://eventforme.ru/" className="d-block mb-4" itemProp="url">
                 <Image
                   src="/img/header/logo.svg"
                   width={143}
                   height={33}
                   alt="EventForMe"
                   title="Компания EventForMe"
+                  itemProp="logo"
                 />
               </Link>
               <ul className={styles.footer__contacts}>
@@ -68,6 +71,7 @@ function Footer() {
                   <Link
                     href="mailto:info@eventforme.ru"
                     className="p-0 fw-normal nav-link"
+                    itemProp="email"
                   >
                     <i className="fi-mail me-2 align-middle opacity-70"></i>info@eventforme.ru
                   </Link>
@@ -76,6 +80,7 @@ function Footer() {
                   <Link
                     href="tel:4065550120"
                     className="p-0 fw-normal nav-link"
+                    itemProp="telephone"
                   >
                     <i className="fi-device-mobile me-2 align-middle opacity-70"></i>
                     (406) 555-0120
@@ -113,11 +118,15 @@ function Footer() {
         </Row>
         {/* Copyright */}
         <Row id="footer_copyright" className={styles.footer__copyright}>
-          <section>© EventForMe, 2023</section>
-          <nav className={styles.footer__conditions}>
+          <section>©<span itemProp="copyrightHolder">EventForMe</span>, <span itemProp="copyrightYear">2023</span></section>
+          <nav className={styles.footer__conditions} itemScope itemType="https://schema.org/SiteNavigationElement">
             <ul className={styles.footer__conditions_list} >
-              <li><Link href="#" className={styles.footer__conditions_link}>Условия пользования</Link></li>
-              <li><Link href="#" className={styles.footer__conditions_link}>Политика конфиденциальности</Link></li>
+              <li itemProp="name">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url">Условия пользования</Link>
+              </li>
+              <li itemProp="name">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url">Политика конфиденциальности</Link>
+              </li>
             </ul>
           </nav>
         </Row>
