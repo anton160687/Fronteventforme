@@ -4,22 +4,39 @@ import { selectUser } from '@/store/user/userSlice';
 import Link from 'next/link';
 import LkNavigationLogout from './LKNaviagtionLogout';
 import LKNavigationCard from './LKNavigationCard';
-import { Container, Spinner, Row, Col, Breadcrumb, Button, Collapse } from 'react-bootstrap';
-import { LKBusinessSections, LKBrideSections, LKSectionsTitles, Paths } from '@/constant';
+import {
+  Container,
+  Spinner,
+  Row,
+  Col,
+  Breadcrumb,
+  Button,
+  Collapse,
+} from 'react-bootstrap';
+import {
+  LKBusinessSections,
+  LKBrideSections,
+  LKSectionsTitles,
+  Paths,
+} from '@/constant';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
 import Image from 'next/image';
+import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 type LKNavigationProps = {
   accountPageTitle?: string;
   children?: JSX.Element;
 };
 
-function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.Element {
+function LKNavigation({
+  accountPageTitle,
+  children,
+}: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
- 
+
   function renderLKNavbar(lkSections: LkSectionsType[]) {
     return lkSections.map(({ id, title, path, icon }) => (
       <LKNavigationCard
@@ -29,18 +46,19 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
         active={accountPageTitle === title ? true : false}
         text={title}
       />
-    ))
+    ));
   }
 
   return (
     <Container>
-      {user.is_bride === undefined ?
-        <div className='w-100 h-100 d-flex justify-content-center mt-5'>
-          <Spinner className='centered' />
+      {user.is_bride === undefined ? (
+        <div className="w-100 h-100 d-flex justify-content-center mt-5">
+          <Spinner className="centered" />
         </div>
-        :
+      ) : (
         <section className="pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
-          <Breadcrumb className="mb-4 pt-md-3">
+          <CustomBreadCrumbs />
+          {/* <Breadcrumb className="mb-4 pt-md-3">
             <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
               Главная
             </Breadcrumb.Item>
@@ -54,7 +72,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
             {accountPageTitle && (
               <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
             )}
-          </Breadcrumb>
+          </Breadcrumb> */}
 
           <Row>
             {/* Sidebar (Account nav) */}
@@ -68,7 +86,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                       width={48}
                       height={48}
                       alt={`${user.username || 'Имя Фамилия'}`}
-                      className='rounded'
+                      className="rounded"
                     />
                   </Col>
                   <Col lg={9} className="p-0 ps-1">
@@ -107,12 +125,14 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 <Button
                   // @ts-ignore: bootstrap bag*
                   as={Link}
-                  href={!user.is_bride ? "/lk/business/add" : "#"}
+                  href={!user.is_bride ? '/lk/business/add' : '#'}
                   size="lg"
                   className="w-100 mb-4"
                 >
                   <i className="fi-plus me-2"></i>
-                  {!user.is_bride ? "Добавить бизнес" : "Начать планирование свадьбы"}
+                  {!user.is_bride
+                    ? 'Добавить бизнес'
+                    : 'Начать планирование свадьбы'}
                 </Button>
 
                 <Button
@@ -128,12 +148,10 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
                 <Collapse in={open} className="d-lg-block">
                   <div id="account-menu">
                     <nav className="card-nav pt-3">
-                      {user.is_bride ?
-                        renderLKNavbar(LKBrideSections)
-                        :
-                        renderLKNavbar(LKBusinessSections)
-                      }
-                      < LkNavigationLogout />
+                      {user.is_bride
+                        ? renderLKNavbar(LKBrideSections)
+                        : renderLKNavbar(LKBusinessSections)}
+                      <LkNavigationLogout />
                     </nav>
                   </div>
                 </Collapse>
@@ -151,8 +169,7 @@ function LKNavigation({ accountPageTitle, children }: LKNavigationProps): JSX.El
             </Col>
           </Row>
         </section>
-      }
-
+      )}
     </Container>
   );
 }

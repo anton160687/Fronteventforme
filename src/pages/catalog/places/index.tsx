@@ -45,7 +45,7 @@ function CatalogPlaces({
 
   return (
     <Container className="px-5">
-      <Breadcrumb className="breadcrumb">
+      {/* <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
         </Breadcrumb.Item>
@@ -53,7 +53,7 @@ function CatalogPlaces({
           Каталог
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
-      </Breadcrumb>
+      </Breadcrumb> */}
 
       <Row className="p-0">
         <Title title={'Площадки'} quantity={totalCount} />
@@ -102,7 +102,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? getQueryParamsWithoutParam(query, 'ordering')
       : '';
 
-  const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
+  const API =
+    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   const getPlacesURL = queryParams
     ? `${API}catalog/places/${queryParams}`

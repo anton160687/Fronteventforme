@@ -26,6 +26,7 @@ import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/Album
 import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
+import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -49,11 +50,18 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
     <Container className="px-5">
       {!place ? (
         <div className="w-100 h-100 d-flex justify-content-center mt-5">
+          {/* Даша, пока тебе для примера - можешь посмотреть, как будут работать динамические крошки, например на странице /places/1 */}
+          <CustomBreadCrumbs
+            dynamicBreadCrumbTitle={'kfdkjdkjf'}
+          ></CustomBreadCrumbs>
           <Spinner className="centered" />
         </div>
       ) : (
         <>
-          <Breadcrumb className="breadcrumb">
+          <CustomBreadCrumbs
+            dynamicBreadCrumbTitle={'kfdkjdkjf'}
+          ></CustomBreadCrumbs>
+          {/* <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
               Главная
             </Breadcrumb.Item>
@@ -64,7 +72,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
               Площадки
             </Breadcrumb.Item>
             <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
           <LocationPhotos photoUrls={place.images_place} title={place.title} />
           {/* общий контейнер страницы на все блоки под верхними фото */}
           <Row className={styles.main__container}>
