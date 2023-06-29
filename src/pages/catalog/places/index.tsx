@@ -44,8 +44,9 @@ function CatalogPlaces({
   }
 
   return (
-    <Container className="px-5">
-      {/* <Breadcrumb className="breadcrumb">
+    <main>
+      <Container className="px-5">
+        {/* <Breadcrumb className="breadcrumb">
         <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
           Главная
         </Breadcrumb.Item>
@@ -55,32 +56,33 @@ function CatalogPlaces({
         <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
       </Breadcrumb> */}
 
-      <Row className="p-0">
-        <Title title={'Площадки'} quantity={totalCount} />
-        <PlaceTypesSlider />
-        <PlaceFilters />
-      </Row>
+        <Row className="p-0">
+          <Title title={'Площадки'} quantity={totalCount} />
+          <PlaceTypesSlider />
+          <PlaceFilters />
+        </Row>
 
-      <Row>
-        <Sidebar />
-        <Col className="ms-lg-4 p-0">
-          <Sorting query={queryParamsWithoutSorting} />
+        <Row>
+          <Sidebar />
+          <Col className="ms-lg-4 p-0">
+            <Sorting query={queryParamsWithoutSorting} />
 
-          {renderAllPlaces(places)}
+            {renderAllPlaces(places)}
 
-          {/* Пагинация */}
-          <PaginationBar
-            currentPage={currentPage}
-            totalCount={totalCount}
-            siblingCount={1}
-            pageSize={8}
-            query={queryParamsWithoutPagination}
-          />
-        </Col>
-      </Row>
+            {/* Пагинация */}
+            <PaginationBar
+              currentPage={currentPage}
+              totalCount={totalCount}
+              siblingCount={1}
+              pageSize={8}
+              query={queryParamsWithoutPagination}
+            />
+          </Col>
+        </Row>
 
-      <BotomFilters />
-    </Container>
+        <BotomFilters />
+      </Container>
+    </main>
   );
 }
 

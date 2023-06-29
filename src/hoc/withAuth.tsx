@@ -17,7 +17,7 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
 
     //временно, для ускорения процесса кода ревью)
     const isAuth = true;
-    const role = true;
+    const role = false;
 
     if (!isAuth) {
       return <SignIn />;

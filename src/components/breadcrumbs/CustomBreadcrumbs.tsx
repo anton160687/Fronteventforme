@@ -1,5 +1,5 @@
 import { BreadCrumbsLinks } from '@/constant';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Breadcrumb } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -27,50 +27,68 @@ const getTextGenerator = (link: string) => {
 function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
   const router = useRouter();
 
-  const breadcrumbs = useMemo(
-    function generateBreadcrumbs() {
-      const pathNestedRoutes = generatePathParts(router.asPath);
+  function generateBreadcrumbs() {
+    const pathNestedRoutes = generatePathParts(router.asPath);
 
-      // Создаем одну крошу
-      const crumblist = pathNestedRoutes.map((subpath, idx) => {
-        // Ссылка до каждой хлебной крошки
-        const href = '/' + pathNestedRoutes.slice(0, idx + 1).join('/');
+    // Создаем одну крошу
+    const crumblist = pathNestedRoutes.map((subpath, idx) => {
+      // Ссылка до каждой хлебной крошки
+      const href = '/' + pathNestedRoutes.slice(0, idx + 1).join('/');
 
-        if (
-          dynamicBreadCrumbTitle !== undefined &&
-          idx === pathNestedRoutes.length - 1
-        ) {
-          return {
-            href,
-            text: dynamicBreadCrumbTitle,
-          };
-        }
-
+      if (
+        dynamicBreadCrumbTitle !== undefined &&
+        idx === pathNestedRoutes.length - 1
+      ) {
         return {
           href,
-          text: getTextGenerator(subpath),
+          text: dynamicBreadCrumbTitle,
         };
-      });
+      }
 
-      // Дефолтная ссылка на Главную
-      return [
-        {
-          href: BreadCrumbsLinks.Home.link,
-          text: BreadCrumbsLinks.Home.name,
-        },
-        ...crumblist,
-      ];
-    },
+      const title = getTextGenerator(subpath);
+
+      return {
+        href,
+        text: title,
+      };
+    });
+
+    const crumblistWithoutNull = crumblist.filter(
+      (crumb) => crumb.text.length > 0
+    );
+    // Дефолтная ссылка на Главную
+    return [
+      {
+        href: BreadCrumbsLinks.Home.link,
+        text: BreadCrumbsLinks.Home.name,
+      },
+      ...crumblistWithoutNull,
+    ];
+  }
+
+  const breadcrumbs = useMemo(
+    () => generateBreadcrumbs(),
     [dynamicBreadCrumbTitle, router.asPath]
   );
 
   return (
     <>
-      <Breadcrumb className="mb-4 pt-md-3">
-        {breadcrumbs.map((crumb, idx) => (
-          <Crumb {...crumb} key={idx} last={idx === breadcrumbs.length - 1} />
-        ))}
-      </Breadcrumb>
+      <nav aria-label="breadcrumb" className="mb-4pt-md-3">
+        <ol
+          className="breadcrumb"
+          itemScope
+          itemType="https://schema.org/BreadcrumbList"
+        >
+          {breadcrumbs.map((crumb, idx) => (
+            <Crumb
+              {...crumb}
+              index={idx}
+              key={idx}
+              last={idx === breadcrumbs.length - 1}
+            />
+          ))}
+        </ol>
+      </nav>
     </>
   );
 }
@@ -81,9 +99,10 @@ type CrumbProps = {
   text: string;
   href: string;
   last: boolean;
+  index: number;
 };
 
-function Crumb({ text: defaultText, href, last = false }: CrumbProps) {
+function Crumb({ text: defaultText, href, last = false, index }: CrumbProps) {
   const [text, setText] = useState(defaultText);
 
   useEffect(() => {
@@ -92,10 +111,28 @@ function Crumb({ text: defaultText, href, last = false }: CrumbProps) {
 
   return (
     <>
-      {text && (
-        <Breadcrumb.Item linkAs={Link} href={href} active={last}>
-          {text}
-        </Breadcrumb.Item>
+      {last ? (
+        <li
+          className="breadcrumb-item active"
+          itemProp="itemListElement"
+          itemScope
+          itemType="https://schema.org/ListItem"
+        >
+          <span itemProp="name">{text}</span>
+          <meta itemProp="position" content={`${index + 1}`} />
+        </li>
+      ) : (
+        <li
+          className="breadcrumb-item"
+          itemProp="itemListElement"
+          itemScope
+          itemType="https://schema.org/ListItem"
+        >
+          <a href={href} itemProp="url">
+            <span itemProp="name">{text}</span>
+          </a>
+          <meta itemProp="position" content={`${index + 1}`} />
+        </li>
       )}
     </>
   );
