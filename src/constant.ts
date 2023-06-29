@@ -181,6 +181,7 @@ export enum FormFields {
 
 // для футера
 export type FooterType = {
+  id: number;
   title: string;
   data: {
     id: number;
@@ -190,6 +191,7 @@ export type FooterType = {
 };
 
 export const SERVICES: FooterType = {
+  id: 1,
   title: 'Услуги',
   data: [
     {
@@ -225,6 +227,7 @@ export const SERVICES: FooterType = {
   ],
 };
 export const PAGES: FooterType = {
+  id: 2,
   title: 'Страницы',
   data: [
     {
@@ -260,6 +263,7 @@ export const PAGES: FooterType = {
   ],
 };
 export const PLACES: FooterType = {
+  id: 3,
   title: 'Площадки',
   data: [
     {
@@ -295,6 +299,7 @@ export const PLACES: FooterType = {
   ],
 };
 export const ACTORS: FooterType = {
+  id: 4,
   title: 'Исполнители',
   data: [
     {
@@ -482,32 +487,74 @@ export enum contextMenuTypeEnum {
 }
 
 
-//для микроразметки
+//JSON-LD
+function renderJSONLD(obj: FooterType) {
+  let result: {
+    "@type": string;
+    "@id": string;
+    name: string[];
+    url: string[];
+  } = {
+    "@type": "SiteNavigationElement",
+    "@id": "",
+    "name": [],
+    "url": [],
+  }
+  result["@id"] = `/#footerNavCol${obj.id}`;
+  result["name"].push(obj.title);
+  obj.data.forEach(datael => {
+    result["name"].push(datael.name);
+    result["url"].push(datael.url);
+  });
+  return result;
+}
+
 export const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "EventForMe",
-  "url": "https://eventforme.ru",
-  "logo": "https://eventforme.ru/img/header/logo.svg",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Ленинградский пр-т., 39 стр.14",
-    "addressLocality": "Москва",
-    "postalCode": "109028",
-    "addressCountry": "Россия"
-  },
-  "email": "info@eventforme.ru",
-  "telephone": "[+561-526-8457]",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer support",
-    "telephone": "[+561-526-8457]",
-    "email": "info@eventforme.ru"
-  },
-  "sameAs": [
-    "@https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0",
-    "https://ru.pinterest.com/eventformeru/",
-    "https://vk.com/msk_eventforme",
-    "https://t.me/event_for_me",
+  "@context": "http://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "EventForMe",
+      "@id": "https://eventforme.ru",
+      "url": "https://eventforme.ru",
+      "logo": "https://eventforme.ru/img/header/logo.svg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ленинградский пр-т., 39 стр.14",
+        "addressLocality": "Москва",
+        "postalCode": "109028",
+        "addressCountry": "Россия"
+      },
+      "email": "info@eventforme.ru",
+      "telephone": "[+561-526-8457]",
+      "sameAs": [
+        "@https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0",
+        "https://ru.pinterest.com/eventformeru/",
+        "https://vk.com/msk_eventforme",
+        "https://t.me/event_for_me",
+      ]
+    },
+    {
+      "@type": "WPFooter",
+      "@id": "/#footer",
+      "copyrightHolder": "EventForMe",
+      "copyrightYear": "2023",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavBtn",
+      "name": "Хочу в каталог",
+      "url": Paths.AddChoicePage
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavConditions",
+      "name": ["Условия пользования", "Политика конфиденциальности"],
+      "url": [Paths.TermsOfUse, Paths.PrivacyPolicy],
+    },
+    renderJSONLD(SERVICES),
+    renderJSONLD(PAGES),
+    renderJSONLD(PLACES),
+    renderJSONLD(ACTORS),
   ]
 }

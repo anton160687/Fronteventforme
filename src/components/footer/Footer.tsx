@@ -33,7 +33,13 @@ function Footer() {
 
   function renderСol(column: FooterType) {
     return (
-      <nav className={styles.footer__column_nav} itemScope itemType="https://schema.org/SiteNavigationElement">
+      <nav
+        id={`footerNavCol${column.id}`}
+        className={styles.footer__column_nav}
+        itemScope
+        itemType="https://schema.org/SiteNavigationElement"
+        itemID={`/#footerNavCol${column.id}`}
+      >
         <h2 className={styles.footer__column_title} itemProp="name">{column.title}</h2>
         <ul className={styles.footer__column_list}>
           {column.data.map(({ id, url, name }) => (
@@ -49,14 +55,24 @@ function Footer() {
   }
 
   return (
-    <footer className="footer bg-secondary mt-5" itemScope itemType="http://schema.org/WPFooter">
+    <footer id="footer"
+      className="footer bg-secondary mt-5"
+      itemScope
+      itemType="http://schema.org/WPFooter"
+      itemID="/#footer"
+    >
       <Container className={styles.footer__container}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
-            <section className={`${styles.footer__logo} mb-4`} itemScope itemType="http://schema.org/Organization">
-              <meta itemProp="name" content="EventForMe"/>
-              <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14"/>
-              <Link href="https://eventforme.ru/" className="d-block mb-4" itemProp="url">
+            <section
+              className={`${styles.footer__logo} mb-4`}
+              itemScope
+              itemType="http://schema.org/Organization"
+              itemID="https://eventforme.ru"
+            >
+              <meta itemProp="name" content="EventForMe" />
+              <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14" />
+              <Link href="https://eventforme.ru" className="d-block mb-4" itemProp="url">
                 <Image
                   src="/img/header/logo.svg"
                   width={143}
@@ -105,13 +121,20 @@ function Footer() {
           </Col>
           <Col className={styles.footer__column}>
             {renderСol(ACTORS)}
-            <nav>
+            <nav
+              id="footerNavBtn"
+              itemScope
+              itemType="https://schema.org/SiteNavigationElement"
+              itemID={`/#footerNavBtn`}
+            >
               <Button
                 // @ts-ignore: bootstrap bag*
                 as={Link}
                 href={Paths.AddChoicePage}
-                className={styles.footer__catalog_btn}>
-                Хочу в каталог
+                className={styles.footer__catalog_btn}
+                itemProp="url"
+              >
+                <span itemProp="name">Хочу в каталог</span>
               </Button>
             </nav>
           </Col>
@@ -119,7 +142,12 @@ function Footer() {
         {/* Copyright */}
         <Row id="footer_copyright" className={styles.footer__copyright}>
           <section>©<span itemProp="copyrightHolder">EventForMe</span>, <span itemProp="copyrightYear">2023</span></section>
-          <nav className={styles.footer__conditions} itemScope itemType="https://schema.org/SiteNavigationElement">
+          <nav className={styles.footer__conditions}
+            id="footerNavConditions"
+            itemScope
+            itemType="https://schema.org/SiteNavigationElement"
+            itemID="/#footerNavConditions"
+          >
             <ul className={styles.footer__conditions_list} >
               <li itemProp="name">
                 <Link href="#" className={styles.footer__conditions_link} itemProp="url">Условия пользования</Link>
