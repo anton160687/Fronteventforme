@@ -10,9 +10,10 @@ function LoginButton() {
       as={Link}
       href={Paths.SignIn}
       className={styles.header__logbtn}
+      itemProp="url"
     >
         <i className='fi-user' />
-        <span>Вход</span>
+        <span itemProp="name">Вход</span>
       </Button>
   );
 }

@@ -41,11 +41,11 @@ function Footer() {
         itemID={`/#footerNavCol${column.id}`}
       >
         <h2 className={styles.footer__column_title} itemProp="name">{column.title}</h2>
-        <ul className={styles.footer__column_list}>
+        <ul className={styles.footer__column_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
           {column.data.map(({ id, url, name }) => (
-            <li className="mb-2" key={id} itemProp="name">
+            <li className="mb-2" key={id} itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
               <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`} itemProp="url">
-                {name}
+                <span itemProp="name">{name}</span>
               </Link>
             </li>
           ))}
@@ -148,12 +148,12 @@ function Footer() {
             itemType="https://schema.org/SiteNavigationElement"
             itemID="/#footerNavConditions"
           >
-            <ul className={styles.footer__conditions_list} >
-              <li itemProp="name">
-                <Link href="#" className={styles.footer__conditions_link} itemProp="url">Условия пользования</Link>
+            <ul className={styles.footer__conditions_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
+              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Условия пользования</span></Link>
               </li>
-              <li itemProp="name">
-                <Link href="#" className={styles.footer__conditions_link} itemProp="url">Политика конфиденциальности</Link>
+              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Политика конфиденциальности</span></Link>
               </li>
             </ul>
           </nav>

@@ -489,22 +489,39 @@ export enum contextMenuTypeEnum {
 
 //JSON-LD
 function renderJSONLD(obj: FooterType) {
-  let result: {
+  type TRes = {
     "@type": string;
     "@id": string;
-    name: string[];
-    url: string[];
-  } = {
+    "name": string;
+    "about": {
+      "@type": string,
+      "itemListElement": ({
+        "@type": string;
+        "name": string;
+        "url": string;
+      }[])
+    }
+  }
+
+  let result: TRes = {
     "@type": "SiteNavigationElement",
     "@id": "",
-    "name": [],
-    "url": [],
-  }
+    "name": "",
+    "about": {
+      "@type": "ItemList",
+      "itemListElement": []
+    }
+  };
+
   result["@id"] = `/#footerNavCol${obj.id}`;
-  result["name"].push(obj.title);
+  result["name"] = obj.title;
   obj.data.forEach(datael => {
-    result["name"].push(datael.name);
-    result["url"].push(datael.url);
+    let item = {
+      "@type": "ItemList",
+      "name": datael.name,
+      "url": datael.url,
+    }
+    result.about["itemListElement"].push(item);
   });
   return result;
 }
@@ -535,26 +552,67 @@ export const schemaData = {
       ]
     },
     {
+      "@type": "WPHeader",
+      "@id": "/#header",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#headerNavAuth",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Вход",
+            "url": Paths.SignIn,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Регистрация",
+            "url": Paths.SignUp,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Личный кабинет",
+            "url": Paths.Account,
+          },
+        ]
+      }
+    },
+    {
       "@type": "WPFooter",
       "@id": "/#footer",
       "copyrightHolder": "EventForMe",
       "copyrightYear": "2023",
     },
-    {
-      "@type": "SiteNavigationElement",
-      "@id": "/#footerNavBtn",
-      "name": "Хочу в каталог",
-      "url": Paths.AddChoicePage
-    },
-    {
-      "@type": "SiteNavigationElement",
-      "@id": "/#footerNavConditions",
-      "name": ["Условия пользования", "Политика конфиденциальности"],
-      "url": [Paths.TermsOfUse, Paths.PrivacyPolicy],
-    },
     renderJSONLD(SERVICES),
     renderJSONLD(PAGES),
     renderJSONLD(PLACES),
     renderJSONLD(ACTORS),
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavBtn",
+      "name": "Хочу в каталог",
+      "url": Paths.AddChoicePage,
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavConditions",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Условия пользования",
+            "url": Paths.TermsOfUse,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Политика конфиденциальности",
+            "url": Paths.PrivacyPolicy,
+          },
+        ]
+      }
+    },
   ]
 }
