@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
 import Link from 'next/link';
@@ -22,19 +22,24 @@ import {
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
 import Image from 'next/image';
+import BreadcrumbsMediator from '@/components/breadCrumbs/Mediator';
+import bread from '@/hoc/bread';
 
 type LKNavigationProps = {
   accountPageTitle?: string;
   children?: JSX.Element;
+  setDynamicBreadcrumb: Dispatch<SetStateAction<string>>;
 };
 
 function LKNavigation({
   accountPageTitle,
   children,
+  setDynamicBreadcrumb,
 }: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
+  setDynamicBreadcrumb('dkfjjnvkjdnjkf');
 
   function renderLKNavbar(lkSections: LkSectionsType[]) {
     return lkSections.map(({ id, title, path, icon }) => (
@@ -172,4 +177,4 @@ function LKNavigation({
   );
 }
 
-export default LKNavigation;
+export default bread(LKNavigation);

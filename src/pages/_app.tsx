@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
 import '../styles/scss/theme.scss';
+import { Breadcrumb } from 'react-bootstrap';
+import NextBreadcrumbs from '@/components/breadCrumbs/BreadCrumbs';
 
 export default function App({ Component, pageProps }: AppProps) {
   let YA_API: string = '';
@@ -39,6 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         >
           <Layout>
+            <NextBreadcrumbs />
             <main>
               <Component {...pageProps} />
             </main>

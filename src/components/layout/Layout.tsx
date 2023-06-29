@@ -9,7 +9,6 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <div>
       <Header />
-      <Breadcrumbs />
       {children}
       <Footer />
     </div>

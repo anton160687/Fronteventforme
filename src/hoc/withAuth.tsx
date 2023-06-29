@@ -19,24 +19,9 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
     const isAuth = true;
     const role = false;
 
-    // if (!isAuth) {
-    //   return <SignIn />;
-    // }
-
-    console.log('isAuth', isAuth);
-
-    useEffect(() => {
-      if (!isAuth || isAuth === undefined) {
-        router.replace(Paths.SignIn);
-      } else {
-        if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
-          router.push(Paths.AccBride);
-        }
-        if (!role && router.pathname.substring(0, 9) === Paths.AccBride) {
-          router.push(Paths.AccBusiness);
-        }
-      }
-    }, [isAuth, role]);
+    if (!isAuth) {
+      return <SignIn />;
+    }
 
     if (role && router.pathname.substring(0, 12) === Paths.AccBusiness) {
       router.push(Paths.AccBride);

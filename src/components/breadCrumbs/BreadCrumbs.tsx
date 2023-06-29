@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Breadcrumb } from 'react-bootstrap';
+import BreadcrumbsMediator from './Mediator';
 
 const findName = (link: string) => {
   const title = Object.values(BreadCrumbsLinks).find(
@@ -26,10 +27,18 @@ const generatePathParts = (pathStr: string) => {
   return pathWithoutQuery.split('/').filter((v) => v.length > 0);
 };
 
-function NextBreadcrumbs() {
+type NextBreadcrumbsProps = {
+  isShown: boolean;
+  dynamicBreadcrumb: string;
+};
+
+function NextBreadcrumbs({ isShown, dynamicBreadcrumb }: NextBreadcrumbsProps) {
   const router = useRouter();
+  // const [isShown, setIsShown] = useState<boolean>(true);
+  // const [dynamicBreadcrumb, setDynamicBreadcrumb] = useState<string>('');
 
   console.log('router', router);
+  console.log('NextBreadcrumbs dynamicBreadcrumb', dynamicBreadcrumb);
   const breadcrumbs = useMemo(
     function generateBreadcrumbs() {
       const asPathNestedRoutes = generatePathParts(router.asPath);
@@ -37,28 +46,32 @@ function NextBreadcrumbs() {
 
       // Iterate over the list of nested route parts and build a "crumb" object for each one.
       const crumblist = asPathNestedRoutes.map((subpath, idx) => {
-        // Pull out and convert "[post_id]" into "post_id"
-        // const param = pathnameNestedRoutes[idx]
-        //   ?.replace('[', '')
-        //   ?.replace(']', '');
-        const param = asPathNestedRoutes[idx]
-          ?.replace('[', '')
-          ?.replace(']', '');
         // We can get the partial nested route for the crumb
         // by joining together the path parts up to this point.
         const href = '/' + asPathNestedRoutes.slice(0, idx + 1).join('/');
-        console.log('param', param);
+
+        console.log('subpath', subpath);
         console.log('href', href);
 
-        // The nested route param'eter and all associated query values (router.query) are passed to a provided getTextGenerator which will return either a null value or a Promise` response that should return the dynamic string to use in the associated breadcrumb.
-        return {
-          href,
-          // textGenerator: getTextGenerator(param),
-          text: getTextGenerator(param),
-        };
+        if (
+          pathnameNestedRoutes[idx]?.includes('[') &&
+          dynamicBreadcrumb !== undefined
+        ) {
+          return {
+            href,
+            text: dynamicBreadcrumb,
+          };
+        } else {
+          // The nested route param'eter and all associated query values (router.query) are passed to a provided getTextGenerator which will return either a null value or a Promise` response that should return the dynamic string to use in the associated breadcrumb.
+          return {
+            href,
+            // textGenerator: getTextGenerator(param),
+            text: getTextGenerator(subpath),
+          };
+        }
       });
 
-      // Add in a default "Home" crumb for the top-level
+      // Дефолтная ссылка на Главную
       return [
         {
           href: BreadCrumbsLinks.Home.link,
@@ -68,6 +81,7 @@ function NextBreadcrumbs() {
       ];
     },
     [
+      dynamicBreadcrumb,
       router.asPath,
       router.pathname,
       // router.query,
@@ -78,11 +92,13 @@ function NextBreadcrumbs() {
 
   return (
     <>
-      <Breadcrumb className="mb-4 pt-md-3">
-        {breadcrumbs.map((crumb, idx) => (
-          <Crumb {...crumb} key={idx} last={idx === breadcrumbs.length - 1} />
-        ))}
-      </Breadcrumb>
+      {isShown && (
+        <Breadcrumb className="mb-4 pt-md-3">
+          {breadcrumbs.map((crumb, idx) => (
+            <Crumb {...crumb} key={idx} last={idx === breadcrumbs.length - 1} />
+          ))}
+        </Breadcrumb>
+      )}
     </>
   );
 }
