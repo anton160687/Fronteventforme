@@ -95,12 +95,12 @@ function Footer() {
           <Col className={styles.footer__column}>
             {renderСol(PAGES)}
           </Col>
-          <Col className={styles.footer__column}>
+          <Col className={styles.footer__column_last}>
             {renderСol(PLACES)}
           </Col>
-          <Col className={styles.footer__column}>
+          <Col className={styles.footer__column_last}>
             {renderСol(ACTORS)}
-            <nav>
+            <nav className={styles.footer__catalog_btncontainer}>
               <Button
                 // @ts-ignore: bootstrap bag*
                 as={Link}
@@ -116,8 +116,8 @@ function Footer() {
           <section>© EventForMe, 2023</section>
           <nav className={styles.footer__conditions}>
             <ul className={styles.footer__conditions_list} >
-              <li><Link href="#" className={styles.footer__conditions_link}>Условия пользования</Link></li>
-              <li><Link href="#" className={styles.footer__conditions_link}>Политика конфиденциальности</Link></li>
+              <li><Link href={Paths.TermsOfUse} className={styles.footer__conditions_link}>Условия пользования</Link></li>
+              <li><Link href={Paths.PrivacyPolicy} className={styles.footer__conditions_link}>Политика конфиденциальности</Link></li>
             </ul>
           </nav>
         </Row>
