@@ -184,7 +184,6 @@ function PlaceDetails({
           <Col xs={12} sm={12} md={5} lg={5} xl={5}>
             <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
               {'Стоимость выезд. регистрации\u00a0'}
-              <span className="text-danger">*</span>
             </Form.Label>
             <InputGroup>
               <Form.Control

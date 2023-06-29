@@ -143,7 +143,6 @@ function ProgressSideBar({
       place.description &&
       place.type_feature.length &&
       place.max_serving &&
-      place.outreg_price &&
       place.outreg_desc &&
       territoryImg.length &&
       welcomeImg.length &&
@@ -156,7 +155,6 @@ function ProgressSideBar({
         place.description &&
         place.type_feature.length &&
         place.max_serving &&
-        place.outreg_price &&
         place.outreg_desc &&
         territoryImg.length &&
         welcomeImg.length &&
