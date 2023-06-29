@@ -1,8 +1,14 @@
 import { BreadCrumbsLinks } from '@/constant';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Breadcrumb } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
+
+type SchemaType = {
+  '@context': 'https://schema.org';
+  '@type': 'BreadcrumbList';
+  itemListElement: CrumbSchemaType[];
+};
 
 type CustomBreadCrumbsProps = {
   dynamicBreadCrumbTitle?: string;
@@ -27,6 +33,12 @@ const getTextGenerator = (link: string) => {
 function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
   const router = useRouter();
 
+  const schemaData: SchemaType = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  };
+
   function generateBreadcrumbs() {
     const pathNestedRoutes = generatePathParts(router.asPath);
 
@@ -45,11 +57,9 @@ function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
         };
       }
 
-      const title = getTextGenerator(subpath);
-
       return {
         href,
-        text: title,
+        text: getTextGenerator(subpath),
       };
     });
 
@@ -73,6 +83,11 @@ function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
 
   return (
     <>
+      <Script
+        id="breadcrumbsJSON"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
       <nav aria-label="breadcrumb" className="mb-4pt-md-3">
         <ol
           className="breadcrumb"
@@ -84,6 +99,7 @@ function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
               {...crumb}
               index={idx}
               key={idx}
+              schemaData={schemaData}
               last={idx === breadcrumbs.length - 1}
             />
           ))}
@@ -95,19 +111,39 @@ function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
 
 export default CustomBreadCrumbs;
 
+type CrumbSchemaType = {
+  '@type': 'ListItem';
+  position: number;
+  name: string;
+  item?: string;
+};
+
 type CrumbProps = {
   text: string;
   href: string;
   last: boolean;
   index: number;
+  schemaData: SchemaType;
 };
 
-function Crumb({ text: defaultText, href, last = false, index }: CrumbProps) {
-  const [text, setText] = useState(defaultText);
+function Crumb({ text, href, last = false, index, schemaData }: CrumbProps) {
+  //const [text, setText] = useState(defaultText);
 
-  useEffect(() => {
-    setText(defaultText);
-  }, [defaultText]);
+  // useEffect(() => {
+  //   setText(defaultText);
+  // }, [defaultText]);
+
+  const crumbSchema: CrumbSchemaType = {
+    '@type': 'ListItem',
+    position: index + 1,
+    name: text,
+  };
+
+  if (!last) {
+    crumbSchema.item = href;
+  }
+
+  schemaData.itemListElement.push(crumbSchema);
 
   return (
     <>
@@ -128,9 +164,9 @@ function Crumb({ text: defaultText, href, last = false, index }: CrumbProps) {
           itemScope
           itemType="https://schema.org/ListItem"
         >
-          <a href={href} itemProp="url">
+          <Link href={href} itemProp="item">
             <span itemProp="name">{text}</span>
-          </a>
+          </Link>
           <meta itemProp="position" content={`${index + 1}`} />
         </li>
       )}
