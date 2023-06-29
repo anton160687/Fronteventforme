@@ -136,6 +136,10 @@ export enum Paths {
   Success = '/lk/business/add/success',
   TermsOfUse = '/agreements/terms',
   PrivacyPolicy = '/agreements/privacy',
+  WeddingSites = '/wedsites',
+  Hashtags = '/hashtags',
+  Invitations = '/invite',
+  Blog = '/blog'
 }
 
 // для форм регистрации, авторизации
@@ -554,6 +558,64 @@ export const schemaData = {
     {
       "@type": "WPHeader",
       "@id": "/#header",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#headerNavBar",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Введите город",
+          },
+          {
+            "@type": "ItemList",
+            "name": "Главная",
+            "url": Paths.Home,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Каталог",
+            "itemListElement": BusinessTypes.map((el)=> {return {"@type": "ItemList", "name": el.name, "url": el.path }})
+          },
+          {
+            "@type": "ItemList",
+            "name": "Свадебные сайты",
+            "url": Paths.WeddingSites,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Хештеги",
+            "url": Paths.Hashtags,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Приглашения",
+            "url": Paths.Invitations,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Блог",
+            "url": Paths.Blog,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Вход",
+            "url": Paths.SignIn,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Регистрация",
+            "url": Paths.SignUp,
+          },
+          {
+            "@type": "ItemList",
+            "name": 'Личный кабинет',
+            "url": Paths.Account,
+          },
+        ]
+      }
     },
     {
       "@type": "SiteNavigationElement",

@@ -88,7 +88,11 @@ function Header() {
                   </li>
                 }
                 {isAuth && user.is_bride !== undefined && (
-                  <li className='m-0'>
+                  <li className='m-0'
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ItemList"
+                  >
                     <meta itemProp="name" content="Личный кабинет" />
                     <Avatar
                       is_bride={user.is_bride}
