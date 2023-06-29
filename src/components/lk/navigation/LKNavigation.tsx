@@ -30,6 +30,7 @@ type LKNavigationProps = {
 };
 
 function LKNavigation({
+  //с этой логикой хлебных крошек можно убрать accountPageTitle
   accountPageTitle,
   children,
 }: LKNavigationProps): JSX.Element {
