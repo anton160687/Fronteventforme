@@ -9,7 +9,7 @@ import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
-import { URL } from '@/constant';
+import { API } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
@@ -21,6 +21,7 @@ import {
   generateBreadcrumbs,
   getBreadCrumbsSchema,
 } from '@/components/helpers';
+import { SchemaType } from '@/types/breadcrumbs';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -28,6 +29,7 @@ type CatalogPlacesProps = {
   currentPage: number;
   queryParamsWithoutPagination: string;
   queryParamsWithoutSorting: string;
+  schemaData: SchemaType;
 };
 
 function CatalogPlaces({
@@ -36,6 +38,7 @@ function CatalogPlaces({
   currentPage,
   queryParamsWithoutPagination,
   queryParamsWithoutSorting,
+  schemaData,
 }: CatalogPlacesProps) {
   console.log(places);
 
@@ -46,45 +49,44 @@ function CatalogPlaces({
   }
 
   return (
-    <main>
-      <Container className="px-5">
-        {/* <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-          Главная
-        </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
-          Каталог
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
-      </Breadcrumb> */}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schemaData),
+        }}
+      />
 
-        <Row className="p-0">
-          <Title title={'Площадки'} quantity={totalCount} />
-          <PlaceTypesSlider />
-          <PlaceFilters />
-        </Row>
+      <main>
+        <Container className="px-5">
+          <Row className="p-0">
+            <Title title={'Площадки'} quantity={totalCount} />
+            <PlaceTypesSlider />
+            <PlaceFilters />
+          </Row>
 
-        <Row>
-          <Sidebar />
-          <Col className="ms-lg-4 p-0">
-            <Sorting query={queryParamsWithoutSorting} />
+          <Row>
+            <Sidebar />
+            <Col className="ms-lg-4 p-0">
+              <Sorting query={queryParamsWithoutSorting} />
 
-            {renderAllPlaces(places)}
+              {renderAllPlaces(places)}
 
-            {/* Пагинация */}
-            <PaginationBar
-              currentPage={currentPage}
-              totalCount={totalCount}
-              siblingCount={1}
-              pageSize={8}
-              query={queryParamsWithoutPagination}
-            />
-          </Col>
-        </Row>
+              {/* Пагинация */}
+              <PaginationBar
+                currentPage={currentPage}
+                totalCount={totalCount}
+                siblingCount={1}
+                pageSize={8}
+                query={queryParamsWithoutPagination}
+              />
+            </Col>
+          </Row>
 
-        <BotomFilters />
-      </Container>
-    </main>
+          <BotomFilters />
+        </Container>
+      </main>
+    </>
   );
 }
 
@@ -105,9 +107,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     getQueryParamsWithoutParam(query, 'ordering') !== '?'
       ? getQueryParamsWithoutParam(query, 'ordering')
       : '';
-
-  const API =
-    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   const getPlacesURL = queryParams
     ? `${API}catalog/places/${queryParams}`

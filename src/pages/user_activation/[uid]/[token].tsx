@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Container, Spinner } from "react-bootstrap";
-import { Paths, AUTH_URL } from '@/constant';
+import { Container, Spinner } from 'react-bootstrap';
+import { Paths, AUTH_API } from '@/constant';
 
 import styles from '@/styles/sign/Sign.module.scss';
 
@@ -11,14 +11,13 @@ export default function FinishRegistrationPage() {
   //здесь ловим динамические параметры из адресной строки
   const uid = router.query.uid as string;
   const token = router.query.token as string;
-  const API = process.env.NODE_ENV === 'production'? process.env.NEXT_PUBLIC_AUTHURL : AUTH_URL;
-        
+
   async function sendAuthData() {
     let data = {
       uid: uid,
       token: token,
     };
-    let response = await fetch(`${API}auth/users/activation/`, {
+    let response = await fetch(`${AUTH_API}auth/users/activation/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

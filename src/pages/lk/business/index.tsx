@@ -20,9 +20,8 @@ import {
   generateBreadcrumbs,
   getBreadCrumbsSchema,
 } from '@/components/helpers';
-import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
-function InfoPage(schemaData: SchemaType) {
+function InfoPage() {
   const initialInfoState: BusinessInfo = {
     is_company: false,
     username: '',
@@ -394,15 +393,3 @@ function InfoPage(schemaData: SchemaType) {
 }
 
 export default withAuth(InfoPage);
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
-
-  const schemaData = getBreadCrumbsSchema(breadcrumbs);
-
-  return {
-    props: {
-      schemaData,
-    },
-  };
-};

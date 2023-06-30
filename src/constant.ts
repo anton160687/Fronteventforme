@@ -1,8 +1,14 @@
-import { addPlaceName } from './types/addPlaceNames';
 import { LkSectionsType } from './types/lkSectionsType';
 export const URL = 'http://188.225.24.70:8080/api/v1/';
 export const AUTH_URL = 'http://188.225.24.70:8080/';
 export const RESTORE_IMG = `${AUTH_URL}fp/restore/?id=`;
+export const API =
+  process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
+
+export const AUTH_API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_AUTHURL
+    : AUTH_URL;
 
 // для dadata
 export const CITY_URL =

@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { FilePond, registerPlugin } from 'react-filepond';
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
@@ -16,7 +10,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-import { AUTH_URL, RESTORE_IMG } from '@/constant';
+import { AUTH_API, RESTORE_IMG } from '@/constant';
 import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
 
 // регистрация плагинов для корректной работы библиотеки, согласно документации
@@ -49,11 +43,6 @@ function FileUploader({
   const [files, setFiles] = useState<FilePondFile[]>([]);
   const [errorFiles, setErrorFiles] = useState<FilePondFile[]>([]);
   const [input, setInput] = useState<number | string>('');
-
-  const API =
-    process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_AUTHURL
-      : AUTH_URL;
 
   useEffect(() => {
     const serverIdArr: string[] = [];
@@ -131,7 +120,7 @@ function FileUploader({
         allowReorder={true}
         onreorderfiles={onReorder}
         server={{
-          url: `${API}fp/`,
+          url: `${AUTH_API}fp/`,
           process: 'process/',
           revert: 'revert/',
           restore: 'restore/',

@@ -18,7 +18,7 @@ import LocationDescription from '@/components/catalog/catalogItem/locationPhotos
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
-import { URL } from '@/constant';
+import { API } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
@@ -201,8 +201,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params?.id;
-  const API =
-    process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   let response = await fetch(`${API}catalog/place/${id}/`);
   if (response.ok) {

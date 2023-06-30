@@ -18,6 +18,7 @@ import {
   LKBrideSections,
   LKSectionsTitles,
   Paths,
+  URL,
 } from '@/constant';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
@@ -59,22 +60,7 @@ function LKNavigation({
           </div>
         ) : (
           <section className="pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
-            {/* <CustomBreadCrumbs /> */}
-            {/* <Breadcrumb className="mb-4 pt-md-3">
-            <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-              Главная
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              linkAs={Link}
-              active={accountPageTitle ? false : true}
-              href={link}
-            >
-              Личный кабинет
-            </Breadcrumb.Item>
-            {accountPageTitle && (
-              <Breadcrumb.Item active>{accountPageTitle}</Breadcrumb.Item>
-            )}
-          </Breadcrumb> */}
+            <CustomBreadCrumbs />
 
             <Row>
               {/* Sidebar (Account nav) */}

@@ -1,5 +1,6 @@
-import { BreadCrumbsLinks } from '@/constant';
+import { API, BreadCrumbsLinks } from '@/constant';
 import { Card } from 'react-bootstrap';
+import { SchemaType, CrumbSchemaType } from '@/types/breadcrumbs';
 
 export function renderCardText(title: string, description: string) {
   return (
@@ -90,7 +91,7 @@ export function getBreadCrumbsSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: breadcrumb.text,
-      item: breadcrumb.href,
+      item: API.slice(0, API.length - 1) + breadcrumb.href,
     };
 
     // const crumbSchema: CrumbSchemaType = {
