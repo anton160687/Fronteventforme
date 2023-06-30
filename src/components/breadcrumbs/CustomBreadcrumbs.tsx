@@ -93,7 +93,7 @@ function CustomBreadCrumbs({ dynamicBreadCrumbTitle }: CustomBreadCrumbsProps) {
 
   return (
     <>
-      <Script
+      <script
         id="breadcrumbsJSON"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
