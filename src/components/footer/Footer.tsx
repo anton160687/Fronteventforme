@@ -116,10 +116,10 @@ function Footer() {
           <Col className={styles.footer__column}>
             {renderСol(PAGES)}
           </Col>
-          <Col className={styles.footer__column}>
+          <Col className={styles.footer__column_last}>
             {renderСol(PLACES)}
           </Col>
-          <Col className={styles.footer__column}>
+          <Col className={styles.footer__column_last}>
             {renderСol(ACTORS)}
             <nav
               id="footerNavBtn"
