@@ -12,8 +12,8 @@ import { Album } from '@/types/placeType';
 
 type WeddingAlbumsProps = {
   index: number;
-  albums: Album[];
-  setAlbums: Dispatch<SetStateAction<Album[]>>;
+  albums: (Album | null)[];
+  setAlbums: Dispatch<SetStateAction<(Album | null)[]>>;
 };
 
 const letters = 1000;
@@ -47,8 +47,6 @@ export default function WeddingAlbums({
       album_img: albumImg,
       preview_album_img: previewAlbumImg,
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [albumImg, previewAlbumImg]);
 
   //при изменении Альбома - прокидываем в общий список
@@ -56,7 +54,6 @@ export default function WeddingAlbums({
     let newAlbumsArr = [...albums];
     newAlbumsArr[index] = album;
     setAlbums(newAlbumsArr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [album]);
 
   return (
