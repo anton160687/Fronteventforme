@@ -1,49 +1,14 @@
 import Link from 'next/link';
-import { SchemaType } from './CustomBreadcrumbs';
-import { Dispatch, SetStateAction, useEffect } from 'react';
-
-export type CrumbSchemaType = {
-  '@type': 'ListItem';
-  position: number;
-  name: string;
-  item?: string;
-};
+import { useEffect } from 'react';
 
 type CrumbProps = {
   text: string;
   href: string;
   last: boolean;
   index: number;
-  schemaData: SchemaType;
-  setSchemaData: Dispatch<SetStateAction<SchemaType>>;
 };
 
-function CustomCrumb({
-  text,
-  href,
-  last = false,
-  index,
-  schemaData,
-  setSchemaData,
-}: CrumbProps) {
-  const crumbSchema: CrumbSchemaType = {
-    '@type': 'ListItem',
-    position: index + 1,
-    name: text,
-  };
-
-  if (!last) {
-    crumbSchema.item = href;
-  }
-
-  // schemaData.itemListElement.push(crumbSchema);
-  useEffect(() => {
-    setSchemaData((prev) => ({
-      ...prev,
-      itemListElement: [...prev.itemListElement, crumbSchema],
-    }));
-  }, []);
-
+function CustomCrumb({ text, href, last = false, index }: CrumbProps) {
   return (
     <>
       {last ? (

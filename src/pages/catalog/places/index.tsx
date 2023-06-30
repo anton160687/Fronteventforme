@@ -19,6 +19,7 @@ import {
   getQueryParams,
   getQueryParamsWithoutParam,
 } from '@/services/catalog.service';
+import { generateBreadcrumbs } from '@/components/helpers';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -124,6 +125,34 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
+
+  const schemaData: SchemaType = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  };
+
+  breadcrumbs.forEach((breadcrumb, index) => {
+    const crumbSchema: CrumbSchemaType = {
+      '@type': 'ListItem',
+      position: index + 1,
+      name: breadcrumb.text,
+      item: breadcrumb.href,
+    };
+
+    // const crumbSchema: CrumbSchemaType = {
+    //   '@type': 'ListItem',
+    //   position: index + 1,
+    //   name: text,
+    // };
+
+    // if (!last) {
+    //   crumbSchema.item = href;
+    // }
+    schemaData.itemListElement.push(crumbSchema);
+  });
+
   return {
     props: {
       places,
@@ -131,6 +160,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       currentPage,
       queryParamsWithoutPagination,
       queryParamsWithoutSorting,
+      schemaData,
     },
   };
 };

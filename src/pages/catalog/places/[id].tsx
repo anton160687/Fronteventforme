@@ -27,6 +27,7 @@ import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
 import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+import { generateBreadcrumbs } from '@/components/helpers';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -212,10 +213,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
 
+    const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
+
+    const schemaData: SchemaType = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [],
+    };
+
+    breadcrumbs.forEach((breadcrumb, index) => {
+      const crumbSchema: CrumbSchemaType = {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: breadcrumb.text,
+        item: breadcrumb.href,
+      };
+
+      schemaData.itemListElement.push(crumbSchema);
+    });
+
     return {
       props: {
         place: result,
         user: user,
+        schemaData,
       },
     };
   }
