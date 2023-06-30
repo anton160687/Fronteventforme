@@ -33,13 +33,19 @@ function Footer() {
 
   function renderСol(column: FooterType) {
     return (
-      <nav className={styles.footer__column_nav}>
-        <h2 className={styles.footer__column_title}>{column.title}</h2>
-        <ul className={styles.footer__column_list}>
+      <nav
+        id={`footerNavCol${column.id}`}
+        className={styles.footer__column_nav}
+        itemScope
+        itemType="https://schema.org/SiteNavigationElement"
+        itemID={`/#footerNavCol${column.id}`}
+      >
+        <h2 className={styles.footer__column_title} itemProp="name">{column.title}</h2>
+        <ul className={styles.footer__column_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
           {column.data.map(({ id, url, name }) => (
-            <li className="mb-2" key={id}>
-              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`}>
-                {name}
+            <li className="mb-2" key={id} itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`} itemProp="url">
+                <span itemProp="name">{name}</span>
               </Link>
             </li>
           ))}
@@ -49,18 +55,31 @@ function Footer() {
   }
 
   return (
-    <footer className="footer bg-secondary mt-5">
+    <footer id="footer"
+      className="footer bg-secondary mt-5"
+      itemScope
+      itemType="http://schema.org/WPFooter"
+      itemID="/#footer"
+    >
       <Container className={styles.footer__container}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
-            <section id="footer_logo" className={`${styles.footer__logo} mb-4`}>
-              <Link href="/" className="d-block mb-4" >
+            <section
+              className={`${styles.footer__logo} mb-4`}
+              itemScope
+              itemType="http://schema.org/Organization"
+              itemID="https://eventforme.ru"
+            >
+              <meta itemProp="name" content="EventForMe" />
+              <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14" />
+              <Link href="https://eventforme.ru" className="d-block mb-4" itemProp="url">
                 <Image
                   src="/img/header/logo.svg"
                   width={143}
                   height={33}
                   alt="EventForMe"
                   title="Компания EventForMe"
+                  itemProp="logo"
                 />
               </Link>
               <ul className={styles.footer__contacts}>
@@ -68,6 +87,7 @@ function Footer() {
                   <Link
                     href="mailto:info@eventforme.ru"
                     className="p-0 fw-normal nav-link"
+                    itemProp="email"
                   >
                     <i className="fi-mail me-2 align-middle opacity-70"></i>info@eventforme.ru
                   </Link>
@@ -76,6 +96,7 @@ function Footer() {
                   <Link
                     href="tel:4065550120"
                     className="p-0 fw-normal nav-link"
+                    itemProp="telephone"
                   >
                     <i className="fi-device-mobile me-2 align-middle opacity-70"></i>
                     (406) 555-0120
@@ -100,24 +121,40 @@ function Footer() {
           </Col>
           <Col className={styles.footer__column_last}>
             {renderСol(ACTORS)}
-            <nav className={styles.footer__catalog_btncontainer}>
+            <nav
+              id="footerNavBtn"
+              itemScope
+              itemType="https://schema.org/SiteNavigationElement"
+              itemID={`/#footerNavBtn`}
+            >
               <Button
                 // @ts-ignore: bootstrap bag*
                 as={Link}
                 href={Paths.AddChoicePage}
-                className={styles.footer__catalog_btn}>
-                Хочу в каталог
+                className={styles.footer__catalog_btn}
+                itemProp="url"
+              >
+                <span itemProp="name">Хочу в каталог</span>
               </Button>
             </nav>
           </Col>
         </Row>
         {/* Copyright */}
         <Row id="footer_copyright" className={styles.footer__copyright}>
-          <section>© EventForMe, 2023</section>
-          <nav className={styles.footer__conditions}>
-            <ul className={styles.footer__conditions_list} >
-              <li><Link href={Paths.TermsOfUse} className={styles.footer__conditions_link}>Условия пользования</Link></li>
-              <li><Link href={Paths.PrivacyPolicy} className={styles.footer__conditions_link}>Политика конфиденциальности</Link></li>
+          <section>©<span itemProp="copyrightHolder">EventForMe</span>, <span itemProp="copyrightYear">2023</span></section>
+          <nav className={styles.footer__conditions}
+            id="footerNavConditions"
+            itemScope
+            itemType="https://schema.org/SiteNavigationElement"
+            itemID="/#footerNavConditions"
+          >
+            <ul className={styles.footer__conditions_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
+              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Условия пользования</span></Link>
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Политика конфиденциальности</span></Link>
+              </li>
             </ul>
           </nav>
         </Row>

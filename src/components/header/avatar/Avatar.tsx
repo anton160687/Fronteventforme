@@ -27,6 +27,7 @@ function Avatar({
       as={Link}
       href={is_bride ? Paths.AccBride : Paths.AccBusiness}
       className={`${styles.avatar__btn} ms-auto me-auto`}
+      itemProp="url"
     >
       <Image
         className={styles.avatar__image}

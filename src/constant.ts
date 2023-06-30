@@ -128,14 +128,18 @@ export enum Paths {
   AccPayment = '/payment',
   AccMyBusiness = '/lk/business/my',
   AccBusinessReviews = '/lk/business/reviews',
-  AddPlace = '/lk/business/add/place',
   AddChoicePage = '/lk/business/add',
-  AddBusiness = '/lk/business/add/business',
+  AddPlace = '/lk/business/add/place',
+  AddBusiness = '/lk/business/add/service',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
   Success = '/lk/business/add/success',
   TermsOfUse = '/agreements/terms',
   PrivacyPolicy = '/agreements/privacy',
+  WeddingSites = '/wedsites',
+  Hashtags = '/hashtags',
+  Invitations = '/invite',
+  Blog = '/blog'
 }
 
 // для форм регистрации, авторизации
@@ -181,6 +185,7 @@ export enum FormFields {
 
 // для футера
 export type FooterType = {
+  id: number;
   title: string;
   data: {
     id: number;
@@ -190,6 +195,7 @@ export type FooterType = {
 };
 
 export const SERVICES: FooterType = {
+  id: 1,
   title: 'Услуги',
   data: [
     {
@@ -225,6 +231,7 @@ export const SERVICES: FooterType = {
   ],
 };
 export const PAGES: FooterType = {
+  id: 2,
   title: 'Страницы',
   data: [
     {
@@ -260,6 +267,7 @@ export const PAGES: FooterType = {
   ],
 };
 export const PLACES: FooterType = {
+  id: 3,
   title: 'Площадки',
   data: [
     {
@@ -295,6 +303,7 @@ export const PLACES: FooterType = {
   ],
 };
 export const ACTORS: FooterType = {
+  id: 4,
   title: 'Исполнители',
   data: [
     {
@@ -479,4 +488,193 @@ export enum contextMenuTypeEnum {
   Wishlist = 'wishlist',
   Base = 'base',
   Declined = 'declined',
+}
+
+
+//JSON-LD
+function renderJSONLD(obj: FooterType) {
+  type TRes = {
+    "@type": string;
+    "@id": string;
+    "name": string;
+    "about": {
+      "@type": string,
+      "itemListElement": ({
+        "@type": string;
+        "name": string;
+        "url": string;
+      }[])
+    }
+  }
+
+  let result: TRes = {
+    "@type": "SiteNavigationElement",
+    "@id": "",
+    "name": "",
+    "about": {
+      "@type": "ItemList",
+      "itemListElement": []
+    }
+  };
+
+  result["@id"] = `/#footerNavCol${obj.id}`;
+  result["name"] = obj.title;
+  obj.data.forEach(datael => {
+    let item = {
+      "@type": "ItemList",
+      "name": datael.name,
+      "url": datael.url,
+    }
+    result.about["itemListElement"].push(item);
+  });
+  return result;
+}
+
+export const schemaData = {
+  "@context": "http://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "EventForMe",
+      "@id": "https://eventforme.ru",
+      "url": "https://eventforme.ru",
+      "logo": "https://eventforme.ru/img/header/logo.svg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ленинградский пр-т., 39 стр.14",
+        "addressLocality": "Москва",
+        "postalCode": "109028",
+        "addressCountry": "Россия"
+      },
+      "email": "info@eventforme.ru",
+      "telephone": "[+561-526-8457]",
+      "sameAs": [
+        "@https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0",
+        "https://ru.pinterest.com/eventformeru/",
+        "https://vk.com/msk_eventforme",
+        "https://t.me/event_for_me",
+      ]
+    },
+    {
+      "@type": "WPHeader",
+      "@id": "/#header",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#headerNavBar",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Введите город",
+          },
+          {
+            "@type": "ItemList",
+            "name": "Главная",
+            "url": Paths.Home,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Каталог",
+            "itemListElement": BusinessTypes.map((el)=> {return {"@type": "ItemList", "name": el.name, "url": el.path }})
+          },
+          {
+            "@type": "ItemList",
+            "name": "Свадебные сайты",
+            "url": Paths.WeddingSites,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Хештеги",
+            "url": Paths.Hashtags,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Приглашения",
+            "url": Paths.Invitations,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Блог",
+            "url": Paths.Blog,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Вход",
+            "url": Paths.SignIn,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Регистрация",
+            "url": Paths.SignUp,
+          },
+          {
+            "@type": "ItemList",
+            "name": 'Личный кабинет',
+            "url": Paths.Account,
+          },
+        ]
+      }
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#headerNavAuth",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Вход",
+            "url": Paths.SignIn,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Регистрация",
+            "url": Paths.SignUp,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Личный кабинет",
+            "url": Paths.Account,
+          },
+        ]
+      }
+    },
+    {
+      "@type": "WPFooter",
+      "@id": "/#footer",
+      "copyrightHolder": "EventForMe",
+      "copyrightYear": "2023",
+    },
+    renderJSONLD(SERVICES),
+    renderJSONLD(PAGES),
+    renderJSONLD(PLACES),
+    renderJSONLD(ACTORS),
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavBtn",
+      "name": "Хочу в каталог",
+      "url": Paths.AddChoicePage,
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "/#footerNavConditions",
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ItemList",
+            "name": "Условия пользования",
+            "url": Paths.TermsOfUse,
+          },
+          {
+            "@type": "ItemList",
+            "name": "Политика конфиденциальности",
+            "url": Paths.PrivacyPolicy,
+          },
+        ]
+      }
+    },
+  ]
 }
