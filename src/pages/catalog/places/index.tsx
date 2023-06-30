@@ -22,6 +22,7 @@ import {
   getBreadCrumbsSchema,
 } from '@/components/helpers';
 import { SchemaType } from '@/types/breadcrumbs';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -30,6 +31,7 @@ type CatalogPlacesProps = {
   queryParamsWithoutPagination: string;
   queryParamsWithoutSorting: string;
   schemaData: SchemaType;
+  setIsShown: Dispatch<SetStateAction<boolean>>;
 };
 
 function CatalogPlaces({
@@ -39,8 +41,13 @@ function CatalogPlaces({
   queryParamsWithoutPagination,
   queryParamsWithoutSorting,
   schemaData,
+  setIsShown,
 }: CatalogPlacesProps) {
   console.log(places);
+
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
 
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {
@@ -57,35 +64,33 @@ function CatalogPlaces({
         }}
       />
 
-      <main>
-        <Container className="px-5">
-          <Row className="p-0">
-            <Title title={'Площадки'} quantity={totalCount} />
-            <PlaceTypesSlider />
-            <PlaceFilters />
-          </Row>
+      <Container className="px-5">
+        <Row className="p-0">
+          <Title title={'Площадки'} quantity={totalCount} />
+          <PlaceTypesSlider />
+          <PlaceFilters />
+        </Row>
 
-          <Row>
-            <Sidebar />
-            <Col className="ms-lg-4 p-0">
-              <Sorting query={queryParamsWithoutSorting} />
+        <Row>
+          <Sidebar />
+          <Col className="ms-lg-4 p-0">
+            <Sorting query={queryParamsWithoutSorting} />
 
-              {renderAllPlaces(places)}
+            {renderAllPlaces(places)}
 
-              {/* Пагинация */}
-              <PaginationBar
-                currentPage={currentPage}
-                totalCount={totalCount}
-                siblingCount={1}
-                pageSize={8}
-                query={queryParamsWithoutPagination}
-              />
-            </Col>
-          </Row>
+            {/* Пагинация */}
+            <PaginationBar
+              currentPage={currentPage}
+              totalCount={totalCount}
+              siblingCount={1}
+              pageSize={8}
+              query={queryParamsWithoutPagination}
+            />
+          </Col>
+        </Row>
 
-          <BotomFilters />
-        </Container>
-      </main>
+        <BotomFilters />
+      </Container>
     </>
   );
 }

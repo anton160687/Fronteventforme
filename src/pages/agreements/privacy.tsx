@@ -2,19 +2,15 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { privacy } from '@/mocks/agreements';
 import Link from 'next/link';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
-function Privacy(): JSX.Element {
-  const renderText = (item: string[]) => {
-    return (
-      <ul className="fs-base">
-        {item.map((text: string) => (
-          <li key={text}>
-            <p>{text}</p>
-          </li>
-        ))}
-      </ul>
-    );
-  };
+type PrivacyProps = {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+};
+function Privacy({ setIsShown }: PrivacyProps): JSX.Element {
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
 
   return (
     <Container
@@ -41,13 +37,13 @@ function Privacy(): JSX.Element {
               )}
               {item.kids &&
                 item.kids.map((kid, index) => (
-                  <>
+                  <div key={typeof kid === 'string' ? kid : index}>
                     {typeof kid === 'string' ? (
-                      <li className="h6" key={kid}>
+                      <li className="h6">
                         <span className="fs-base fw-normal">{kid}</span>
                       </li>
                     ) : (
-                      <li className="h6" key={index}>
+                      <li className="h6">
                         {kid.name && (
                           <span className="fw-normal">{kid.name}</span>
                         )}
@@ -62,7 +58,7 @@ function Privacy(): JSX.Element {
                         )}
                       </li>
                     )}
-                  </>
+                  </div>
                 ))}
             </ol>
           </li>

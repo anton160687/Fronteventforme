@@ -9,5 +9,4 @@ export type CrumbSchemaType = {
   position: number;
   name: string;
   item?: string;
-  '@id'?: string;
 };

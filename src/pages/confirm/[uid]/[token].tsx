@@ -6,7 +6,7 @@ export default function FinishPasswordReset() {
   return (
     <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
       {/* Page wrapper */}
-      <main className="page-wrapper">
+      <section className="page-wrapper">
         <div className="container-fluid h-100 align-items-center justify-content-center">
           {/* card */}
           <div className="card card-body" style={{ border: 'none' }}>
@@ -20,7 +20,7 @@ export default function FinishPasswordReset() {
             </div>
           </div>
         </div>
-      </main>
+      </section>
     </Container>
   );
 }

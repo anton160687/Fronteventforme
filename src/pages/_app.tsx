@@ -6,12 +6,17 @@ import { Provider } from 'react-redux';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
 import '../styles/scss/theme.scss';
+import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+import { useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   let YA_API: string = '';
   if (process.env.NODE_ENV === 'production') {
     YA_API = process.env.NEXT_PUBLIC_YA_API!;
   }
+  const [isShown, setIsShown] = useState<boolean>(false);
+  const [dynamicBreadCrumbTitle, setDynamicBreadCrumbTitle] =
+    useState<string>('');
 
   return (
     <Provider store={store}>
@@ -41,7 +46,19 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         >
           <Layout>
-            <Component {...pageProps} />
+            {isShown && (
+              <CustomBreadCrumbs
+                isShown={isShown}
+                dynamicBreadCrumbTitle={dynamicBreadCrumbTitle}
+              />
+            )}
+            <main>
+              <Component
+                {...pageProps}
+                setIsShown={setIsShown}
+                setDynamicBreadCrumbTitle={setDynamicBreadCrumbTitle}
+              />
+            </main>
           </Layout>
         </YMaps>
       </SSRProvider>

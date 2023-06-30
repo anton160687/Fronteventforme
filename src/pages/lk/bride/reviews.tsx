@@ -6,9 +6,13 @@ import { reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
 import withAuth from '@/hoc/withAuth';
+import { Dispatch, SetStateAction } from 'react';
 
-function BrideReviewsPage() {
+type BrideReviewsPageProps = {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+};
 
+function BrideReviewsPage({ setIsShown }: BrideReviewsPageProps) {
   function renderReviews(reviews: ReviewType[]) {
     return reviews.map((review, indx) => (
       <Review
@@ -22,18 +26,21 @@ function BrideReviewsPage() {
         likeCount={review.likes}
         dislikeCount={review.dislikes}
       />
-    ))
+    ));
   }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Reviews}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Reviews}
+      setIsShown={setIsShown}
+    >
       <>
-        {reviewsByYou.length === 0 ?
+        {reviewsByYou.length === 0 ? (
           <EmptyReviews />
-          :
+        ) : (
           <>
-            <div className='d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3'>
-              <h3 className='h4 mb-sm-0'>3 reviews</h3>
+            <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-stretch justify-content-between pb-4 mb-2 mb-md-3">
+              <h3 className="h4 mb-sm-0">3 reviews</h3>
               {/* <Form.Group controlId='sortby2' className='d-flex align-items-center ms-sm-4'>
                   <Form.Label className='fs-sm text-body fw-normal text-nowrap mb-0 me-2 pe-1'>
                     <i className='fi-arrows-sort opacity-60 mt-n1 me-2'></i>
@@ -50,9 +57,9 @@ function BrideReviewsPage() {
             </div>
             {renderReviews(reviewsByYou)}
           </>
-        }
+        )}
 
-        <nav className='py-2' aria-label='Reviews pagination'>
+        <nav className="py-2" aria-label="Reviews pagination">
           <PaginationBar
             currentPage={1}
             totalCount={10}
@@ -64,7 +71,7 @@ function BrideReviewsPage() {
         </nav>
       </>
     </LKNavigation>
-  )
+  );
 }
 
 export default withAuth(BrideReviewsPage);

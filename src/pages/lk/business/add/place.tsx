@@ -1,6 +1,14 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button, Form, Row, Col, Container, ProgressBar, Breadcrumb } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Breadcrumb,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -10,7 +18,13 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Paths, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -18,7 +32,6 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 import withAuth from '@/hoc/withAuth';
 import { useRouter } from 'next/router';
-
 
 function AddPropertyPage() {
   const router = useRouter();
@@ -243,17 +256,6 @@ function AddPropertyPage() {
   return (
     <>
       <Container className="py-5">
-      <Breadcrumb className="mb-4 pt-md-3">
-          <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-            Главная
-          </Breadcrumb.Item>
-          <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
-            Личный кабинет
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Добавить бизнес
-          </Breadcrumb.Item>
-        </Breadcrumb>
         <Row>
           <Col lg={8}>
             <Form onSubmit={handleSubmit}>
@@ -306,7 +308,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title = 'Фото площадки'
+                title="Фото площадки"
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />

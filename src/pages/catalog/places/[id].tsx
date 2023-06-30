@@ -26,18 +26,28 @@ import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/Album
 import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
-import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 import {
   generateBreadcrumbs,
   getBreadCrumbsSchema,
 } from '@/components/helpers';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { SchemaType } from '@/types/breadcrumbs';
 
 type CatalogItemProps = {
   place: PlaceReceived;
   user: User;
+  schemaData: SchemaType;
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+  setDynamicBreadCrumbTitle: Dispatch<SetStateAction<string>>;
 };
 
-export default function CatalogItem({ place, user }: CatalogItemProps) {
+export default function CatalogItem({
+  place,
+  user,
+  schemaData,
+  setIsShown,
+  setDynamicBreadCrumbTitle,
+}: CatalogItemProps) {
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
   const territory = [
@@ -50,152 +60,140 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
     },
   ];
 
+  useEffect(() => {
+    setIsShown(true);
+    setDynamicBreadCrumbTitle(place?.title);
+  }, []);
+
   return (
-    <main>
-      <Container className="px-5">
-        {!place ? (
-          <div className="w-100 h-100 d-flex justify-content-center mt-5">
-            {/* Даша, пока тебе для примера - можешь посмотреть, как будут работать динамические крошки, например на странице /places/1 */}
-            <CustomBreadCrumbs
-              dynamicBreadCrumbTitle={'kfdkjdkjf'}
-            ></CustomBreadCrumbs>
-            <Spinner className="centered" />
-          </div>
-        ) : (
-          <>
-            <CustomBreadCrumbs
-              dynamicBreadCrumbTitle={'kfdkjdkjf'}
-            ></CustomBreadCrumbs>
-            {/* <Breadcrumb className="breadcrumb">
-            <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-              Главная
-            </Breadcrumb.Item>
-            <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
-              Каталог
-            </Breadcrumb.Item>
-            <Breadcrumb.Item linkAs={Link} href={Paths.Places}>
-              Площадки
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
-          </Breadcrumb> */}
-            <LocationPhotos
-              photoUrls={place.images_place}
-              title={place.title}
-            />
-            {/* общий контейнер страницы на все блоки под верхними фото */}
-            <Row className={styles.main__container}>
-              {/* основной контейнер слева на странице */}
-              <Col xl={8} className={styles.left__container}>
-                <LocationDescription
-                  title={place.title}
-                  areasNumber={place.areas?.length}
-                  address={place.address}
-                  metro={place.metro}
-                />
-                <AnchorBtns />
-                <TextDescription item={place} />
-                <TextEvents events={place.event} />
-                <TextKitchen
-                  kids={place.children_kitchen}
-                  kitchens={place.kitchen}
-                />
+    <Container className="px-5">
+      {!place ? (
+        <div className="w-100 h-100 d-flex justify-content-center mt-5">
+          <Spinner className="centered" />
+        </div>
+      ) : (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(schemaData),
+            }}
+          />
 
-                <PlaceAreas
-                  areas={place.areas}
-                  average_check={place.average_check}
-                />
+          <LocationPhotos photoUrls={place.images_place} title={place.title} />
+          {/* общий контейнер страницы на все блоки под верхними фото */}
+          <Row className={styles.main__container}>
+            {/* основной контейнер слева на странице */}
+            <Col xl={8} className={styles.left__container}>
+              <LocationDescription
+                title={place.title}
+                areasNumber={place.areas?.length}
+                address={place.address}
+                metro={place.metro}
+              />
+              <AnchorBtns />
+              <TextDescription item={place} />
+              <TextEvents events={place.event} />
+              <TextKitchen
+                kids={place.children_kitchen}
+                kitchens={place.kitchen}
+              />
 
-                <TextDetails description={place.description} />
-                <TextFeatures
-                  features={place.type_feature}
-                  territories={place.type_territory}
-                  max_serving={place.max_serving}
-                />
+              <PlaceAreas
+                areas={place.areas}
+                average_check={place.average_check}
+              />
 
-                <AlbumCardContainer
-                  territory={territory}
-                  welcome_zones={place.welcome_zones}
-                  outside_reg={place.outsites_reg}
-                />
-                <Row className="my-xl-4 my-md-3 my-sm-2">
-                  <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
-                    Фото проведенных свадеб на площадке
-                  </Card.Title>
-                  <div className="d-flex justify-content-evenly">
-                    {weddingPhotos &&
-                      weddingPhotos.map((item) => (
-                        <WeddingsPhotos
-                          key={item.id}
-                          title={item.title}
-                          description={item.description}
-                          pathImg={item.pathImg}
-                        />
-                      ))}
-                  </div>
-                </Row>
-                <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
-                  <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
-                    Статьи о свадьбах на площадке “Villa Arcobaleno”
-                  </Card.Title>
-                  <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
-                    {articles &&
-                      articles.map((item) => (
-                        <ArticleWeddings
-                          key={item.id}
-                          title={item.title}
-                          description={item.description}
-                          pathImg={item.pathImg}
-                          dateText={item.dateText}
-                        />
-                      ))}
-                  </div>
-                </Row>
-                <div id="map" className={styles.map__container}>
-                  <YaMap lat={place.width} long={place.longitude} />
+              <TextDetails description={place.description} />
+              <TextFeatures
+                features={place.type_feature}
+                territories={place.type_territory}
+                max_serving={place.max_serving}
+              />
+
+              <AlbumCardContainer
+                territory={territory}
+                welcome_zones={place.welcome_zones}
+                outside_reg={place.outsites_reg}
+              />
+              <Row className="my-xl-4 my-md-3 my-sm-2">
+                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
+                  Фото проведенных свадеб на площадке
+                </Card.Title>
+                <div className="d-flex justify-content-evenly">
+                  {weddingPhotos &&
+                    weddingPhotos.map((item) => (
+                      <WeddingsPhotos
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        pathImg={item.pathImg}
+                      />
+                    ))}
                 </div>
-                <div id="comments" className={styles.comments__container}>
-                  <YaComments id={place.id_yandex} />
+              </Row>
+              <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
+                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
+                  Статьи о свадьбах на площадке “Villa Arcobaleno”
+                </Card.Title>
+                <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
+                  {articles &&
+                    articles.map((item) => (
+                      <ArticleWeddings
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        pathImg={item.pathImg}
+                        dateText={item.dateText}
+                      />
+                    ))}
                 </div>
-                <LocalRating />
-              </Col>
+              </Row>
+              <div id="map" className={styles.map__container}>
+                <YaMap lat={place.width} long={place.longitude} />
+              </div>
+              <div id="comments" className={styles.comments__container}>
+                <YaComments id={place.id_yandex} />
+              </div>
+              <LocalRating />
+            </Col>
 
-              {/* боковой контейнер справа на странице */}
-              <Col xl={4} lg={8} className={styles.right__container}>
-                <div className={styles.popular__container}>
-                  {/* тестовые данные, потом - удалить */}
-                  <RatingStars rating={3.7} voices={58} />
-                  {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-                  <div className={styles.popular__text}>
-                    <p className={styles.popular__par}>
-                      В избранном у&nbsp;<span>{234} человека </span>
-                    </p>
-                    <p className={styles.popular__par}>
-                      Забронировано&nbsp;<span>{12} раз </span>
-                    </p>
-                  </div>
-                </div>
-
+            {/* боковой контейнер справа на странице */}
+            <Col xl={4} lg={8} className={styles.right__container}>
+              <div className={styles.popular__container}>
                 {/* тестовые данные, потом - удалить */}
-                <BookingForm
-                  avatar={user?.avatar || '/img/header/avatar.svg'}
-                  first_name={user?.first_name || 'Имя'}
-                  last_name={user?.last_name || 'Фамилия'}
-                  phone={user?.phone || '123456789'}
-                  email={user?.email || 'sshuahuash@mail.ru'}
-                />
+                <RatingStars rating={3.7} voices={58} />
+                {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+                <div className={styles.popular__text}>
+                  <p className={styles.popular__par}>
+                    В избранном у&nbsp;<span>{234} человека </span>
+                  </p>
+                  <p className={styles.popular__par}>
+                    Забронировано&nbsp;<span>{12} раз </span>
+                  </p>
+                </div>
+              </div>
 
-                <ContactForm />
-              </Col>
-            </Row>
-            <SimilarItemsSlider />
-            {/* @ts-ignore: bootstrap bag*/}
-            <Button as={Link} href="#">
-              К началу страницы
-            </Button>
-          </>
-        )}
-      </Container>
-    </main>
+              {/* тестовые данные, потом - удалить */}
+              <BookingForm
+                avatar={user?.avatar || '/img/header/avatar.svg'}
+                first_name={user?.first_name || 'Имя'}
+                last_name={user?.last_name || 'Фамилия'}
+                phone={user?.phone || '123456789'}
+                email={user?.email || 'sshuahuash@mail.ru'}
+              />
+
+              <ContactForm />
+            </Col>
+          </Row>
+          <SimilarItemsSlider />
+          {/* @ts-ignore: bootstrap bag*/}
+          <Button as={Link} href="#">
+            К началу страницы
+          </Button>
+        </>
+      )}
+    </Container>
   );
 }
 
@@ -214,7 +212,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
 
-    const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
+    const breadcrumbs = generateBreadcrumbs(context.resolvedUrl, result.title);
 
     const schemaData = getBreadCrumbsSchema(breadcrumbs);
 

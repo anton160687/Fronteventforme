@@ -2,8 +2,17 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { terms1, terms2 } from '@/mocks/agreements';
 import Link from 'next/link';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
-function Terms(): JSX.Element {
+type TermsProps = {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+};
+
+function Terms({ setIsShown }: TermsProps): JSX.Element {
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
+
   const renderText = (item: string[]) => {
     return (
       <ul className="fs-base">

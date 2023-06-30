@@ -9,12 +9,20 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 type HomeProps = {
   topLocations: LocationCard[];
+  setIsShown: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function Home({ topLocations = mockLocationCards }: HomeProps) {
+export default function Home({
+  topLocations = mockLocationCards,
+  setIsShown,
+}: HomeProps) {
+  useEffect(() => {
+    setIsShown(false);
+  }, []);
   return (
     <>
       <Hero />

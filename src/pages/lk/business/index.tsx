@@ -15,12 +15,6 @@ import {
 import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
 
-import { GetServerSideProps } from 'next/types';
-import {
-  generateBreadcrumbs,
-  getBreadCrumbsSchema,
-} from '@/components/helpers';
-
 function InfoPage() {
   const initialInfoState: BusinessInfo = {
     is_company: false,

@@ -5,12 +5,17 @@ import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
 import { placesPublished } from '@/mocks/catalogPlaces';
 import { PlaceCardType } from '@/types/catalog';
 import { ChangeEvent, useState } from 'react';
-import { Button, Dropdown, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import withAuth from '@/hoc/withAuth';
+import { Dispatch, SetStateAction } from 'react';
 
-function WishlistPage(): JSX.Element {
+type WishlistPageProps = {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+};
+
+function WishlistPage({ setIsShown }: WishlistPageProps): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
 
   const deleteCard = (id: number) => {
@@ -25,7 +30,10 @@ function WishlistPage(): JSX.Element {
   }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Wishlist}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Wishlist}
+      setIsShown={setIsShown}
+    >
       <>
         {/* List of properties or empty state */}
         {cards.length > 0 ? (
@@ -41,7 +49,7 @@ function WishlistPage(): JSX.Element {
                 </Form.Label>
                 <Form.Select size="sm" onChange={handleChoice}>
                   <option value="none">-----</option>
-                  {/* //!Мои придумки, задача у Антона */}
+                  {/* //!Мои придумки,надо будет сортировать по типам бизнесов - подробнее уточнить у Антона*/}
                   <option value="RATE_ASC">
                     Рейтинг (от низкого к высокому)
                   </option>

@@ -40,8 +40,12 @@ export function generateBreadcrumbs(
     // Ссылка до каждой хлебной крошки
     const href = '/' + pathNestedRoutes.slice(0, idx + 1).join('/');
 
+    const title = getTextGenerator(subpath);
+
     if (
+      title === 'Не найдено' &&
       dynamicBreadCrumbTitle !== undefined &&
+      dynamicBreadCrumbTitle.length > 0 &&
       idx === pathNestedRoutes.length - 1
     ) {
       return {
@@ -56,7 +60,7 @@ export function generateBreadcrumbs(
         (href === '/lk/business' && path !== '/lk/business') ||
         (href === '/lk/bride' && path !== '/lk/bride')
           ? ''
-          : getTextGenerator(subpath),
+          : title,
     };
   });
 
@@ -91,18 +95,11 @@ export function getBreadCrumbsSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: breadcrumb.text,
-      item: API.slice(0, API.length - 1) + breadcrumb.href,
     };
 
-    // const crumbSchema: CrumbSchemaType = {
-    //   '@type': 'ListItem',
-    //   position: index + 1,
-    //   name: text,
-    // };
-
-    // if (!last) {
-    //   crumbSchema.item = href;
-    // }
+    if (index !== breadcrumbs.length - 1) {
+      crumbSchema.item = API?.slice(0, API?.length - 1) + breadcrumb.href;
+    }
 
     schemaData.itemListElement.push(crumbSchema);
   });

@@ -1,20 +1,11 @@
-import { Paths } from "@/constant";
-import withAuth from "@/hoc/withAuth";
-import Link from "next/link";
-import { Breadcrumb, Button, Container, Image, Row } from "react-bootstrap";
+import { Paths } from '@/constant';
+import withAuth from '@/hoc/withAuth';
+import Link from 'next/link';
+import { Breadcrumb, Button, Container, Image, Row } from 'react-bootstrap';
 
 function SuccessPage() {
   return (
     <Container className="px-5">
-      <Breadcrumb className="mb-4 pt-md-3">
-        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-          Главная
-        </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
-          Личный кабинет
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Добавить бизнес</Breadcrumb.Item>
-      </Breadcrumb>
       <Row>
         <h2>Бизнес (или площадка) успешно отправлен(а) на модерацию</h2>
         <p style={{ color: '#454056' }}>

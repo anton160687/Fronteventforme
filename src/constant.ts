@@ -140,7 +140,7 @@ export enum Paths {
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
   Success = '/lk/business/add/success',
-  TermsOfUse = '/agreements/terms',
+  TermsOfUse = '/agreements',
   PrivacyPolicy = '/agreements/privacy',
 }
 
@@ -498,7 +498,7 @@ export const BreadCrumbsLinks = {
   Renew: { link: '/renew', name: 'Восстановление пароля' },
   TermsOfUse: { link: '/terms', name: 'Пользовательское Соглашение' },
   PrivacyPolicy: { link: '/privacy', name: 'Политика конфиденциальности' },
-  Agreements: { link: '/agreements', name: 'Соглашения' },
+  Agreements: { link: '/agreements', name: '' },
   Account: { link: '/lk', name: 'Личный кабинет' },
   Business: { link: '/business', name: 'Основная информация' },
   Bride: { link: '/bride', name: 'Основная информация' },
@@ -517,4 +517,7 @@ export const BreadCrumbsLinks = {
   AddProperty: { link: '/addproperty', name: 'Добавить площадку' },
   AddContacts: { link: '/addcontacts', name: 'Добавить контакты' },
   Success: { link: '/success', name: 'Успех?' },
+  Music: { link: '/music', name: 'Музыка' },
+  Dresses: { link: '/dresses', name: 'Платья' },
+  Photo: { link: '/photo', name: 'Фото' },
 };

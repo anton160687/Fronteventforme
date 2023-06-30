@@ -15,7 +15,13 @@ import {
 import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
 
-function InfoPage() {
+import { Dispatch, SetStateAction } from 'react';
+
+type InfoPageProps = {
+  setIsShown: Dispatch<SetStateAction<boolean>>;
+};
+
+function InfoPage({ setIsShown }: InfoPageProps) {
   const initialInfoState: BrideInfo = {
     username: '',
     first_name: '',
@@ -87,7 +93,10 @@ function InfoPage() {
 
   return (
     <>
-      <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
+      <LKNavigation
+        accountPageTitle={LKSectionsTitles.Info}
+        setIsShown={setIsShown}
+      >
         <Form onSubmit={handleSubmit}>
           <div className="mb-2 pt-1">Заполнено на {personProgress}%</div>
           <ProgressBar
