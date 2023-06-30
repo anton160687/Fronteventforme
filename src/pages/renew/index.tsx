@@ -1,7 +1,7 @@
 import EnterEmail from '@/components/sign/setPassword/enterEmail';
 import SignInPic from '@/components/sign/signInPic/signInPic';
 import SignInText from '@/components/sign/signInText/signInText';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 
 export default function Renew(): JSX.Element {

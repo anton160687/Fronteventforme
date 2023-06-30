@@ -6,12 +6,22 @@ import { Provider } from 'react-redux';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
 import '../styles/scss/theme.scss';
+import Script from 'next/script';
+import { useState } from 'react';
+import { SchemaType } from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 export default function App({ Component, pageProps }: AppProps) {
   let YA_API: string = '';
   if (process.env.NODE_ENV === 'production') {
     YA_API = process.env.NEXT_PUBLIC_YA_API!;
   }
+
+  const [schemaData, setSchemaData] = useState<SchemaType>({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  });
+
   return (
     <Provider store={store}>
       <SSRProvider>
@@ -41,6 +51,11 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <Layout>
             <Component {...pageProps} />
+            <Script
+              id="breadcrumbsJSON"
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+            />
           </Layout>
         </YMaps>
       </SSRProvider>
