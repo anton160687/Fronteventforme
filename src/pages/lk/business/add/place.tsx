@@ -81,13 +81,11 @@ function AddPropertyPage() {
   // Площадки
   const [areas, setAreas] = useState<(Area | null)[]>([]);
   const [areaIndexArray, setAreaIndexArray] = useState<(number | null)[]>([0]);
-
   function addArea(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
     let last = areaIndexArray.length - 1;
     setAreaIndexArray([...areaIndexArray, ++last]);
   }
-
   function deleteAreaForm(e: MouseEvent<HTMLParagraphElement>, index: number) {
     e.preventDefault;
     if (index !== 0) {
@@ -99,7 +97,6 @@ function AddPropertyPage() {
       setAreas([...copyAreasArray]);
     }
   }
-
   function renderAreaForms() {
     return areaIndexArray.map((index, i) => {
       if (index !== null) {
@@ -138,15 +135,61 @@ function AddPropertyPage() {
       }
     });
   }
-
   // Загрузка картинок
   const [mainPhotos, setMainPhotos] = useState<string[]>([]);
   const [territoryImg, setTerritoryImg] = useState<string[]>([]);
   const [welcomeImg, setWelcomeImg] = useState<string[]>([]);
   const [outregImg, setOutregImg] = useState<string[]>([]);
   // Альбомы
-  const [albums, setAlbums] = useState<Album[]>([]);
-  const [albumIndexArr, setAlbumIndexArr] = useState<number[]>([0]);
+  const [albums, setAlbums] = useState<(Album | null)[]>([]);
+  const [albumIndexArray, setAlbumIndexArray] = useState<(number | null)[]>([0]);
+  console.log(albums);
+  function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
+    e.preventDefault;
+    let last = albumIndexArray.length - 1;
+    setAlbumIndexArray([...albumIndexArray, ++last]);
+  }
+  function deleteAlbum(e: MouseEvent<HTMLParagraphElement>, index: number) {
+    e.preventDefault;
+    if (index !== 0) {
+      let copyIndexArray = albumIndexArray;
+      copyIndexArray[index] = null;
+      let copyAlbumsArray = albums;
+      copyAlbumsArray[index] = null;
+      setAlbumIndexArray([...copyIndexArray]);
+      setAlbums([...copyAlbumsArray]);
+    }
+  }
+  function renderWeddingAlbums() {
+    return albumIndexArray.map((index, i) => {
+      if (index !== null) {
+        return (
+          <section
+            key={index}
+            id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
+            className="card card-body border-0 shadow-sm p-4 mb-4"
+          >
+            {!!index && (
+              <p
+                className="text-primary mb-3 cursor-pointer d-flex align-items-center"
+                onClick={(e) => deleteAlbum(e, index)}
+                style={{ width: 'fit-content' }}
+              >
+                <i className="fi-minus-circle me-3"></i> Удалить альбом
+              </p>
+            )}
+            <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
+            <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
+              <i className="fi-plus-circle me-3"></i> Добавить альбом
+            </p>
+          </section>
+        )
+      } else {
+        return <div key={i}></div>;
+      }
+    })
+  };
+
   //хуки
   useEffect(() => {
     setPlace((prev) => ({ ...prev, place_img: mainPhotos }));
@@ -163,29 +206,6 @@ function AddPropertyPage() {
   useEffect(() => {
     setPlace((prev) => ({ ...prev, wedding_albums: albums }));
   }, [albums]);
-
-  function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
-    e.preventDefault;
-    let last = albumIndexArr[albumIndexArr.length - 1];
-    setAlbumIndexArr([...albumIndexArr, ++last]);
-  }
-
-  function renderWeddingAlbum() {
-    return albumIndexArr.map((index) => (
-      <section
-        key={index}
-        id={`${ADD_PLACE_NAMES.weddingAlbum.id}${index}`}
-        className="card card-body border-0 shadow-sm p-4 mb-4"
-      >
-        {/* //! согласовать отображение альбомов, загрузку картинок и получение данных с сервера */}
-        <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
-        <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
-          <i className="fi-plus-circle me-3"></i> Добавить альбом
-        </p>
-      </section>
-    ));
-  }
-
   //Progress Bar
   const [percent, setPercent] = useState<number>(0);
   // Превью
@@ -243,7 +263,7 @@ function AddPropertyPage() {
   return (
     <>
       <Container className="py-5">
-      <Breadcrumb className="mb-4 pt-md-3">
+        <Breadcrumb className="mb-4 pt-md-3">
           <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
             Главная
           </Breadcrumb.Item>
@@ -306,7 +326,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title = 'Фото площадки'
+                title='Фото площадки'
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
@@ -331,7 +351,7 @@ function AddPropertyPage() {
                 setPreviewOutregImg={setPreviewOutregImg}
               />
 
-              {renderWeddingAlbum()}
+              {renderWeddingAlbums()}
 
               <section className="d-sm-flex justify-content-between pt-2">
                 <Button
@@ -380,5 +400,6 @@ function AddPropertyPage() {
     </>
   );
 }
-
+// для тестов
+// export default AddPropertyPage;
 export default withAuth(AddPropertyPage);
