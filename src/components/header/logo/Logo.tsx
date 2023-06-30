@@ -14,7 +14,7 @@ function Logo() {
       <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14" />
       <meta itemProp="email" content="mailto:info@eventforme.ru" />
       <meta itemProp="telephone" content="tel:4065550120" />
-      <Link href="https://eventforme.ru" className="d-block mb-4" itemProp="url">
+      <Link href="https://eventforme.ru" className="d-block" itemProp="url">
         <Image
           src="/img/header/logo.svg"
           width={143}
