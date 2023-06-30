@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Breadcrumb, Col, Row, Card, Button, Spinner } from 'react-bootstrap';
+import { Col, Row, Card, Button, Spinner } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
@@ -18,7 +18,7 @@ import LocationDescription from '@/components/catalog/catalogItem/locationPhotos
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
-import { URL, Paths } from '@/constant';
+import { URL } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
@@ -27,7 +27,10 @@ import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
 import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
-import { generateBreadcrumbs } from '@/components/helpers';
+import {
+  generateBreadcrumbs,
+  getBreadCrumbsSchema,
+} from '@/components/helpers';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -215,28 +218,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
 
-    const schemaData: SchemaType = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [],
-    };
-
-    breadcrumbs.forEach((breadcrumb, index) => {
-      const crumbSchema: CrumbSchemaType = {
-        '@type': 'ListItem',
-        position: index + 1,
-        name: breadcrumb.text,
-        item: breadcrumb.href,
-      };
-
-      schemaData.itemListElement.push(crumbSchema);
-    });
+    const schemaData = getBreadCrumbsSchema(breadcrumbs);
 
     return {
       props: {
+        schemaData,
         place: result,
         user: user,
-        schemaData,
       },
     };
   }

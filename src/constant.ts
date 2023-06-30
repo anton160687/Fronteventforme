@@ -117,7 +117,7 @@ export enum Paths {
   Bride = '/bride',
   AccBusiness = '/lk/business',
   AccBride = '/lk/bride',
-  AccInfo = '/info',
+  AccInfo = '/',
   AccReviews = '/reviews',
   AccSecurity = '/security',
   AccWishlist = '/wishlist',
@@ -480,7 +480,7 @@ export enum contextMenuTypeEnum {
   Base = 'base',
   Declined = 'declined',
 }
-//В будущем предлагаю заменить Paths на BreadCrumbsLinks и  уьрать LKSectionsTitles
+//В будущем предлагаю заменить Paths на BreadCrumbsLinks и  убрать LKSectionsTitles
 
 // хватает только основной информации, т.к. в крошках она то должна формироваться, то нет
 export const BreadCrumbsLinks = {
@@ -494,8 +494,8 @@ export const BreadCrumbsLinks = {
   PrivacyPolicy: { link: '/privacy', name: 'Политика конфиденциальности' },
   Agreements: { link: '/agreements', name: 'Соглашения' },
   Account: { link: '/lk', name: 'Личный кабинет' },
-  Business: { link: '/business', name: '' },
-  Bride: { link: '/bride', name: '' },
+  Business: { link: '/business', name: 'Основная информация' },
+  Bride: { link: '/bride', name: 'Основная информация' },
   AccWishlist: { link: '/wishlist', name: 'Избранное' },
   AccHelp: { link: '/help', name: 'Пом' },
   AccSecurity: { link: '/security', name: 'Пароль и безопасность' },
@@ -511,5 +511,4 @@ export const BreadCrumbsLinks = {
   AddProperty: { link: '/addproperty', name: 'Добавить площадку' },
   AddContacts: { link: '/addcontacts', name: 'Добавить контакты' },
   Success: { link: '/success', name: 'Успех?' },
-  AccInfo: { link: '/info', name: 'Основная информация' },
 };

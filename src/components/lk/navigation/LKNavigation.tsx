@@ -59,7 +59,7 @@ function LKNavigation({
           </div>
         ) : (
           <section className="pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
-            <CustomBreadCrumbs />
+            {/* <CustomBreadCrumbs /> */}
             {/* <Breadcrumb className="mb-4 pt-md-3">
             <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
               Главная

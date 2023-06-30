@@ -16,7 +16,10 @@ import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
 
 import { GetServerSideProps } from 'next/types';
-import { generateBreadcrumbs } from '@/components/helpers';
+import {
+  generateBreadcrumbs,
+  getBreadCrumbsSchema,
+} from '@/components/helpers';
 import CustomBreadCrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 function InfoPage(schemaData: SchemaType) {
@@ -110,7 +113,6 @@ function InfoPage(schemaData: SchemaType) {
     <>
       <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
         <Form onSubmit={handleSubmit}>
-          <CustomBreadCrumbs />
           <Alert variant="info" className="d-flex mb-4">
             <i className="fi-alert-circle me-2 me-sm-3 lead"></i>
             <div>
@@ -392,3 +394,15 @@ function InfoPage(schemaData: SchemaType) {
 }
 
 export default withAuth(InfoPage);
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
+
+  const schemaData = getBreadCrumbsSchema(breadcrumbs);
+
+  return {
+    props: {
+      schemaData,
+    },
+  };
+};

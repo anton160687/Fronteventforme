@@ -33,6 +33,7 @@ export function generateBreadcrumbs(
   dynamicBreadCrumbTitle?: string
 ) {
   const pathNestedRoutes = generatePathParts(path);
+
   // Создаем одну крошку
   const crumblist = pathNestedRoutes.map((subpath, idx) => {
     // Ссылка до каждой хлебной крошки
@@ -50,13 +51,18 @@ export function generateBreadcrumbs(
 
     return {
       href,
-      text: getTextGenerator(subpath),
+      text:
+        (href === '/lk/business' && path !== '/lk/business') ||
+        (href === '/lk/bride' && path !== '/lk/bride')
+          ? ''
+          : getTextGenerator(subpath),
     };
   });
 
   const crumblistWithoutNull = crumblist.filter(
     (crumb) => crumb.text.length > 0
   );
+
   // Дефолтная ссылка на Главную
   return [
     {
@@ -65,4 +71,40 @@ export function generateBreadcrumbs(
     },
     ...crumblistWithoutNull,
   ];
+}
+
+export function getBreadCrumbsSchema(
+  breadcrumbs: {
+    href: string;
+    text: string;
+  }[]
+) {
+  const schemaData: SchemaType = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  };
+
+  breadcrumbs.forEach((breadcrumb, index) => {
+    const crumbSchema: CrumbSchemaType = {
+      '@type': 'ListItem',
+      position: index + 1,
+      name: breadcrumb.text,
+      item: breadcrumb.href,
+    };
+
+    // const crumbSchema: CrumbSchemaType = {
+    //   '@type': 'ListItem',
+    //   position: index + 1,
+    //   name: text,
+    // };
+
+    // if (!last) {
+    //   crumbSchema.item = href;
+    // }
+
+    schemaData.itemListElement.push(crumbSchema);
+  });
+
+  return schemaData;
 }

@@ -1,7 +1,5 @@
-import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Container from 'react-bootstrap/Container';
 import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
@@ -11,7 +9,7 @@ import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
-import { URL, Paths } from '@/constant';
+import { URL } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
@@ -19,7 +17,10 @@ import {
   getQueryParams,
   getQueryParamsWithoutParam,
 } from '@/services/catalog.service';
-import { generateBreadcrumbs } from '@/components/helpers';
+import {
+  generateBreadcrumbs,
+  getBreadCrumbsSchema,
+} from '@/components/helpers';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -127,40 +128,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
 
-  const schemaData: SchemaType = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [],
-  };
-
-  breadcrumbs.forEach((breadcrumb, index) => {
-    const crumbSchema: CrumbSchemaType = {
-      '@type': 'ListItem',
-      position: index + 1,
-      name: breadcrumb.text,
-      item: breadcrumb.href,
-    };
-
-    // const crumbSchema: CrumbSchemaType = {
-    //   '@type': 'ListItem',
-    //   position: index + 1,
-    //   name: text,
-    // };
-
-    // if (!last) {
-    //   crumbSchema.item = href;
-    // }
-    schemaData.itemListElement.push(crumbSchema);
-  });
+  const schemaData = getBreadCrumbsSchema(breadcrumbs);
 
   return {
     props: {
+      schemaData,
       places,
       totalCount,
       currentPage,
       queryParamsWithoutPagination,
       queryParamsWithoutSorting,
-      schemaData,
     },
   };
 };
