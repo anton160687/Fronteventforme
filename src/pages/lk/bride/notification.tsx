@@ -3,7 +3,6 @@ import { FormCheck } from 'react-bootstrap';
 import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles } from '@/constant';
 import withAuth from '@/hoc/withAuth';
-import { Dispatch, SetStateAction } from 'react';
 
 const switches = [
   {
@@ -41,11 +40,7 @@ const switches = [
   },
 ];
 
-type NotificationSettingPageProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
-
-function NotificationSettingPage({ setIsShown }: NotificationSettingPageProps) {
+function NotificationSettingPage() {
   function renderSwitches() {
     return switches.slice(1).map(({ id, name, title, description }) => (
       <FormCheck
@@ -92,10 +87,7 @@ function NotificationSettingPage({ setIsShown }: NotificationSettingPageProps) {
   // }
 
   return (
-    <LKNavigation
-      accountPageTitle={LKSectionsTitles.Notification}
-      setIsShown={setIsShown}
-    >
+    <LKNavigation accountPageTitle={LKSectionsTitles.Notification}>
       <>
         <p className="pt-1 mb-4">
           Получайте уведомления о новостях и событиях портала

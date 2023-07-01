@@ -9,20 +9,20 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 type HomeProps = {
   topLocations: LocationCard[];
-  setIsShown: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function Home({
-  topLocations = mockLocationCards,
-  setIsShown,
-}: HomeProps) {
+export default function Home({ topLocations = mockLocationCards }: HomeProps) {
+  const { setIsShown } = useBreadcrumbs();
+
   useEffect(() => {
     setIsShown(false);
   }, []);
+
   return (
     <>
       <Hero />

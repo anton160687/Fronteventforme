@@ -1,13 +1,12 @@
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
+import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 
-type CatalogProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
+export default function Catalog() {
+  let { setIsShown } = useBreadcrumbs();
 
-export default function Catalog({ setIsShown }: CatalogProps) {
   useEffect(() => {
     setIsShown(true);
   }, []);

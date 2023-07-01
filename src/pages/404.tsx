@@ -5,11 +5,15 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import lottie from 'lottie-web/build/player/lottie_light';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function Error() {
   const animationContainer = useRef(null);
+  let { setIsShown } = useBreadcrumbs();
 
   useEffect(() => {
+    setIsShown(false);
+
     if (animationContainer.current) {
       const animation = lottie.loadAnimation({
         container: animationContainer.current,
@@ -45,7 +49,7 @@ export default function Error() {
                 Вероятно, она была удалена или находится по другой ссылке.
               </p>
               <Button
-              // @ts-expect-error
+                // @ts-expect-error
                 as={Link}
                 href="/"
                 size="lg"

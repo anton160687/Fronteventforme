@@ -30,23 +30,20 @@ import {
   generateBreadcrumbs,
   getBreadCrumbsSchema,
 } from '@/components/helpers';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { SchemaType } from '@/types/breadcrumbs';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 type CatalogItemProps = {
   place: PlaceReceived;
   user: User;
   schemaData: SchemaType;
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-  setDynamicBreadCrumbTitle: Dispatch<SetStateAction<string>>;
 };
 
 export default function CatalogItem({
   place,
   user,
   schemaData,
-  setIsShown,
-  setDynamicBreadCrumbTitle,
 }: CatalogItemProps) {
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
@@ -59,6 +56,8 @@ export default function CatalogItem({
       type_territory: place?.type_territory,
     },
   ];
+
+  let { setIsShown, setDynamicBreadCrumbTitle } = useBreadcrumbs();
 
   useEffect(() => {
     setIsShown(true);

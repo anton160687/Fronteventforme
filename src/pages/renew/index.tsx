@@ -1,12 +1,19 @@
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 import EnterEmail from '@/components/sign/setPassword/enterEmail';
 import SignInPic from '@/components/sign/signInPic/signInPic';
 import SignInText from '@/components/sign/signInText/signInText';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 
 export default function Renew(): JSX.Element {
   const [isSent, setIsSent] = useState(false);
   const [email, setEmail] = useState('');
+
+  let { setIsShown } = useBreadcrumbs();
+
+  useEffect(() => {
+    setIsShown(false);
+  }, []);
 
   return (
     <Container as="section" className="mx-auto w-75">

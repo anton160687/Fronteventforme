@@ -1,9 +1,17 @@
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 import { Paths } from '@/constant';
 import withAuth from '@/hoc/withAuth';
 import Link from 'next/link';
-import { Breadcrumb, Button, Container, Image, Row } from 'react-bootstrap';
+import { useEffect } from 'react';
+import { Button, Container, Image, Row } from 'react-bootstrap';
 
 function SuccessPage() {
+  let { setIsShown } = useBreadcrumbs();
+
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
+
   return (
     <Container className="px-5">
       <Row>
@@ -18,7 +26,7 @@ function SuccessPage() {
         </p>
       </Row>
       {/* @ts-ignore: bootstrap bag*/}
-      <Button as={Link} href={Paths.AccMyBusiness} size="lg" className="mt-4">
+      <Button as={Link} href={Paths.AccBusiness} size="lg" className="mt-4">
         Вернуться в личный кабинет
         <i className="fi-chevron-right ms-2 fs-xs"></i>
       </Button>

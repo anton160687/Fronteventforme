@@ -5,18 +5,25 @@ import { Container, Spinner } from 'react-bootstrap';
 import { Paths, AUTH_API } from '@/constant';
 
 import styles from '@/styles/sign/Sign.module.scss';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function FinishRegistrationPage() {
   const router = useRouter();
   //здесь ловим динамические параметры из адресной строки
   const uid = router.query.uid as string;
   const token = router.query.token as string;
+  let { setIsShown } = useBreadcrumbs();
+
+  useEffect(() => {
+    setIsShown(false);
+  }, []);
 
   async function sendAuthData() {
     let data = {
       uid: uid,
       token: token,
     };
+
     let response = await fetch(`${AUTH_API}auth/users/activation/`, {
       method: 'POST',
       headers: {

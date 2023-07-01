@@ -2,17 +2,11 @@ import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import CustomCrumb from './CustomCrumb';
 import { generateBreadcrumbs } from '../helpers';
+import { useBreadcrumbs } from '../context/useBreadcrumbs';
 
-type CustomBreadCrumbsProps = {
-  dynamicBreadCrumbTitle: string;
-  isShown: boolean;
-};
-
-function CustomBreadCrumbs({
-  dynamicBreadCrumbTitle,
-  isShown,
-}: CustomBreadCrumbsProps) {
+function CustomBreadCrumbs() {
   const router = useRouter();
+  let { dynamicBreadCrumbTitle } = useBreadcrumbs();
 
   const breadcrumbs = useMemo(
     () => generateBreadcrumbs(router.asPath, dynamicBreadCrumbTitle),
@@ -21,24 +15,22 @@ function CustomBreadCrumbs({
 
   return (
     <>
-      {isShown && (
-        <nav className="mb-4pt-md-3">
-          <ol
-            className="breadcrumb"
-            itemScope
-            itemType="https://schema.org/BreadcrumbList"
-          >
-            {breadcrumbs.map((crumb, idx) => (
-              <CustomCrumb
-                {...crumb}
-                index={idx}
-                key={idx}
-                last={idx === breadcrumbs.length - 1}
-              />
-            ))}
-          </ol>
-        </nav>
-      )}
+      <nav className="mb-4pt-md-3">
+        <ol
+          className="breadcrumb"
+          itemScope
+          itemType="https://schema.org/BreadcrumbList"
+        >
+          {breadcrumbs.map((crumb, idx) => (
+            <CustomCrumb
+              {...crumb}
+              index={idx}
+              key={idx}
+              last={idx === breadcrumbs.length - 1}
+            />
+          ))}
+        </ol>
+      </nav>
     </>
   );
 }

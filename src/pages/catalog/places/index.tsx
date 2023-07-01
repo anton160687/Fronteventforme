@@ -8,6 +8,8 @@ import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
 import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
+import { useEffect } from 'react';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 //для SSR
 import { API } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
@@ -22,7 +24,6 @@ import {
   getBreadCrumbsSchema,
 } from '@/components/helpers';
 import { SchemaType } from '@/types/breadcrumbs';
-import { Dispatch, SetStateAction, useEffect } from 'react';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -31,7 +32,6 @@ type CatalogPlacesProps = {
   queryParamsWithoutPagination: string;
   queryParamsWithoutSorting: string;
   schemaData: SchemaType;
-  setIsShown: Dispatch<SetStateAction<boolean>>;
 };
 
 function CatalogPlaces({
@@ -41,10 +41,10 @@ function CatalogPlaces({
   queryParamsWithoutPagination,
   queryParamsWithoutSorting,
   schemaData,
-  setIsShown,
 }: CatalogPlacesProps) {
   console.log(places);
 
+  let { setIsShown } = useBreadcrumbs();
   useEffect(() => {
     setIsShown(true);
   }, []);

@@ -9,13 +9,8 @@ import { Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import withAuth from '@/hoc/withAuth';
-import { Dispatch, SetStateAction } from 'react';
 
-type WishlistPageProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
-
-function WishlistPage({ setIsShown }: WishlistPageProps): JSX.Element {
+function WishlistPage(): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
 
   const deleteCard = (id: number) => {
@@ -30,10 +25,7 @@ function WishlistPage({ setIsShown }: WishlistPageProps): JSX.Element {
   }
 
   return (
-    <LKNavigation
-      accountPageTitle={LKSectionsTitles.Wishlist}
-      setIsShown={setIsShown}
-    >
+    <LKNavigation accountPageTitle={LKSectionsTitles.Wishlist}>
       <>
         {/* List of properties or empty state */}
         {cards.length > 0 ? (

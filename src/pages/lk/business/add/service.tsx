@@ -1,8 +1,6 @@
 import { useState, ChangeEvent, MouseEvent, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import {
-  Breadcrumb,
   Button,
   Col,
   Container,
@@ -17,6 +15,7 @@ import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { ADD_PLACE_NAMES, Paths } from '@/constant';
 import ServiceForm from '@/components/addBusiness/serviceForm/ServiceForm';
 import withAuth from '@/hoc/withAuth';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 function AddBusinessPage() {
   const router = useRouter();
@@ -29,6 +28,12 @@ function AddBusinessPage() {
     wedding_albums: [''],
     description: '',
   };
+
+  let { setIsShown } = useBreadcrumbs();
+
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
 
   const [business, setBusiness] =
     useState<typeof initialBusinessState>(initialBusinessState);

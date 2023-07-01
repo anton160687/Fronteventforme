@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
 import Link from 'next/link';
@@ -16,22 +16,23 @@ import { LKBusinessSections, LKBrideSections, Paths } from '@/constant';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
 import Image from 'next/image';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 type LKNavigationProps = {
   accountPageTitle?: string;
   children?: JSX.Element;
-  setIsShown: Dispatch<SetStateAction<boolean>>;
 };
 
 function LKNavigation({
-  //с логикой хлебных крошек можно убрать accountPageTitle
+  //с логикой хлебных крошек можно убрать accountPageTitle, использовать BreadcrumbsLinks
   accountPageTitle,
   children,
-  setIsShown,
 }: LKNavigationProps): JSX.Element {
   const user = useSelector(selectUser);
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
+
+  let { setIsShown } = useBreadcrumbs();
 
   useEffect(() => {
     setIsShown(true);

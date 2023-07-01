@@ -2,12 +2,11 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { privacy } from '@/mocks/agreements';
 import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
-type PrivacyProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
-function Privacy({ setIsShown }: PrivacyProps): JSX.Element {
+function Privacy(): JSX.Element {
+  let { setIsShown } = useBreadcrumbs();
   useEffect(() => {
     setIsShown(true);
   }, []);

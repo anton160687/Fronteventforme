@@ -6,13 +6,8 @@ import { reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
 import withAuth from '@/hoc/withAuth';
-import { Dispatch, SetStateAction } from 'react';
 
-type BrideReviewsPageProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
-
-function BrideReviewsPage({ setIsShown }: BrideReviewsPageProps) {
+function BrideReviewsPage() {
   function renderReviews(reviews: ReviewType[]) {
     return reviews.map((review, indx) => (
       <Review
@@ -30,10 +25,7 @@ function BrideReviewsPage({ setIsShown }: BrideReviewsPageProps) {
   }
 
   return (
-    <LKNavigation
-      accountPageTitle={LKSectionsTitles.Reviews}
-      setIsShown={setIsShown}
-    >
+    <LKNavigation accountPageTitle={LKSectionsTitles.Reviews}>
       <>
         {reviewsByYou.length === 0 ? (
           <EmptyReviews />

@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
-import Link from 'next/link';
 import {
   Button,
   Form,
@@ -7,7 +6,6 @@ import {
   Col,
   Container,
   ProgressBar,
-  Breadcrumb,
 } from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
@@ -32,9 +30,16 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 import withAuth from '@/hoc/withAuth';
 import { useRouter } from 'next/router';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 function AddPropertyPage() {
   const router = useRouter();
+  let { setIsShown } = useBreadcrumbs();
+
+  useEffect(() => {
+    setIsShown(true);
+  }, []);
+
   const initialPlaceState: Place = {
     title: '',
     city: '',

@@ -2,13 +2,11 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { terms1, terms2 } from '@/mocks/agreements';
 import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
-type TermsProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
-};
-
-function Terms({ setIsShown }: TermsProps): JSX.Element {
+function Terms(): JSX.Element {
+  let { setIsShown } = useBreadcrumbs();
   useEffect(() => {
     setIsShown(true);
   }, []);
