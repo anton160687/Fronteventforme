@@ -79,12 +79,12 @@ export const ConvenientCatalog: FC = () => {
               id="bullets"
               className="swiper-pagination position-relative bottom-0 pt-2 mt-4 mb-lg-3"
             ></div>
-            <Row className="mt-lg-5 mt-sm-4 justify-content-md-center">
+            <Row className="mt-lg-5 mt-sm-4 justify-content-center justify-content-xl-start ms-0 mt-2 mt-xl-0git">
               <Button
                 type="button"
                 href="/catalog"
                 variant="primary"
-                className="text-decoration-none col-xl-3 col-sm-4"
+                className="text-decoration-none col-xl-3 col-sm-4 mt-2 me-2 me-lg-0"
                 size="lg"
               >
                 Попробовать
@@ -93,7 +93,7 @@ export const ConvenientCatalog: FC = () => {
                 type="button"
                 href="/catalog"
                 variant="outline-primary"
-                className="text-decoration-none col-xl-3 col-sm-4 ms-xl-4 ms-lg-3"
+                className="text-decoration-none col-xl-3 col-sm-4 ms-xl-4 ms-lg-3 mt-2"
                 size="lg"
               >
                 Подробнее
