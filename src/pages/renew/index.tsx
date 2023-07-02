@@ -9,10 +9,12 @@ export default function Renew(): JSX.Element {
   const [isSent, setIsSent] = useState(false);
   const [email, setEmail] = useState('');
 
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   return (

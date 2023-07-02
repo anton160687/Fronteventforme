@@ -6,10 +6,20 @@ import { useEffect } from 'react';
 import { Button, Container, Image, Row } from 'react-bootstrap';
 
 function SuccessPage() {
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    dynamicBreadCrumbTitle,
+    setDynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   return (

@@ -32,10 +32,20 @@ function LKNavigation({
   const link = user.is_bride ? Paths.AccBride : Paths.AccBusiness;
   const [open, setOpen] = useState(false);
 
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    dynamicBreadCrumbTitle,
+    setDynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   function renderLKNavbar(lkSections: LkSectionsType[]) {

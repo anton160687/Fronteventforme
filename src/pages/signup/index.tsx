@@ -11,10 +11,12 @@ import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 export default function SignUp(): JSX.Element {
   const [signUpForm, setSignUpForm] = useState(false);
   const [signUpIsDone, setSignUpIsDone] = useState(false);
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   //нужно в SignUpForm и SignUpText

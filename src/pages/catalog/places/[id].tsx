@@ -57,10 +57,12 @@ export default function CatalogItem({
     },
   ];
 
-  let { setIsShown, setDynamicBreadCrumbTitle } = useBreadcrumbs();
+  let { setIsShown, isShown, setDynamicBreadCrumbTitle } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
     setDynamicBreadCrumbTitle(place?.title);
   }, []);
 

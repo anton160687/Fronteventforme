@@ -40,10 +40,9 @@ export function generateBreadcrumbs(
     // Ссылка до каждой хлебной крошки
     const href = '/' + pathNestedRoutes.slice(0, idx + 1).join('/');
 
-    const title = getTextGenerator(subpath);
-
     if (
-      title === 'Не найдено' &&
+      //оставила ка напоминание для проверки
+      //title === 'Не найдено' &&
       dynamicBreadCrumbTitle !== undefined &&
       dynamicBreadCrumbTitle.length > 0 &&
       idx === pathNestedRoutes.length - 1
@@ -60,7 +59,7 @@ export function generateBreadcrumbs(
         (href === '/lk/business' && path !== '/lk/business') ||
         (href === '/lk/bride' && path !== '/lk/bride')
           ? ''
-          : title,
+          : getTextGenerator(subpath),
     };
   });
 

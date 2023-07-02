@@ -8,10 +8,20 @@ import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 function AddBusiness() {
   const [business, setBusiness] = useState<string>('');
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    dynamicBreadCrumbTitle,
+    setDynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   function handleRadio(e: ChangeEvent<HTMLInputElement>) {

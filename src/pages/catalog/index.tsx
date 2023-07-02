@@ -5,10 +5,20 @@ import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 
 export default function Catalog() {
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    dynamicBreadCrumbTitle,
+    setDynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   return (

@@ -29,10 +29,20 @@ function AddBusinessPage() {
     description: '',
   };
 
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    dynamicBreadCrumbTitle,
+    setDynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   const [business, setBusiness] =

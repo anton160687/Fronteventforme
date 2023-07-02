@@ -9,10 +9,12 @@ import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function Error() {
   const animationContainer = useRef(null);
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
 
     if (animationContainer.current) {
       const animation = lottie.loadAnimation({

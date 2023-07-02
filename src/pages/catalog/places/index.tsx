@@ -44,9 +44,19 @@ function CatalogPlaces({
 }: CatalogPlacesProps) {
   console.log(places);
 
-  let { setIsShown } = useBreadcrumbs();
+  let {
+    setIsShown,
+    isShown,
+    setDynamicBreadCrumbTitle,
+    dynamicBreadCrumbTitle,
+  } = useBreadcrumbs();
   useEffect(() => {
-    setIsShown(true);
+    if (!isShown) {
+      setIsShown(true);
+    }
+    if (dynamicBreadCrumbTitle.length > 0) {
+      setDynamicBreadCrumbTitle('');
+    }
   }, []);
 
   function renderAllPlaces(places: PlaceCardType[]) {

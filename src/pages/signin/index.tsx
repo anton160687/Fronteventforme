@@ -6,10 +6,12 @@ import SignInForm from '../../components/sign/signInForm/signInForm';
 import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function SignIn(): JSX.Element {
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   return (

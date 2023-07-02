@@ -12,10 +12,12 @@ export default function FinishRegistrationPage() {
   //здесь ловим динамические параметры из адресной строки
   const uid = router.query.uid as string;
   const token = router.query.token as string;
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   async function sendAuthData() {

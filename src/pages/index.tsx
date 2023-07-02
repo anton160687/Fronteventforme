@@ -17,10 +17,12 @@ type HomeProps = {
 };
 
 export default function Home({ topLocations = mockLocationCards }: HomeProps) {
-  const { setIsShown } = useBreadcrumbs();
+  const { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   return (

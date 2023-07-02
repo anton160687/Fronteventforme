@@ -5,10 +5,12 @@ import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 import { useEffect } from 'react';
 
 export default function FinishPasswordReset() {
-  let { setIsShown } = useBreadcrumbs();
+  let { setIsShown, isShown } = useBreadcrumbs();
 
   useEffect(() => {
-    setIsShown(false);
+    if (isShown) {
+      setIsShown(false);
+    }
   }, []);
 
   return (
