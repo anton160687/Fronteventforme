@@ -270,7 +270,7 @@ function AddPropertyPage() {
 
   return (
     <>
-      <Container className="py-5">
+      <Container className="px-5">
         <Row>
           <Col lg={8}>
             <Form onSubmit={handleSubmit}>

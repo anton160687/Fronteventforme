@@ -14,7 +14,6 @@ import RegButton from './registration/RegBtn';
 import Avatar from './avatar/Avatar';
 import styles from '@/styles/header/Header.module.scss';
 
-
 function Header() {
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch<AppDispatch>();
@@ -40,24 +39,38 @@ function Header() {
 
   return (
     <header>
-      <Container>
-        <Row className="align-items-baseline">
+      <Container className="px-5">
+        <Row className="align-items-baseline mx-0">
           {/* лого */}
-          <Col className="d-none d-xl-block col-xl-2">
+          <Col className="d-none d-xl-block col-xl-2 ps-0">
             <Logo />
           </Col>
           {/* основная навигация */}
-          <Col className="d-flex justify-content-end col-xl-7">
+          <Col className="d-flex justify-content-end col-xl-7 px-0">
             <HeaderNavbar isAuth={isAuth} />
           </Col>
           {/* кнопки входа/регистрации/аватар */}
-          <Col className="d-none d-xl-block col-xl-3 mt-auto mb-auto">
+          <Col className="d-none d-xl-block col-xl-3 mt-auto mb-auto pe-0">
             <nav>
-              <ul className={`${isAuth? styles.header__authnav_auth : styles.header__authnav_nonauth} m-0 p-0`}>
-                {!isAuth && <li className='m-0'><LoginButton /></li>}
-                {!isAuth && <li className='m-0'><RegButton /></li>}
+              <ul
+                className={`${
+                  isAuth
+                    ? styles.header__authnav_auth
+                    : styles.header__authnav_nonauth
+                } m-0 p-0`}
+              >
+                {!isAuth && (
+                  <li className="m-0">
+                    <LoginButton />
+                  </li>
+                )}
+                {!isAuth && (
+                  <li className="m-0">
+                    <RegButton />
+                  </li>
+                )}
                 {isAuth && user.is_bride !== undefined && (
-                  <li className='m-0'>
+                  <li className="m-0">
                     <Avatar
                       is_bride={user.is_bride}
                       username={user.username}
@@ -73,7 +86,7 @@ function Header() {
         </Row>
       </Container>
     </header>
-  )
+  );
 }
 
 export default Header;

@@ -15,7 +15,7 @@ function CustomBreadCrumbs() {
 
   return (
     <>
-      <nav className="mb-4pt-md-3">
+      <nav className="mb-4 pt-md-3 container px-5">
         <ol
           className="breadcrumb"
           itemScope

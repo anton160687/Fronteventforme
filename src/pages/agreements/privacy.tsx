@@ -22,9 +22,7 @@ function Privacy(): JSX.Element {
   }, []);
 
   return (
-    <Container
-      className={`mt-5 px-5 px-lg-0 w-lg-75 mx-auto ` + styles.privacy}
-    >
+    <Container className={`mt-5 mx-auto px-0 ` + styles.privacy}>
       <h2 className="mb-md-4 mb-3 pb-md-2">Политика Конфиденциальности</h2>
       <h6>
         Политика в отношении обработки и конфиденциальности персональных данных

@@ -72,7 +72,7 @@ function ChangePassword() {
       </p>
       <h2 className="h5">Пароль</h2>
       <Form validated={validated} onSubmit={handleSubmit} className="pb-4">
-        <Row xs={1} sm={2} md={1} lg={2} className="align-items-end mb-2">
+        <Row xs={1} sm={2} className="align-items-end mb-2">
           <Col className="mb-2">
             <Form.Label htmlFor="account-password">Текущий пароль</Form.Label>
             <PasswordToggle
@@ -100,7 +100,7 @@ function ChangePassword() {
             </Link>
           </Col>
         </Row>
-        <Row xs={1} sm={2} md={1} lg={2} className="align-items-end mb-2">
+        <Row xs={1} sm={2} className="align-items-end mb-2">
           <Col className="mb-3">
             <Form.Label htmlFor="account-password-new">Новый пароль</Form.Label>
             <PasswordToggle

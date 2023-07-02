@@ -34,7 +34,7 @@ function Terms(): JSX.Element {
   };
 
   return (
-    <Container className={`px-5 px-lg-0 mt-5 w-lg-75 mx-auto ` + styles.terms}>
+    <Container className={`mt-5 mx-auto px-0 ` + styles.terms}>
       <h2 className="mb-md-4 mb-3 pb-md-2">Пользовательское Соглашение</h2>
       <>
         <p>

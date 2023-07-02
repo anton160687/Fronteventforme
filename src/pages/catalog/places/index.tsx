@@ -75,13 +75,13 @@ function CatalogPlaces({
       />
 
       <Container className="px-5">
-        <Row className="p-0">
+        <Row className="mx-0">
           <Title title={'Площадки'} quantity={totalCount} />
           <PlaceTypesSlider />
           <PlaceFilters />
         </Row>
 
-        <Row>
+        <Row className="mx-0">
           <Sidebar />
           <Col className="ms-lg-4 p-0">
             <Sorting query={queryParamsWithoutSorting} />

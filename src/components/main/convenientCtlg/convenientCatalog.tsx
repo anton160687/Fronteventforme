@@ -17,7 +17,7 @@ export const ConvenientCatalog: FC = () => {
 
   return (
     <section className={styles.top}>
-      <Container as="section" className="mx-auto w-75">
+      <Container as="section">
         <Row className="m-0 justify-content-center">
           <Row
             className="col-xl-6 col-sm-12 g-4 p-0 justify-content-center justify-content-xl-start"

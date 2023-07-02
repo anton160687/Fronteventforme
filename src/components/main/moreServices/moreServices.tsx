@@ -7,7 +7,7 @@ import { steps } from '@/mocks/moreServices';
 
 function MoreServices(): JSX.Element {
   return (
-    <Container as="section" className="mx-auto w-75">
+    <Container as="section">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
         <div className="row">
           <div className="col-lg-6 col-sm-12">

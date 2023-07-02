@@ -67,7 +67,7 @@ export default function CatalogItem({
   }, []);
 
   return (
-    <Container className="px-5">
+    <Container className="px-0">
       {!place ? (
         <div className="w-100 h-100 d-flex justify-content-center mt-5">
           <Spinner className="centered" />

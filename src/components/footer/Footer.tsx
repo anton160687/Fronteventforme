@@ -8,11 +8,15 @@ import styles from '@/styles/footer/Footer.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
 const socialMedia = [
-  { id: 1, name: "whatsapp", path: "https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0" },
-  { id: 2, name: "pinterest", path: "https://ru.pinterest.com/eventformeru/" },
-  { id: 3, name: "vk", path: "https://vk.com/msk_eventforme" },
-  { id: 4, name: "telegram", path: "https://t.me/event_for_me" },
-]
+  {
+    id: 1,
+    name: 'whatsapp',
+    path: 'https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0',
+  },
+  { id: 2, name: 'pinterest', path: 'https://ru.pinterest.com/eventformeru/' },
+  { id: 3, name: 'vk', path: 'https://vk.com/msk_eventforme' },
+  { id: 4, name: 'telegram', path: 'https://t.me/event_for_me' },
+];
 
 function Footer() {
   function renderSocialBtn() {
@@ -28,7 +32,7 @@ function Footer() {
           light=""
         />
       </li>
-    ))
+    ));
   }
 
   function renderСol(column: FooterType) {
@@ -38,7 +42,10 @@ function Footer() {
         <ul className={styles.footer__column_list}>
           {column.data.map(({ id, url, name }) => (
             <li className="mb-2" key={id}>
-              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`}>
+              <Link
+                href={url}
+                className={`${styles.footer__navlink} nav-link p-0 fw-normal`}
+              >
                 {name}
               </Link>
             </li>
@@ -50,11 +57,11 @@ function Footer() {
 
   return (
     <footer className="footer bg-secondary mt-5">
-      <Container className={styles.footer__container}>
+      <Container className={styles.footer__container + ' px-5'}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
             <section id="footer_logo" className={`${styles.footer__logo} mb-4`}>
-              <Link href="/" className="d-block mb-4" >
+              <Link href="/" className="d-block mb-4">
                 <Image
                   src="/img/header/logo.svg"
                   width={143}
@@ -69,7 +76,8 @@ function Footer() {
                     href="mailto:info@eventforme.ru"
                     className="p-0 fw-normal nav-link"
                   >
-                    <i className="fi-mail me-2 align-middle opacity-70"></i>info@eventforme.ru
+                    <i className="fi-mail me-2 align-middle opacity-70"></i>
+                    info@eventforme.ru
                   </Link>
                 </li>
                 <li>
@@ -82,22 +90,14 @@ function Footer() {
                   </Link>
                 </li>
                 <li className="pt-4">
-                  <ul className={styles.footer__social}>
-                    {renderSocialBtn()}
-                  </ul>
+                  <ul className={styles.footer__social}>{renderSocialBtn()}</ul>
                 </li>
               </ul>
             </section>
           </Col>
-          <Col className={styles.footer__column}>
-            {renderСol(SERVICES)}
-          </Col>
-          <Col className={styles.footer__column}>
-            {renderСol(PAGES)}
-          </Col>
-          <Col className={styles.footer__column_last}>
-            {renderСol(PLACES)}
-          </Col>
+          <Col className={styles.footer__column}>{renderСol(SERVICES)}</Col>
+          <Col className={styles.footer__column}>{renderСol(PAGES)}</Col>
+          <Col className={styles.footer__column_last}>{renderСol(PLACES)}</Col>
           <Col className={styles.footer__column_last}>
             {renderСol(ACTORS)}
             <nav className={styles.footer__catalog_btncontainer}>
@@ -105,7 +105,8 @@ function Footer() {
                 // @ts-ignore: bootstrap bag*
                 as={Link}
                 href={Paths.AddChoicePage}
-                className={styles.footer__catalog_btn}>
+                className={styles.footer__catalog_btn}
+              >
                 Хочу в каталог
               </Button>
             </nav>
@@ -115,9 +116,23 @@ function Footer() {
         <Row id="footer_copyright" className={styles.footer__copyright}>
           <section>© EventForMe, 2023</section>
           <nav className={styles.footer__conditions}>
-            <ul className={styles.footer__conditions_list} >
-              <li><Link href={Paths.TermsOfUse} className={styles.footer__conditions_link}>Условия пользования</Link></li>
-              <li><Link href={Paths.PrivacyPolicy} className={styles.footer__conditions_link}>Политика конфиденциальности</Link></li>
+            <ul className={styles.footer__conditions_list}>
+              <li>
+                <Link
+                  href={Paths.TermsOfUse}
+                  className={styles.footer__conditions_link}
+                >
+                  Условия пользования
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={Paths.PrivacyPolicy}
+                  className={styles.footer__conditions_link}
+                >
+                  Политика конфиденциальности
+                </Link>
+              </li>
             </ul>
           </nav>
         </Row>

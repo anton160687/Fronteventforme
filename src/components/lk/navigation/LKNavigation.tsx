@@ -61,13 +61,13 @@ function LKNavigation({
   }
 
   return (
-    <Container>
+    <Container className="px-5">
       {user.is_bride === undefined ? (
         <div className="w-100 h-100 d-flex justify-content-center mt-5">
           <Spinner className="centered" />
         </div>
       ) : (
-        <section className="pb-lg-4 mb-sm-2 mx-lg-auto mx-5">
+        <section className="pb-lg-4 mb-sm-2">
           <Row>
             {/* Sidebar (Account nav) */}
             <Col md={12} lg={4} className="pe-xl-4">

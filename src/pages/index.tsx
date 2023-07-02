@@ -11,6 +11,7 @@ import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
 import { useEffect } from 'react';
 import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
+import { Container } from 'react-bootstrap';
 
 type HomeProps = {
   topLocations: LocationCard[];
@@ -28,24 +29,28 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
   return (
     <>
       <Hero />
-      <CardsLink />
-      <ConvenientCatalog />
-      <Locations
-        locations={topLocations}
-        title={'ТОП-5 площадок разных категорий г. Москва'}
-        isShowAll={false}
-      />
-      <MoreServices />
-      <SupplierSlider />
-      <Locations
-        locations={topLocations}
-        title={'Лучшие локации'}
-        isShowAll={true}
-        showAllTxt="Показать все"
-      />
-      <PersonServices />
+      <Container className="px-5">
+        <CardsLink />
+        <ConvenientCatalog />
+        <Locations
+          locations={topLocations}
+          title={'ТОП-5 площадок разных категорий г. Москва'}
+          isShowAll={false}
+        />
+        <MoreServices />
+        <SupplierSlider />
+        <Locations
+          locations={topLocations}
+          title={'Лучшие локации'}
+          isShowAll={true}
+          showAllTxt="Показать все"
+        />
+        <PersonServices />
+      </Container>
       <SupplierCard />
-      <PlanWeddingCard />
+      <Container>
+        <PlanWeddingCard />
+      </Container>
     </>
   );
 }

@@ -9,7 +9,7 @@ import RegisterBtn from '@/components/main/registerBtn/registerBtn';
 function SupplierCard() {
   return (
     <section className={styles.py64 + ' bg-secondary'}>
-      <Container as="section" className="mx-auto w-75">
+      <Container as="section" className="px-5">
         <Row className="align-items-center">
           <Col
             ms={12}
@@ -27,8 +27,8 @@ function SupplierCard() {
             <div className="d-flex justify-content-center justify-content-lg-end mb-md-0 mb-4">
               <Image
                 src="/img/photo.jpg"
-                width={416}
-                height={400}
+                width={636}
+                height={606}
                 alt="Photo"
               />
             </div>

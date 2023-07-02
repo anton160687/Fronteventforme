@@ -96,6 +96,7 @@ export function getBreadCrumbsSchema(
       name: breadcrumb.text,
     };
 
+    //Если ссылки делать относительные, то гугл ругается на id
     if (index !== breadcrumbs.length - 1) {
       crumbSchema.item = API?.slice(0, API?.length - 1) + breadcrumb.href;
     }
