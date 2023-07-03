@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import { selectUser } from '@/store/user/userSlice';
 import Navbar from 'react-bootstrap/Navbar';
 import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
 import CityInput from '../city/CityInput';
@@ -21,22 +19,22 @@ const navigation = [
   },
   {
     id: 1,
-    path: '/#',
+    path: Paths.WeddingSites,
     text: 'Свадебные\u00A0сайты',
   },
   {
     id: 2,
-    path: '/#',
+    path: Paths.Hashtags,
     text: 'Хештеги',
   },
   {
     id: 3,
-    path: '/#',
+    path: Paths.Invitations,
     text: 'Приглашения',
   },
   {
     id: 4,
-    path: '/#',
+    path: Paths.Blog,
     text: 'Блог',
   }
 ];
@@ -60,42 +58,65 @@ const lkNavigation = [
 ]
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
-  const user = useSelector(selectUser);
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
-  function handleToggle () {
+  function handleToggle() {
     setShow(!show);
   }
 
   function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
-      <li key={id} className={`nav-item ${customClass}`}>
-        <Link href={path} className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}>
-          {text}
+      <li
+        key={id}
+        className={`nav-item ${customClass}`}
+        itemProp="itemListElement"
+        itemScope
+        itemType="http://schema.org/ItemList"
+      >
+        <Link
+          href={path}
+          className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}
+          itemProp="url"
+        >
+          <span itemProp="name">{text}</span>
         </Link>
       </li>
     ));
   }
 
   return (
-    <Navbar bg="light" expand="xl" className='w-100 justify-content-end'>
+    <Navbar
+      id="headerNavBar"
+      bg="light"
+      expand="xl"
+      className='w-100 justify-content-end'
+      itemScope
+      itemType="https://schema.org/SiteNavigationElement"
+      itemID="/#headerNavBar"
+    >
       {/* Меню для мобильных устройств */}
       <Navbar.Toggle
         aria-controls="light-navbar-nav"
         onClick={handleToggle}
       />
 
-        <ul id="light-navbar-nav" className={`${styles.header__navbar} order-lg-2 navbar-nav navbar-collapse collapse ${show? "show": ""}`}>
-          <CityInput />
-          {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
-          <CatalogDropDown />
-          {renderNavigation(navigation.slice(1))}
-          {!isAuth ?
-            renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
-            :
-            renderNavigation(lkNavigation.slice(2), 'd-xl-none')
-          }
-        </ul>
+      <ul
+        id="light-navbar-nav"
+        className={`${styles.header__navbar} order-lg-2 navbar-nav navbar-collapse collapse ${show ? "show" : ""}`}
+        itemProp="about"
+        itemScope
+        itemType="http://schema.org/ItemList"
+      >
+        <CityInput />
+        {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
+        <CatalogDropDown />
+        {renderNavigation(navigation.slice(1))}
+        {!isAuth ?
+          renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
+          :
+          renderNavigation(lkNavigation.slice(2), 'd-xl-none')
+        }
+      </ul>
     </Navbar>
   );
 }

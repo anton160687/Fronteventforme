@@ -12,16 +12,18 @@ import { Album } from '@/types/placeType';
 
 type WeddingAlbumsProps = {
   index: number;
-  albums: Album[];
-  setAlbums: Dispatch<SetStateAction<Album[]>>;
+  albums: (Album | null)[];
+  setAlbums: Dispatch<SetStateAction<(Album | null)[]>>;
 };
+
+const letters = 1000;
 
 export default function WeddingAlbums({
   index,
   albums,
   setAlbums,
 }: WeddingAlbumsProps) {
-  const [lettersLeft, setLettersLeft] = useState<number>(50);
+  const [lettersLeft, setLettersLeft] = useState<number>(letters);
   const [album, setAlbum] = useState<Album>({
     title: '',
     album_img: [],
@@ -32,7 +34,7 @@ export default function WeddingAlbums({
 
   function handleChangeInsideForm(e: ChangeEvent<HTMLInputElement>) {
     handleChange(e);
-    setLettersLeft(1000 - e.target.value.length);
+    setLettersLeft(letters - e.target.value.length);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -45,8 +47,6 @@ export default function WeddingAlbums({
       album_img: albumImg,
       preview_album_img: previewAlbumImg,
     });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [albumImg, previewAlbumImg]);
 
   //при изменении Альбома - прокидываем в общий список
@@ -54,7 +54,6 @@ export default function WeddingAlbums({
     let newAlbumsArr = [...albums];
     newAlbumsArr[index] = album;
     setAlbums(newAlbumsArr);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [album]);
 
   return (
@@ -69,7 +68,7 @@ export default function WeddingAlbums({
       <Form.Control
         name="title"
         placeholder="Напишите имена молодоженов"
-        maxLength={1000}
+        maxLength={letters}
         value={album.title}
         onChange={handleChangeInsideForm}
       />

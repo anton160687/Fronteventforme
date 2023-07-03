@@ -12,8 +12,9 @@ function RegButton() {
       variant="primary"
       href={Paths.SignUp}
       className={styles.header__regbtn}
+      itemProp="url"
     >
-      <span>Регистрация</span>
+      <span itemProp="name">Регистрация</span>
       <i className="fi-chevron-right ms-2 fs-xs"></i>
     </Button>
   );

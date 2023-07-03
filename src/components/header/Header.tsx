@@ -38,7 +38,12 @@ function Header() {
   }, []);
 
   return (
-    <header>
+    <header
+      id="header"
+      itemScope
+      itemType="http://schema.org/WPHeader"
+      itemID="/#header"
+    >
       <Container className="px-5">
         <Row className="align-items-baseline mx-0">
           {/* лого */}
@@ -51,26 +56,50 @@ function Header() {
           </Col>
           {/* кнопки входа/регистрации/аватар */}
           <Col className="d-none d-xl-block col-xl-3 mt-auto mb-auto pe-0">
-            <nav>
+            <nav
+              id="headerNavAuth"
+              itemScope
+              itemType="https://schema.org/SiteNavigationElement"
+              itemID="/#headerNavAuth"
+            >
               <ul
                 className={`${
                   isAuth
                     ? styles.header__authnav_auth
                     : styles.header__authnav_nonauth
                 } m-0 p-0`}
+                itemProp="about"
+                itemScope
+                itemType="http://schema.org/ItemList"
               >
                 {!isAuth && (
-                  <li className="m-0">
+                  <li
+                    className="m-0"
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ItemList"
+                  >
                     <LoginButton />
                   </li>
                 )}
                 {!isAuth && (
-                  <li className="m-0">
+                  <li
+                    className="m-0"
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ItemList"
+                  >
                     <RegButton />
                   </li>
                 )}
                 {isAuth && user.is_bride !== undefined && (
-                  <li className="m-0">
+                  <li
+                    className="m-0"
+                    itemProp="itemListElement"
+                    itemScope
+                    itemType="http://schema.org/ItemList"
+                  >
+                    <meta itemProp="name" content="Личный кабинет" />
                     <Avatar
                       is_bride={user.is_bride}
                       username={user.username}

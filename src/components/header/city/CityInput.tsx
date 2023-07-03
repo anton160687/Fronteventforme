@@ -98,7 +98,8 @@ function CityInput() {
   }
 
   return (
-    <li className={`${styles.city__form_container} nav-item`}>
+    <li className={`${styles.city__form_container} nav-item`} itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
+      <meta itemProp="name" content="Введите город"/>
       <label className={styles.city__form}>
         <i className="fi-map-pin"/>
         <input
