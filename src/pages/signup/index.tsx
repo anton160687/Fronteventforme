@@ -1,23 +1,15 @@
 import Container from 'react-bootstrap/Container';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import SignUpForm from '../../components/sign/signUpForm/signUpForm';
 import SignUpText from '../../components/sign/signUpText/signUpText';
 import SocialMedia from '../../components/sign/socialMedia/socialMedia';
 import SignUpPic from '../../components/sign/signUpPic/signUpPic';
 import { CreateUserData } from '@/types/forms';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function SignUp(): JSX.Element {
   const [signUpForm, setSignUpForm] = useState(false);
   const [signUpIsDone, setSignUpIsDone] = useState(false);
-  let { setIsShown, isShown } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (isShown) {
-      setIsShown(false);
-    }
-  }, []);
 
   //нужно в SignUpForm и SignUpText
   const [data, setData] = useState<CreateUserData>({

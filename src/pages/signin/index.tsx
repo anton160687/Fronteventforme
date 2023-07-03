@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import SocialMedia from '../../components/sign/socialMedia/socialMedia';
 import SignInPic from '../../components/sign/signInPic/signInPic';
 import SignInForm from '../../components/sign/signInForm/signInForm';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 export default function SignIn(): JSX.Element {
-  let { setIsShown, isShown } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (isShown) {
-      setIsShown(false);
-    }
-  }, []);
-
   return (
     <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
       <main className="page-wrapper">

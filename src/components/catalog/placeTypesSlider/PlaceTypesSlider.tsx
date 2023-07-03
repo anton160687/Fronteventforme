@@ -39,7 +39,7 @@ function PlaceTypesSlider() {
   }
 
   return (
-    <div className="position-relative">
+    <div className="position-relative px-0">
       <Swiper
         modules={[Navigation, Pagination]}
         slidesPerView={10}

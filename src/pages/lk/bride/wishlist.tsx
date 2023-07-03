@@ -1,6 +1,5 @@
 import ImageLoader from '@/components/_finder/ImageLoader';
 import LKCard from '@/components/lk/card/Card';
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
 import { placesPublished } from '@/mocks/catalogPlaces';
 import { PlaceCardType } from '@/types/catalog';
@@ -9,6 +8,7 @@ import { Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 function WishlistPage(): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);
@@ -25,7 +25,13 @@ function WishlistPage(): JSX.Element {
   }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Wishlist}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Wishlist}
+      LKBreadcrumbs={{
+        name: LKSectionsTitles.Wishlist,
+        path: Paths.AccWishlist,
+      }}
+    >
       <>
         {/* List of properties or empty state */}
         {cards.length > 0 ? (

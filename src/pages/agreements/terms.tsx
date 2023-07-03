@@ -2,25 +2,8 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { terms1, terms2 } from '@/mocks/agreements';
 import Link from 'next/link';
-import { useEffect } from 'react';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 function Terms(): JSX.Element {
-  let {
-    setIsShown,
-    isShown,
-    dynamicBreadCrumbTitle,
-    setDynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
-
   const renderText = (item: string[]) => {
     return (
       <ul className="fs-base">
@@ -34,7 +17,7 @@ function Terms(): JSX.Element {
   };
 
   return (
-    <Container className={`mt-5 mx-auto px-0 ` + styles.terms}>
+    <Container className={`mt-5 mx-auto px-5 ` + styles.terms}>
       <h2 className="mb-md-4 mb-3 pb-md-2">Пользовательское Соглашение</h2>
       <>
         <p>

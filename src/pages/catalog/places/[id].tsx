@@ -18,7 +18,7 @@ import LocationDescription from '@/components/catalog/catalogItem/locationPhotos
 import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
 import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
-import { API } from '@/constant';
+import { API, BreadCrumbsLinks, Paths } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
@@ -26,25 +26,14 @@ import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/Album
 import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
-import {
-  generateBreadcrumbs,
-  getBreadCrumbsSchema,
-} from '@/components/helpers';
-import { useEffect } from 'react';
-import { SchemaType } from '@/types/breadcrumbs';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 type CatalogItemProps = {
   place: PlaceReceived;
   user: User;
-  schemaData: SchemaType;
 };
 
-export default function CatalogItem({
-  place,
-  user,
-  schemaData,
-}: CatalogItemProps) {
+export default function CatalogItem({ place, user }: CatalogItemProps) {
   const { weddingPhotos } = cards || {};
   const { articles } = cards || {};
   const territory = [
@@ -57,144 +46,150 @@ export default function CatalogItem({
     },
   ];
 
-  let { setIsShown, isShown, setDynamicBreadCrumbTitle } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    setDynamicBreadCrumbTitle(place?.title);
-  }, []);
+  const breadcrumbs = [
+    { path: Paths.Home, name: 'Главная' },
+    {
+      path: Paths.Catalog,
+      name: 'Каталог',
+    },
+    { path: BreadCrumbsLinks.Places.link, name: BreadCrumbsLinks.Places.name },
+    { path: `/${place.id}`, name: place.title },
+  ];
 
   return (
-    <Container className="px-0">
-      {!place ? (
-        <div className="w-100 h-100 d-flex justify-content-center mt-5">
-          <Spinner className="centered" />
-        </div>
-      ) : (
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(schemaData),
-            }}
-          />
+    <>
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
 
-          <LocationPhotos photoUrls={place.images_place} title={place.title} />
-          {/* общий контейнер страницы на все блоки под верхними фото */}
-          <Row className={styles.main__container}>
-            {/* основной контейнер слева на странице */}
-            <Col xl={8} className={styles.left__container}>
-              <LocationDescription
+      <main>
+        <Container className="px-5">
+          {!place ? (
+            <div className="w-100 h-100 d-flex justify-content-center mt-5">
+              <Spinner className="centered" />
+            </div>
+          ) : (
+            <>
+              <LocationPhotos
+                photoUrls={place.images_place}
                 title={place.title}
-                areasNumber={place.areas?.length}
-                address={place.address}
-                metro={place.metro}
               />
-              <AnchorBtns />
-              <TextDescription item={place} />
-              <TextEvents events={place.event} />
-              <TextKitchen
-                kids={place.children_kitchen}
-                kitchens={place.kitchen}
-              />
+              {/* общий контейнер страницы на все блоки под верхними фото */}
+              <Row className={styles.main__container}>
+                {/* основной контейнер слева на странице */}
+                <Col xl={8} className={styles.left__container}>
+                  <LocationDescription
+                    title={place.title}
+                    areasNumber={place.areas?.length}
+                    address={place.address}
+                    metro={place.metro}
+                  />
+                  <AnchorBtns />
+                  <TextDescription item={place} />
+                  <TextEvents events={place.event} />
+                  <TextKitchen
+                    kids={place.children_kitchen}
+                    kitchens={place.kitchen}
+                  />
 
-              <PlaceAreas
-                areas={place.areas}
-                average_check={place.average_check}
-              />
+                  <PlaceAreas
+                    areas={place.areas}
+                    average_check={place.average_check}
+                  />
 
-              <TextDetails description={place.description} />
-              <TextFeatures
-                features={place.type_feature}
-                territories={place.type_territory}
-                max_serving={place.max_serving}
-              />
+                  <TextDetails description={place.description} />
+                  <TextFeatures
+                    features={place.type_feature}
+                    territories={place.type_territory}
+                    max_serving={place.max_serving}
+                  />
 
-              <AlbumCardContainer
-                territory={territory}
-                welcome_zones={place.welcome_zones}
-                outside_reg={place.outsites_reg}
-              />
-              <Row className="my-xl-4 my-md-3 my-sm-2">
-                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
-                  Фото проведенных свадеб на площадке
-                </Card.Title>
-                <div className="d-flex justify-content-evenly">
-                  {weddingPhotos &&
-                    weddingPhotos.map((item) => (
-                      <WeddingsPhotos
-                        key={item.id}
-                        title={item.title}
-                        description={item.description}
-                        pathImg={item.pathImg}
-                      />
-                    ))}
-                </div>
+                  <AlbumCardContainer
+                    territory={territory}
+                    welcome_zones={place.welcome_zones}
+                    outside_reg={place.outsites_reg}
+                  />
+                  <Row className="my-xl-4 my-md-3 my-sm-2">
+                    <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
+                      Фото проведенных свадеб на площадке
+                    </Card.Title>
+                    <div className="d-flex justify-content-evenly">
+                      {weddingPhotos &&
+                        weddingPhotos.map((item) => (
+                          <WeddingsPhotos
+                            key={item.id}
+                            title={item.title}
+                            description={item.description}
+                            pathImg={item.pathImg}
+                          />
+                        ))}
+                    </div>
+                  </Row>
+                  <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
+                    <Card.Title
+                      as="h4"
+                      className="mb-xl-4 mb-md-3 mb-sm-2 w-100"
+                    >
+                      Статьи о свадьбах на площадке “Villa Arcobaleno”
+                    </Card.Title>
+                    <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
+                      {articles &&
+                        articles.map((item) => (
+                          <ArticleWeddings
+                            key={item.id}
+                            title={item.title}
+                            description={item.description}
+                            pathImg={item.pathImg}
+                            dateText={item.dateText}
+                          />
+                        ))}
+                    </div>
+                  </Row>
+                  <div id="map" className={styles.map__container}>
+                    <YaMap lat={place.width} long={place.longitude} />
+                  </div>
+                  <div id="comments" className={styles.comments__container}>
+                    <YaComments id={place.id_yandex} />
+                  </div>
+                  <LocalRating />
+                </Col>
+
+                {/* боковой контейнер справа на странице */}
+                <Col xl={4} lg={8} className={styles.right__container}>
+                  <div className={styles.popular__container}>
+                    {/* тестовые данные, потом - удалить */}
+                    <RatingStars rating={3.7} voices={58} />
+                    {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
+                    <div className={styles.popular__text}>
+                      <p className={styles.popular__par}>
+                        В избранном у&nbsp;<span>{234} человека </span>
+                      </p>
+                      <p className={styles.popular__par}>
+                        Забронировано&nbsp;<span>{12} раз </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* тестовые данные, потом - удалить */}
+                  <BookingForm
+                    avatar={user?.avatar || '/img/header/avatar.svg'}
+                    first_name={user?.first_name || 'Имя'}
+                    last_name={user?.last_name || 'Фамилия'}
+                    phone={user?.phone || '123456789'}
+                    email={user?.email || 'sshuahuash@mail.ru'}
+                  />
+
+                  <ContactForm />
+                </Col>
               </Row>
-              <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
-                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
-                  Статьи о свадьбах на площадке “Villa Arcobaleno”
-                </Card.Title>
-                <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
-                  {articles &&
-                    articles.map((item) => (
-                      <ArticleWeddings
-                        key={item.id}
-                        title={item.title}
-                        description={item.description}
-                        pathImg={item.pathImg}
-                        dateText={item.dateText}
-                      />
-                    ))}
-                </div>
-              </Row>
-              <div id="map" className={styles.map__container}>
-                <YaMap lat={place.width} long={place.longitude} />
-              </div>
-              <div id="comments" className={styles.comments__container}>
-                <YaComments id={place.id_yandex} />
-              </div>
-              <LocalRating />
-            </Col>
-
-            {/* боковой контейнер справа на странице */}
-            <Col xl={4} lg={8} className={styles.right__container}>
-              <div className={styles.popular__container}>
-                {/* тестовые данные, потом - удалить */}
-                <RatingStars rating={3.7} voices={58} />
-                {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-                <div className={styles.popular__text}>
-                  <p className={styles.popular__par}>
-                    В избранном у&nbsp;<span>{234} человека </span>
-                  </p>
-                  <p className={styles.popular__par}>
-                    Забронировано&nbsp;<span>{12} раз </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* тестовые данные, потом - удалить */}
-              <BookingForm
-                avatar={user?.avatar || '/img/header/avatar.svg'}
-                first_name={user?.first_name || 'Имя'}
-                last_name={user?.last_name || 'Фамилия'}
-                phone={user?.phone || '123456789'}
-                email={user?.email || 'sshuahuash@mail.ru'}
-              />
-
-              <ContactForm />
-            </Col>
-          </Row>
-          <SimilarItemsSlider />
-          {/* @ts-ignore: bootstrap bag*/}
-          <Button as={Link} href="#">
-            К началу страницы
-          </Button>
-        </>
-      )}
-    </Container>
+              <SimilarItemsSlider />
+              {/* @ts-ignore: bootstrap bag*/}
+              <Button as={Link} href="#">
+                К началу страницы
+              </Button>
+            </>
+          )}
+        </Container>
+      </main>
+    </>
   );
 }
 
@@ -213,13 +208,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
 
-    const breadcrumbs = generateBreadcrumbs(context.resolvedUrl, result.title);
-
-    const schemaData = getBreadCrumbsSchema(breadcrumbs);
-
     return {
       props: {
-        schemaData,
         place: result,
         user: user,
       },

@@ -15,7 +15,19 @@ import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import { ADD_PLACE_NAMES, Paths } from '@/constant';
 import ServiceForm from '@/components/addBusiness/serviceForm/ServiceForm';
 import withAuth from '@/hoc/withAuth';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+
+const breadcrumbs = [
+  { path: Paths.Home, name: 'Главная' },
+  {
+    path: Paths.AccBusiness,
+    name: 'Личный кабинет',
+  },
+  {
+    path: 'add/service',
+    name: 'Добавить бизнес',
+  },
+];
 
 function AddBusinessPage() {
   const router = useRouter();
@@ -28,22 +40,6 @@ function AddBusinessPage() {
     wedding_albums: [''],
     description: '',
   };
-
-  let {
-    setIsShown,
-    isShown,
-    dynamicBreadCrumbTitle,
-    setDynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
 
   const [business, setBusiness] =
     useState<typeof initialBusinessState>(initialBusinessState);
@@ -142,71 +138,74 @@ function AddBusinessPage() {
 
   return (
     <>
-      <Container className="px-5">
-        <Row>
-          <Col lg={8}>
-            <Form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <h1 className="h2 mb-0">Добавить бизнес</h1>
-                <div className="d-lg-none pt-3 mb-2">
-                  {0}% информации заполнено
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+      <main>
+        <Container className="px-5">
+          <Row>
+            <Col lg={8}>
+              <Form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <h1 className="h2 mb-0">Добавить бизнес</h1>
+                  <div className="d-lg-none pt-3 mb-2">
+                    {0}% информации заполнено
+                  </div>
+                  <ProgressBar
+                    variant="warning"
+                    now={0}
+                    style={{ height: '.25rem' }}
+                    className="d-lg-none mb-4"
+                  />
                 </div>
-                <ProgressBar
-                  variant="warning"
-                  now={0}
-                  style={{ height: '.25rem' }}
-                  className="d-lg-none mb-4"
+                <CityForm city={business.city} setCity={setCity} />
+
+                <BasicForm
+                  achievement={business.achievement}
+                  handleChange={handleChange}
                 />
-              </div>
-              <CityForm city={business.city} setCity={setCity} />
 
-              <BasicForm
-                achievement={business.achievement}
-                handleChange={handleChange}
-              />
+                <MainPhotos
+                  title="Главные фото"
+                  setMainPhotos={setMainPhotos}
+                  setPreviewMainPhotos={setPreviewMainPhotos}
+                />
 
-              <MainPhotos
-                title="Главные фото"
-                setMainPhotos={setMainPhotos}
-                setPreviewMainPhotos={setPreviewMainPhotos}
-              />
+                {renderServiceForms()}
 
-              {renderServiceForms()}
+                <BusinessDetails
+                  description={business.description}
+                  handleChange={handleChange}
+                />
 
-              <BusinessDetails
-                description={business.description}
-                handleChange={handleChange}
-              />
+                <section className="d-sm-flex justify-content-between pt-2">
+                  <Button
+                    size="lg"
+                    variant="outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2"
+                    // onClick={handlePreviewShow}
+                  >
+                    <i className="fi-eye-on ms-n1 me-2"></i>
+                    Предпросмотр
+                  </Button>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    variant="primary d-block w-100 w-sm-auto mb-2"
+                    onClick={handleSubmit}
+                  >
+                    Сохранить
+                  </Button>
+                </section>
+              </Form>
+            </Col>
+            <Col lg={{ span: 3, offset: 1 }} className="d-none d-lg-block">
+              <h3>Здесь боковой прогресс-бар</h3>
+            </Col>
+          </Row>
+        </Container>
 
-              <section className="d-sm-flex justify-content-between pt-2">
-                <Button
-                  size="lg"
-                  variant="outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2"
-                  // onClick={handlePreviewShow}
-                >
-                  <i className="fi-eye-on ms-n1 me-2"></i>
-                  Предпросмотр
-                </Button>
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="primary d-block w-100 w-sm-auto mb-2"
-                  onClick={handleSubmit}
-                >
-                  Сохранить
-                </Button>
-              </section>
-            </Form>
-          </Col>
-          <Col lg={{ span: 3, offset: 1 }} className="d-none d-lg-block">
-            <h3>Здесь боковой прогресс-бар</h3>
-          </Col>
-        </Row>
-      </Container>
-
-      {/* <Preview>
+        {/* <Preview>
       здесь будет превью
     </Preview> */}
+      </main>
     </>
   );
 }

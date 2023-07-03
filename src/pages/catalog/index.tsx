@@ -1,34 +1,31 @@
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
-import { useEffect } from 'react';
+import { Paths } from '@/constant';
 import { Row, Col } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 
+const breadcrumbs = [
+  { path: Paths.Home, name: 'Главная' },
+  {
+    path: Paths.Catalog,
+    name: 'Каталог',
+  },
+];
+
 export default function Catalog() {
-  let {
-    setIsShown,
-    isShown,
-    dynamicBreadCrumbTitle,
-    setDynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
-
   return (
-    <Container>
-      <Row>
-        <Sidebar />
-        <Col>
-          <h2>Корневая страница каталога</h2>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+      <main>
+        <Container className="px-5">
+          <Row className="mx-0">
+            <Sidebar />
+            <Col>
+              <h2>Корневая страница каталога</h2>
+            </Col>
+          </Row>
+        </Container>
+      </main>
+    </>
   );
 }

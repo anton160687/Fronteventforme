@@ -1,18 +1,8 @@
 import { Container } from 'react-bootstrap';
 import SetPassword from '@/components/sign/setPassword/setPassword';
 import SignInPic from '@/components/sign/signInPic/signInPic';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
-import { useEffect } from 'react';
 
 export default function FinishPasswordReset() {
-  let { setIsShown, isShown } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (isShown) {
-      setIsShown(false);
-    }
-  }, []);
-
   return (
     <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
       {/* Page wrapper */}

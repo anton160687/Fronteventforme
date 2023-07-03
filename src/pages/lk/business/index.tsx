@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
 import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { BusinessInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
 import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
@@ -14,6 +13,7 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 function InfoPage() {
   const initialInfoState: BusinessInfo = {
@@ -104,7 +104,10 @@ function InfoPage() {
 
   return (
     <>
-      <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
+      <LKNavigation
+        accountPageTitle={LKSectionsTitles.Info}
+        LKBreadcrumbs={{ name: LKSectionsTitles.Info, path: '' }}
+      >
         <Form onSubmit={handleSubmit}>
           <Alert variant="info" className="d-flex mb-4">
             <i className="fi-alert-circle me-2 me-sm-3 lead"></i>

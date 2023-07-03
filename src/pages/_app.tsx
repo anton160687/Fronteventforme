@@ -5,9 +5,7 @@ import { store } from '@/store';
 import { Provider } from 'react-redux';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
-import { schemaData } from '@/constant';
 import '../styles/scss/theme.scss';
-import { BreadcrumbsProvider } from '@/components/context/useBreadcrumbs';
 
 export default function App({ Component, pageProps }: AppProps) {
   let YA_API: string = '';
@@ -35,10 +33,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <link rel='mask-icon' color='#5bbad5' href='/favicon/safari-pinned-tab.svg' />
           <meta name='msapplication-TileColor' content='#766df4' />
           <meta name='theme-color' content='#ffffff' /> */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-          />
         </Head>
         <YMaps
           query={{
@@ -46,13 +40,9 @@ export default function App({ Component, pageProps }: AppProps) {
             apikey: YA_API,
           }}
         >
-          <BreadcrumbsProvider>
-            <Layout>
-              <main>
-                <Component {...pageProps} />
-              </main>
-            </Layout>
-          </BreadcrumbsProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </YMaps>
       </SSRProvider>
     </Provider>

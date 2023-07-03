@@ -1,14 +1,13 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
 
-type CrumbProps = {
-  text: string;
-  href: string;
+export type CrumbProps = {
+  name: string;
+  path: string;
   last: boolean;
   index: number;
 };
 
-function CustomCrumb({ text, href, last = false, index }: CrumbProps) {
+function CustomCrumb({ name, path, last = false, index }: CrumbProps) {
   return (
     <>
       {last ? (
@@ -18,7 +17,7 @@ function CustomCrumb({ text, href, last = false, index }: CrumbProps) {
           itemScope
           itemType="https://schema.org/ListItem"
         >
-          <span itemProp="name">{text}</span>
+          <span itemProp="name">{name}</span>
           <meta itemProp="position" content={`${index + 1}`} />
         </li>
       ) : (
@@ -28,8 +27,8 @@ function CustomCrumb({ text, href, last = false, index }: CrumbProps) {
           itemScope
           itemType="https://schema.org/ListItem"
         >
-          <Link href={href} itemProp="item">
-            <span itemProp="name">{text}</span>
+          <Link href={path} itemProp="item">
+            <span itemProp="name">{name}</span>
           </Link>
           <meta itemProp="position" content={`${index + 1}`} />
         </li>

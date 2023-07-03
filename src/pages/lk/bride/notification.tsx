@@ -1,8 +1,8 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
 import { FormCheck } from 'react-bootstrap';
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
-import { LKSectionsTitles } from '@/constant';
+import { LKSectionsTitles, Paths } from '@/constant';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 const switches = [
   {
@@ -87,7 +87,13 @@ function NotificationSettingPage() {
   // }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Notification}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Notification}
+      LKBreadcrumbs={{
+        name: LKSectionsTitles.Notification,
+        path: Paths.AccNotification,
+      }}
+    >
       <>
         <p className="pt-1 mb-4">
           Получайте уведомления о новостях и событиях портала

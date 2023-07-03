@@ -1,27 +1,92 @@
-import React, { useMemo } from 'react';
-import { useRouter } from 'next/router';
+import React, { useMemo, useState } from 'react';
 import CustomCrumb from './CustomCrumb';
-import { generateBreadcrumbs } from '../helpers';
-import { useBreadcrumbs } from '../context/useBreadcrumbs';
+import { API } from '@/constant';
 
-function CustomBreadCrumbs() {
-  const router = useRouter();
-  let { dynamicBreadCrumbTitle } = useBreadcrumbs();
+export type SchemaType = {
+  '@context': 'https://schema.org';
+  '@type': 'BreadcrumbList';
+  itemListElement: CrumbSchemaType[];
+};
 
-  const breadcrumbs = useMemo(
-    () => generateBreadcrumbs(router.asPath, dynamicBreadCrumbTitle),
-    [dynamicBreadCrumbTitle, router.asPath]
+export type CrumbSchemaType = {
+  '@type': 'ListItem';
+  position: number;
+  name: string;
+  item?: string;
+};
+
+type CustomBreadcrumbsProps = {
+  breadcrumbs: { path: string; name: string }[];
+};
+
+function CustomBreadcrumbs({ breadcrumbs }: CustomBreadcrumbsProps) {
+  const schemaData: SchemaType = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  };
+
+  let link = '';
+
+  const testBr = breadcrumbs[1].path;
+  console.log('testBr', testBr);
+
+  const newBreadcrumbs = useMemo(
+    function generateBreadcrumbs() {
+      console.log('breadcrumbs start', breadcrumbs);
+      return breadcrumbs.map((breadcrumb, index) => {
+        const crumbSchema: CrumbSchemaType = {
+          '@type': 'ListItem',
+          position: index + 1,
+          name: breadcrumb.name,
+        };
+
+        // if (index === 1) {
+        //   const newPath = breadcrumb.path.substring(1);
+        //   breadcrumb.path = newPath;
+        //   console.log('breadcrumb 1', breadcrumb);
+        // }
+
+        const href = breadcrumbs
+          .map((item) => item.path)
+          .slice(0, index + 1)
+          .join('');
+        // link += breadcrumb.path;
+        console.log('href', href);
+
+        //Если ссылки делать относительные, то гугл ругается на id
+        if (index !== breadcrumbs.length - 1) {
+          crumbSchema.item = API!.slice(0, API!.length - 1) + href;
+        }
+
+        schemaData.itemListElement.push(crumbSchema);
+
+        return {
+          name: breadcrumb.name,
+          path: index === 0 ? href : href.slice(1),
+        };
+      });
+    },
+    [breadcrumbs]
   );
+  console.log('schemaData', schemaData);
+  console.log('newBreadcrumbs', newBreadcrumbs);
 
   return (
     <>
       <nav className="mb-4 pt-md-3 container px-5">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schemaData),
+          }}
+        />
         <ol
           className="breadcrumb"
           itemScope
           itemType="https://schema.org/BreadcrumbList"
         >
-          {breadcrumbs.map((crumb, idx) => (
+          {newBreadcrumbs.map((crumb, idx) => (
             <CustomCrumb
               {...crumb}
               index={idx}
@@ -35,4 +100,4 @@ function CustomBreadCrumbs() {
   );
 }
 
-export default CustomBreadCrumbs;
+export default CustomBreadcrumbs;

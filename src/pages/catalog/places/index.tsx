@@ -8,10 +8,8 @@ import PlaceFilters from '@/components/catalog/placeFilters/PlaceFilters';
 import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
-import { useEffect } from 'react';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 //для SSR
-import { API } from '@/constant';
+import { API, BreadCrumbsLinks, Paths } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
@@ -19,11 +17,7 @@ import {
   getQueryParams,
   getQueryParamsWithoutParam,
 } from '@/services/catalog.service';
-import {
-  generateBreadcrumbs,
-  getBreadCrumbsSchema,
-} from '@/components/helpers';
-import { SchemaType } from '@/types/breadcrumbs';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -31,8 +25,16 @@ type CatalogPlacesProps = {
   currentPage: number;
   queryParamsWithoutPagination: string;
   queryParamsWithoutSorting: string;
-  schemaData: SchemaType;
 };
+
+const breadcrumbs = [
+  { path: Paths.Home, name: 'Главная' },
+  {
+    path: Paths.Catalog,
+    name: 'Каталог',
+  },
+  { path: BreadCrumbsLinks.Places.link, name: BreadCrumbsLinks.Places.name },
+];
 
 function CatalogPlaces({
   places,
@@ -40,24 +42,8 @@ function CatalogPlaces({
   currentPage,
   queryParamsWithoutPagination,
   queryParamsWithoutSorting,
-  schemaData,
 }: CatalogPlacesProps) {
   console.log(places);
-
-  let {
-    setIsShown,
-    isShown,
-    setDynamicBreadCrumbTitle,
-    dynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
 
   function renderAllPlaces(places: PlaceCardType[]) {
     if (places.length !== 0) {
@@ -67,40 +53,36 @@ function CatalogPlaces({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schemaData),
-        }}
-      />
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+      <main>
+        <Container className="px-5">
+          <Row className="mx-0">
+            <Title title={'Площадки'} quantity={totalCount} />
+            <PlaceTypesSlider />
+            <PlaceFilters />
+          </Row>
 
-      <Container className="px-5">
-        <Row className="mx-0">
-          <Title title={'Площадки'} quantity={totalCount} />
-          <PlaceTypesSlider />
-          <PlaceFilters />
-        </Row>
+          <Row className="mx-0">
+            <Sidebar />
+            <Col className="ms-lg-4 p-0">
+              <Sorting query={queryParamsWithoutSorting} />
 
-        <Row className="mx-0">
-          <Sidebar />
-          <Col className="ms-lg-4 p-0">
-            <Sorting query={queryParamsWithoutSorting} />
+              {renderAllPlaces(places)}
 
-            {renderAllPlaces(places)}
+              {/* Пагинация */}
+              <PaginationBar
+                currentPage={currentPage}
+                totalCount={totalCount}
+                siblingCount={1}
+                pageSize={8}
+                query={queryParamsWithoutPagination}
+              />
+            </Col>
+          </Row>
 
-            {/* Пагинация */}
-            <PaginationBar
-              currentPage={currentPage}
-              totalCount={totalCount}
-              siblingCount={1}
-              pageSize={8}
-              query={queryParamsWithoutPagination}
-            />
-          </Col>
-        </Row>
-
-        <BotomFilters />
-      </Container>
+          <BotomFilters />
+        </Container>
+      </main>
     </>
   );
 }
@@ -140,13 +122,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const breadcrumbs = generateBreadcrumbs(context.resolvedUrl);
-
-  const schemaData = getBreadCrumbsSchema(breadcrumbs);
-
   return {
     props: {
-      schemaData,
       places,
       totalCount,
       currentPage,

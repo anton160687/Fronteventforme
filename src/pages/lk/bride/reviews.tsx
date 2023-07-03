@@ -1,11 +1,11 @@
 import Review from '@/components/review/Review';
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { LKSectionsTitles, Paths } from '@/constant';
 import PaginationBar from '@/components/review/pagination/Pagination';
 import { reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 function BrideReviewsPage() {
   function renderReviews(reviews: ReviewType[]) {
@@ -25,7 +25,13 @@ function BrideReviewsPage() {
   }
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Reviews}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Reviews}
+      LKBreadcrumbs={{
+        name: LKSectionsTitles.Reviews,
+        path: Paths.AccReviews,
+      }}
+    >
       <>
         {reviewsByYou.length === 0 ? (
           <EmptyReviews />

@@ -9,8 +9,6 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
-import { useEffect } from 'react';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 import { Container } from 'react-bootstrap';
 
 type HomeProps = {
@@ -18,14 +16,6 @@ type HomeProps = {
 };
 
 export default function Home({ topLocations = mockLocationCards }: HomeProps) {
-  const { setIsShown, isShown } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (isShown) {
-      setIsShown(false);
-    }
-  }, []);
-
   return (
     <>
       <Hero />

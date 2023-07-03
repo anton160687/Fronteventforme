@@ -213,7 +213,7 @@ function Preview({
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
       <Modal.Header
         closeButton
-        className={styles.preview_header + ' container px-0'}
+        className={styles.preview_header + ' container px-5'}
       >
         <h3 className="h5 text-muted fw-normal modal-title d-none d-sm-block text-nowrap">
           {'Предпросмотр\u00a0'}
@@ -222,7 +222,7 @@ function Preview({
       </Modal.Header>
 
       <Modal.Body className="d-flex flex-column">
-        <Container className="mt-2 mt-sm-0 py-4 py-sm-5 px-0">
+        <Container className="mt-2 mt-sm-0 py-4 py-sm-5 px-5">
           <Breadcrumb className="breadcrumb">
             <Breadcrumb.Item>Главная</Breadcrumb.Item>
             <Breadcrumb.Item>Каталог</Breadcrumb.Item>

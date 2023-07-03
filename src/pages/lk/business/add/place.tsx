@@ -32,25 +32,22 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 import withAuth from '@/hoc/withAuth';
 import { useRouter } from 'next/router';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+
+const breadcrumbs = [
+  { path: Paths.Home, name: 'Главная' },
+  {
+    path: Paths.AccBusiness,
+    name: 'Личный кабинет',
+  },
+  {
+    path: '/add/place',
+    name: 'Добавить площадку',
+  },
+];
 
 function AddPropertyPage() {
   const router = useRouter();
-  let {
-    setIsShown,
-    isShown,
-    dynamicBreadCrumbTitle,
-    setDynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
 
   const initialPlaceState: Place = {
     title: '',
@@ -302,139 +299,133 @@ function AddPropertyPage() {
 
   return (
     <>
-      <Container className="py-5">
-        <Breadcrumb className="mb-4 pt-md-3">
-          <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-            Главная
-          </Breadcrumb.Item>
-          <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
-            Личный кабинет
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>Добавить бизнес</Breadcrumb.Item>
-        </Breadcrumb>
-        <Row>
-          <Col lg={8}>
-            <Form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <h1 className="h2 mb-0">Добавить площадку</h1>
-                <div className="d-lg-none pt-3 mb-2">
-                  {percent}% информации заполнено
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+      <main>
+        <Container className="px-5">
+          <Row>
+            <Col lg={8}>
+              <Form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <h1 className="h2 mb-0">Добавить площадку</h1>
+                  <div className="d-lg-none pt-3 mb-2">
+                    {percent}% информации заполнено
+                  </div>
+                  <ProgressBar
+                    variant="warning"
+                    now={percent}
+                    style={{ height: '.25rem' }}
+                    className="d-lg-none mb-4"
+                  />
                 </div>
-                <ProgressBar
-                  variant="warning"
-                  now={percent}
-                  style={{ height: '.25rem' }}
-                  className="d-lg-none mb-4"
-                />
-              </div>
 
-              <section
-                id={ADD_PLACE_NAMES.basic.id}
-                className="card card-body border-0 shadow-sm p-4 mb-4"
-              >
-                <h2 className="h4 mb-4">
-                  <i className="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>
-                  {ADD_PLACE_NAMES.basic.name}
-                </h2>
-                <BasicForm
-                  title={place.title}
+                <section
+                  id={ADD_PLACE_NAMES.basic.id}
+                  className="card card-body border-0 shadow-sm p-4 mb-4"
+                >
+                  <h2 className="h4 mb-4">
+                    <i className="fi-info-circle text-primary fs-5 mt-n1 me-2"></i>
+                    {ADD_PLACE_NAMES.basic.name}
+                  </h2>
+                  <BasicForm
+                    title={place.title}
+                    handleChange={handleChange}
+                    location
+                  />
+                </section>
+
+                <LocationForm
+                  setCity={setCity}
+                  setAddress={setAddress}
+                  setGeodata={setGeodata}
+                  setInputFields={handleChange}
+                  address={place.address}
+                  metro={place.metro}
+                  id_yandex={place.id_yandex}
+                />
+
+                <PlaceDescription
                   handleChange={handleChange}
-                  location
+                  handleCheckBox={handleCheckBox}
+                  handleNumberChange={handleNumberChange}
+                  handleRadio={handleRadio}
+                  children_kitchen={place.children_kitchen}
+                  fireworks={place.fireworks}
+                  alco={place.alco}
                 />
-              </section>
 
-              <LocationForm
-                setCity={setCity}
-                setAddress={setAddress}
-                setGeodata={setGeodata}
-                setInputFields={handleChange}
-                address={place.address}
-                metro={place.metro}
-                id_yandex={place.id_yandex}
+                <MainPhotos
+                  title="Фото площадки"
+                  setMainPhotos={setMainPhotos}
+                  setPreviewMainPhotos={setPreviewMainPhotos}
+                />
+
+                {renderAreaForms()}
+
+                <PlaceDetails
+                  handleChange={handleChange}
+                  handleCheckBox={handleCheckBox}
+                  handleNumberChange={handleNumberChange}
+                  description={place.description}
+                  territory_desc={place.territory_desc}
+                  welcome_desc={place.welcome_desc}
+                  outreg_price={place.outreg_price}
+                  outreg_desc={place.outreg_desc}
+                  outreg_conditions={place.outreg_conditions}
+                  setTerritoryImg={setTerritoryImg}
+                  setPreviewTerritoryImg={setPreviewTerritoryImg}
+                  setWelcomeImg={setWelcomeImg}
+                  setPreviewWelcomeImg={setPreviewWelcomeImg}
+                  setOutregImg={setOutregImg}
+                  setPreviewOutregImg={setPreviewOutregImg}
+                />
+
+                {renderWeddingAlbums()}
+
+                <section className="d-sm-flex justify-content-between pt-2">
+                  <Button
+                    size="lg"
+                    variant="outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2"
+                    onClick={handlePreviewShow}
+                  >
+                    <i className="fi-eye-on ms-n1 me-2"></i>
+                    Предпросмотр
+                  </Button>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    variant="primary d-block w-100 w-sm-auto mb-2"
+                  >
+                    Сохранить
+                  </Button>
+                </section>
+              </Form>
+            </Col>
+            <Col lg={{ span: 3, offset: 1 }} className="d-none d-lg-block">
+              <ProgressSideBar
+                place={place}
+                areas={areas}
+                setPercent={setPercent}
+                percent={percent}
+                mainPhotos={mainPhotos}
+                territoryImg={territoryImg}
+                welcomeImg={welcomeImg}
+                outregImg={outregImg}
               />
-
-              <PlaceDescription
-                handleChange={handleChange}
-                handleCheckBox={handleCheckBox}
-                handleNumberChange={handleNumberChange}
-                handleRadio={handleRadio}
-                children_kitchen={place.children_kitchen}
-                fireworks={place.fireworks}
-                alco={place.alco}
-              />
-
-              <MainPhotos
-                title="Фото площадки"
-                setMainPhotos={setMainPhotos}
-                setPreviewMainPhotos={setPreviewMainPhotos}
-              />
-
-              {renderAreaForms()}
-
-              <PlaceDetails
-                handleChange={handleChange}
-                handleCheckBox={handleCheckBox}
-                handleNumberChange={handleNumberChange}
-                description={place.description}
-                territory_desc={place.territory_desc}
-                welcome_desc={place.welcome_desc}
-                outreg_price={place.outreg_price}
-                outreg_desc={place.outreg_desc}
-                outreg_conditions={place.outreg_conditions}
-                setTerritoryImg={setTerritoryImg}
-                setPreviewTerritoryImg={setPreviewTerritoryImg}
-                setWelcomeImg={setWelcomeImg}
-                setPreviewWelcomeImg={setPreviewWelcomeImg}
-                setOutregImg={setOutregImg}
-                setPreviewOutregImg={setPreviewOutregImg}
-              />
-
-              {renderWeddingAlbums()}
-
-              <section className="d-sm-flex justify-content-between pt-2">
-                <Button
-                  size="lg"
-                  variant="outline-primary d-block w-100 w-sm-auto mb-3 mb-sm-2"
-                  onClick={handlePreviewShow}
-                >
-                  <i className="fi-eye-on ms-n1 me-2"></i>
-                  Предпросмотр
-                </Button>
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="primary d-block w-100 w-sm-auto mb-2"
-                >
-                  Сохранить
-                </Button>
-              </section>
-            </Form>
-          </Col>
-          <Col lg={{ span: 3, offset: 1 }} className="d-none d-lg-block">
-            <ProgressSideBar
-              place={place}
-              areas={areas}
-              setPercent={setPercent}
-              percent={percent}
-              mainPhotos={mainPhotos}
-              territoryImg={territoryImg}
-              welcomeImg={welcomeImg}
-              outregImg={outregImg}
-            />
-          </Col>
-        </Row>
-      </Container>
-      <Preview
-        previewShow={previewShow}
-        handlePreviewClose={handlePreviewClose}
-        place={place}
-        areas={areas}
-        previewMainPhotos={previewMainPhotos}
-        previewTerritoryImg={previewTerritoryImg}
-        previewWelcomeImg={previewWelcomeImg}
-        previewOutregImg={previewOutregImg}
-        previewAreasImg={previewAreasImg}
-      />
+            </Col>
+          </Row>
+        </Container>
+        <Preview
+          previewShow={previewShow}
+          handlePreviewClose={handlePreviewClose}
+          place={place}
+          areas={areas}
+          previewMainPhotos={previewMainPhotos}
+          previewTerritoryImg={previewTerritoryImg}
+          previewWelcomeImg={previewWelcomeImg}
+          previewOutregImg={previewOutregImg}
+          previewAreasImg={previewAreasImg}
+        />
+      </main>
     </>
   );
 }

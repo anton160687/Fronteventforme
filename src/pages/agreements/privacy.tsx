@@ -2,27 +2,10 @@ import { Container } from 'react-bootstrap';
 import styles from '@/styles/sign/Sign.module.scss';
 import { privacy } from '@/mocks/agreements';
 import Link from 'next/link';
-import { useEffect } from 'react';
-import { useBreadcrumbs } from '@/components/context/useBreadcrumbs';
 
 function Privacy(): JSX.Element {
-  let {
-    setIsShown,
-    isShown,
-    dynamicBreadCrumbTitle,
-    setDynamicBreadCrumbTitle,
-  } = useBreadcrumbs();
-  useEffect(() => {
-    if (!isShown) {
-      setIsShown(true);
-    }
-    if (dynamicBreadCrumbTitle.length > 0) {
-      setDynamicBreadCrumbTitle('');
-    }
-  }, []);
-
   return (
-    <Container className={`mt-5 mx-auto px-0 ` + styles.privacy}>
+    <Container className={`mt-5 mx-auto px-5 ` + styles.privacy}>
       <h2 className="mb-md-4 mb-3 pb-md-2">Политика Конфиденциальности</h2>
       <h6>
         Политика в отношении обработки и конфиденциальности персональных данных
