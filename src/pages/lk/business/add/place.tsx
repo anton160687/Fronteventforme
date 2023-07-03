@@ -1,6 +1,14 @@
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button, Form, Row, Col, Container, ProgressBar, Breadcrumb } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Container,
+  ProgressBar,
+  Breadcrumb,
+} from 'react-bootstrap';
 import Preview from '@/components/addProperty/preview/Preview';
 import ProgressSideBar from '@/components/addProperty/progressSideBar/ProgressSideBar';
 import LocationForm from '@/components/addProperty/locationForm/LocationForm';
@@ -10,7 +18,13 @@ import PlaceDescription from '@/components/addProperty/placeDescription/placeDes
 import PlaceDetails from '@/components/addProperty/placeDetails/PlaceDetails';
 import MainPhotos from '@/components/addProperty/mainPhotos/MainPhotos';
 import WeddingAlbums from '@/components/addProperty/weddingAlbums/WeddingAlbums';
-import { addTerritoryImages, createArea, createOutReg, createPlace, createWelcomeZone } from '@/components/addProperty/placeAPI';
+import {
+  addTerritoryImages,
+  createArea,
+  createOutReg,
+  createPlace,
+  createWelcomeZone,
+} from '@/components/addProperty/placeAPI';
 import { ADD_PLACE_NAMES, Paths, Token } from '@/constant';
 import { Area } from '@/types/areaType';
 import { Album, Place } from '@/types/placeType';
@@ -18,7 +32,6 @@ import { checkIfTokenIsFresh } from '@/services/auth.service';
 import { authoriseUser } from '@/store/user/userAPI';
 import withAuth from '@/hoc/withAuth';
 import { useRouter } from 'next/router';
-
 
 function AddPropertyPage() {
   const router = useRouter();
@@ -142,7 +155,9 @@ function AddPropertyPage() {
   const [outregImg, setOutregImg] = useState<string[]>([]);
   // Альбомы
   const [albums, setAlbums] = useState<(Album | null)[]>([]);
-  const [albumIndexArray, setAlbumIndexArray] = useState<(number | null)[]>([0]);
+  const [albumIndexArray, setAlbumIndexArray] = useState<(number | null)[]>([
+    0,
+  ]);
   console.log(albums);
   function addAlbum(e: MouseEvent<HTMLParagraphElement>) {
     e.preventDefault;
@@ -178,17 +193,25 @@ function AddPropertyPage() {
                 <i className="fi-minus-circle me-3"></i> Удалить альбом
               </p>
             )}
-            <WeddingAlbums index={index} albums={albums} setAlbums={setAlbums} />
-            <p className="cursor-pointer text-primary mb-3" onClick={addAlbum}>
+            <WeddingAlbums
+              index={index}
+              albums={albums}
+              setAlbums={setAlbums}
+            />
+            <p
+              className="cursor-pointer text-primary mb-3"
+              style={{ width: 'fit-content' }}
+              onClick={addAlbum}
+            >
               <i className="fi-plus-circle me-3"></i> Добавить альбом
             </p>
           </section>
-        )
+        );
       } else {
         return <div key={i}></div>;
       }
-    })
-  };
+    });
+  }
 
   //хуки
   useEffect(() => {
@@ -270,9 +293,7 @@ function AddPropertyPage() {
           <Breadcrumb.Item linkAs={Link} href={Paths.AccBusiness}>
             Личный кабинет
           </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Добавить бизнес
-          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Добавить бизнес</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
           <Col lg={8}>
@@ -326,7 +347,7 @@ function AddPropertyPage() {
               />
 
               <MainPhotos
-                title='Фото площадки'
+                title="Фото площадки"
                 setMainPhotos={setMainPhotos}
                 setPreviewMainPhotos={setPreviewMainPhotos}
               />
