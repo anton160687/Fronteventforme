@@ -11,13 +11,9 @@ function withAuth<T extends WithAuthProps = WithAuthProps>(
 ) {
   const ComponentWithAuth = (props: T) => {
     const router = useRouter();
-    //  const isAuth = useSelector(selectIsAuth);
+    const isAuth = useSelector(selectIsAuth);
     const user = useSelector(selectUser);
-    // const role = user?.is_bride;
-
-    //временно, для ускорения процесса кода ревью)
-    const isAuth = true;
-    const role = false;
+    const role = user?.is_bride;
 
     if (!isAuth) {
       return <SignIn />;

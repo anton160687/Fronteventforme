@@ -65,7 +65,7 @@ function LocationPhotos({
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
-                    imgAlt="Фото имущества"
+                    imgAlt={title}
                     className={styles.location__photo_small}
                   />
                   <GalleryItem
@@ -82,7 +82,7 @@ function LocationPhotos({
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
-                    imgAlt="Фото имущества"
+                    imgAlt={title}
                     className={styles.location__photo_small}
                   />
                 </div>
@@ -101,7 +101,7 @@ function LocationPhotos({
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
-                    imgAlt="Фото имущества"
+                    imgAlt={title}
                     className={styles.location__photo_small_up}
                   />
                   <GalleryItem
@@ -118,7 +118,7 @@ function LocationPhotos({
                     style={{ maxWidth: '372px' }}
                     light={false}
                     video={false}
-                    imgAlt="Фото имущества"
+                    imgAlt={title}
                     className={styles.location__photo_small_down}
                   />
                 </div>
@@ -134,7 +134,7 @@ function LocationPhotos({
                 style={{ maxWidth: '765px' }}
                 light={false}
                 video={false}
-                imgAlt="Фото имущества"
+                imgAlt={title}
                 className={styles.location__photo_main_right}
               />
             )}
