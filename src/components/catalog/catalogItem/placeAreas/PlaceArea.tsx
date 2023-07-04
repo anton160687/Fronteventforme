@@ -24,6 +24,15 @@ type PlaceAreaProps = {
   average_check: number;
 };
 
+//для красивого вывода данных из дропдаунов формы добавления
+const findTitle = (dictionary: string[][], value: string): string => {
+  const title = dictionary.find((item: string[]) => item[0] === value);
+
+  if (title === undefined) return 'Не указано';
+
+  return title[1];
+};
+
 function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   //отображение "Показать еще"
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -34,17 +43,49 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
 
-  //для красивого вывода данных из дропдаунов формы добавления
-  const findTitle = (dictionary: string[][], value: string): string => {
-    const title = dictionary.find((item: string[]) => item[0] === value);
-
-    if (title === undefined) return 'Не указано';
-
-    return title[1];
-  };
-
   const typeArea = TYPE_AREA.find((value) => value[0] === area.type_area.id);
   const typeAreaName: string = typeArea ? typeArea[1] : 'Не указано';
+
+  const leftDecription = [
+    {
+      label: 'Вместимость',
+      value: `${area.min_capacity}-${area.max_capacity} человек`,
+    },
+    {
+      label: 'Схема оплаты',
+      value: findTitle(SCHEME_OF_PAYMENT, area.scheme_of_payment),
+    },
+    {
+      label: 'Стоимость',
+      value: `Аренда от ${area.min_price_rent}₽ + от ${area.deposit}₽/чел`,
+    },
+    {
+      label: 'Цвет зала',
+      value: findTitle(COLOR_HALL, area.color_hall),
+    },
+  ];
+
+  const rightDecription = [
+    {
+      label: 'Тип',
+      value: typeAreaName,
+    },
+    {
+      label: 'Отдельный вход',
+      value: area.separate_entrance ? 'Да' : 'Нет',
+    },
+    {
+      label: 'Минимальная стоимость банкета',
+      value: area.min_price_banquet
+        ? `${area.min_price_banquet}₽`
+        : 'Не указано',
+    },
+    /* //! Заглушка  */
+    {
+      label: 'Возможна аренда без еды',
+      value: 'Да',
+    },
+  ];
 
   // преобразование фото
   const [photos, setPhotos] = useState<string[]>([]);
@@ -55,20 +96,12 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const combinePhotos = () => {
     const emptyPhoto = '/img/emptyPhoto.png';
-    // if ('images_area' in area && area.images_area) {
-    // const imageArray = area.images_area.map((img) =>
-    //   typeof img === 'string' ? emptyPhoto : img.image
-    // );
+
     const imageArray = area.images_area.map((img) => img.image);
     if (area.cover_area) imageArray.unshift(area.cover_area);
     if (imageArray.length === 2) setPhotos([...imageArray, emptyPhoto]);
     else setPhotos(imageArray);
-    // }
   };
-
-  // const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  // };
 
   const galleryRender = () => {
     return (
@@ -210,85 +243,14 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
         <div className={styles.slider_text_wrapper}>
           <div className="d-md-flex">
             <div className={styles.left_block + ' me-0 me-md-4'}>
-              {/* <div className={styles.slider_text}>
-                <p>Вместимость</p>
-                <p className={styles.slider_text_data}>
-                  {area.min_capacity}-{area.max_capacity} человек
-                </p>
-              </div> 
-              <div className={styles.slider_text}>
-                <p>Схема оплаты</p>
-                <p className={styles.slider_text_data}>
-                  {findTitle(SCHEME_OF_PAYMENT, area.scheme_of_payment)}
-                </p>
-              </div>
-              <div className={styles.slider_text}>
-                <p>Стоимость</p>
-                <p className={styles.slider_text_data}>
-                  Аренда от {area.min_price_rent}₽ + от {area.deposit}₽/чел
-                </p>
-              </div>
-              <div className={styles.slider_text}>
-                <p>Цвет зала</p>
-                <p className={styles.slider_text_data}>
-                  {findTitle(COLOR_HALL, area.color_hall)}
-                </p>
-              </div>*/}
-              {descriptionRender(
-                'Вместимость',
-                `${area.min_capacity}-${area.max_capacity} человек`
-              )}
-              {descriptionRender(
-                'Схема оплаты',
-                findTitle(SCHEME_OF_PAYMENT, area.scheme_of_payment)
-              )}
-              {descriptionRender(
-                'Стоимость',
-                `Аренда от ${area.min_price_rent}₽ + от ${area.deposit}₽/чел`
-              )}
-              {descriptionRender(
-                'Цвет зала',
-                findTitle(COLOR_HALL, area.color_hall)
+              {leftDecription.map((item) =>
+                descriptionRender(item.label, item.value)
               )}
             </div>
             <div className={styles.right_block}>
-              {/* <div className={styles.slider_text}>
-                <p>Тип</p>
-                <p className={styles.slider_text_data}>{typeAreaName}</p>
-              </div>
-              <div className={styles.slider_text}>
-                <p>Отдельный вход</p>
-                <p className={styles.slider_text_data}>
-                  {area.separate_entrance ? 'Да' : 'Нет'}
-                </p>
-              </div>
-              <div className={styles.slider_text}>
-                <p>Минимальная стоимость банкета</p>
-                <p className={styles.slider_text_data}>
-                  {area.min_price_banquet
-                    ? `${area.min_price_banquet}₽`
-                    : 'Не указано'}
-                </p>
-              </div>
-              <div className={styles.slider_text}>
-                <p>Возможна аренда без еды</p>
-                //! Заглушка 
-                <p className={styles.slider_text_data}>Да</p>
-              </div> */}
-
-              {descriptionRender('Тип', typeAreaName)}
-              {descriptionRender(
-                'Отдельный вход',
-                area.separate_entrance ? 'Да' : 'Нет'
+              {rightDecription.map((item) =>
+                descriptionRender(item.label, item.value)
               )}
-              {descriptionRender(
-                'Минимальная стоимость банкета',
-                area.min_price_banquet
-                  ? `${area.min_price_banquet}₽`
-                  : 'Не указано'
-              )}
-              {/* //! Заглушка  */}
-              {descriptionRender('Возможна аренда без еды', 'Да')}
             </div>
           </div>
 
