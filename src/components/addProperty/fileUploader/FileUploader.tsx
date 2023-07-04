@@ -51,7 +51,6 @@ function FileUploader({
 }: FileUploaderProps) {
   const [files, setFiles] = useState<FilePondFile[]>([]);
   const [errorFiles, setErrorFiles] = useState<FilePondFile[]>([]);
-  const [input, setInput] = useState<number | string>('');
 
   const API =
     process.env.NODE_ENV === 'production'
@@ -65,8 +64,6 @@ function FileUploader({
     files.map((file) => previewArr.push(RESTORE_IMG + file.serverId));
     setGallery(serverIdArr);
     if (setPreviewGallery) setPreviewGallery(previewArr);
-
-    //  setInput(serverIdArr.length);
   }, [files]);
 
   const onProcess = (
