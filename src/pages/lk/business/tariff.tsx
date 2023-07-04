@@ -1,4 +1,4 @@
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import PricePlan from '@/components/lk/pricePlan/PricePlan';
 import { LKSectionsTitles, Paths } from '@/constant';
 import withAuth from '@/hoc/withAuth';

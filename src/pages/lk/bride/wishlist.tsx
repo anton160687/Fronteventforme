@@ -8,7 +8,7 @@ import { Button, Form } from 'react-bootstrap';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import withAuth from '@/hoc/withAuth';
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 
 function WishlistPage(): JSX.Element {
   const [cards, setCards] = useState<PlaceCardType[]>(placesPublished);

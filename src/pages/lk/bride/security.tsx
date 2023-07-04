@@ -1,4 +1,4 @@
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import ChangePassword from '@/components/lk/changePassword/ChangePassword';
 import { LKSectionsTitles, Paths } from '@/constant';
 import withAuth from '@/hoc/withAuth';

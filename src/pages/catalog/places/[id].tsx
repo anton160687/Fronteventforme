@@ -59,7 +59,6 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
   return (
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
-
       <main>
         <Container className="px-5">
           {!place ? (

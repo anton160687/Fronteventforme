@@ -13,7 +13,7 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 
 function InfoPage() {
   const initialInfoState: BrideInfo = {
