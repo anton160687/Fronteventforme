@@ -1,8 +1,11 @@
 import {
   Dispatch,
   FormEvent,
+  LegacyRef,
+  RefObject,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 import Alert from 'react-bootstrap/Alert';
@@ -63,7 +66,7 @@ function FileUploader({
     setGallery(serverIdArr);
     if (setPreviewGallery) setPreviewGallery(previewArr);
 
-    setInput(files.length || '');
+    //  setInput(serverIdArr.length);
   }, [files]);
 
   const onProcess = (
@@ -97,13 +100,14 @@ function FileUploader({
     if (file) setErrorFiles((prev) => [...prev, file]);
   };
 
-  // const onChange = (e: FormEvent<HTMLInputElement>) => {
-  //   if ((errorFiles.length > 0 && files.length > 0) || errorFiles.length > 0) {
-  //     e.currentTarget.setCustomValidity('Поле содержит некорректные файлы');
-  //   } else if (files.length === 0)
-  //     e.currentTarget.setCustomValidity('Выберите один или несколько файлов');
-  //   else if (files.length > 0) e.currentTarget.setCustomValidity('');
-  // };
+  const inputRef = useRef<any>();
+
+  //для проверки на наличие некорректных файлов и вывода ошибки
+  useEffect(() => {
+    if ((errorFiles.length > 0 && files.length > 0) || errorFiles.length > 0) {
+      inputRef.current.setCustomValidity('Поле содержит некорректные файлы');
+    } else if (files.length > 0) inputRef.current.setCustomValidity('');
+  }, [errorFiles]);
 
   return (
     <div className="mb-4 position-relative">
@@ -111,19 +115,15 @@ function FileUploader({
         <i className="fi-alert-circle me-2 me-sm-3"></i>
         <p className="fs-sm mb-1">{warning}</p>
       </Alert>
-      {/* нужен, чтобы при загрузке некорректных картинок и последующем их удалении (при этом корректные остаются) не вылезало ошибки "Поле содержит некорректные файлы", потому что по умолчанию требуется удалить все картинки и загрузить только корректные */}
-      {/* <input
-        type="number"
-        onInvalid={onChange}
-        onChange={onChange}
-        value={input}
-        required
+      {/* нужен для вывода ошибок, потому что встроенный в FilePond не всегда работает корректно*/}
+      <input
+        //type="number"
+        ref={inputRef}
         className="position-absolute top-50 start-50"
         style={{ opacity: '0' }}
-        autoFocus={false}
-      /> */}
+      />
       <FilePond
-        // checkValidity={true}
+        //checkValidity={true}
         onprocessfile={onProcess}
         onremovefile={onRemove}
         required={required}
