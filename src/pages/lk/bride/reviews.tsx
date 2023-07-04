@@ -5,7 +5,7 @@ import { reviewsByYou } from '@/mocks/reviews';
 import { ReviewType } from '@/types/review';
 import EmptyReviews from '@/components/lk/reviews/EmptyReviews';
 import withAuth from '@/hoc/withAuth';
-import LKNavigation from '@/components/lk/Navigation/LKNavigation';
+import LKNavigation from '@/components/lk/navigation/LKNavigation';
 
 function BrideReviewsPage() {
   function renderReviews(reviews: ReviewType[]) {
