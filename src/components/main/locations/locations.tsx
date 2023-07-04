@@ -64,7 +64,7 @@ export function Locations({
               >
                 <Button
                   type="button"
-                  className="text-primary btn btn-icon btn-light btn-xs rounded-circle"
+                  className="text-primary btn btn-icon btn-light-primary btn-xs rounded-circle"
                   onClick={addToFav}
                 >
                   <i className="fi-heart" />
