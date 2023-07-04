@@ -21,6 +21,10 @@
   line-height: 21px !important;
   color: $gray800;
   outline: none;
+  @media (min-width: 1200px) and (max-width: 1250px) {
+    width: 90px;
+    text-overflow: ellipsis;
+  }
 }
 
 .city__dropdown {
@@ -39,7 +43,7 @@
 
 .checked {
   &:hover {
-    color: #674FA3;
+    color: #674fa3;
     font-weight: 600;
   }
 }

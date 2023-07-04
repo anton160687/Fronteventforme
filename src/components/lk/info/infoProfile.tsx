@@ -6,7 +6,7 @@ import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import { FilePondErrorDescription, FilePondFile } from 'filepond';
-import { AUTH_URL } from '@/constant';
+import { AUTH_API } from '@/constant';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
@@ -16,11 +16,6 @@ type InfoProfileProps = {
 };
 
 function InfoProfile({ profile, setProfile }: InfoProfileProps) {
-  const API =
-    process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_AUTHURL
-      : AUTH_URL;
-
   registerPlugin(
     FilePondPluginFileValidateType,
     FilePondPluginImagePreview,
@@ -51,7 +46,7 @@ function InfoProfile({ profile, setProfile }: InfoProfileProps) {
       onremovefile={onRemove}
       // required={required}
       server={{
-        url: `${API}fp/`,
+        url: `${AUTH_API}fp/`,
         process: 'process/',
         revert: 'revert/',
         load: 'load/',

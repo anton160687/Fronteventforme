@@ -1,5 +1,4 @@
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
-import { LKSectionsTitles, contextMenuTypeEnum } from '@/constant';
+import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
 import { useState } from 'react';
 import styles from '@/styles/lk/Lk.module.scss';
 import { PlaceCardType } from '@/types/catalog';
@@ -18,6 +17,7 @@ import EmptyModeration from '@/components/lk/offers/EmptyModeration';
 import EmptyArchive from '@/components/lk/offers/EmptyArchive';
 import EmptyDrafts from '@/components/lk/offers/EmptyDrafts';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 const navItems = [
   {
@@ -137,7 +137,10 @@ function OffersPage(): JSX.Element {
   };
 
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Offers}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Offers}
+      LKBreadcrumbs={{ name: LKSectionsTitles.Help, path: Paths.AccOffers }}
+    >
       <>
         {cards.length > 0 && (
           <Button

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '@/store/user/userSlice';
 import { Button, Form, Col, Row, Alert } from 'react-bootstrap';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
 import { BrideInfo } from '@/types/lkInfoType';
 import InfoProfile from '@/components/lk/info/infoProfile';
 import DeleteModal from '@/components/lk/deleteModal/DeleteModal';
@@ -14,6 +13,7 @@ import {
 } from '@/constant';
 import styles from '@/styles/lk/Lk.module.scss';
 import withAuth from '@/hoc/withAuth';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 
 function InfoPage() {
   const initialInfoState: BrideInfo = {
@@ -87,14 +87,18 @@ function InfoPage() {
 
   return (
     <>
-      <LKNavigation accountPageTitle={LKSectionsTitles.Info}>
+      <LKNavigation
+        accountPageTitle={LKSectionsTitles.Info}
+        LKBreadcrumbs={{
+          name: LKSectionsTitles.Info,
+          path: '',
+        }}
+      >
         <Form onSubmit={handleSubmit}>
-          <div className="mb-2 pt-1">
-            Заполнено на { personProgress }%
-          </div>
+          <div className="mb-2 pt-1">Заполнено на {personProgress}%</div>
           <ProgressBar
             variant="warning"
-            now={ personProgress }
+            now={personProgress}
             className="mb-4"
             style={{ height: '.25rem' }}
           />
@@ -197,7 +201,7 @@ function InfoPage() {
               />
             </Col>
           </Form.Group>
-         
+
           {/* Description, avatar */}
           <Form.Group as={Row} className='pb-2  controlId="info-bio"'>
             <Form.Label>
@@ -287,7 +291,7 @@ function InfoPage() {
         setShow={setShow}
         message={'Вы действительно хотите безвозвратно удалить аккаунт?'}
         //тут должна быть функция по удалению
-        deleteFunc={() => { }}
+        deleteFunc={() => {}}
       />
     </>
   );

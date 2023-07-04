@@ -10,11 +10,7 @@ export const CardsLink: FC = () => {
   }
 
   return (
-    <Container
-      as="section"
-      className="mx-auto w-75"
-      style={{ marginTop: '104px', padding: '0' }}
-    >
+    <Container as="section" style={{ marginTop: '104px', padding: '0' }}>
       <Row>
         <Col sm={12} className="text-center">
           <p className="mb-3">Портал EventForMe</p>

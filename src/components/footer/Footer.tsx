@@ -8,11 +8,15 @@ import styles from '@/styles/footer/Footer.module.scss';
 import { Col, Row } from 'react-bootstrap';
 
 const socialMedia = [
-  { id: 1, name: "whatsapp", path: "https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0" },
-  { id: 2, name: "pinterest", path: "https://ru.pinterest.com/eventformeru/" },
-  { id: 3, name: "vk", path: "https://vk.com/msk_eventforme" },
-  { id: 4, name: "telegram", path: "https://t.me/event_for_me" },
-]
+  {
+    id: 1,
+    name: 'whatsapp',
+    path: 'https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0',
+  },
+  { id: 2, name: 'pinterest', path: 'https://ru.pinterest.com/eventformeru/' },
+  { id: 3, name: 'vk', path: 'https://vk.com/msk_eventforme' },
+  { id: 4, name: 'telegram', path: 'https://t.me/event_for_me' },
+];
 
 function Footer() {
   function renderSocialBtn() {
@@ -28,7 +32,7 @@ function Footer() {
           light=""
         />
       </li>
-    ))
+    ));
   }
 
   function renderСol(column: FooterType) {
@@ -40,11 +44,28 @@ function Footer() {
         itemType="https://schema.org/SiteNavigationElement"
         itemID={`/#footerNavCol${column.id}`}
       >
-        <h2 className={styles.footer__column_title} itemProp="name">{column.title}</h2>
-        <ul className={styles.footer__column_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
+        <h2 className={styles.footer__column_title} itemProp="name">
+          {column.title}
+        </h2>
+        <ul
+          className={styles.footer__column_list}
+          itemProp="about"
+          itemScope
+          itemType="http://schema.org/ItemList"
+        >
           {column.data.map(({ id, url, name }) => (
-            <li className="mb-2" key={id} itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
-              <Link href={url} className={`${styles.footer__navlink} nav-link p-0 fw-normal`} itemProp="url">
+            <li
+              className="mb-2"
+              key={id}
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ItemList"
+            >
+              <Link
+                href={url}
+                className={`${styles.footer__navlink} nav-link p-0 fw-normal`}
+                itemProp="url"
+              >
                 <span itemProp="name">{name}</span>
               </Link>
             </li>
@@ -55,13 +76,14 @@ function Footer() {
   }
 
   return (
-    <footer id="footer"
+    <footer
+      id="footer"
       className="footer bg-secondary mt-5"
       itemScope
       itemType="http://schema.org/WPFooter"
       itemID="/#footer"
     >
-      <Container className={styles.footer__container}>
+      <Container className={styles.footer__container + ' px-5'}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
             <section
@@ -71,8 +93,15 @@ function Footer() {
               itemID="https://eventforme.ru"
             >
               <meta itemProp="name" content="EventForMe" />
-              <meta itemProp="address" content="Москва, Ленингадский проспект дом 39, стр. 14" />
-              <Link href="https://eventforme.ru" className="d-block mb-4" itemProp="url">
+              <meta
+                itemProp="address"
+                content="Москва, Ленингадский проспект дом 39, стр. 14"
+              />
+              <Link
+                href="https://eventforme.ru"
+                className="d-block mb-4"
+                itemProp="url"
+              >
                 <Image
                   src="/img/header/logo.svg"
                   width={143}
@@ -89,7 +118,8 @@ function Footer() {
                     className="p-0 fw-normal nav-link"
                     itemProp="email"
                   >
-                    <i className="fi-mail me-2 align-middle opacity-70"></i>info@eventforme.ru
+                    <i className="fi-mail me-2 align-middle opacity-70"></i>
+                    info@eventforme.ru
                   </Link>
                 </li>
                 <li>
@@ -103,22 +133,14 @@ function Footer() {
                   </Link>
                 </li>
                 <li className="pt-4">
-                  <ul className={styles.footer__social}>
-                    {renderSocialBtn()}
-                  </ul>
+                  <ul className={styles.footer__social}>{renderSocialBtn()}</ul>
                 </li>
               </ul>
             </section>
           </Col>
-          <Col className={styles.footer__column}>
-            {renderСol(SERVICES)}
-          </Col>
-          <Col className={styles.footer__column}>
-            {renderСol(PAGES)}
-          </Col>
-          <Col className={styles.footer__column_last}>
-            {renderСol(PLACES)}
-          </Col>
+          <Col className={styles.footer__column}>{renderСol(SERVICES)}</Col>
+          <Col className={styles.footer__column}>{renderСol(PAGES)}</Col>
+          <Col className={styles.footer__column_last}>{renderСol(PLACES)}</Col>
           <Col className={styles.footer__column_last}>
             {renderСol(ACTORS)}
             <nav
@@ -141,19 +163,48 @@ function Footer() {
         </Row>
         {/* Copyright */}
         <Row id="footer_copyright" className={styles.footer__copyright}>
-          <section>©<span itemProp="copyrightHolder">EventForMe</span>, <span itemProp="copyrightYear">2023</span></section>
-          <nav className={styles.footer__conditions}
+          <section>
+            ©<span itemProp="copyrightHolder">EventForMe</span>,{' '}
+            <span itemProp="copyrightYear">2023</span>
+          </section>
+          <nav
+            className={styles.footer__conditions}
             id="footerNavConditions"
             itemScope
             itemType="https://schema.org/SiteNavigationElement"
             itemID="/#footerNavConditions"
           >
-            <ul className={styles.footer__conditions_list} itemProp="about" itemScope itemType="http://schema.org/ItemList">
-              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
-                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Условия пользования</span></Link>
+            <ul
+              className={styles.footer__conditions_list}
+              itemProp="about"
+              itemScope
+              itemType="http://schema.org/ItemList"
+            >
+              <li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ItemList"
+              >
+                <Link
+                  href="#"
+                  className={styles.footer__conditions_link}
+                  itemProp="url"
+                >
+                  <span itemProp="name">Условия пользования</span>
+                </Link>
               </li>
-              <li itemProp="itemListElement" itemScope itemType="http://schema.org/ItemList">
-                <Link href="#" className={styles.footer__conditions_link} itemProp="url"><span itemProp="name">Политика конфиденциальности</span></Link>
+              <li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ItemList"
+              >
+                <Link
+                  href="#"
+                  className={styles.footer__conditions_link}
+                  itemProp="url"
+                >
+                  <span itemProp="name">Политика конфиденциальности</span>
+                </Link>
               </li>
             </ul>
           </nav>

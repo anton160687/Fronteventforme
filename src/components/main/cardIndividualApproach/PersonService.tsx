@@ -10,7 +10,7 @@ export const PersonServices: FC = () => {
   return (
     <Container
       as="section"
-      className={'mx-auto w-75 pt-2 pt-sm-0 pb-md-2 ' + styles.my124}
+      className={'pt-2 pt-sm-0 pb-md-2 ' + styles.my124}
       style={{ paddingInline: '0.2rem' }}
     >
       <MainTitle

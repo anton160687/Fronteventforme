@@ -211,86 +211,87 @@ function Preview({
 
   return (
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
-      <Modal.Header closeButton className={styles.preview_header}>
+      <Modal.Header
+        closeButton
+        className={styles.preview_header + ' container px-5'}
+      >
         <h3 className="h5 text-muted fw-normal modal-title d-none d-sm-block text-nowrap">
           {'Предпросмотр\u00a0'}
           <span>площадки</span>
         </h3>
       </Modal.Header>
 
-      <Modal.Body className="d-flex flex-column p-0">
-        <Container className="mt-2 mt-sm-0 py-4 py-sm-5">
-          <Container className="px-5">
-            <Breadcrumb className="breadcrumb">
-              <Breadcrumb.Item>Главная</Breadcrumb.Item>
-              <Breadcrumb.Item>Каталог</Breadcrumb.Item>
-              <Breadcrumb.Item>Площадки</Breadcrumb.Item>
-              <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
-            </Breadcrumb>
+      <Modal.Body className="d-flex flex-column">
+        <Container className="mt-2 mt-sm-0 py-4 py-sm-5 px-5">
+          <Breadcrumb className="breadcrumb">
+            <Breadcrumb.Item>Главная</Breadcrumb.Item>
+            <Breadcrumb.Item>Каталог</Breadcrumb.Item>
+            <Breadcrumb.Item>Площадки</Breadcrumb.Item>
+            <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
+          </Breadcrumb>
 
-            <LocationPhotos
-              photoUrls={uniPlace.images_place}
-              title={uniPlace.title}
-            />
+          <LocationPhotos
+            photoUrls={uniPlace.images_place}
+            title={uniPlace.title}
+          />
 
-            <Row className={styles.main__container}>
-              <Col xl={8} className={styles.left__container}>
-                <LocationDescription
-                  title={place.title}
-                  areasNumber={areas.filter((area) => area !== null).length}
-                  address={place.address}
-                  metro={place.metro}
-                />
-                <AnchorBtns />
-                <TextDescription item={uniPlace} />
-                <TextEvents events={uniPlace.event} />
-                <TextKitchen
-                  kids={uniPlace.children_kitchen}
-                  kitchens={uniPlace.kitchen}
-                />
+          <Row className={styles.main__container}>
+            <Col xl={8} className={styles.left__container}>
+              <LocationDescription
+                title={place.title}
+                areasNumber={areas.filter((area) => area !== null).length}
+                address={place.address}
+                metro={place.metro}
+              />
+              <AnchorBtns />
+              <TextDescription item={uniPlace} />
+              <TextEvents events={uniPlace.event} />
+              <TextKitchen
+                kids={uniPlace.children_kitchen}
+                kitchens={uniPlace.kitchen}
+              />
 
-                <PlaceAreas
-                  areas={uniPlace.areas}
-                  average_check={uniPlace.average_check}
-                />
+              <PlaceAreas
+                areas={uniPlace.areas}
+                average_check={uniPlace.average_check}
+              />
 
-                <TextDetails description={uniPlace.description} />
-                <TextFeatures
-                  features={uniPlace.type_feature}
-                  territories={place.type_territory}
-                  max_serving={uniPlace.max_serving}
-                />
+              <TextDetails description={uniPlace.description} />
+              <TextFeatures
+                features={uniPlace.type_feature}
+                territories={place.type_territory}
+                max_serving={uniPlace.max_serving}
+              />
 
-                <AlbumCardContainer
-                  territory={uniPlace.territory!}
-                  welcome_zones={uniPlace.welcome_zones}
-                  outside_reg={uniPlace.outsites_reg}
-                />
+              <AlbumCardContainer
+                territory={uniPlace.territory!}
+                welcome_zones={uniPlace.welcome_zones}
+                outside_reg={uniPlace.outsites_reg}
+              />
 
-                <Row className="my-xl-4 my-md-3 my-sm-2">
-                  <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
-                    Фото проведенных свадеб на площадке
-                  </Card.Title>
-                  <div className="d-flex justify-content-evenly">
-                    {/* //! Сделать отображение альбомов свадеб */}
-                    {weddingPhotos &&
-                      weddingPhotos.map((item) => (
-                        <WeddingsPhotos
-                          key={item.id}
-                          title={item.title}
-                          description={item.description}
-                          pathImg={item.pathImg}
-                        />
-                      ))}
-                  </div>
-                </Row>
-
-                <div id="map" className={styles.map__container}>
-                  <YaMap lat={place.width} long={place.longitude} />
+              <Row className="my-xl-4 my-md-3 my-sm-2">
+                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
+                  Фото проведенных свадеб на площадке
+                </Card.Title>
+                <div className="d-flex justify-content-evenly">
+                  {/* //! Сделать отображение альбомов свадеб */}
+                  {weddingPhotos &&
+                    weddingPhotos.map((item) => (
+                      <WeddingsPhotos
+                        key={item.id}
+                        title={item.title}
+                        description={item.description}
+                        pathImg={item.pathImg}
+                      />
+                    ))}
                 </div>
-              </Col>
-            </Row>
-          </Container>
+              </Row>
+
+              <div id="map" className={styles.map__container}>
+                <YaMap lat={place.width} long={place.longitude} />
+              </div>
+            </Col>
+          </Row>
         </Container>
       </Modal.Body>
     </Modal>
