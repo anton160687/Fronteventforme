@@ -12,12 +12,7 @@ import {
   Button,
   Collapse,
 } from 'react-bootstrap';
-import {
-  LKBusinessSections,
-  LKBrideSections,
-  Paths,
-  BreadCrumbsLinks,
-} from '@/constant';
+import { LKBusinessSections, LKBrideSections, Paths } from '@/constant';
 import { LkSectionsType } from '@/types/lkSectionsType';
 import styles from '@/styles/lk/Lk.module.scss';
 import Image from 'next/image';

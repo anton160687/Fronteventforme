@@ -6,11 +6,11 @@ import { Paths } from '@/constant';
 export default function SignInPic(): JSX.Element {
   return (
     <>
-      <h2 className="h3 mb-4 mb-sm-5 pb-5 text-center text-lg-start">
+      <h3 className="h3 mb-4 mb-sm-5 pb-md-5 pb-3 text-center text-lg-start">
         Привет. <br />
         Рады видеть вас снова!
-      </h2>
-      <div className="d-flex justify-content-center">
+      </h3>
+      <div className="justify-content-center d-none d-md-flex">
         <ImageLoader
           src="/img/signin.svg"
           width={344}
@@ -18,7 +18,7 @@ export default function SignInPic(): JSX.Element {
           alt="Девушка с большим телефоном"
         />
       </div>
-      <div className="mt-4 mt-sm-5 text-center text-lg-start">
+      <div className="mt-4 mt-sm-5 mb-4 mb-md-auto text-center text-lg-start">
         Еще нет аккаунта на портале?{'\u00A0'}
         <br />
         <Link className={styles.link} href={Paths.SignUp}>

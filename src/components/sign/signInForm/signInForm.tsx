@@ -91,11 +91,11 @@ export default function SignInForm(): JSX.Element {
             value={1}
             checked={data.is_bride}
             onChange={handleToggle}
-            variant="outline-primary fw-normal"
-            className={styles.toggle_btn}
+            variant="outline-primary"
+            className="fw-bold"
           >
             <i className="fi-user fs-lg me-1"></i>
-            <span className={styles.toggle_btn}>Я пользователь</span>
+            <span>Я пользователь</span>
           </ToggleButton>
           <Form.Control style={{ position: 'absolute', zIndex: '-1' }} />
           <ToggleButton
@@ -105,10 +105,10 @@ export default function SignInForm(): JSX.Element {
             value={0}
             checked={!data.is_bride}
             onChange={handleToggle}
-            variant="outline-primary fw-normal"
+            variant="outline-primary"
           >
             <i className="fi-briefcase fs-lg me-1"></i>
-            <span className={styles.toggle_btn}>Я поставщик</span>
+            <span>Я поставщик</span>
           </ToggleButton>
         </ButtonGroup>
       </Form.Group>
