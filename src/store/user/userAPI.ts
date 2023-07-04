@@ -161,7 +161,7 @@ export async function resetPassword(data: string) {
   });
 
   if (response.ok) {
-    const result = await response.json();
+    //const result = await response.json();
     //ничего в качестве ответа
   } else {
     const errorBody = await response.clone().json();
