@@ -266,7 +266,7 @@ function AddPropertyPage() {
       let response = await authoriseUser(refreshToken);
       if (response === 'success') {
         const token = localStorage.getItem(Token.Access);
-        if (form.checkValidity() && token) {
+        if (token) {
           let placeId: number = await createPlace(place, token);
           if (placeId) {
             addTerritoryImages(placeId, territoryImg, token);

@@ -5,6 +5,7 @@ import { store } from '@/store';
 import { Provider } from 'react-redux';
 import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
+import { schemaData } from '@/constant';
 import '../styles/scss/theme.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -24,6 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="author" content="Event4Me" />
           {/* заголовок для запрета индексации. Убрать на продакшене */}
           <meta name="robots" content="noindex" />
+          {/* json-LD для гугл-поисковика */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+          />
           {/* эта строка позволяет обращаться к API на http, не https  */}
           {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta> */}
           {/* <link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
