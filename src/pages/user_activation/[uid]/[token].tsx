@@ -49,8 +49,10 @@ export default function FinishRegistrationPage() {
   }, [uid, token]);
 
   return (
-    <Container className={styles.auth__container}>
-      <Spinner className={styles.auth__spinner} />
-    </Container>
+    <main>
+      <Container className={styles.auth__container}>
+        <Spinner className={styles.auth__spinner} />
+      </Container>
+    </main>
   );
 }

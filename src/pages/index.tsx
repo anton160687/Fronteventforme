@@ -17,7 +17,7 @@ type HomeProps = {
 
 export default function Home({ topLocations = mockLocationCards }: HomeProps) {
   return (
-    <>
+    <main>
       <Hero />
       <Container className="px-5">
         <CardsLink />
@@ -41,7 +41,7 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
       <Container>
         <PlanWeddingCard />
       </Container>
-    </>
+    </main>
   );
 }
 
