@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import CustomCrumb from './CustomCrumb';
 import { API } from '@/constant';
 
@@ -19,58 +19,43 @@ type CustomBreadcrumbsProps = {
   breadcrumbs: { path: string; name: string }[];
 };
 
+const url = 'http//eventforme.ru';
+const schemaData: SchemaType = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [],
+};
+
 function CustomBreadcrumbs({ breadcrumbs }: CustomBreadcrumbsProps) {
-  const schemaData: SchemaType = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [],
-  };
+  function generateBreadcrumbs() {
+    return breadcrumbs.map((breadcrumb, index) => {
+      const crumbSchema: CrumbSchemaType = {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: breadcrumb.name,
+      };
 
-  let link = '';
+      const href = breadcrumbs
+        .map((item) => item.path)
+        .slice(0, index + 1)
+        .join('');
 
-  const testBr = breadcrumbs[1].path;
-  console.log('testBr', testBr);
+      //Если ссылки делать относительные, то гугл ругается на id
+      if (index !== breadcrumbs.length - 1) {
+        crumbSchema.item = url + href.slice(1);
+      }
 
-  const newBreadcrumbs = useMemo(
-    function generateBreadcrumbs() {
-      console.log('breadcrumbs start', breadcrumbs);
-      return breadcrumbs.map((breadcrumb, index) => {
-        const crumbSchema: CrumbSchemaType = {
-          '@type': 'ListItem',
-          position: index + 1,
-          name: breadcrumb.name,
-        };
+      schemaData.itemListElement.push(crumbSchema);
 
-        // if (index === 1) {
-        //   const newPath = breadcrumb.path.substring(1);
-        //   breadcrumb.path = newPath;
-        //   console.log('breadcrumb 1', breadcrumb);
-        // }
+      return {
+        name: breadcrumb.name,
+        //условие нужно, чтобы не было //, т.к. у нас все ссылки начинаются с /, и ссылка на Главную тоже /
+        path: index === 0 ? href : href.slice(1),
+      };
+    });
+  }
 
-        const href = breadcrumbs
-          .map((item) => item.path)
-          .slice(0, index + 1)
-          .join('');
-        // link += breadcrumb.path;
-        console.log('href', href);
-
-        //Если ссылки делать относительные, то гугл ругается на id
-        if (index !== breadcrumbs.length - 1) {
-          crumbSchema.item = API!.slice(0, API!.length - 1) + href;
-        }
-
-        schemaData.itemListElement.push(crumbSchema);
-
-        return {
-          name: breadcrumb.name,
-          path: index === 0 ? href : href.slice(1),
-        };
-      });
-    },
-    [breadcrumbs]
-  );
-  console.log('schemaData', schemaData);
-  console.log('newBreadcrumbs', newBreadcrumbs);
+  const newBreadcrumbs = generateBreadcrumbs();
 
   return (
     <>
