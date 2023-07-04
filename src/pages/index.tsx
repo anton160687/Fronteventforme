@@ -9,6 +9,7 @@ import { PersonServices } from '@/components/main/cardIndividualApproach/PersonS
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
+import { Container } from 'react-bootstrap';
 
 type HomeProps = {
   topLocations: LocationCard[];
@@ -16,27 +17,31 @@ type HomeProps = {
 
 export default function Home({ topLocations = mockLocationCards }: HomeProps) {
   return (
-    <>
+    <main>
       <Hero />
-      <CardsLink />
-      <ConvenientCatalog />
-      <Locations
-        locations={topLocations}
-        title={'ТОП-5 площадок разных категорий г. Москва'}
-        isShowAll={false}
-      />
-      <MoreServices />
-      <SupplierSlider />
-      <Locations
-        locations={topLocations}
-        title={'Лучшие локации'}
-        isShowAll={true}
-        showAllTxt="Показать все"
-      />
-      <PersonServices />
+      <Container className="px-5">
+        <CardsLink />
+        <ConvenientCatalog />
+        <Locations
+          locations={topLocations}
+          title={'ТОП-5 площадок разных категорий г. Москва'}
+          isShowAll={false}
+        />
+        <MoreServices />
+        <SupplierSlider />
+        <Locations
+          locations={topLocations}
+          title={'Лучшие локации'}
+          isShowAll={true}
+          showAllTxt="Показать все"
+        />
+        <PersonServices />
+      </Container>
       <SupplierCard />
-      <PlanWeddingCard />
-    </>
+      <Container>
+        <PlanWeddingCard />
+      </Container>
+    </main>
   );
 }
 

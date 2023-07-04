@@ -12,7 +12,7 @@ import { MainTitle } from '@/components/main/title/title';
 
 function SupplierSlider(): JSX.Element {
   return (
-    <Container as="section" className="mx-auto w-75">
+    <Container as="section">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
         <MainTitle
           suptitle={'Нам доверяют'}
@@ -64,8 +64,8 @@ function SupplierSlider(): JSX.Element {
           </Swiper>
 
           {/* External Prev/Next buttons */}
-          <Button id="prev" variant="prev" className="d-none d-sm-block ms-3" />
-          <Button id="next" variant="next" className="d-none d-sm-block me-3" />
+          <Button id="prev" variant="prev" className="d-none d-sm-block" />
+          <Button id="next" variant="next" className="d-none d-sm-block" />
         </div>
       </section>
     </Container>

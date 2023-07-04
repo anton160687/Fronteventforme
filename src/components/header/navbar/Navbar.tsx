@@ -1,18 +1,11 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { selectUser } from '@/store/user/userSlice';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import CatalogDropDown from '../catalogDropDown/CatalogDropDown';
-import City from '../city/city';
-import RegButton from '../regButton/regButton';
-import Login from '../login/Login';
-import Avatar from '../avatar/Avatar';
-import styles from '@/styles/header/Navbar.module.scss';
+import CityInput from '../city/CityInput';
 import { Paths } from '@/constant';
-import { useEffect, useState } from 'react';
+import styles from '@/styles/header/Header.module.scss';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -20,79 +13,110 @@ type HeaderNavbarProps = {
 
 const navigation = [
   {
+    id: 0,
+    path: Paths.Home,
+    text: 'Главная',
+  },
+  {
     id: 1,
-    path: '#',
+    path: Paths.WeddingSites,
     text: 'Свадебные\u00A0сайты',
   },
   {
     id: 2,
-    path: '#',
+    path: Paths.Hashtags,
     text: 'Хештеги',
   },
   {
     id: 3,
-    path: '#',
+    path: Paths.Invitations,
     text: 'Приглашения',
   },
   {
     id: 4,
-    path: '#',
+    path: Paths.Blog,
     text: 'Блог',
-  },
+  }
 ];
 
-function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
-  const user = useSelector(selectUser);
+const lkNavigation = [
+  {
+    id: 1,
+    path: Paths.SignIn,
+    text: 'Вход',
+  },
+  {
+    id: 2,
+    path: Paths.SignUp,
+    text: 'Регистрация',
+  },
+  {
+    id: 3,
+    path: Paths.Account,
+    text: 'Личный кабинет',
+  },
+]
 
-  function renderNavigation() {
-    return navigation.map(({ id, path, text }) => (
-      <Nav.Item key={id} className={styles.navbar__item}>
-        <Nav.Link as={Link} href={path}>
-          {text}
-        </Nav.Link>
-      </Nav.Item>
+function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
+  const router = useRouter();
+  const [show, setShow] = useState<boolean>(false);
+  function handleToggle() {
+    setShow(!show);
+  }
+
+  function renderNavigation(array: typeof navigation, customClass: string = '') {
+    return array.map(({ id, path, text }) => (
+      <li
+        key={id}
+        className={`nav-item ${customClass}`}
+        itemProp="itemListElement"
+        itemScope
+        itemType="http://schema.org/ItemList"
+      >
+        <Link
+          href={path}
+          className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}
+          itemProp="url"
+        >
+          <span itemProp="name">{text}</span>
+        </Link>
+      </li>
     ));
   }
 
   return (
-    <Navbar bg="light" expand="xl" className="px-5 px-xl-0 ">
-      <Container>
-        <Navbar.Brand as={Link} href={Paths.Home} className="me-2 me-xl-4">
-          <Image
-            className={styles.logo}
-            src="/img/header/logo.png"
-            width={143}
-            height={33}
-            alt="EventForME"
-          />
-        </Navbar.Brand>
+    <Navbar
+      id="headerNavBar"
+      bg="light"
+      expand="xl"
+      className='w-100 justify-content-end'
+      itemScope
+      itemType="https://schema.org/SiteNavigationElement"
+      itemID="/#headerNavBar"
+    >
+      {/* Меню для мобильных устройств */}
+      <Navbar.Toggle
+        aria-controls="light-navbar-nav"
+        onClick={handleToggle}
+      />
 
-        {/* Меню для мобильных устройств */}
-        <Navbar.Toggle aria-controls="light-navbar-nav" className="ms-auto" />
-
-        <Navbar.Collapse id="light-navbar-nav" className="order-lg-2">
-          <Nav className={styles.navbar__central_block}>
-            <City />
-            <CatalogDropDown />
-            {renderNavigation()}
-          </Nav>
-          <Nav>
-            {!isAuth && <Login />}
-            {!isAuth && <RegButton />}
-
-            {/* {isAuth && <Search />} */}
-            {isAuth && user.is_bride !== undefined && (
-              <Avatar
-                is_bride={user.is_bride}
-                username={user.username}
-                first_name={user.first_name}
-                last_name={user.last_name}
-                avatar={user.avatar}
-              />
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
+      <ul
+        id="light-navbar-nav"
+        className={`${styles.header__navbar} order-lg-2 navbar-nav navbar-collapse collapse ${show ? "show" : ""}`}
+        itemProp="about"
+        itemScope
+        itemType="http://schema.org/ItemList"
+      >
+        <CityInput />
+        {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
+        <CatalogDropDown />
+        {renderNavigation(navigation.slice(1))}
+        {!isAuth ?
+          renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
+          :
+          renderNavigation(lkNavigation.slice(2), 'd-xl-none')
+        }
+      </ul>
     </Navbar>
   );
 }

@@ -67,7 +67,7 @@ const SocialButton = ({
 
   // Render markup
   return (
-    <a {...props} className={socialButtonClass}>
+    <a {...props} className={socialButtonClass} itemProp="sameAs">
       <i className={`fi-${brandProp}`}></i>
     </a> 
   )

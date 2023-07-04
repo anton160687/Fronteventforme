@@ -1,153 +1,217 @@
 import Link from 'next/link';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Image from 'next/image';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import SocialButton from '../_finder/SocialButton';
 import { SERVICES, PLACES, PAGES, ACTORS, FooterType, Paths } from '@/constant';
 import styles from '@/styles/footer/Footer.module.scss';
-import Button from 'react-bootstrap/Button';
+import { Col, Row } from 'react-bootstrap';
 
-export default function Footer() {
-  function renderRow(rowData: FooterType): JSX.Element {
+const socialMedia = [
+  {
+    id: 1,
+    name: 'whatsapp',
+    path: 'https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0',
+  },
+  { id: 2, name: 'pinterest', path: 'https://ru.pinterest.com/eventformeru/' },
+  { id: 3, name: 'vk', path: 'https://vk.com/msk_eventforme' },
+  { id: 4, name: 'telegram', path: 'https://t.me/event_for_me' },
+];
+
+function Footer() {
+  function renderSocialBtn() {
+    return socialMedia.map(({ id, name, path }) => (
+      <li key={id}>
+        <SocialButton
+          href={path}
+          variant="solid"
+          brand={name}
+          roundedCircle
+          className="me-2 mb-2"
+          size=""
+          light=""
+        />
+      </li>
+    ));
+  }
+
+  function renderСol(column: FooterType) {
     return (
-      <div className={styles.footer_row + ' mb-sm-0 mb-4'}>
-        <h4 className="h5 d-flex flex-column align-items-center d-md-block">
-          {rowData.title}
-        </h4>
-        <Nav className="flex-column  d-flex flex-column align-items-center d-md-block">
-          {rowData.data.map((item) => (
-            <Nav.Item className="mb-2" key={item.id}>
-              <Nav.Link
-                as={Link}
-                href={item.url}
-                active={false}
-                className="p-0 fw-normal"
+      <nav
+        id={`footerNavCol${column.id}`}
+        className={styles.footer__column_nav}
+        itemScope
+        itemType="https://schema.org/SiteNavigationElement"
+        itemID={`/#footerNavCol${column.id}`}
+      >
+        <h2 className={styles.footer__column_title} itemProp="name">
+          {column.title}
+        </h2>
+        <ul
+          className={styles.footer__column_list}
+          itemProp="about"
+          itemScope
+          itemType="http://schema.org/ItemList"
+        >
+          {column.data.map(({ id, url, name }) => (
+            <li
+              className="mb-2"
+              key={id}
+              itemProp="itemListElement"
+              itemScope
+              itemType="http://schema.org/ItemList"
+            >
+              <Link
+                href={url}
+                className={`${styles.footer__navlink} nav-link p-0 fw-normal`}
+                itemProp="url"
               >
-                {item.name}
-              </Nav.Link>
-            </Nav.Item>
+                <span itemProp="name">{name}</span>
+              </Link>
+            </li>
           ))}
-        </Nav>
-      </div>
+        </ul>
+      </nav>
     );
   }
 
   return (
-    <div className="pt-4 mt-5">
-      <footer className="footer bg-secondary p-5 mt-5">
-        <Container className="pt-lg-4 p-0">
-          <div className="d-md-flex d-block flex-sm-row flex-column justify-content-between mx-n2">
-            {/* Logo + contacts */}
-            <div className="mb-md-0 mb-4 px-2 d-flex flex-column d-md-block">
+    <footer
+      id="footer"
+      className="footer bg-secondary mt-5"
+      itemScope
+      itemType="http://schema.org/WPFooter"
+      itemID="/#footer"
+    >
+      <Container className={styles.footer__container + ' px-5'}>
+        <Row className={styles.footer__row}>
+          <Col className={styles.footer__column}>
+            <section
+              className={`${styles.footer__logo} mb-4`}
+              itemScope
+              itemType="http://schema.org/Organization"
+              itemID="https://eventforme.ru"
+            >
+              <meta itemProp="name" content="EventForMe" />
+              <meta
+                itemProp="address"
+                content="Москва, Ленингадский проспект дом 39, стр. 14"
+              />
               <Link
-                href="/"
-                className="d-inline-flex mb-4 align-self-center align-self-md-start"
+                href="https://eventforme.ru"
+                className="d-block mb-4"
+                itemProp="url"
               >
                 <Image
-                  src="/img/header/logo.png"
+                  src="/img/header/logo.svg"
                   width={143}
                   height={33}
-                  alt="EventForME"
+                  alt="EventForMe"
+                  title="Компания EventForMe"
+                  itemProp="logo"
                 />
               </Link>
-
-              <Nav className="flex-column mb-sm-4 mb-2">
-                <Nav.Item
-                  className="mb-2 align-self-center align-self-md-start"
-                  style={{ whiteSpace: 'nowrap' }}
-                >
-                  <Nav.Link
-                    href="mailto:example@email.com"
-                    active={false}
-                    className="p-0 fw-normal"
+              <ul className={styles.footer__contacts}>
+                <li>
+                  <Link
+                    href="mailto:info@eventforme.ru"
+                    className="p-0 fw-normal nav-link"
+                    itemProp="email"
                   >
                     <i className="fi-mail me-2 align-middle opacity-70"></i>
-                    example@email.com
-                  </Nav.Link>
-                </Nav.Item>
-
-                <Nav.Item
-                  style={{ whiteSpace: 'nowrap' }}
-                  className="align-self-center align-self-md-start"
-                >
-                  <Nav.Link
+                    info@eventforme.ru
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="tel:4065550120"
-                    active={false}
-                    className="p-0 fw-normal"
+                    className="p-0 fw-normal nav-link"
+                    itemProp="telephone"
                   >
                     <i className="fi-device-mobile me-2 align-middle opacity-70"></i>
                     (406) 555-0120
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
-
-              <div className="pt-2  align-self-center align-self-md-start">
-                <SocialButton
-                  href="#"
-                  variant="solid"
-                  brand="facebook"
-                  roundedCircle
-                  className="me-2 mb-2"
-                  size=""
-                  light=""
-                />
-                <SocialButton
-                  href="#"
-                  variant="solid"
-                  brand="twitter"
-                  roundedCircle
-                  className="me-2 mb-2"
-                  size=""
-                  light=""
-                />
-                <SocialButton
-                  href="#"
-                  variant="solid"
-                  brand="viber"
-                  roundedCircle
-                  className="me-2 mb-2"
-                  size=""
-                  light=""
-                />
-                <SocialButton
-                  href="#"
-                  variant="solid"
-                  brand="telegram"
-                  roundedCircle
-                  className="mb-2"
-                  size=""
-                  light=""
-                />
-              </div>
-            </div>
-
-            <div
-              className={
-                styles.footer_rows + ' w-100 w-md-75 justify-content-md-between'
-              }
+                  </Link>
+                </li>
+                <li className="pt-4">
+                  <ul className={styles.footer__social}>{renderSocialBtn()}</ul>
+                </li>
+              </ul>
+            </section>
+          </Col>
+          <Col className={styles.footer__column}>{renderСol(SERVICES)}</Col>
+          <Col className={styles.footer__column}>{renderСol(PAGES)}</Col>
+          <Col className={styles.footer__column_last}>{renderСol(PLACES)}</Col>
+          <Col className={styles.footer__column_last}>
+            {renderСol(ACTORS)}
+            <nav
+              id="footerNavBtn"
+              itemScope
+              itemType="https://schema.org/SiteNavigationElement"
+              itemID={`/#footerNavBtn`}
             >
-              {renderRow(SERVICES)}
-
-              {renderRow(PAGES)}
-
-              {renderRow(PLACES)}
-
-              {renderRow(ACTORS)}
-            </div>
-          </div>
-          <Nav.Link as={Link} href={Paths.AddChoicePage} active={false}>
-            <Button className="d-flex mx-auto me-md-0">
-              Хочу быть в каталоге
-            </Button>
-          </Nav.Link>
-          {/* Copyright */}
-          <div className={styles.footer_copyright + ' align-items-center'}>
-            <p style={{ whiteSpace: 'nowrap', margin: '0px' }}>© EventForMe</p>
-            <Link href="#">Условия использования</Link>
-            <Link href="#">Политика конфиденциальности</Link>
-          </div>
-        </Container>
-      </footer>
-    </div>
+              <Button
+                // @ts-ignore: bootstrap bag*
+                as={Link}
+                href={Paths.AddChoicePage}
+                className={styles.footer__catalog_btn}
+                itemProp="url"
+              >
+                <span itemProp="name">Хочу в каталог</span>
+              </Button>
+            </nav>
+          </Col>
+        </Row>
+        {/* Copyright */}
+        <Row id="footer_copyright" className={styles.footer__copyright}>
+          <section>
+            ©<span itemProp="copyrightHolder">EventForMe</span>,{' '}
+            <span itemProp="copyrightYear">2023</span>
+          </section>
+          <nav
+            className={styles.footer__conditions}
+            id="footerNavConditions"
+            itemScope
+            itemType="https://schema.org/SiteNavigationElement"
+            itemID="/#footerNavConditions"
+          >
+            <ul
+              className={styles.footer__conditions_list}
+              itemProp="about"
+              itemScope
+              itemType="http://schema.org/ItemList"
+            >
+              <li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ItemList"
+              >
+                <Link
+                  href="#"
+                  className={styles.footer__conditions_link}
+                  itemProp="url"
+                >
+                  <span itemProp="name">Условия пользования</span>
+                </Link>
+              </li>
+              <li
+                itemProp="itemListElement"
+                itemScope
+                itemType="http://schema.org/ItemList"
+              >
+                <Link
+                  href="#"
+                  className={styles.footer__conditions_link}
+                  itemProp="url"
+                >
+                  <span itemProp="name">Политика конфиденциальности</span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </Row>
+      </Container>
+    </footer>
   );
 }
+
+export default Footer;

@@ -49,6 +49,7 @@ function DropdownCB ({ name, text, options, icon, filterParams, setFilterParams}
         key={i}
         type="checkbox"
         checked={!!(filterParams.find((e) => e === option[0]))}
+        id={option[0]}
         value={option[0]}
         label={option[1]}
         onChange={handleChange}

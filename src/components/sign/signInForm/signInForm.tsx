@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { signinUser } from '@/store/user/userAPI';
-import { fetchUserDataWithThunk } from '@/store/user/userSlice';
+import { fetchUserDataWithThunk, setRole } from '@/store/user/userSlice';
 import Link from 'next/link';
 import router from 'next/router';
 import Form from 'react-bootstrap/Form';
@@ -58,7 +58,8 @@ export default function SignInForm(): JSX.Element {
       if (response === 'success') {
         setError('');
         dispatch(fetchUserDataWithThunk());
-        router.push('/');
+        dispatch(setRole(data.is_bride));
+        router.push(Paths.Home);
       } else {
         setError(response);
       }

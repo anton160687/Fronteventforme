@@ -56,7 +56,7 @@ function PlaceDetails({
             setPreviewGallery={setPreviewPhotos}
             required={true}
             maxFiles={1}
-            warning="Максимальный размер фото – 5 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
+            warning="Максимальный размер фото – 10 МБ. Форматы: jpeg, jpg, png. Только одна фотография."
           />
         </Form.Group>
       </Row>
@@ -146,6 +146,7 @@ function PlaceDetails({
             placeholder="100 машин"
             onChange={handleNumberChange}
             min={1}
+            max={100}
           />
         </Form.Group>
       </Row>
@@ -183,7 +184,6 @@ function PlaceDetails({
           <Col xs={12} sm={12} md={5} lg={5} xl={5}>
             <Form.Label className="d-block fw-bold mb-2 mt-2 pb-1">
               {'Стоимость выезд. регистрации\u00a0'}
-              <span className="text-danger">*</span>
             </Form.Label>
             <InputGroup>
               <Form.Control
@@ -191,7 +191,6 @@ function PlaceDetails({
                 placeholder="1000"
                 type="number"
                 onChange={handleNumberChange}
-                required
                 min={1}
               />
               <InputGroup.Text id="icon-addon">₽</InputGroup.Text>

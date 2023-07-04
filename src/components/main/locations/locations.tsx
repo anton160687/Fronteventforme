@@ -84,7 +84,7 @@ export function Locations({
   }
 
   return (
-    <Container as="section" className="mx-auto w-75">
+    <Container as="section">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
         <div className="d-sm-flex align-items-center justify-content-between mb-3">
           <h2 className={styles.main__subtitle + ' h3 mb-sm-0'}>{title}</h2>

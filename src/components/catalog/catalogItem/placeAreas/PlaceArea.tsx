@@ -171,6 +171,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
             >
               <DatePicker
                 onChange={() => {}}
+                onClickOutside={() => setIsCalendarShown(false)}
                 minDate={new Date(Date.now())}
                 //на год от сегодняшней даты
                 //maxDate={new Date(Date.now() + 3.156e10)}

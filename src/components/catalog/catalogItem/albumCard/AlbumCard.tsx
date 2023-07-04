@@ -103,7 +103,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                 }
                 light="false"
                 caption=""
-                video={false}
+                video="false"
               />
             )}
           </div>

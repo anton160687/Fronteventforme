@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from '@/styles/header/Avatar.module.scss';
 import { Paths } from '@/constant';
+import { Button } from 'react-bootstrap';
 
 type AvatarProps = {
   first_name?: string;
@@ -21,7 +22,13 @@ function Avatar({
 }: AvatarProps) {
 
   return (
-    <Link href={is_bride? Paths.AccBride : Paths.AccBusiness } className={styles.avatar__link}>
+    <Button
+    // @ts-ignore: bootstrap bag*
+      as={Link}
+      href={is_bride ? Paths.AccBride : Paths.AccBusiness}
+      className={`${styles.avatar__btn} ms-auto me-auto`}
+      itemProp="url"
+    >
       <Image
         className={styles.avatar__image}
         src={avatar || '/img/header/avatar.svg'}
@@ -30,10 +37,10 @@ function Avatar({
         alt="avatar"
       />
       <p className={styles.avatar__name}>
-        {username || 'Имя Фамилия'}
-        {/* {first_name || 'Имя'}&nbsp;{last_name || 'Фамилия'} */}
+        {/* {username || 'Имя Фамилия'} */}
+        {first_name || 'Имя'}&nbsp;{last_name || 'Фамилия'}
       </p>
-    </Link>
+    </Button>
   );
 }
 

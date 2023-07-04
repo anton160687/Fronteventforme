@@ -120,8 +120,6 @@ function ProgressSideBar({
 
     //Описание площадки
     if (
-      place.location.length &&
-      place.kitchen.length &&
       place.start_time &&
       place.finish_time &&
       place.average_check &&
@@ -131,8 +129,6 @@ function ProgressSideBar({
     }
     if (
       !(
-        place.location.length &&
-        place.kitchen.length &&
         place.start_time &&
         place.finish_time &&
         place.average_check &&
@@ -147,7 +143,6 @@ function ProgressSideBar({
       place.description &&
       place.type_feature.length &&
       place.max_serving &&
-      place.outreg_price &&
       place.outreg_desc &&
       territoryImg.length &&
       welcomeImg.length &&
@@ -160,7 +155,6 @@ function ProgressSideBar({
         place.description &&
         place.type_feature.length &&
         place.max_serving &&
-        place.outreg_price &&
         place.outreg_desc &&
         territoryImg.length &&
         welcomeImg.length &&
@@ -243,17 +237,17 @@ function ProgressSideBar({
       }
     });
 
-    // if (completedCount === anchors.length) {
-    //   setPercent(100);
-    //   setIsFormFilled(true);
-    // } else {
-    //   setIsFormFilled(false);
+    if (completedCount === anchors.length) {
+      setPercent(100);
+      // setIsFormFilled(true);
+    }
+    //else {
+    // setIsFormFilled(false);
     // }
-
   }, [anchors]);
 
   return (
-    <div className="sticky-top pt-5">
+    <div className="sticky-top pt-5" style={{ zIndex: '3' }}>
       <h6 className="pt-5 mt-3 mb-2">{percent}% информации заполнено</h6>
       <ProgressBar
         variant="warning"

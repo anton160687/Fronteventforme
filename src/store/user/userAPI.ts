@@ -1,16 +1,11 @@
 import { User } from '@/types/user';
-import { AUTH_URL, Token } from '@/constant';
+import { AUTH_API, Token } from '@/constant';
 import {
   CreateUserData,
   ResetPasswordConfirm,
   SigninUserData,
 } from '@/types/forms';
 import { saveAuthData } from '@/services/auth.service';
-
-const API =
-  process.env.NODE_ENV === 'production'
-    ? process.env.NEXT_PUBLIC_AUTHURL
-    : AUTH_URL;
 
 export async function createUser(data: CreateUserData) {
   let request = {
@@ -19,7 +14,7 @@ export async function createUser(data: CreateUserData) {
     password: data.password,
   };
 
-  let response = await fetch(`${API}auth/users/`, {
+  let response = await fetch(`${AUTH_API}auth/users/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -50,7 +45,7 @@ export async function signinUser(data: SigninUserData) {
     email: data.email,
     password: data.password,
   };
-  let response = await fetch(`${API}auth/jwt/create/`, {
+  let response = await fetch(`${AUTH_API}auth/jwt/create/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -79,7 +74,7 @@ export async function authoriseUser(refreshToken: string) {
   let request = {
     refresh: refreshToken,
   };
-  let response = await fetch(`${API}auth/jwt/refresh/`, {
+  let response = await fetch(`${AUTH_API}auth/jwt/refresh/`, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -101,7 +96,7 @@ export async function authoriseUser(refreshToken: string) {
 export async function getUserInfo(): Promise<User | undefined> {
   const token = localStorage.getItem(Token.Access);
 
-  let response = await fetch(`${API}auth/users/me/`, {
+  let response = await fetch(`${AUTH_API}auth/users/me/`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -126,7 +121,7 @@ export async function resendActivationLink(data: string) {
     email: data,
   };
   try {
-    let response = await fetch(`${API}auth/users/resend_activation/`, {
+    let response = await fetch(`${AUTH_API}auth/users/resend_activation/`, {
       method: 'POST',
       headers: {
         accept: 'application/json',
@@ -150,24 +145,28 @@ export async function resetPassword(data: string) {
   let request = {
     email: data,
   };
-  try {
-    let response = await fetch(`${API}auth/users/reset_password/`, {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(request),
-    });
 
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
+  let response = await fetch(`${AUTH_API}auth/users/reset_password/`, {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  });
 
+  if (response.ok) {
     const result = await response.json();
     //ничего в качестве ответа
-  } catch (error) {
-    console.error('resetPassword', error);
+  } else {
+    const errorBody = await response.clone().json();
+    let errorText = '';
+
+    console.error('resetPassword', errorBody);
+
+    for (const [key, value] of Object.entries(errorBody)) {
+      errorText += `✖ ${value}` + '\n';
+    }
   }
 }
 
@@ -177,7 +176,7 @@ export async function resetPasswordConfirm(data: ResetPasswordConfirm) {
     token: data.token,
     new_password: data.new_password,
   };
-  let response = await fetch(`$API}auth/users/reset_password_confirm/`, {
+  let response = await fetch(`${AUTH_API}auth/users/reset_password_confirm/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

@@ -1,7 +1,5 @@
-import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Container from 'react-bootstrap/Container';
 import Title from '@/components/catalog/title/Title';
 import Sidebar from '@/components/catalog/sidebar/Sidebar';
@@ -11,7 +9,7 @@ import PlaceCard from '@/components/catalog/placeCard/PlaceCard';
 import PlaceTypesSlider from '@/components/catalog/placeTypesSlider/PlaceTypesSlider';
 import BotomFilters from '@/components/catalog/botomFilters/BotomFilters';
 //для SSR
-import { URL, Paths } from '@/constant';
+import { API, BreadCrumbsLinks, Paths } from '@/constant';
 import { PlaceCardType } from '@/types/catalog';
 import { GetServerSideProps } from 'next';
 import PaginationBar from '@/components/catalog/pagination/Pagination';
@@ -19,6 +17,7 @@ import {
   getQueryParams,
   getQueryParamsWithoutParam,
 } from '@/services/catalog.service';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 
 type CatalogPlacesProps = {
   places: PlaceCardType[];
@@ -27,6 +26,15 @@ type CatalogPlacesProps = {
   queryParamsWithoutPagination: string;
   queryParamsWithoutSorting: string;
 };
+
+const breadcrumbs = [
+  { path: Paths.Home, name: 'Главная' },
+  {
+    path: Paths.Catalog,
+    name: 'Каталог',
+  },
+  { path: BreadCrumbsLinks.Places.link, name: BreadCrumbsLinks.Places.name },
+];
 
 function CatalogPlaces({
   places,
@@ -44,43 +52,38 @@ function CatalogPlaces({
   }
 
   return (
-    <Container className="px-5">
-      <Breadcrumb className="breadcrumb">
-        <Breadcrumb.Item linkAs={Link} href={Paths.Home}>
-          Главная
-        </Breadcrumb.Item>
-        <Breadcrumb.Item linkAs={Link} href={Paths.Catalog}>
-          Каталог
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active>Площадки</Breadcrumb.Item>
-      </Breadcrumb>
+    <>
+      <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
+      <main>
+        <Container className="px-5">
+          <Row className="mx-0">
+            <Title title={'Площадки'} quantity={totalCount} />
+            <PlaceTypesSlider />
+            <PlaceFilters />
+          </Row>
 
-      <Row className="p-0">
-        <Title title={'Площадки'} quantity={totalCount} />
-        <PlaceTypesSlider />
-        <PlaceFilters />
-      </Row>
+          <Row className="mx-0">
+            <Sidebar />
+            <Col className="ms-lg-4 p-0">
+              <Sorting query={queryParamsWithoutSorting} />
 
-      <Row>
-        <Sidebar />
-        <Col className="ms-lg-4 p-0">
-          <Sorting query={queryParamsWithoutSorting} />
+              {renderAllPlaces(places)}
 
-          {renderAllPlaces(places)}
+              {/* Пагинация */}
+              <PaginationBar
+                currentPage={currentPage}
+                totalCount={totalCount}
+                siblingCount={1}
+                pageSize={8}
+                query={queryParamsWithoutPagination}
+              />
+            </Col>
+          </Row>
 
-          {/* Пагинация */}
-          <PaginationBar
-            currentPage={currentPage}
-            totalCount={totalCount}
-            siblingCount={1}
-            pageSize={8}
-            query={queryParamsWithoutPagination}
-          />
-        </Col>
-      </Row>
-
-      <BotomFilters />
-    </Container>
+          <BotomFilters />
+        </Container>
+      </main>
+    </>
   );
 }
 
@@ -101,8 +104,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     getQueryParamsWithoutParam(query, 'ordering') !== '?'
       ? getQueryParamsWithoutParam(query, 'ordering')
       : '';
-
-  const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 
   const getPlacesURL = queryParams
     ? `${API}catalog/places/${queryParams}`

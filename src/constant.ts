@@ -1,8 +1,14 @@
-import { addPlaceName } from './types/addPlaceNames';
 import { LkSectionsType } from './types/lkSectionsType';
 export const URL = 'http://188.225.24.70:8080/api/v1/';
 export const AUTH_URL = 'http://188.225.24.70:8080/';
 export const RESTORE_IMG = `${AUTH_URL}fp/restore/?id=`;
+export const API =
+  process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
+
+export const AUTH_API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_AUTHURL
+    : AUTH_URL;
 
 // для dadata
 export const CITY_URL =
@@ -126,16 +132,19 @@ export enum Paths {
   AccHelp = '/help',
   AccTariff = '/tariff',
   AccPayment = '/payment',
-  AccMyBusiness = '/lk/business/my',
   AccBusinessReviews = '/lk/business/reviews',
-  AddPlace = '/lk/business/add/place',
   AddChoicePage = '/lk/business/add',
-  AddBusiness = '/lk/business/add/business',
+  AddPlace = '/lk/business/add/place',
+  AddBusiness = '/lk/business/add/service',
   AddProperty = '/addproperty',
   AddContacts = '/addcontacts',
   Success = '/lk/business/add/success',
-  TermsOfUse = '/agreements/terms',
+  TermsOfUse = '/agreements',
   PrivacyPolicy = '/agreements/privacy',
+  WeddingSites = '/wedsites',
+  Hashtags = '/hashtags',
+  Invitations = '/invite',
+  Blog = '/blog',
 }
 
 // для форм регистрации, авторизации
@@ -157,7 +166,7 @@ export const LAST_NAME_TITLE = 'Фамиоия должна состоять т�
 // export const EMAIL_TITLE =
 //   'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя может содержать цифры, латинские буквы и специальные символы: $.*+-=?!_^{|}~&%#/. Почтовый домен и знаки после точки состоят только из латинских букв.';
 export const EMAIL_REQUIREMENTS =
-  '[a-zA-Z][a-zA-Z_\\d\\p{P}\\p{Sm}\\$\\^]+@[a-z]+\\.[a-z]{2,3}';
+  '[a-zA-Z][a-zA-Z_\\d\\p{P}\\p{Sm}\\$\\^]+@[a-zA-Z]+\\.[a-zA-Z]{2,3}';
 export const EMAIL_TITLE =
   'Адрес электронной почты имеет стандартный вид: имя_пользователя@почтовый_домен.2-3 символа. Имя пользователя должно начинаться с латинской буквы, так же может содержать цифры, и специальные символы: $.*+-=?!_^{|}~&%#/.';
 
@@ -181,6 +190,7 @@ export enum FormFields {
 
 // для футера
 export type FooterType = {
+  id: number;
   title: string;
   data: {
     id: number;
@@ -190,6 +200,7 @@ export type FooterType = {
 };
 
 export const SERVICES: FooterType = {
+  id: 1,
   title: 'Услуги',
   data: [
     {
@@ -225,6 +236,7 @@ export const SERVICES: FooterType = {
   ],
 };
 export const PAGES: FooterType = {
+  id: 2,
   title: 'Страницы',
   data: [
     {
@@ -260,6 +272,7 @@ export const PAGES: FooterType = {
   ],
 };
 export const PLACES: FooterType = {
+  id: 3,
   title: 'Площадки',
   data: [
     {
@@ -295,6 +308,7 @@ export const PLACES: FooterType = {
   ],
 };
 export const ACTORS: FooterType = {
+  id: 4,
   title: 'Исполнители',
   data: [
     {
@@ -442,33 +456,33 @@ export const LKBrideSections: LkSectionsType[] = [
 
 //для боковой навигации в каталоге и типов бизнеса в ЛК
 export const BusinessTypes = [
-  { name: 'Площадки', path: '/catalog/places' },
-  { name: 'Дворец бракосочетания', path: '#' },
-  { name: 'Фотографы', path: '/catalog/photo' },
-  { name: 'Музыкальные группы', path: '/catalog/music' },
-  { name: 'Свадебные платья', path: '/catalog/dresses' },
-  { name: 'Мужские костюмы', path: '#' },
-  { name: 'Обручальные кольца', path: '#' },
-  { name: 'Платья подружек невесты', path: 'dresses' },
-  { name: 'Стилисты', path: '#' },
-  { name: 'Визажисты', path: '#' },
-  { name: 'Оформление и декор', path: '#' },
-  { name: 'Приглашения', path: '#' },
-  { name: 'Флористика и букеты', path: '#' },
-  { name: 'Видеографы', path: '#' },
-  { name: 'Хореографы', path: '#' },
-  { name: 'Диджеи', path: '#' },
-  { name: 'Ведущие', path: '#' },
-  { name: 'Организаторы', path: '#' },
-  { name: 'Детские аниматоры', path: '#' },
-  { name: 'Шоу-программа', path: '#' },
-  { name: 'Свет и звук', path: '#' },
-  { name: 'Кейтеринг', path: '#' },
-  { name: 'Торты и десерты', path: '#' },
-  { name: 'Красота и здоровье', path: '#' },
-  { name: 'Транспорт', path: '#' },
-  { name: 'Бармены', path: '#' },
-  { name: 'Фейерверки', path: '#' },
+  { id: 1, name: 'Площадки', path: Paths.Places },
+  { id: 2, name: 'Дворец бракосочетания', path: '#' },
+  { id: 3, name: 'Фотографы', path: '/catalog/photo' },
+  { id: 4, name: 'Музыкальные группы', path: '/catalog/music' },
+  { id: 5, name: 'Свадебные платья', path: '/catalog/dresses' },
+  { id: 6, name: 'Мужские костюмы', path: '#' },
+  { id: 7, name: 'Обручальные кольца', path: '#' },
+  { id: 8, name: 'Платья подружек невесты', path: 'dresses' },
+  { id: 9, name: 'Стилисты', path: '#' },
+  { id: 10, name: 'Визажисты', path: '#' },
+  { id: 11, name: 'Оформление и декор', path: '#' },
+  { id: 12, name: 'Приглашения', path: '#' },
+  { id: 13, name: 'Флористика и букеты', path: '#' },
+  { id: 14, name: 'Видеографы', path: '#' },
+  { id: 15, name: 'Хореографы', path: '#' },
+  { id: 16, name: 'Диджеи', path: '#' },
+  { id: 17, name: 'Ведущие', path: '#' },
+  { id: 18, name: 'Организаторы', path: '#' },
+  { id: 19, name: 'Детские аниматоры', path: '#' },
+  { id: 20, name: 'Шоу-программа', path: '#' },
+  { id: 21, name: 'Свет и звук', path: '#' },
+  { id: 22, name: 'Кейтеринг', path: '#' },
+  { id: 23, name: 'Торты и десерты', path: '#' },
+  { id: 24, name: 'Красота и здоровье', path: '#' },
+  { id: 25, name: 'Транспорт', path: '#' },
+  { id: 26, name: 'Бармены', path: '#' },
+  { id: 27, name: 'Фейерверки', path: '#' },
 ];
 
 export enum contextMenuTypeEnum {
@@ -480,3 +494,203 @@ export enum contextMenuTypeEnum {
   Base = 'base',
   Declined = 'declined',
 }
+
+//В будущем предлагаю заменить Paths на BreadCrumbsLinks и  убрать LKSectionsTitles
+export const BreadCrumbsLinks = {
+  Places: { link: '/places', name: 'Площадки' },
+  AddChoicePage: { link: '/add', name: 'Добавление бизнеса' },
+  AddBusiness: { link: '/service', name: 'Добавить бизнес' },
+  AddPlace: { link: '/place', name: 'Добавить площадку' },
+  AddProperty: { link: '/addproperty', name: 'Добавить площадку' },
+  AddContacts: { link: '/addcontacts', name: 'Добавить контакты' },
+};
+
+//JSON-LD
+function renderJSONLD(obj: FooterType) {
+  type TRes = {
+    '@type': string;
+    '@id': string;
+    name: string;
+    about: {
+      '@type': string;
+      itemListElement: {
+        '@type': string;
+        name: string;
+        url: string;
+      }[];
+    };
+  };
+
+  let result: TRes = {
+    '@type': 'SiteNavigationElement',
+    '@id': '',
+    name: '',
+    about: {
+      '@type': 'ItemList',
+      itemListElement: [],
+    },
+  };
+
+  result['@id'] = `/#footerNavCol${obj.id}`;
+  result['name'] = obj.title;
+  obj.data.forEach((datael) => {
+    let item = {
+      '@type': 'ItemList',
+      name: datael.name,
+      url: datael.url,
+    };
+    result.about['itemListElement'].push(item);
+  });
+  return result;
+}
+
+export const schemaData = {
+  '@context': 'http://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'EventForMe',
+      '@id': 'https://eventforme.ru',
+      url: 'https://eventforme.ru',
+      logo: 'https://eventforme.ru/img/header/logo.svg',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Ленинградский пр-т., 39 стр.14',
+        addressLocality: 'Москва',
+        postalCode: '109028',
+        addressCountry: 'Россия',
+      },
+      email: 'info@eventforme.ru',
+      telephone: '[+561-526-8457]',
+      sameAs: [
+        '@https://api.whatsapp.com/message/OGH2HQRF5EYHM1?autoload=1&app_absent=0',
+        'https://ru.pinterest.com/eventformeru/',
+        'https://vk.com/msk_eventforme',
+        'https://t.me/event_for_me',
+      ],
+    },
+    {
+      '@type': 'WPHeader',
+      '@id': '/#header',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': '/#headerNavBar',
+      about: {
+        '@type': 'ItemList',
+        itemListElement: [
+          {
+            '@type': 'ItemList',
+            name: 'Введите город',
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Главная',
+            url: Paths.Home,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Каталог',
+            itemListElement: BusinessTypes.map((el) => {
+              return { '@type': 'ItemList', name: el.name, url: el.path };
+            }),
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Свадебные сайты',
+            url: Paths.WeddingSites,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Хештеги',
+            url: Paths.Hashtags,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Приглашения',
+            url: Paths.Invitations,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Блог',
+            url: Paths.Blog,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Вход',
+            url: Paths.SignIn,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Регистрация',
+            url: Paths.SignUp,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Личный кабинет',
+            url: Paths.Account,
+          },
+        ],
+      },
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': '/#headerNavAuth',
+      about: {
+        '@type': 'ItemList',
+        itemListElement: [
+          {
+            '@type': 'ItemList',
+            name: 'Вход',
+            url: Paths.SignIn,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Регистрация',
+            url: Paths.SignUp,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Личный кабинет',
+            url: Paths.Account,
+          },
+        ],
+      },
+    },
+    {
+      '@type': 'WPFooter',
+      '@id': '/#footer',
+      copyrightHolder: 'EventForMe',
+      copyrightYear: '2023',
+    },
+    renderJSONLD(SERVICES),
+    renderJSONLD(PAGES),
+    renderJSONLD(PLACES),
+    renderJSONLD(ACTORS),
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': '/#footerNavBtn',
+      name: 'Хочу в каталог',
+      url: Paths.AddChoicePage,
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      '@id': '/#footerNavConditions',
+      about: {
+        '@type': 'ItemList',
+        itemListElement: [
+          {
+            '@type': 'ItemList',
+            name: 'Условия пользования',
+            url: Paths.TermsOfUse,
+          },
+          {
+            '@type': 'ItemList',
+            name: 'Политика конфиденциальности',
+            url: Paths.PrivacyPolicy,
+          },
+        ],
+      },
+    },
+  ],
+};

@@ -42,6 +42,7 @@ export default function EnterEmail({
   return (
     <>
       <Form onSubmit={handleSubmit} validated={validated}>
+        <h3>Восстановление пароля</h3>
         <Form.Group controlId="rp-email" className="mb-4">
           <Form.Label style={{ fontWeight: '500' }}>
             Электронная почта

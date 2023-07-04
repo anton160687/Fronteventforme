@@ -20,10 +20,10 @@ export default function SignUp(): JSX.Element {
   });
 
   return (
-    <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
-      <>
+    <main>
+      <Container as="section" className="mx-auto w-75 w-md-50 w-lg-75">
         {/* Page wrapper */}
-        <main className="page-wrapper">
+        <section className="page-wrapper">
           <div className="container-fluid d-flex h-100 align-items-center justify-content-center">
             {/* Sign up card */}
             <div
@@ -53,8 +53,8 @@ export default function SignUp(): JSX.Element {
               </div>
             </div>
           </div>
-        </main>
-      </>
-    </Container>
+        </section>
+      </Container>
+    </main>
   );
 }

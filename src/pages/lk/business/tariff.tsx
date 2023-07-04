@@ -1,6 +1,6 @@
-import LKNavigation from '@/components/lk/navigation/LKNavigation';
+import LKNavigation from '@/components/lk/Navigation/LKNavigation';
 import PricePlan from '@/components/lk/pricePlan/PricePlan';
-import { LKSectionsTitles } from '@/constant';
+import { LKSectionsTitles, Paths } from '@/constant';
 import withAuth from '@/hoc/withAuth';
 import {
   Button,
@@ -15,7 +15,13 @@ import {
 
 function Tariff() {
   return (
-    <LKNavigation accountPageTitle={LKSectionsTitles.Tariff}>
+    <LKNavigation
+      accountPageTitle={LKSectionsTitles.Tariff}
+      LKBreadcrumbs={{
+        name: LKSectionsTitles.Tariff,
+        path: Paths.AccTariff,
+      }}
+    >
       <>
         <p className="mt-3">
           Выберите комфортный для вас тариф и продвигайте свои бизнесы.
