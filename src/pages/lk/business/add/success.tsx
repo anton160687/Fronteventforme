@@ -12,7 +12,7 @@ const breadcrumbs = [
   },
   {
     path: 'add/service',
-    name: 'Отправлено на модерацию',
+    name: 'Добавить бизнес',
   },
 ];
 
