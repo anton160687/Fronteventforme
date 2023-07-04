@@ -10,18 +10,18 @@ export default function SocialMedia(): JSX.Element {
     <section>
       <Button variant="outline-primary w-100 mb-3">
         <i className="fi-vk fs-lg me-2"></i>
-        Войти через Вконтакте
+        <span> Войти через Вконтакте</span>
       </Button>
       <Button variant="outline-primary w-100 mb-3" onClick={handleClick}>
         <i className="fi-google fs-lg me-2"></i>
-        Войти через Google
+        <span> Войти через Google</span>
       </Button>
       <Button variant="outline-primary w-100 mb-3">
         <i className="icon-yandex fs-lg me-2"></i>
-        Войти через Яндекс
+        <span>Войти через Яндекс</span>
       </Button>
 
-      <div className="d-flex align-items-center py-3 mb-3">
+      <div className="d-flex align-items-center mb-3">
         <hr className="w-100" />
         <div className="px-3">Или</div>
         <hr className="w-100" />
