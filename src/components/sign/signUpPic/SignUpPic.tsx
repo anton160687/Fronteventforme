@@ -42,7 +42,7 @@ export default function SignUpPic({ onSwap }: SignUpPicProps) {
         />
       </div>
       <div
-        className="mt-4 mt-sm-5 justify-content-center justify-content-md-start d-flex align-items-center"
+        className="mt-5 mt-md-1 justify-content-center justify-content-md-start d-flex align-items-center"
         style={{ fontWeight: '500' }}
       >
         Уже есть аккаунт?{'\u00A0'}
