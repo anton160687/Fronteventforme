@@ -32,13 +32,15 @@
 }
 
 .hero__subtitle {
+  display: block;
+  max-width: 675px;
+  margin: 16px auto 48px;
   font-style: normal;
   font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 20px;
+  line-height: 30px;
   text-align: center;
   color: #ffffff;
-  margin-bottom: 48px;
 }
 .main__title {
   @include fz(12, 40);
