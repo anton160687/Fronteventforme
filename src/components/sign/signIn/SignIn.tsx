@@ -2,8 +2,8 @@ import React, { MouseEvent, useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
 import RenewPassword from '../renewPassword/RenewPassword';
 import SocialMedia from '../socialMedia/SocialMedia';
-import SignInForm from '../signInForm/SignInForm';
 import SignInPic from '../signInPic/SignInPic';
+import SignInForm from '../signInForm/SignInForm';
 
 type SignInProps = {
   onHide: () => void;
