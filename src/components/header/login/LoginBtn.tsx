@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Paths } from '@/constant';
 import { Button } from 'react-bootstrap';
 import styles from '@/styles/header/Header.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 type LoginButtonProps = {
   onClick: () => void;

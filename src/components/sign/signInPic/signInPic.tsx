@@ -1,12 +1,15 @@
-import Link from 'next/link';
 import ImageLoader from '../../_finder/ImageLoader';
-import styles from '@/styles/sign/Sign.module.scss';
-import { Paths } from '@/constant';
+import { Button } from 'react-bootstrap';
+import { MouseEvent } from 'react';
 
-export default function SignInPic(): JSX.Element {
+type SignInPicProps = {
+  onSwap?: (e: MouseEvent<HTMLButtonElement>) => void;
+};
+
+export default function SignInPic({ onSwap }: SignInPicProps): JSX.Element {
   return (
     <>
-      <h3 className="h3 mb-4 mb-sm-5 pb-md-5 pb-3 text-center text-lg-start">
+      <h3 className="h3 mb-4 mb-sm-5 text-center text-md-start">
         Привет. <br />
         Рады видеть вас снова!
       </h3>
@@ -18,12 +21,20 @@ export default function SignInPic(): JSX.Element {
           alt="Девушка с большим телефоном"
         />
       </div>
-      <div className="mt-4 mt-sm-5 mb-4 mb-md-auto text-center text-lg-start">
+      <div
+        className="mt-4 mt-sm-5 text-center text-md-start"
+        style={{ fontWeight: '500' }}
+      >
         Еще нет аккаунта на портале?{'\u00A0'}
         <br />
-        <Link className={styles.link} href={Paths.SignUp}>
+        <Button
+          variant="link"
+          className="text-primary p-0"
+          onClick={onSwap}
+          style={{ fontWeight: '500' }}
+        >
           Регистрация
-        </Link>
+        </Button>
       </div>
     </>
   );

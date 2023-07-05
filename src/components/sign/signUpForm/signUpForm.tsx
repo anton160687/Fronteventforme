@@ -75,6 +75,7 @@ export default function SignUpForm({
         <p
           onClick={() => setSignUpForm((prev) => !prev)}
           className="text-center text-primary cursor-pointer"
+          style={{ fontWeight: '500' }}
         >
           Стандартная регистрация через почту
         </p>

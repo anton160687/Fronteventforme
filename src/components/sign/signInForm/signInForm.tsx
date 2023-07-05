@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { signinUser } from '@/store/user/userAPI';
@@ -21,6 +21,7 @@ import {
 import styles from '@/styles/sign/Sign.module.scss';
 import { SigninUserData } from '@/types/forms';
 import Error from '../error/Error';
+import { useResize } from '@/hooks/useResize';
 
 export default function SignInForm(): JSX.Element {
   const initialDataState: SigninUserData = {
@@ -66,23 +67,16 @@ export default function SignInForm(): JSX.Element {
     }
   }
 
-  //для адаптива
-  const ref = useRef<HTMLFormElement>(null);
-  const [widthForm, setWidthForm] = useState(0);
-  useEffect(() => {
-    if (ref.current) {
-      setWidthForm(ref.current.clientWidth);
-    }
-  }, []);
+  const checkSize = useResize(() => {});
 
   return (
-    <Form onSubmit={handleSubmit} ref={ref} validated={validated}>
+    <Form onSubmit={handleSubmit} validated={validated}>
       <Form.Group controlId="su-radio" className="mb-4">
         <ButtonGroup
           className="w-100"
           size="lg"
           style={{ position: 'relative' }}
-          vertical={widthForm < 350 ? true : false}
+          vertical={!checkSize.isScreenSm ? true : false}
         >
           <ToggleButton
             type="radio"

@@ -1,31 +1,39 @@
-import Link from 'next/link';
 import ImageLoader from '@/components/_finder/ImageLoader';
-import styles from '@/styles/sign/Sign.module.scss';
-import { Paths } from '@/constant';
+import { MouseEvent } from 'react';
+import { Button } from 'react-bootstrap';
 
-export default function SignUpPic() {
+type SignUpPicProps = {
+  onSwap?: (e: MouseEvent<HTMLButtonElement>) => void;
+};
+
+const advantages = [
+  { class: 'align-items-center', text: 'Подробный чек-лист' },
+  { class: 'align-items-center', text: 'Расчет бюджета' },
+  {
+    class: 'align-items-baseline',
+    text: 'Проверенный	каталог с большим ассортиментом',
+  },
+];
+
+export default function SignUpPic({ onSwap }: SignUpPicProps) {
   return (
     <>
-      <h3 className="h3 mb-4 mb-sm-5 text-center text-lg-start">
-        Присоединяйтесь к EventForMe. Получите доступ к услугам:
+      <h3 className="h3 mb-4 mb-sm-5 text-center text-md-start">
+        Присоединяйтесь к EventForMe.
+        <br />
+        Получите доступ к услугам:
       </h3>
       <div style={{ fontWeight: '500' }}>
-        <p>
-          <i className="fi-check-circle fs-lg me-1 text-primary"></i>Расчет
-          бюджета
-        </p>
-        <p>
-          <i className="fi-check-circle fs-lg me-1 text-primary"></i>Подробный
-          чек-лист для события
-        </p>
-        <p>
-          {' '}
-          <i className="fi-check-circle fs-lg me-1 text-primary"></i>Расчет
-          бюджета
-        </p>
-        <p>И множество других :)</p>
+        {advantages.map((advantage) => (
+          <p className={`d-flex ${advantage.class}`} key={advantage.text}>
+            <i className="fi-check-circle fs-lg me-1 text-primary"></i>
+            {advantage.text}
+          </p>
+        ))}
+
+        <p>И множество других полезных услуг</p>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-none d-md-flex justify-content-center">
         <ImageLoader
           src="/img/signup.svg"
           width={344}
@@ -33,11 +41,19 @@ export default function SignUpPic() {
           alt="Девушка с формой для регистрации"
         />
       </div>
-      <div className="mt-4 mt-sm-5 text-center text-lg-start">
+      <div
+        className="mt-4 mt-sm-5 justify-content-center justify-content-md-start d-flex align-items-center"
+        style={{ fontWeight: '500' }}
+      >
         Уже есть аккаунт?{'\u00A0'}
-        <Link className={styles.link} href={Paths.SignIn}>
+        <Button
+          variant="link"
+          className="text-primary p-0"
+          onClick={onSwap}
+          style={{ fontWeight: '500' }}
+        >
           Войти
-        </Link>
+        </Button>
       </div>
     </>
   );

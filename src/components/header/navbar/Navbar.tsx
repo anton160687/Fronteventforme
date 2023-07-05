@@ -6,9 +6,12 @@ import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
+  signupShow: () => void;
+  signinShow: () => void;
 };
 
 const navigation = [
@@ -36,35 +39,41 @@ const navigation = [
     id: 4,
     path: Paths.Blog,
     text: 'Блог',
-  }
+  },
 ];
 
 const lkNavigation = [
   {
     id: 1,
-    path: Paths.SignIn,
-    text: 'Вход',
-  },
-  {
-    id: 2,
-    path: Paths.SignUp,
-    text: 'Регистрация',
-  },
-  {
-    id: 3,
     path: Paths.Account,
     text: 'Личный кабинет',
   },
-]
+];
 
-function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
+function HeaderNavbar({ isAuth, signupShow, signinShow }: HeaderNavbarProps) {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
   function handleToggle() {
     setShow(!show);
   }
 
-  function renderNavigation(array: typeof navigation, customClass: string = '') {
+  const lkButtons = [
+    {
+      id: 1,
+      click: signinShow,
+      text: 'Вход',
+    },
+    {
+      id: 2,
+      click: signupShow,
+      text: 'Регистрация',
+    },
+  ];
+
+  function renderNavigation(
+    array: typeof navigation,
+    customClass: string = ''
+  ) {
     return array.map(({ id, path, text }) => (
       <li
         key={id}
@@ -75,11 +84,36 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       >
         <Link
           href={path}
-          className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}
+          className={`${styles.navbar__item} ${
+            router.asPath === path ? 'active' : ''
+          } nav-link`}
           itemProp="url"
         >
           <span itemProp="name">{text}</span>
         </Link>
+      </li>
+    ));
+  }
+
+  function renderLKButtons(array: typeof lkButtons) {
+    return array.map(({ id, click, text }) => (
+      <li
+        key={id}
+        className="nav-item d-xl-none"
+        itemProp="itemListElement"
+        itemScope
+        itemType="http://schema.org/ItemList"
+      >
+        <Button
+          className={
+            styles.navbar__item + ' nav-link w-100 justify-content-start'
+          }
+          variant="link"
+          //  itemProp="url"
+          onClick={click}
+        >
+          <span itemProp="name">{text}</span>
+        </Button>
       </li>
     ));
   }
@@ -89,20 +123,19 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       id="headerNavBar"
       bg="light"
       expand="xl"
-      className='w-100 justify-content-end'
+      className="w-100 justify-content-end"
       itemScope
       itemType="https://schema.org/SiteNavigationElement"
       itemID="/#headerNavBar"
     >
       {/* Меню для мобильных устройств */}
-      <Navbar.Toggle
-        aria-controls="light-navbar-nav"
-        onClick={handleToggle}
-      />
+      <Navbar.Toggle aria-controls="light-navbar-nav" onClick={handleToggle} />
 
       <ul
         id="light-navbar-nav"
-        className={`${styles.header__navbar} order-lg-2 navbar-nav navbar-collapse collapse ${show ? "show" : ""}`}
+        className={`${
+          styles.header__navbar
+        } order-lg-2 navbar-nav navbar-collapse collapse ${show ? 'show' : ''}`}
         itemProp="about"
         itemScope
         itemType="http://schema.org/ItemList"
@@ -111,11 +144,11 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
         {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
         <CatalogDropDown />
         {renderNavigation(navigation.slice(1))}
-        {!isAuth ?
-          renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
-          :
-          renderNavigation(lkNavigation.slice(2), 'd-xl-none')
-        }
+        {!isAuth
+          ? // renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
+
+            renderLKButtons(lkButtons)
+          : renderNavigation(lkNavigation, 'd-xl-none')}
       </ul>
     </Navbar>
   );

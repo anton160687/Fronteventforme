@@ -13,8 +13,8 @@ import LoginButton from './login/LoginBtn';
 import RegButton from './registration/RegBtn';
 import Avatar from './avatar/Avatar';
 import styles from '@/styles/header/Header.module.scss';
-import SignInModalLight from '@/components/_finder/partials/SignInModalLight';
-import SignUpModalLight from '@/components/_finder/partials/SignUpModalLight';
+import SignIn from '../sign/signIn/SignIn';
+import SignUp from '../sign/signUp/SignUp';
 
 function Header() {
   const isAuth = useSelector(selectIsAuth);
@@ -41,12 +41,9 @@ function Header() {
 
   // Sign in modal
   const [signinShow, setSigninShow] = useState(false);
-  const handleSigninClose = () => setSigninShow(false);
-  const handleSigninShow = () => setSigninShow(true);
 
   // Sign up modal
   const [signupShow, setSignupShow] = useState(false);
-  const handleSignupClose = () => setSignupShow(false);
 
   // Swap modals
   const handleSignInToUp = (e: MouseEvent<HTMLButtonElement>) => {
@@ -69,25 +66,18 @@ function Header() {
     >
       {/* Sign in modal */}
       {!isAuth && (
-        <SignInModalLight
-          centered
-          size="lg"
-          pillButtons
+        <SignIn
           show={signinShow}
-          onHide={handleSigninClose}
+          onHide={() => setSigninShow(false)}
           onSwap={handleSignInToUp}
         />
       )}
 
       {/* Sign up modal */}
       {!isAuth && (
-        <SignUpModalLight
-          centered
-          size="lg"
-          pillButtons
-					
+        <SignUp
           show={signupShow}
-          onHide={handleSignupClose}
+          onHide={() => setSignupShow(false)}
           onSwap={handleSignUpToIn}
         />
       )}
@@ -99,7 +89,11 @@ function Header() {
           </Col>
           {/* основная навигация */}
           <Col className="d-flex justify-content-end col-xl-7 px-0">
-            <HeaderNavbar isAuth={isAuth} />
+            <HeaderNavbar
+              isAuth={isAuth}
+              signupShow={() => setSignupShow(true)}
+              signinShow={() => setSigninShow(true)}
+            />
           </Col>
           {/* кнопки входа/регистрации/аватар */}
           <Col className="d-none d-xl-block col-xl-3 mt-auto mb-auto pe-0">
@@ -126,7 +120,7 @@ function Header() {
                     itemScope
                     itemType="http://schema.org/ItemList"
                   >
-                    <LoginButton onClick={handleSigninShow} />
+                    <LoginButton onClick={() => setSigninShow(true)} />
                   </li>
                 )}
                 {!isAuth && (
@@ -136,7 +130,7 @@ function Header() {
                     itemScope
                     itemType="http://schema.org/ItemList"
                   >
-                    <RegButton />
+                    <RegButton onClick={() => setSignupShow(true)} />
                   </li>
                 )}
                 {isAuth && user.is_bride !== undefined && (

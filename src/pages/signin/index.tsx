@@ -3,41 +3,29 @@ import Container from 'react-bootstrap/Container';
 import SocialMedia from '../../components/sign/socialMedia/socialMedia';
 import SignInPic from '../../components/sign/signInPic/signInPic';
 import SignInForm from '../../components/sign/signInForm/signInForm';
-import { CloseButton, Modal } from 'react-bootstrap';
 
-export default function SignIn({ onHide, onSwap, show }): JSX.Element {
+export default function SignIn(): JSX.Element {
   return (
-    // // Wraps everything except footer to push footer to the bottom of the page if there is little content
-    // <main className="page-wrapper">
-    <Modal show={show} centered size="lg" className="signup-modal">
-      <Modal.Body className="px-0 py-2 py-sm-0">
-        <CloseButton
-          onClick={onHide}
-          aria-label="Close modal"
-          className="position-absolute top-0 end-0 mt-3 me-3"
-        />
-        <Container
-          as="section"
-          className="mx-auto w-100 w-sm-75 w-md-50 w-lg-75"
-        >
-          <div className="container-fluid h-100 align-items-center justify-content-center">
-            <div
-              className="card card-body mx-auto px-0"
-              style={{ border: 'none' }}
-            >
-              <div className="row mx-0 align-items-center">
-                <div className="col-lg-6 border-end-lg p-2 pe-lg-5">
-                  <SignInPic />
-                </div>
-                <div className="col-lg-6 px-2 pt-2 pb-4 px-sm-5 pt-md-5 ps-lg-5">
-                  <SocialMedia />
-                  <SignInForm />
-                </div>
+    // Wraps everything except footer to push footer to the bottom of the page if there is little content
+    <main className="page-wrapper">
+      <Container as="section" className="mx-auto w-100 w-sm-75 w-md-50 w-lg-75">
+        <div className="container-fluid h-100 align-items-center justify-content-center">
+          <div
+            className="card card-body mx-auto px-0"
+            style={{ border: 'none' }}
+          >
+            <div className="row mx-0 align-items-center">
+              <div className="col-lg-6 border-end-lg p-2 pe-lg-5">
+                <SignInPic />
+              </div>
+              <div className="col-lg-6 px-2 pt-2 pb-4 px-sm-5 pt-md-5 ps-lg-5">
+                <SocialMedia />
+                <SignInForm />
               </div>
             </div>
           </div>
-        </Container>
-      </Modal.Body>
-    </Modal>
+        </div>
+      </Container>
+    </main>
   );
 }
