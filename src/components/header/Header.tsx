@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
@@ -13,6 +13,8 @@ import LoginButton from './login/LoginBtn';
 import RegButton from './registration/RegBtn';
 import Avatar from './avatar/Avatar';
 import styles from '@/styles/header/Header.module.scss';
+import SignInModalLight from '@/components/_finder/partials/SignInModalLight';
+import SignUpModalLight from '@/components/_finder/partials/SignUpModalLight';
 
 function Header() {
   const isAuth = useSelector(selectIsAuth);
@@ -37,6 +39,27 @@ function Header() {
     }
   }, []);
 
+  // Sign in modal
+  const [signinShow, setSigninShow] = useState(false);
+  const handleSigninClose = () => setSigninShow(false);
+  const handleSigninShow = () => setSigninShow(true);
+
+  // Sign up modal
+  const [signupShow, setSignupShow] = useState(false);
+  const handleSignupClose = () => setSignupShow(false);
+
+  // Swap modals
+  const handleSignInToUp = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSigninShow(false);
+    setSignupShow(true);
+  };
+  const handleSignUpToIn = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSigninShow(true);
+    setSignupShow(false);
+  };
+
   return (
     <header
       id="header"
@@ -44,6 +67,30 @@ function Header() {
       itemType="http://schema.org/WPHeader"
       itemID="/#header"
     >
+      {/* Sign in modal */}
+      {!isAuth && (
+        <SignInModalLight
+          centered
+          size="lg"
+          pillButtons
+          show={signinShow}
+          onHide={handleSigninClose}
+          onSwap={handleSignInToUp}
+        />
+      )}
+
+      {/* Sign up modal */}
+      {!isAuth && (
+        <SignUpModalLight
+          centered
+          size="lg"
+          pillButtons
+					
+          show={signupShow}
+          onHide={handleSignupClose}
+          onSwap={handleSignUpToIn}
+        />
+      )}
       <Container className="px-5">
         <Row className="align-items-baseline mx-0">
           {/* лого */}
@@ -79,7 +126,7 @@ function Header() {
                     itemScope
                     itemType="http://schema.org/ItemList"
                   >
-                    <LoginButton />
+                    <LoginButton onClick={handleSigninShow} />
                   </li>
                 )}
                 {!isAuth && (
