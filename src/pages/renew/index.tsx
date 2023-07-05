@@ -1,6 +1,6 @@
-import EnterEmail from '@/components/sign/setPassword/enterEmail';
-import SignInPic from '@/components/sign/signInPic/signInPic';
-import SignInText from '@/components/sign/signInText/signInText';
+import EnterEmail from '@/components/sign/setPassword/EnterEmail';
+import SignInPic from '@/components/sign/signInPic/SignInPic';
+import SignInText from '@/components/sign/signInText/SignInText';
 import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 

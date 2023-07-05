@@ -48,7 +48,7 @@ export default function SignUpPic({ onSwap }: SignUpPicProps) {
         Уже есть аккаунт?{'\u00A0'}
         <Button
           variant="link"
-          className="text-primary p-0"
+          className="p-0 text-primary"
           onClick={onSwap}
           style={{ fontWeight: '500' }}
         >

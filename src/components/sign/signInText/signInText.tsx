@@ -17,8 +17,8 @@ export default function SignInText({ email }: SignInTextProps) {
   };
 
   return (
-    <div className=" text-center text-lg-start">
-      <h4 className="h4 mb-4 text-center text-lg-start">
+    <div className=" text-center text-md-start">
+      <h4 className="h4 mb-4 text-center text-md-start">
         На вашу почту была выслана ссылка для сброса пароля
       </h4>
       <p>

@@ -1,8 +1,8 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import SocialMedia from '../../components/sign/socialMedia/socialMedia';
-import SignInPic from '../../components/sign/signInPic/signInPic';
-import SignInForm from '../../components/sign/signInForm/signInForm';
+import SocialMedia from '../../components/sign/socialMedia/SocialMedia';
+import SignInPic from '../../components/sign/signInPic/SignInPic';
+import SignInForm from '../../components/sign/signInForm/SignInForm';
 
 export default function SignIn(): JSX.Element {
   return (

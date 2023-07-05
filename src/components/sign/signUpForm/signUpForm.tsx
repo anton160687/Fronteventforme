@@ -41,6 +41,7 @@ export default function SignUpForm({
   setData,
 }: SignUpFormProps): JSX.Element {
   const [error, setError] = useState<string>('');
+
   const [validated, setValidated] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {

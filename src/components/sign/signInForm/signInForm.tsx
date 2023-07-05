@@ -1,9 +1,14 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { signinUser } from '@/store/user/userAPI';
 import { fetchUserDataWithThunk, setRole } from '@/store/user/userSlice';
-import Link from 'next/link';
 import router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -23,7 +28,13 @@ import { SigninUserData } from '@/types/forms';
 import Error from '../error/Error';
 import { useResize } from '@/hooks/useResize';
 
-export default function SignInForm(): JSX.Element {
+type SignInFormProps = {
+  setIsPasswordForgotten: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function SignInForm({
+  setIsPasswordForgotten,
+}: SignInFormProps): JSX.Element {
   const initialDataState: SigninUserData = {
     is_bride: true,
     email: '',
@@ -137,9 +148,14 @@ export default function SignInForm(): JSX.Element {
           >
             Пароль
           </Form.Label>
-          <Link href={Paths.Renew} className={styles.link + ' fs-sm'}>
+          <Button
+            variant="link"
+            className="text-primary p-0"
+            style={{ fontWeight: '500' }}
+            onClick={() => setIsPasswordForgotten(true)}
+          >
             Забыли пароль?
-          </Link>
+          </Button>
         </div>
         <PasswordToggle
           id="si-password"

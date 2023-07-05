@@ -18,7 +18,7 @@ export default function SignUpText({ data }: SignUpTextProps) {
   };
 
   return (
-    <div className=" text-center text-lg-start">
+    <div className="text-center text-md-start">
       <h4 className="h4 mb-4">
         Для завершения регистрации перейдите по ссылке на вашей электронной
         почте

@@ -1,12 +1,11 @@
-import Container from 'react-bootstrap/Container';
 import { MouseEvent, useState } from 'react';
 import React from 'react';
 import { CreateUserData } from '@/types/forms';
-import SignUpPic from '../signUpPic/signUpPic';
-import SignUpForm from '../signUpForm/signUpForm';
-import SocialMedia from '../socialMedia/socialMedia';
-import SignUpText from '../signUpText/signUpText';
 import { CloseButton, Modal } from 'react-bootstrap';
+import SignUpPic from '../signUpPic/SignUpPic';
+import SocialMedia from '../socialMedia/SocialMedia';
+import SignUpForm from '../signUpForm/SignUpForm';
+import SignUpText from '../signUpText/SignUpText';
 
 type SignUpProps = {
   onHide: () => void;
@@ -14,11 +13,7 @@ type SignUpProps = {
   show: boolean;
 };
 
-export default function SignUp({
-  onHide,
-  onSwap,
-  show,
-}: SignUpProps): JSX.Element {
+function SignUp({ onHide, onSwap, show }: SignUpProps): JSX.Element {
   const [signUpForm, setSignUpForm] = useState(false);
   const [signUpIsDone, setSignUpIsDone] = useState(false);
 
@@ -70,3 +65,4 @@ export default function SignUp({
     </Modal>
   );
 }
+export default SignUp;

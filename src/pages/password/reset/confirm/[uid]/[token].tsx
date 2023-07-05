@@ -1,6 +1,6 @@
 import { Container } from 'react-bootstrap';
-import SetPassword from '@/components/sign/setPassword/setPassword';
-import SignInPic from '@/components/sign/signInPic/signInPic';
+import SetPassword from '@/components/sign/setPassword/SetPassword';
+import SignInPic from '@/components/sign/signInPic/SignInPic';
 
 export default function FinishPasswordReset() {
   return (

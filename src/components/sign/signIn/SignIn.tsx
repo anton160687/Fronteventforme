@@ -1,8 +1,9 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { CloseButton, Modal } from 'react-bootstrap';
-import SignInPic from '../signInPic/signInPic';
-import SocialMedia from '../socialMedia/socialMedia';
-import SignInForm from '../signInForm/signInForm';
+import RenewPassword from '../renewPassword/RenewPassword';
+import SocialMedia from '../socialMedia/SocialMedia';
+import SignInForm from '../signInForm/SignInForm';
+import SignInPic from '../signInPic/SignInPic';
 
 type SignInProps = {
   onHide: () => void;
@@ -10,11 +11,9 @@ type SignInProps = {
   show: boolean;
 };
 
-export default function SignIn({
-  onHide,
-  onSwap,
-  show,
-}: SignInProps): JSX.Element {
+function SignIn({ onHide, onSwap, show }: SignInProps): JSX.Element {
+  const [isPasswordForgotten, setIsPasswordForgotten] = useState(false);
+
   return (
     <Modal
       show={show}
@@ -35,11 +34,18 @@ export default function SignIn({
             <SignInPic onSwap={onSwap} />
           </div>
           <div className="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
-            <SocialMedia />
-            <SignInForm />
+            {!isPasswordForgotten ? (
+              <>
+                <SocialMedia />
+                <SignInForm setIsPasswordForgotten={setIsPasswordForgotten} />
+              </>
+            ) : (
+              <RenewPassword />
+            )}
           </div>
         </div>
       </Modal.Body>
     </Modal>
   );
 }
+export default SignIn;

@@ -29,7 +29,7 @@ export default function SignInPic({ onSwap }: SignInPicProps): JSX.Element {
         <br />
         <Button
           variant="link"
-          className="text-primary p-0"
+          className="p-0 text-primary"
           onClick={onSwap}
           style={{ fontWeight: '500' }}
         >
