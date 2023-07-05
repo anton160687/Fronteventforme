@@ -4,25 +4,9 @@
   @include adaptiv-value('margin-top', 124, 10);
 }
 
-.icon {
-  position: relative;
-  padding-top: 50px;
-  &_img {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    width: 90px;
-    height: 90px;
-    top: -14px;
-    left: 32px;
-    margin-bottom: 24px;
-    background: #ffffff;
+.concat__links {
+  columns: 2 auto;
+  & > a {
+    text-decoration: none;
   }
-}
-
-.description {
-  @include fz(9, 16);
-  color: $gray;
 }

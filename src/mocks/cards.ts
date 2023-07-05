@@ -1,5 +1,6 @@
+import { Paths } from "@/constant";
+
 export const cards = {
-  //! карточки под header-ом
   cardsLinkArrey: [
     {
       id: 1,
@@ -7,6 +8,7 @@ export const cards = {
       description:
         'Описание. We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/wedding-invitations.png',
+      path: Paths.Invitations,
     },
     {
       id: 2,
@@ -14,6 +16,7 @@ export const cards = {
       description:
         'We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/wedding-website.png',
+      path: Paths.WeddingSites,
     },
     {
       id: 3,
@@ -21,6 +24,7 @@ export const cards = {
       description:
         'We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/budget-management.png',
+      path: "/#",
     },
     {
       id: 4,
@@ -28,6 +32,7 @@ export const cards = {
       description:
         'We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/name-service.png',
+      path: "/#",
     },
     {
       id: 5,
@@ -35,6 +40,7 @@ export const cards = {
       description:
         'We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/catalog.png',
+      path: Paths.Catalog,
     },
     {
       id: 6,
@@ -42,72 +48,9 @@ export const cards = {
       description:
         'We have the most comprehensive directory of estate agents to help you with all your property needs',
       pathImg: '/img/card/cards-link/check-lists.png',
+      path: "/#",
     },
   ],
-
-  //! карточки "Удобный каталог" - слева
-  CardsConCat: [
-    {
-      id: 1,
-      title: 'Свадебные платья',
-      description: 'Платья от А до Я для каждой невесты',
-      nameImg: 'fi-makeup',
-      color: 'primary',
-    },
-    {
-      id: 2,
-      title: 'Название категории',
-      description: 'Длинное описание услуги на несколько строчек',
-      nameImg: 'fi-dots-horisontal',
-      color: 'danger',
-    },
-    {
-      id: 3,
-      title: 'Исполнители',
-      description:
-        'Все нужные люди для свадьбы: ведущие, фотографы, хореографы',
-      nameImg: 'fi-disco-ball',
-      color: 'info',
-    },
-    {
-      id: 4,
-      title: 'Название категории',
-      description: 'Длинное описание услуги на несколько строчек',
-      nameImg: 'fi-calculator',
-      color: 'accent',
-    },
-    {
-      id: 5,
-      title: 'Площадки',
-      description:
-        'Локации на любой вкус: на природе, вершине небоскреба и другие',
-      nameImg: 'fi-shopping-bag',
-      color: 'success',
-    },
-    {
-      id: 6,
-      title: 'Название категории',
-      description: 'Длинное описание услуги на несколько строчек',
-      nameImg: 'fi-pie-chart',
-      color: 'warning',
-    },
-  ],
-
-  //! карточки "Удобный каталог"
-  slidesCatalog: [
-    {
-      id: 1,
-      title: 'Photo',
-      pathImg: '/img/card/convenient-ctlg/shoreSea.png',
-    },
-    {
-      id: 2,
-      title: 'Photo',
-      pathImg: '/img/card/convenient-ctlg/marriageProposal.png',
-    },
-    { id: 3, title: 'Photo', pathImg: '/img/card/convenient-ctlg/house.png' },
-  ],
-
   //! карта провайдера
   providerCards: [
     {

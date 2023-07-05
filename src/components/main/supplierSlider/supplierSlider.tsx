@@ -12,7 +12,6 @@ import { MainTitle } from '@/components/main/title/title';
 
 function SupplierSlider(): JSX.Element {
   return (
-    <Container as="section">
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
         <MainTitle
           suptitle={'Нам доверяют'}
@@ -29,7 +28,6 @@ function SupplierSlider(): JSX.Element {
         <div className="position-relative">
           <Swiper
             modules={[Navigation]}
-            // loop={true}
             navigation={{
               prevEl: '#prev',
               nextEl: '#next',
@@ -68,7 +66,6 @@ function SupplierSlider(): JSX.Element {
           <Button id="next" variant="next" className="d-none d-sm-block" />
         </div>
       </section>
-    </Container>
   );
 }
 
