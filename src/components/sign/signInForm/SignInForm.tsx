@@ -40,10 +40,11 @@ export default function SignInForm({
     email: '',
     password: '',
   };
+
   const [data, setData] = useState<SigninUserData>(initialDataState);
   const [error, setError] = useState<string>('');
-  const dispatch = useDispatch<AppDispatch>();
   const [validated, setValidated] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setData({

@@ -1,6 +1,6 @@
 import ImageLoader from '../../_finder/ImageLoader';
 import { Button } from 'react-bootstrap';
-import { MouseEvent } from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 
 type SignInPicProps = {
   onSwap?: (e: MouseEvent<HTMLButtonElement>) => void;

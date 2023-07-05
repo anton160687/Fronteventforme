@@ -38,7 +38,7 @@ export default function FinishRegistrationPage() {
   }
 
   function handleRedirect() {
-    router.push(Paths.SignIn);
+    router.push(Paths.Home);
   }
 
   useEffect(() => {

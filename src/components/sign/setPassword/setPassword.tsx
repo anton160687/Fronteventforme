@@ -19,7 +19,7 @@ export default function SetPassword(): JSX.Element {
   const token = router.query.token as string;
 
   function handleRedirect() {
-    router.push(Paths.SignIn);
+    router.push(Paths.Home);
   }
 
   const [validated, setValidated] = useState(false);
