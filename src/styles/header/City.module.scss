@@ -1,26 +1,67 @@
 @import '/src/styles/mixins';
 
-.city__form_container {
-  position: relative;
-  display: flex;
-  align-items: center;
+.city__options {
+  position: absolute;
+  z-index: 2;
+  background-color: #FEFEFE;
+  border-radius: 0.75rem;
+  padding: 24px;
+  width: 85%;
+  @media (max-width: 1199px) {
+    width: 100%;
+  }
 }
 
-.city__form {
+.city__options_title {
+  color: $gray900;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  width: 100%;
   display: flex;
-  padding: 8px 0px;
+  justify-content: space-between;
+}
+
+.city__display {
+  padding: 0.6875rem 1rem;
+  margin: 0;
+  display: flex;
+  gap: 8px;
   align-items: baseline;
+  font-weight: 700 !important;
+  font-size: 0.875rem;
+  line-height: 21px !important;
+  color: $gray800;
+  outline: none;
+  @media (max-width: 1199px) {
+    padding: 8px 0;
+  }
+}
+
+.city__suggestions_form {
+  display: flex;
+  align-items: baseline;
+  border: 1px solid $gray400;
+  border-radius: 0.75rem;
+  margin: 16px 0;
+  padding: 14px 20px;
+  max-width: 478px;
 }
 
 .city__input {
   border: none;
-  width: 120px;
   padding-left: 5px;
   font-weight: 700 !important;
-  font-size: 14px !important;
-  line-height: 21px !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
   color: $gray800;
   outline: none;
+  &::placeholder {
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: $gray600;
+  }
   @media (min-width: 1200px) and (max-width: 1250px) {
     width: 90px;
     text-overflow: ellipsis;
@@ -28,15 +69,14 @@
 }
 
 .city__dropdown {
-  top: 34px;
-  left: 0px;
   position: absolute;
   z-index: 10;
   background-color: #ffffff;
   padding: 12px;
   border-radius: 10px;
-
+  width: 478px;
   @media (max-width: 990px) {
+    width: 100%;
     top: 24px;
   }
 }
@@ -45,5 +85,28 @@
   &:hover {
     color: #674fa3;
     font-weight: 600;
+  }
+}
+
+.city__popular_title{
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: $primary;
+  margin-bottom: 12px;
+}
+
+.city__popular_list{
+  list-style-type: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 16px;
+  color: $gray900;
+  columns: 3 auto;
+  @media (max-width: 768px) {
+    columns: 2 auto;
+  }
+  @media (max-width: 576px) {
+    columns: 1 auto;
   }
 }

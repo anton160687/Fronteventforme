@@ -8,6 +8,12 @@
   padding: 16px 0;
 }
 
+.header__logo_img {
+  @media (max-width: 1240px) and (min-width: 1199px) {
+    width: 75%;
+  }
+}
+
 .header__navbar {
   align-items: unset !important;
   @media (max-width: 1199px) {
