@@ -5,7 +5,7 @@ import CityInput from '../city/CityInput';
 import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -63,6 +63,10 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   function handleToggle() {
     setShow(!show);
   }
+
+  useEffect(()=> {
+    setShow(false);
+  }, [router])
 
   function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
