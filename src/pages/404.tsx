@@ -38,10 +38,10 @@ export default function Error() {
               <div className="ratio ratio-16x9 mb-lg-5 mb-4">
                 <div ref={animationContainer}></div>
               </div>
-              <h1 className="h3 pt-lg-4">
+              <h3 className="pt-lg-4" style={{ marginBottom: '0.75rem' }}>
                 К сожалению, такой страницы не существует.
-              </h1>
-              <p className="lead mb-5 pb-lg-2">
+              </h3>
+              <p className="lead mb-4 pb-lg-2">
                 Вероятно, она была удалена или находится по другой ссылке.
               </p>
               <Button
@@ -49,7 +49,7 @@ export default function Error() {
                 as={Link}
                 href="/"
                 size="lg"
-                variant="primary rounded-pill w-sm-auto w-100 mb-3"
+                variant="primary w-sm-auto w-100 mb-3"
               >
                 Вернуться на главную
               </Button>
