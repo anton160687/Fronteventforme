@@ -15,13 +15,13 @@ type cardProps = {
 function ConCatCard({ card }: cardProps) {
   let { title, description, nameImg, color, path } = card;
   return (
-    <Link href={path}>
-      <div>
+    <div className={styles.concat__card}>
+      <Link href={path} className={styles.concat__link}>
         <i className={`${nameImg} text-${color} fs-3`}></i>
-        <h3 className="fs-base mt-5 mb-2">{title}</h3>
+        <h3>{title}</h3>
         <p className={styles.description}>{description}</p>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 };
 
