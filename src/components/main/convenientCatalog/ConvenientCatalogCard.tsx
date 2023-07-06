@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { Button } from 'react-bootstrap';
-import styles from './convenientCatalog.module.scss';
+import styles from '@/styles/main/ConvenientCatalog.module.scss';
 
 type cardProps = {
   card: {

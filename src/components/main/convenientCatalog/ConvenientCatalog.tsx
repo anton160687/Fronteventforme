@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import { Button, Col, Row } from 'react-bootstrap';
-import ImageLoader from '../../_finder/ImageLoader';
+import Image from 'next/image';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ConCatCard from './convenientCatalogCard';
+import ConCatCard from './ConvenientCatalogCard';
 import 'swiper/css/bundle';
-import styles from './convenientCatalog.module.scss';
 import { Paths } from '@/constant';
-import Image from 'next/image';
+import styles from '@/styles/main/ConvenientCatalog.module.scss';
 
 const cardsConCat = [
   {

@@ -4,12 +4,13 @@ import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
 import SupplierSlider from '@/components/main/supplierSlider/supplierSlider';
 import MoreServices from '@/components/main/moreServices/moreServices';
-import ConvenientCatalog from '@/components/main/convenientCtlg/convenientCatalog';
-import { Locations } from '@/components/main/locations/locations';
+import ConvenientCatalog from '@/components/main/convenientCatalog/ConvenientCatalog';
+import TopLocations from '@/components/main/topLocations/TopLocations';
 import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
 import { CardsLink } from '@/components/main/cardsLink/cardsLink';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
+
 
 type HomeProps = {
   topLocations: LocationCard[];
@@ -22,18 +23,16 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
       <Container className="px-5">
         <CardsLink />
         <ConvenientCatalog />
-        <Locations
+        <TopLocations
           locations={topLocations}
           title={'ТОП-5 площадок разных категорий г. Москва'}
-          isShowAll={false}
         />
         <MoreServices />
         <SupplierSlider />
-        <Locations
+        <TopLocations
           locations={topLocations}
           title={'Лучшие локации'}
-          isShowAll={true}
-          showAllTxt="Показать все"
+          text="Показать все"
         />
         <PersonServices />
       </Container>
@@ -46,7 +45,6 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
 }
 
 // Здесь должен быть запрос на URL с топовыми площадками.
-// Пока соотв. API нет, используем мок-массив.
 // export const getServerSideProps = async () => {
 //   const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 //   const response = await fetch(`${API}`);
