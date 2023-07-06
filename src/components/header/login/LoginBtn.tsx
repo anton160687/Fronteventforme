@@ -4,10 +4,10 @@ import { Button } from 'react-bootstrap';
 import styles from '@/styles/header/Header.module.scss';
 
 type LoginButtonProps = {
-  onClick: () => void;
+  handleClick: () => void;
 };
 
-function LoginButton({ onClick }: LoginButtonProps) {
+function LoginButton({ handleClick }: LoginButtonProps) {
   return (
     <Button
       // @ts-ignore: bootstrap bag*
@@ -15,7 +15,7 @@ function LoginButton({ onClick }: LoginButtonProps) {
       //   href={Paths.SignIn}
       className={styles.header__logbtn}
       //  itemProp="url"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <i className="fi-user" />
       <span itemProp="name">Вход</span>

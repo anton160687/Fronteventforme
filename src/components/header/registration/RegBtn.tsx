@@ -4,10 +4,10 @@ import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 
 type RegButtonProps = {
-  onClick: () => void;
+  handleClick: () => void;
 };
 
-function RegButton({ onClick }: RegButtonProps) {
+function RegButton({ handleClick }: RegButtonProps) {
   return (
     <Button
       // @ts-ignore: bootstrap bag*
@@ -16,7 +16,7 @@ function RegButton({ onClick }: RegButtonProps) {
       //  href={Paths.SignUp}
       className={styles.header__regbtn}
       //itemProp="url"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <span itemProp="name">Регистрация</span>
       <i className="fi-chevron-right ms-2 fs-xs"></i>

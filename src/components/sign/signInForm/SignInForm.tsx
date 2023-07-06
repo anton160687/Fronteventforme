@@ -30,10 +30,12 @@ import { useResize } from '@/hooks/useResize';
 
 type SignInFormProps = {
   setIsPasswordForgotten: Dispatch<SetStateAction<boolean>>;
+  onHide: () => void;
 };
 
 export default function SignInForm({
   setIsPasswordForgotten,
+  onHide,
 }: SignInFormProps): JSX.Element {
   const initialDataState: SigninUserData = {
     is_bride: true,
@@ -72,7 +74,9 @@ export default function SignInForm({
         setError('');
         dispatch(fetchUserDataWithThunk());
         dispatch(setRole(data.is_bride));
-        router.push(Paths.Home);
+        //проверить на работающей авторизации
+        onHide();
+        //router.push(Paths.Home);
       } else {
         setError(response);
       }

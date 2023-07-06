@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import CustomCrumb from './CustomCrumb';
-import { API } from '@/constant';
 
 export type SchemaType = {
   '@context': 'https://schema.org';

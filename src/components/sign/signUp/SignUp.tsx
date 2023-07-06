@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import React from 'react';
 import { CreateUserData } from '@/types/forms';
 import { CloseButton, Modal } from 'react-bootstrap';
@@ -6,6 +6,7 @@ import SignUpPic from '../signUpPic/SignUpPic';
 import SocialMedia from '../socialMedia/SocialMedia';
 import SignUpForm from '../signUpForm/SignUpForm';
 import SignUpText from '../signUpText/SignUpText';
+import RenewPassword from '../renewPassword/RenewPassword';
 
 type SignUpProps = {
   onHide: () => void;
@@ -16,14 +17,49 @@ type SignUpProps = {
 function SignUp({ onHide, onSwap, show }: SignUpProps): JSX.Element {
   const [signUpForm, setSignUpForm] = useState(false);
   const [signUpIsDone, setSignUpIsDone] = useState(false);
+  const [isPasswordForgotten, setIsPasswordForgotten] = useState(false);
 
-  //нужно в SignUpForm и SignUpText
-  const [data, setData] = useState<CreateUserData>({
+  const initialData: CreateUserData = {
     username: '',
     email: '',
     password: '',
     confirm_password: '',
-  });
+  };
+
+  //нужно в SignUpForm и SignUpText
+  const [data, setData] = useState<CreateUserData>(initialData);
+
+  useEffect(() => {
+    if (!show) {
+      setIsPasswordForgotten(false);
+      setSignUpIsDone(false);
+      setSignUpForm(false);
+    }
+  }, [show]);
+
+  const conditionalRender = () => {
+    if (!signUpIsDone && !isPasswordForgotten)
+      return (
+        <SignUpForm
+          signUpForm={signUpForm}
+          setSignUpForm={setSignUpForm}
+          setSignUpIsDone={setSignUpIsDone}
+          data={data}
+          setData={setData}
+          onHide={onHide}
+          setIsPasswordForgotten={setIsPasswordForgotten}
+        />
+      );
+
+    if (signUpIsDone)
+      return (
+        <div className="ps-md-5">
+          <SignUpText data={data} />
+        </div>
+      );
+
+    if (isPasswordForgotten) return <RenewPassword />;
+  };
 
   return (
     <Modal
@@ -46,19 +82,7 @@ function SignUp({ onHide, onSwap, show }: SignUpProps): JSX.Element {
           </div>
           <div className="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
             {!signUpForm && <SocialMedia />}
-            {!signUpIsDone ? (
-              <SignUpForm
-                signUpForm={signUpForm}
-                setSignUpForm={setSignUpForm}
-                setSignUpIsDone={setSignUpIsDone}
-                data={data}
-                setData={setData}
-              />
-            ) : (
-              <div className="ps-lg-5">
-                <SignUpText data={data} />
-              </div>
-            )}
+            {conditionalRender()}
           </div>
         </div>
       </Modal.Body>

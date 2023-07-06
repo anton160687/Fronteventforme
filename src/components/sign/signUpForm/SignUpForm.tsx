@@ -31,6 +31,8 @@ type SignUpFormProps = {
   setSignUpIsDone: Dispatch<SetStateAction<boolean>>;
   data: CreateUserData;
   setData: Dispatch<SetStateAction<CreateUserData>>;
+  onHide: () => void;
+  setIsPasswordForgotten: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SignUpForm({
@@ -39,9 +41,9 @@ export default function SignUpForm({
   setSignUpIsDone,
   data,
   setData,
+  setIsPasswordForgotten,
 }: SignUpFormProps): JSX.Element {
   const [error, setError] = useState<string>('');
-
   const [validated, setValidated] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -57,7 +59,8 @@ export default function SignUpForm({
         setSignUpIsDone(true);
       } else {
         if (response.includes('Пользователь с таким Email уже существует.'))
-          router.push(Paths.Renew);
+          //проверить на работающей регистрации
+          setIsPasswordForgotten(true); // router.push(Paths.Renew);
         else setError(response);
       }
     }
@@ -151,7 +154,7 @@ export default function SignUpForm({
                   autoComplete="off"
                   className={`${error.length > 0 ? styles.invalid : ''}`}
                   //className=""
-                  isInvalid={error.length > 0 ? 'true' : 'false'}
+                  isinvalid={error.length > 0 ? 'true' : 'false'}
                 />
                 {!error && (
                   <Form.Control.Feedback type="invalid">

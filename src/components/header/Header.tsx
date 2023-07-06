@@ -120,7 +120,7 @@ function Header() {
                     itemScope
                     itemType="http://schema.org/ItemList"
                   >
-                    <LoginButton onClick={() => setSigninShow(true)} />
+                    <LoginButton handleClick={() => setSigninShow(true)} />
                   </li>
                 )}
                 {!isAuth && (
@@ -130,7 +130,7 @@ function Header() {
                     itemScope
                     itemType="http://schema.org/ItemList"
                   >
-                    <RegButton onClick={() => setSignupShow(true)} />
+                    <RegButton handleClick={() => setSignupShow(true)} />
                   </li>
                 )}
                 {isAuth && user.is_bride !== undefined && (

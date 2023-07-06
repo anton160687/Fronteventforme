@@ -6,7 +6,6 @@ import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -14,7 +13,13 @@ type HeaderNavbarProps = {
   signinShow: () => void;
 };
 
-const navigation = [
+type navigationType = {
+  id: number;
+  path: string;
+  text: string;
+};
+
+const navigation: navigationType[] = [
   {
     id: 0,
     path: Paths.Home,
@@ -42,14 +47,6 @@ const navigation = [
   },
 ];
 
-const lkNavigation = [
-  {
-    id: 1,
-    path: Paths.Account,
-    text: 'Личный кабинет',
-  },
-];
-
 function HeaderNavbar({ isAuth, signupShow, signinShow }: HeaderNavbarProps) {
   const router = useRouter();
   const [show, setShow] = useState<boolean>(false);
@@ -57,22 +54,28 @@ function HeaderNavbar({ isAuth, signupShow, signinShow }: HeaderNavbarProps) {
     setShow(!show);
   }
 
-  const lkButtons = [
+  const lkNavigation: navigationType[] = [
     {
       id: 1,
-      click: signinShow,
+      path: '',
       text: 'Вход',
     },
     {
       id: 2,
-      click: signupShow,
+      path: '',
       text: 'Регистрация',
+    },
+    {
+      id: 3,
+      path: Paths.Account,
+      text: 'Личный кабинет',
     },
   ];
 
   function renderNavigation(
-    array: typeof navigation,
-    customClass: string = ''
+    array: navigationType[],
+    customClass: string = '',
+    handleClick?: () => void
   ) {
     return array.map(({ id, path, text }) => (
       <li
@@ -88,32 +91,11 @@ function HeaderNavbar({ isAuth, signupShow, signinShow }: HeaderNavbarProps) {
             router.asPath === path ? 'active' : ''
           } nav-link`}
           itemProp="url"
+          //работает без проверки
+          onClick={handleClick}
         >
           <span itemProp="name">{text}</span>
         </Link>
-      </li>
-    ));
-  }
-
-  function renderLKButtons(array: typeof lkButtons) {
-    return array.map(({ id, click, text }) => (
-      <li
-        key={id}
-        className="nav-item d-xl-none"
-        itemProp="itemListElement"
-        itemScope
-        itemType="http://schema.org/ItemList"
-      >
-        <Button
-          className={
-            styles.navbar__item + ' nav-link w-100 justify-content-start'
-          }
-          variant="link"
-          //  itemProp="url"
-          onClick={click}
-        >
-          <span itemProp="name">{text}</span>
-        </Button>
       </li>
     ));
   }
@@ -144,11 +126,22 @@ function HeaderNavbar({ isAuth, signupShow, signinShow }: HeaderNavbarProps) {
         {renderNavigation(navigation.slice(0, 1), 'd-xl-none')}
         <CatalogDropDown />
         {renderNavigation(navigation.slice(1))}
-        {!isAuth
-          ? // renderNavigation(lkNavigation.slice(0, 2), 'd-xl-none')
-
-            renderLKButtons(lkButtons)
-          : renderNavigation(lkNavigation, 'd-xl-none')}
+        {!isAuth ? (
+          <>
+            {renderNavigation(
+              lkNavigation.slice(0, 1),
+              'd-xl-none',
+              signinShow
+            )}
+            {renderNavigation(
+              lkNavigation.slice(1, 2),
+              'd-xl-none',
+              signupShow
+            )}
+          </>
+        ) : (
+          renderNavigation(lkNavigation.slice(2), 'd-xl-none')
+        )}
       </ul>
     </Navbar>
   );
