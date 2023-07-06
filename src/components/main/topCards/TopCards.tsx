@@ -1,16 +1,12 @@
 import { cards } from '@/mocks/cards';
-import { FC } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
-import { Card } from './card';
+import {  Col, Row } from 'react-bootstrap';
+import TopCard from './TopCard';
 
-export const CardsLink: FC = () => {
+function TopCards () {
   const { cardsLinkArrey } = cards || {};
 
-  if (!cardsLinkArrey) {
-  }
-
   return (
-    <Container as="section" style={{ marginTop: '104px', padding: '0' }}>
+    <section>
       <Row>
         <Col sm={12} className="text-center">
           <p className="mb-3">Портал EventForMe</p>
@@ -24,7 +20,7 @@ export const CardsLink: FC = () => {
       <Row>
         {cardsLinkArrey &&
           cardsLinkArrey.map((item) => (
-            <Card
+            <TopCard
               key={item.id}
               title={item.title}
               description={item.description}
@@ -32,6 +28,8 @@ export const CardsLink: FC = () => {
             />
           ))}
       </Row>
-    </Container>
+    </section>
   );
 };
+
+export default TopCards;

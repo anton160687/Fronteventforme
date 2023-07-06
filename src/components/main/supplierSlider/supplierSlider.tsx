@@ -8,18 +8,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from '@/styles/main/Main.module.scss';
 import { suppliers } from '@/mocks/supplierSlider';
-import { MainTitle } from '@/components/main/title/title';
+import { MainTitle } from '@/components/main/title/MainTitle';
 
 function SupplierSlider(): JSX.Element {
   return (
       <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
         <MainTitle
-          suptitle={'Нам доверяют'}
+          subtitle={'Нам доверяют'}
           title={'Только проверенные исполнители и площадки'}
         />
 
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h3 className={styles.main__subtitle + ' h3 mb-sm-0'}>
+          <h3 className={styles.main__description}>
             Лучшие исполнители
           </h3>
         </div>

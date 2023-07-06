@@ -6,8 +6,8 @@ import SupplierSlider from '@/components/main/supplierSlider/supplierSlider';
 import MoreServices from '@/components/main/moreServices/moreServices';
 import ConvenientCatalog from '@/components/main/convenientCatalog/ConvenientCatalog';
 import TopLocations from '@/components/main/topLocations/TopLocations';
-import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
-import { CardsLink } from '@/components/main/cardsLink/cardsLink';
+import Articles from '@/components/main/articles/Articles';
+import TopCards from '@/components/main/topCards/TopCards';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
 
@@ -21,12 +21,13 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
     <main>
       <Hero />
       <Container className="px-5">
-        <CardsLink />
+        <TopCards />
         <ConvenientCatalog />
         <TopLocations
           locations={topLocations}
           title={'ТОП-5 площадок разных категорий г. Москва'}
         />
+        <Articles />
         <MoreServices />
         <SupplierSlider />
         <TopLocations
@@ -34,7 +35,6 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
           title={'Лучшие локации'}
           text="Показать все"
         />
-        <PersonServices />
       </Container>
       <SupplierCard />
       <Container>

@@ -50,7 +50,7 @@ function TopLocations({ locations, title, href = '#', text = 'Показать �
             <div className={`${styles.locations__icon_wrapper} pt-3 pe-3`}>
               <Button
                 type="button"
-                className="text-primary btn btn-icon btn-light-primary btn-xs rounded-circle"
+                className="text-primary btn btn-icon btn-light-primary btn-s rounded-circle"
                 onClick={addToFav}
               >
                 <i className="fi-heart" />
@@ -70,16 +70,10 @@ function TopLocations({ locations, title, href = '#', text = 'Показать �
 
   return (
     <section className={`${styles.my124} pt-2 pt-sm-0 pb-md-2`}>
-      <div className="d-sm-flex align-items-center justify-content-between mb-3">
-        <h2 className={`${styles.main__subtitle} mb-sm-0`}>{title}</h2>
+      <div className="d-sm-flex align-items-baseline justify-content-between mb-3">
+        <h2 className={`${styles.main__description} mb-sm-0`}>{title}</h2>
         {text && (
-          <Link
-            href={href}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
+          <Link href={href} className={styles.main__description_link}>
             {text}
             <i className="fi-arrow-long-right ms-2"></i>
           </Link>

@@ -93,7 +93,7 @@ function ConvenientCatalog() {
       </Col>
 
       <Col className={`${styles.concat__column} col-6`}>
-        <h2>Удобный каталог</h2>
+        <h2 className={styles.main__description}>Удобный каталог</h2>
         <p className="mt-4 mb-5">
           Более подробное описание категории: важные фильтры, советы и др.
           We have the most comprehensive directory of estate agents to

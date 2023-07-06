@@ -7,8 +7,8 @@
 }
 
 .my124 {
-  @include adaptiv-value(margin-top, 124, 30);
-  @include adaptiv-value(margin-bottom, 124, 30);
+  @include adaptiv-value(margin-top, 124, 0);
+  @include adaptiv-value(margin-bottom, 124, 42);
 }
 
 .btn__link {
@@ -22,6 +22,11 @@
   }
 }
 
+//Hero
+.hero__container {
+  @include adaptiv-value('margin-bottom', 124, 48);
+}
+
 .hero__title {
   font-style: normal;
   font-weight: 700;
@@ -29,6 +34,7 @@
   line-height: 130%;
   text-align: center;
   color: #ffffff;
+  @include fz(24, 48);
 }
 
 .hero__subtitle {
@@ -41,21 +47,70 @@
   line-height: 30px;
   text-align: center;
   color: #ffffff;
+  @include fz(16, 20);
 }
+
+//Title
 .main__title {
-  @include fz(12, 40);
+  font-weight: 700;
+  font-size: 40px;
   line-height: 52px;
+  display: block;
+  max-width: 820px;
+  text-align: center;
+  margin-bottom: 64px;
+  @include fz(20, 40);
+
+  @media (max-width: 992px) {
+    margin-bottom: 36px;
+  }
+
+  @media (max-width: 575px) {
+    line-height: 100%;
+  }
+
+  @media (max-width: 475px) {
+    line-height: 100%;
+    margin-bottom: 24px;
+  }
 }
 
 .main__subtitle {
-  @include fz(10, 32);
+  @include fz(12, 20);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 16px;
+
+  @media (max-width: 576px) {
+    font-size: 16px;
+    line-height: 100%;
+  }
 }
 
-.main__suptitle {
-  @include fz(9, 20);
-  font-weight: 500;
-  line-height: 30px;
+.main__description {
+  font-weight: 700;
+  line-height: 42px;
+  @include fz(14, 32);
+
+  @media (max-width: 576px) {
+    line-height: 180%;
+  }
 }
+
+.hide {
+  @media (max-width: 860px) {
+    display: none;
+  }
+}
+
+.main__description_link {
+  text-decoration: none;
+  color: inherit;
+  @include fz(12, 16);
+}
+
+//Misc
 .more_services {
   &__description {
     @include fz(9, 18);
@@ -68,6 +123,7 @@
     margin: 0;
   }
 }
+
 .grid {
   display: grid;
   grid-template-columns: 0.75fr 1fr 0.5fr;
@@ -102,16 +158,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      180deg,
-      rgba(31, 27, 45, 0) 0%,
-      rgba(31, 27, 45, 0.1) 26.56%,
-      rgba(31, 27, 45, 0.28) 42.71%,
-      rgba(31, 27, 45, 0.48) 56.77%,
-      rgba(31, 27, 45, 0.68) 72.4%,
-      rgba(31, 27, 45, 0.85) 86.98%,
-      rgba(31, 27, 45, 0.94) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(31, 27, 45, 0) 0%,
+        rgba(31, 27, 45, 0.1) 26.56%,
+        rgba(31, 27, 45, 0.28) 42.71%,
+        rgba(31, 27, 45, 0.48) 56.77%,
+        rgba(31, 27, 45, 0.68) 72.4%,
+        rgba(31, 27, 45, 0.85) 86.98%,
+        rgba(31, 27, 45, 0.94) 100%);
   }
 
   &__icon {
@@ -161,7 +215,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  & > h2 {
+
+  &>h2 {
     font-weight: 700;
     font-size: 56px;
     line-height: 130%;
@@ -179,18 +234,74 @@
   @include fz(20, 56);
 }
 
-.card {
-  &_title {
-    font-size: 16px;
+//Articles
+
+.articles__row {
+  @media (max-width: 991px) {
+    justify-content: center;
   }
-  &_sign {
+}
+
+.article__card_big {
+  padding: 12px;
+  margin: 0;
+
+  @media (max-width: 991px) {
+    order: 1;
+    width: unset !important;
+    margin-bottom: 12px;
+  }
+}
+
+.article__card_sm {
+  padding: 12px;
+  margin: 0;
+
+  @media (max-width: 991px) {
+    order: 2;
+    width: unset !important;
+    margin-bottom: 12px;
+  }
+}
+
+.article__category {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  text-transform: uppercase;
+  @media (max-width: 576px) {
+    margin-bottom: 10px;
+  }
+}
+
+.article__title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.article__pubinfo {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  color: $gray800;
+
+  &>p {
+    margin-bottom: 4px;
+  }
+
+  &>span {
+    font-weight: 500;
     font-size: 12px;
+    line-height: 14px;
+    color: $gray700;
   }
 }
 
 @media screen and (max-width: 992px) {
-  .card {
+  .main__article_card {
     width: fit-content;
+
     &_title {
       text-align: center;
     }
