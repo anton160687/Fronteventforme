@@ -82,7 +82,7 @@ function ConvenientCatalog() {
 
   return (
     <Row className={styles.concat__row}>
-      <Col className={`${styles.concat__column} col-6 d-flex`}>
+      <Col className={`${styles.concat__column} col-6 d-flex p-0`}>
         <div className={styles.concat__links} >
           {renderCards(cardsConCat.slice(0, 3))}
         </div>
@@ -92,7 +92,7 @@ function ConvenientCatalog() {
 
       </Col>
 
-      <Col className={`${styles.concat__column} col-6`}>
+      <Col className={`${styles.concat__column} col-6 p-0`}>
         <h2 className={styles.main__description}>Удобный каталог</h2>
         <p className="mt-4 mb-5">
           Более подробное описание категории: важные фильтры, советы и др.
@@ -126,7 +126,7 @@ function ConvenientCatalog() {
         </Swiper>
         <div
           id="bullets"
-          className="swiper-pagination position-relative bottom-0 pt-2 pb-2 mt-4 mb-5"
+          className="swiper-pagination position-relative bottom-0 pt-2 pb-3 mt-4 mb-4"
         ></div>
 
         <div className={`${styles.concat__btns} d-flex`}>

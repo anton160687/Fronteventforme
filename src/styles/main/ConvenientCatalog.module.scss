@@ -43,7 +43,6 @@
 }
 
 .concat__link {
-  
   text-decoration: none;
   color: $gray800;
   &:hover {
@@ -66,6 +65,6 @@
     margin: 16px 0;
   }
   &:hover {
-    box-shadow: 0px 4px 12px 0px rgba(254, 149, 137, 0.8);
+    box-shadow: 0px 4px 12px 0px rgba(254, 149, 137, 0.4);
   }
 }
