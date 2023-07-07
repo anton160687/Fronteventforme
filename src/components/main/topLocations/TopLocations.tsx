@@ -71,7 +71,7 @@ function TopLocations({ locations, title, href = '#', text = 'Показать �
   return (
     <section className={`${styles.my124} pt-2 pt-sm-0 pb-md-2`}>
       <div className="d-sm-flex align-items-baseline justify-content-between mb-3">
-        <h2 className={`${styles.main__description} mb-sm-0`}>{title}</h2>
+        <h3 className={`${styles.main__description} mb-sm-0`}>{title}</h3>
         {text && (
           <Link href={href} className={styles.main__description_link}>
             {text}

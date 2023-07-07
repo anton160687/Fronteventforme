@@ -18,6 +18,7 @@ function TopCards () {
         </Col>
       </Row>
       <Row>
+        <h2 className='d-none'>Возможности EventForMe</h2>
         {cardsLinkArrey &&
           cardsLinkArrey.map((item) => (
             <TopCard
