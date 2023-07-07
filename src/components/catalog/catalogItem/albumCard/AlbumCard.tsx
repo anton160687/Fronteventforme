@@ -13,7 +13,7 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'swiper/css/bundle';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { SlidesCount } from '@/components/helpers';
+import { SlidesCount, showMoreRender } from '@/components/helpers';
 
 type AlbumCardProps = {
   id: number;
@@ -25,6 +25,8 @@ type AlbumCardProps = {
 function AlbumCard({ id, title, description, images }: AlbumCardProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
+  //отображение "Показать еще"
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
     <>
@@ -36,12 +38,12 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
           }
         >
           <figcaption>
-            <h4 className="mb-3">{title}</h4>
-            <p className="mb-2">{description}</p>
+            <h4 className="mb-2">{title}</h4>
+            {showMoreRender(description, 250, isDetailsOpen, setIsDetailsOpen)}
           </figcaption>
 
           {/* // className="w-md-50 w-75" */}
-          <div className="align-self-center">
+          <div>
             {images?.length > 1 ? (
               <LightGallery
                 plugins={[lgThumbnail, lgZoom, lgFullScreen]}

@@ -25,12 +25,14 @@ import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
 import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDetails';
 import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
-import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
+import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingPhotos';
 import { cards } from '@/mocks/cards';
 import { Area, AreaImages, AreaReceived, TypeArea } from '@/types/areaType';
 import { OutsideReg, WelcomeZone } from '@/types/placeType';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import { useMemo } from 'react';
+import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+import WeddingPhotosContainer from '@/components/catalog/catalogItem/weddingPhotos/WeddingPhotosContainer';
 
 type PreviewProps = {
   previewShow: boolean;
@@ -56,6 +58,17 @@ function Preview({
   previewAreasImg,
 }: PreviewProps) {
   const { weddingPhotos } = cards || {};
+
+  const breadcrumbs = [
+    { path: '', name: 'Главная' },
+    {
+      path: '',
+      name: 'Каталог',
+    },
+    { path: '', name: 'Площадки' },
+    { path: '', name: place.title },
+  ];
+
   const notNullAreasImgOnly: string[][] = [];
 
   const makeUniAreas = (): AreaReceived[] => {
@@ -213,7 +226,7 @@ function Preview({
     <Modal fullscreen show={previewShow} onHide={handlePreviewClose}>
       <Modal.Header
         closeButton
-        className={styles.preview_header + ' container px-5'}
+        className={styles.preview_header + ' container'}
       >
         <h3 className="h5 text-muted fw-normal modal-title d-none d-sm-block text-nowrap">
           {'Предпросмотр\u00a0'}
@@ -222,13 +235,8 @@ function Preview({
       </Modal.Header>
 
       <Modal.Body className="d-flex flex-column">
-        <Container className="mt-2 mt-sm-0 py-4 py-sm-5 px-5">
-          <Breadcrumb className="breadcrumb">
-            <Breadcrumb.Item>Главная</Breadcrumb.Item>
-            <Breadcrumb.Item>Каталог</Breadcrumb.Item>
-            <Breadcrumb.Item>Площадки</Breadcrumb.Item>
-            <Breadcrumb.Item active>{place.title}</Breadcrumb.Item>
-          </Breadcrumb>
+        <Container className="mt-2 mt-sm-0 py-4 py-sm-5">
+          <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
 
           <LocationPhotos
             photoUrls={uniPlace.images_place}
@@ -236,7 +244,7 @@ function Preview({
           />
 
           <Row className={styles.main__container}>
-            <Col xl={8} className={styles.left__container}>
+            <Col xl={8} className={styles.left__container + ' pe-lg-4'}>
               <LocationDescription
                 title={place.title}
                 areasNumber={areas.filter((area) => area !== null).length}
@@ -269,23 +277,7 @@ function Preview({
                 outside_reg={uniPlace.outsites_reg}
               />
 
-              <Row className="my-xl-4 my-md-3 my-sm-2">
-                <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
-                  Фото проведенных свадеб на площадке
-                </Card.Title>
-                <div className="d-flex justify-content-evenly">
-                  {/* //! Сделать отображение альбомов свадеб */}
-                  {weddingPhotos &&
-                    weddingPhotos.map((item) => (
-                      <WeddingsPhotos
-                        key={item.id}
-                        title={item.title}
-                        description={item.description}
-                        pathImg={item.pathImg}
-                      />
-                    ))}
-                </div>
-              </Row>
+              <WeddingPhotosContainer />
 
               <div id="map" className={styles.map__container}>
                 <YaMap lat={place.width} long={place.longitude} />

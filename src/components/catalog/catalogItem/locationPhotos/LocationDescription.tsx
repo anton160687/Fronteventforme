@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Card } from 'react-bootstrap/';
 import styles from '@/styles/catalog/places/LocationPhotos.module.scss';
 import { numberOfAreas } from '@/services/parse.service';
-import { capitalize } from '@/components/helpers';
 
 type LocationDescriptionProps = {
   title: string;
@@ -20,10 +19,10 @@ function LocationDescription({
   return (
     <>
       <div className={styles.location__flex_container}>
-        <h3>{capitalize(title)}</h3>
+        <h4>{title}</h4>
         {areasNumber && (
-          <Card.Footer className={styles.text_title}>
-            <span>
+          <Card.Footer className="fs-sm d-flex flex-wrap align-items-center justify-content-evenly">
+            <span className="text-nowrap ps-2">
               {areasNumber} {numberOfAreas(areasNumber)}
             </span>
           </Card.Footer>

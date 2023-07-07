@@ -34,7 +34,7 @@ export default function Error() {
       <main className="page-wrapper">
         <section className="d-flex align-items-center min-vh-100 py-5 bg-secondary">
           <Container className="d-flex justify-content-center text-center">
-            <Col xs={12} md={10} lg={8} className="px-5">
+            <Col xs={12} md={10} lg={8}>
               <div className="ratio ratio-16x9 mb-lg-5 mb-4">
                 <div ref={animationContainer}></div>
               </div>

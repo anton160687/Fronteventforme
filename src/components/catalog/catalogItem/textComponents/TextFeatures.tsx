@@ -1,6 +1,7 @@
 import { Row } from 'react-bootstrap';
 import { Feature } from '@/types/placeType';
 import { FEATURES, TERRITORY } from '@/constant';
+import styles from '@/styles/catalog/places/Places.module.scss';
 
 type TextFeaturesProps = {
   features: Feature[];
@@ -44,7 +45,7 @@ function TextFeatures({
   }
 
   return (
-    <Row className="mb-xl-5 mb-4">
+    <Row className={styles.mb40}>
       {featureListFirst.length > 0 && (
         <>
           <h4>Особенности</h4>

@@ -45,7 +45,7 @@ function Header() {
       itemID="/#header"
       className="sticky-top bg-white"
     >
-      <Container className="px-5">
+      <Container>
         <Row className="align-items-baseline mx-0">
           {/* лого */}
           <Col className="d-none d-xl-block col-xl-2 ps-0">

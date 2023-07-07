@@ -1,4 +1,4 @@
-import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
+import { LKSectionsTitles, Paths, ContextMenuTypeEnum } from '@/constant';
 import { useState } from 'react';
 import styles from '@/styles/lk/Lk.module.scss';
 import { PlaceCardType } from '@/types/catalog';
@@ -22,22 +22,22 @@ import LKNavigation from '@/components/lk/navigation/LKNavigation';
 const navItems = [
   {
     title: 'Опубликовано',
-    value: contextMenuTypeEnum.Published,
+    value: ContextMenuTypeEnum.Published,
     icon: 'fi-file',
   },
   {
     title: 'На модерации',
-    value: contextMenuTypeEnum.Moderation,
+    value: ContextMenuTypeEnum.Moderation,
     icon: 'fi-users',
   },
   {
     title: 'Черновики',
-    value: contextMenuTypeEnum.Draft,
+    value: ContextMenuTypeEnum.Draft,
     icon: 'fi-file-clean',
   },
   {
     title: 'Архив',
-    value: contextMenuTypeEnum.Archive,
+    value: ContextMenuTypeEnum.Archive,
     icon: 'fi-archive',
   },
 ];
@@ -48,7 +48,7 @@ function OffersPage(): JSX.Element {
   const [declinedCards, setDeclinedCards] = useState<PlaceCardType[]>([]);
   //context menu content
   const [menuType, setMenuType] = useState<string>(
-    contextMenuTypeEnum.Published
+    ContextMenuTypeEnum.Published
   );
 
   //Modal
@@ -60,23 +60,23 @@ function OffersPage(): JSX.Element {
     e: React.SyntheticEvent<unknown>
   ) => {
     switch (eventKey) {
-      case contextMenuTypeEnum.Published:
-        setMenuType(contextMenuTypeEnum.Published);
+      case ContextMenuTypeEnum.Published:
+        setMenuType(ContextMenuTypeEnum.Published);
         setCards(placesPublished);
         setDeclinedCards([]);
         break;
-      case contextMenuTypeEnum.Moderation:
-        setMenuType(contextMenuTypeEnum.Moderation);
+      case ContextMenuTypeEnum.Moderation:
+        setMenuType(ContextMenuTypeEnum.Moderation);
         setCards(placesModerate);
         setDeclinedCards(placesDeclined);
         break;
-      case contextMenuTypeEnum.Draft:
-        setMenuType(contextMenuTypeEnum.Draft);
+      case ContextMenuTypeEnum.Draft:
+        setMenuType(ContextMenuTypeEnum.Draft);
         setCards(placesDraft);
         setDeclinedCards([]);
         break;
-      case contextMenuTypeEnum.Archive:
-        setMenuType(contextMenuTypeEnum.Archive);
+      case ContextMenuTypeEnum.Archive:
+        setMenuType(ContextMenuTypeEnum.Archive);
         setCards(placesArchive);
         setDeclinedCards([]);
         break;
@@ -94,12 +94,12 @@ function OffersPage(): JSX.Element {
   const moderationCardsRenderCheck = () => {
     return (
       <>
-        {menuType === contextMenuTypeEnum.Moderation ? (
+        {menuType === ContextMenuTypeEnum.Moderation ? (
           <>
             {cards.length > 0 && <h3>На проверке</h3>}
             {cardsRender(cards, menuType)}
             {declinedCards.length > 0 && <h3>Отклонено</h3>}
-            {cardsRender(declinedCards, contextMenuTypeEnum.Declined)}
+            {cardsRender(declinedCards, ContextMenuTypeEnum.Declined)}
           </>
         ) : (
           cardsRender(cards, menuType)
@@ -125,13 +125,13 @@ function OffersPage(): JSX.Element {
 
   const emptyStateRender = () => {
     switch (menuType) {
-      case contextMenuTypeEnum.Published:
+      case ContextMenuTypeEnum.Published:
         return <EmptyBusiness />;
-      case contextMenuTypeEnum.Moderation:
+      case ContextMenuTypeEnum.Moderation:
         return <EmptyModeration />;
-      case contextMenuTypeEnum.Draft:
+      case ContextMenuTypeEnum.Draft:
         return <EmptyDrafts />;
-      case contextMenuTypeEnum.Archive:
+      case ContextMenuTypeEnum.Archive:
         return <EmptyArchive />;
     }
   };
@@ -160,7 +160,7 @@ function OffersPage(): JSX.Element {
 
         <Nav
           variant="tabs"
-          defaultActiveKey="published"
+          defaultActiveKey={ContextMenuTypeEnum.Published}
           className="fs-base border-bottom justify-content-center justify-content-sm-start"
           onSelect={handleSelect}
         >

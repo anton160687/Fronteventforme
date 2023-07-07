@@ -2,6 +2,7 @@ import { Col, Row } from 'react-bootstrap';
 import { PlaceReceived } from '@/types/placeType';
 import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
+import { title } from 'process';
 
 type TextDescriptionProps = {
   item: PlaceReceived;
@@ -20,12 +21,63 @@ function TextDescription({ item }: TextDescriptionProps) {
   function renderLocations() {
     if (locations.length !== 0) {
       return locations.map((location, i) => (
-        <p key={i} className={styles.text_locations}>
-          {location}
-        </p>
+        <>
+          <span key={i} className={styles.text_locations}>
+            {location}
+            {i < locations.length - 1 && ','}
+          </span>{' '}
+        </>
       ));
     }
     return 'Не указано';
+  }
+
+  type descriptionType = {
+    title: string;
+    value: string | number | JSX.Element | JSX.Element[];
+  };
+  const leftDescription: descriptionType[] = [
+    { title: 'Расположение', value: renderLocations() },
+    {
+      title: 'Время работы',
+      value: `${item?.start_time.substring(
+        0,
+        5
+      )} - ${item?.finish_time.substring(0, 5)}`,
+    },
+    { title: 'Средний чек', value: item?.average_check },
+    { title: 'Свой алкоголь', value: item?.alco ? 'Разрешен' : 'Запрещен' },
+    { title: 'Пробковый сбор', value: item?.payment_of_alco },
+  ];
+
+  const rightDescription: descriptionType[] = [
+    {
+      title: 'Продление аренды',
+      value: item?.lease_extension_price > 0 ? 'Возможно' : 'Невозможно',
+    },
+    { title: 'Стоимость продления', value: item?.lease_extension_price },
+    // @ts-expect-error
+    { title: 'Вместимость', value: item?.capacity },
+    // @ts-expect-error
+    { title: 'Депозит', value: item?.deposit },
+    // @ts-expect-error
+    { title: 'Аренда', value: item?.lease },
+  ];
+
+  function derscriptionRender(array: descriptionType[]) {
+    return (
+      <ul className="w-50 list-unstyled">
+        {array.map(({ title, value }) => (
+          <li
+            key={title}
+            className="d-flex align-items-start justify-content-between text-dark"
+          >
+            {title}
+            <strong className="text-end">{value || 'Не указано'}</strong>
+          </li>
+        ))}
+      </ul>
+    );
   }
 
   return (
@@ -36,68 +88,8 @@ function TextDescription({ item }: TextDescriptionProps) {
           styles.text__description_container + ' d-flex justify-content-between'
         }
       >
-        <ul className={styles.text__description_column + ' list-unstyled'}>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Расположение <strong>{renderLocations()}</strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Время работы{' '}
-            <strong>
-              {item?.start_time.substring(0, 5) || 'Не указано'} -{' '}
-              {item?.finish_time.substring(0, 5) || 'Не указано'}
-            </strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Средний чек <strong>{item?.average_check || 'Не указано'}</strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Свой алкоголь{' '}
-            <strong>{item?.alco ? 'Разрешен' : 'Запрещен'}</strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Пробковый сбор{' '}
-            <strong>{item?.payment_of_alco || 'Не указано'}</strong>
-          </li>
-        </ul>
-        <ul className={styles.text__description_column + ' list-unstyled'}>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Продление аренды{' '}
-            <strong>
-              {item?.lease_extension_price > 0 ? 'Возможно' : 'Невозможно'}
-            </strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Стоимость продления{' '}
-            <strong>{item?.lease_extension_price || 'Не указано'}</strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Вместимость{' '}
-            <strong>
-              {
-                // @ts-expect-error
-                item?.capacity || 'Не указано'
-              }
-            </strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Депозит{' '}
-            <strong>
-              {
-                // @ts-expect-error
-                item?.deposit || 'Не указано'
-              }
-            </strong>
-          </li>
-          <li className="d-flex align-items-center justify-content-between text-dark">
-            Аренда{' '}
-            <strong>
-              {
-                // @ts-expect-error
-                item?.lease || 'Не указано'
-              }
-            </strong>
-          </li>
-        </ul>
+        {derscriptionRender(leftDescription)}
+        {derscriptionRender(rightDescription)}
       </Col>
     </Row>
   );

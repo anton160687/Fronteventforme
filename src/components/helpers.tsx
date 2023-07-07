@@ -61,10 +61,3 @@ export const SlidesCount = ({
     </div>
   </div>
 );
-
-// Единый Вид Названия
-export function capitalize(str: string) {
-  return str.replace(/(^|\s)\S/g, function (a) {
-    return a.toUpperCase();
-  });
-}

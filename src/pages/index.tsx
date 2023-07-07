@@ -19,7 +19,7 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
   return (
     <main>
       <Hero />
-      <Container className="px-5">
+      <Container>
         <CardsLink />
         <ConvenientCatalog />
         <Locations

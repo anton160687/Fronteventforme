@@ -30,22 +30,16 @@
 .main__container {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
 }
 
 .left__container {
   display: flex;
   flex-direction: column;
-  padding-right: 24px;
-}
-
-.map__container {
-  text-align: center;
 }
 
 // рейтинг, брони
 .popular__container {
-  margin: 24px 0 48px;
+  margin-bottom: 24px;
   padding: 24px;
   display: flex;
   justify-content: space-between;
@@ -85,17 +79,9 @@
   }
 }
 
-.rating__number {
-  margin: 0;
-}
-
 .rating__stars {
   display: block;
   margin: 8px 0;
-}
-
-.rating__text {
-  margin: 0;
 }
 
 .rounded_left {
@@ -110,9 +96,7 @@
 .text__description_container {
   gap: 24px;
 }
-.text__description_column {
-  width: 50%;
-}
+
 @media (max-width: 650px) {
   .text__description_container {
     flex-direction: column;
@@ -126,6 +110,7 @@
   margin: 0;
   padding: 0;
   text-align: right;
+  white-space: nowrap;
 }
 
 .text__cuisine_container {
@@ -159,16 +144,17 @@
   }
 }
 
+@media (max-width: 385px) {
+  .text__cuisine_btn {
+    font-size: 0.75rem;
+  }
+}
+
 .text__details_container {
   margin-bottom: 2.5rem;
 }
 
 .slider_details {
-  flex-grow: 1;
-  margin-right: 3em;
-  @include fz(12, 16);
-  color: $gray900;
-
   p {
     color: $gray800;
   }
@@ -183,18 +169,11 @@
 
   &_bottom {
     width: 100%;
-    @include fz(10, 14);
   }
 
   &_wrapper {
     width: 100%;
     margin-top: 16px;
-  }
-
-  &_data {
-    font-weight: 700;
-    margin-left: 3rem;
-    text-align: end;
   }
 }
 
@@ -228,7 +207,7 @@
 
   &_wrapper {
     position: relative;
-    z-index: 999;
+    z-index: 3;
   }
 
   &_none {
@@ -238,6 +217,11 @@
   @media screen and (max-width: 665px) {
     left: -70%;
     top: 100%;
+  }
+
+  @media screen and (max-width: 500px) {
+    left: 15%;
+    top: 140%;
   }
 }
 
@@ -302,8 +286,7 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-
-  @include adaptiv-value('margin-bottom', 48, 15);
+  margin-bottom: 40px;
 
   figcaption {
     width: 62%;
@@ -374,4 +357,18 @@
       display: none;
     }
   }
+}
+
+$gap: 40px;
+
+.mb40 {
+  margin-bottom: $gap;
+}
+
+.pt40 {
+  padding-top: $gap;
+}
+
+.mt124 {
+  margin-top: 124px;
 }

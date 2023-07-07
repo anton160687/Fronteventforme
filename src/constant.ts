@@ -485,7 +485,7 @@ export const BusinessTypes = [
   { id: 27, name: 'Фейерверки', path: '#' },
 ];
 
-export enum contextMenuTypeEnum {
+export enum ContextMenuTypeEnum {
   Published = 'published',
   Moderation = 'moderation',
   Draft = 'draft',
@@ -694,3 +694,13 @@ export const schemaData = {
     },
   ],
 };
+
+export enum ReviewTabs {
+  Location = 'location',
+  Cleanliness = 'cleanliness',
+  Service = 'service',
+  Kitchen = 'kitchen',
+  Comfort = 'comfort',
+  Quality = 'quality',
+  Interier = 'interier',
+}

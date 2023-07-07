@@ -9,7 +9,7 @@ import RegisterBtn from '@/components/main/registerBtn/registerBtn';
 function SupplierCard() {
   return (
     <section className={styles.py64 + ' bg-secondary'}>
-      <Container as="section" className="px-5">
+      <Container as="section">
         <Row className="align-items-center">
           <Col
             ms={12}

@@ -83,7 +83,7 @@ function Footer() {
       itemType="http://schema.org/WPFooter"
       itemID="/#footer"
     >
-      <Container className={styles.footer__container + ' px-5'}>
+      <Container className={styles.footer__container}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
             <section

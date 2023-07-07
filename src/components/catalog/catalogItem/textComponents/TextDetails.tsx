@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
+import styles from '@/styles/catalog/places/Places.module.scss';
 
 type TextDetailsProps = {
   description: string;
@@ -11,7 +12,7 @@ function TextDetails({ description }: TextDetailsProps) {
   const new_description = description.slice(0, summaryLength) + '...';
 
   return (
-    <Card id="details" className="border-0 mb-xl-5 mb-4">
+    <Card id="details" className={'border-0 ' + styles.mb40}>
       {description.length > 0 && (
         <Card.Body className="p-0">
           <Card.Title as="h4" className="text-center text-sm-start mb-3">

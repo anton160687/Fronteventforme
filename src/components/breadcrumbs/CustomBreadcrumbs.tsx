@@ -59,7 +59,7 @@ function CustomBreadcrumbs({ breadcrumbs }: CustomBreadcrumbsProps) {
 
   return (
     <>
-      <nav className="mb-4 pt-md-3 container px-5">
+      <nav className="mb-4 pt-md-3 container">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -10,11 +10,24 @@ type PaginationProps = {
   pageSize: number;
   query: string;
   path: string;
+  className?: string;
 };
 
-function PaginationBar({ currentPage, totalCount, siblingCount, pageSize, query, path}: PaginationProps) {
-
-  const paginationRange = usePagination({ currentPage, totalCount,  siblingCount,  pageSize });
+function PaginationBar({
+  currentPage,
+  totalCount,
+  siblingCount,
+  pageSize,
+  query,
+  path,
+  className,
+}: PaginationProps) {
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize,
+  });
 
   if (paginationRange && (currentPage === 0 || paginationRange.length < 2)) {
     return null;
@@ -51,7 +64,7 @@ function PaginationBar({ currentPage, totalCount, siblingCount, pageSize, query,
   return (
     <Pagination
       size="lg"
-      className=" justify-content-center justify-content-lg-start"
+      className={'justify-content-center justify-content-lg-start ' + className}
     >
       {currentPage !== 1 && (
         <Link
