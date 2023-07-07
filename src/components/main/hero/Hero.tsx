@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import FormGroup from '../../_finder/FormGroup';
 import DropdownSelect from '../../_finder/DropdownSelect';
 import styles from "@/styles/main/Main.module.scss";
-import { InputGroup } from 'react-bootstrap';
 
 const BgParallax = dynamic(() => import('../../_finder/BgParallax'), { ssr: false })
 

@@ -1,10 +1,38 @@
-import Image from 'next/image';
 import { Row } from 'react-bootstrap';
 import { MainTitle } from '../title/MainTitle';
 import styles from '@/styles/main/Main.module.scss';
 import Link from 'next/link';
 import ArticleCard from './ArticleCard';
 
+const articles = [
+  {
+    id: 1,
+    src: "/img/card/cardsPersonServices/hands.png",
+    path: "#",
+    isBig: false,
+    title: "Название статьи из пяти слов",
+    category: "Кольца",
+    categoryPath: "#",
+  },
+  {
+    id: 2,
+    src: "/img/card/cardsPersonServices/sky.png",
+    path: "#",
+    isBig: true,
+    title: "Длинное название статьи из шести слов",
+    category: "Площадки",
+    categoryPath: "#",
+  },
+  {
+    id: 1,
+    src: "/img/card/cardsPersonServices/flowers.png",
+    path: "#",
+    isBig: false,
+    title: "Название статьи из пяти слов",
+    category: "Букеты",
+    categoryPath: "#",
+  },
+]
 function Articles() {
   return (
     <section>
@@ -23,15 +51,15 @@ function Articles() {
       </div>
 
       <Row className={`${styles.articles__row} mb-4 justify-content-center justify-content-lg-start`}>
-        <ArticleCard src="/img/card/cardsPersonServices/hands.png" isBig={false} />
-        <ArticleCard src="/img/card/cardsPersonServices/sky.png" isBig={true} />
-        <ArticleCard src="/img/card/cardsPersonServices/flowers.png" isBig={false} />
+        <ArticleCard article={articles[0]} />
+        <ArticleCard article={articles[1]} />
+        <ArticleCard article={articles[2]} />
       </Row>
 
       <Row className={`${styles.articles__row} mb-4 justify-content-center justify-content-lg-start`}>
-        <ArticleCard src="/img/card/cardsPersonServices/sky.png" isBig={true} />
-        <ArticleCard src="/img/card/cardsPersonServices/hands.png" isBig={false} />
-        <ArticleCard src="/img/card/cardsPersonServices/flowers.png" isBig={false} />
+        <ArticleCard article={articles[1]} />
+        <ArticleCard article={articles[0]} />
+        <ArticleCard article={articles[2]} />
       </Row>
     </section>
   );
