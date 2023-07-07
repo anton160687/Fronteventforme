@@ -43,17 +43,11 @@
 }
 
 .concat__link {
+  
   text-decoration: none;
   color: $gray800;
   &:hover {
-    color: $gray800;
-  }
-  & > h3 {
-    color: $gray800;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 27px;
-    margin: 16px 0;
+    color: $primary;
   }
 }
 
@@ -64,7 +58,14 @@
   box-sizing: border-box;
   padding: 20px 32px;
   border-radius: 0.75rem;
+  & > h3 {
+    color: inherit;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    margin: 16px 0;
+  }
   &:hover {
-    background-color: $primary;
+    box-shadow: 0px 4px 12px 0px rgba(254, 149, 137, 0.8);
   }
 }
