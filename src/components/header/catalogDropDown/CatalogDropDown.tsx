@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BusinessTypes } from '@/constant';
 import { useRouter } from 'next/router';
 import { useResize } from '../../../hooks/useResize';
@@ -19,6 +19,10 @@ function CatalogDropDown() {
       setShow(!show)
     )
   }
+
+  useEffect(()=> {
+    setShow(false);
+  }, [router])
 
   function renderItems(array: typeof BusinessTypes) {
     return array.map(({ id, path, name }) => (
@@ -49,7 +53,7 @@ function CatalogDropDown() {
     >
       <span
         aria-expanded={show ? "true" : "false"}
-        className={`m-0 ${router.asPath === "/catalog/places" ? "active" : ""} ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}`}
+        className={`m-0 ${router.asPath.substring(0,8) === "/catalog" ? "active" : ""} ${show ? "dropdown-toggle nav-link show" : "dropdown-toggle nav-link"}`}
         itemProp="name"
       >
         Каталог

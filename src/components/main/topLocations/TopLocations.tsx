@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Button, Spinner } from 'react-bootstrap';
 import { LocationCard } from '@/types/locationCard';
 import styles from '@/styles/main/Main.module.scss';
+import { Paths } from '@/constant';
 
 type TopLocationsProps = {
   locations: LocationCard[];
@@ -11,7 +12,7 @@ type TopLocationsProps = {
   text?: string;
 };
 
-function TopLocations({ locations, title, href = '#', text = 'Показать все' }: TopLocationsProps) {
+function TopLocations({ locations, title, href = '', text = 'Показать все' }: TopLocationsProps) {
   function renderLocations() {
     return locations.map((location: LocationCard, index: number) => (
       <div
@@ -73,7 +74,7 @@ function TopLocations({ locations, title, href = '#', text = 'Показать �
       <div className="d-sm-flex align-items-baseline justify-content-between mb-3">
         <h3 className={`${styles.main__description} mb-sm-0`}>{title}</h3>
         {text && (
-          <Link href={href} className={styles.main__description_link}>
+          <Link href={href? href: Paths.Places} className={styles.main__description_link}>
             {text}
             <i className="fi-arrow-long-right ms-2"></i>
           </Link>

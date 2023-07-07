@@ -4,7 +4,7 @@ import TopCards from '@/components/main/topCards/TopCards';
 import ConvenientCatalog from '@/components/main/convenientCatalog/ConvenientCatalog';
 import TopLocations from '@/components/main/topLocations/TopLocations';
 import Articles from '@/components/main/articles/Articles';
-import LkServices from '@/components/main/lkServices/LKServices';
+import LkServices from '@/components/main/lkServices/LkServices';
 import TopBusiness from '@/components/main/topBusiness/TopBusiness';
 import SupplierCard from '@/components/main/supplierCard/supplierCard';
 import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';

@@ -12,7 +12,7 @@ import { MainTitle } from '@/components/main/title/MainTitle';
 
 function TopBusiness(): JSX.Element {
   return (
-      <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
+      <section className={`${styles.my124} pt-2 pt-sm-0 pb-md-2`}>
         <MainTitle
           subtitle={'Нам доверяют'}
           title={'Только проверенные исполнители и площадки'}
@@ -28,7 +28,6 @@ function TopBusiness(): JSX.Element {
           </Link>
         </div>
 
-        {/* Carousel */}
         <div className="position-relative">
           <Swiper
             modules={[Navigation]}
@@ -50,7 +49,7 @@ function TopBusiness(): JSX.Element {
             {suppliers.map((supplier, index) => (
               <SwiperSlide key={index} className="h-auto">
                 <Link href={supplier.href} className="position-relative">
-                  <div className="rounded-3">
+                  <div className="rounded-3 d-flex justify-content-center">
                     <div className="d-inline-block mx-2">
                       <ImageLoader
                         src={supplier.image}
