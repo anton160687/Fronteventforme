@@ -8,14 +8,15 @@ import { steps } from '@/mocks/moreServices';
 
 function LkServices(): JSX.Element {
   return (
-    <section className={styles.my124 + ' pt-2 pt-sm-0 pb-md-2'}>
+    <section className={styles.my124}>
+      <h2 className="d-none">О личном кабинете</h2>
       <Row>
-        <Col className="col-lg-6 col-sm-12">
-          <div className="w-75">
-            <h2 className={styles.main__description}>
+        <Col className={`${styles.lkserv__col} col-lg-6 col-sm-12 col-12`}>
+          <div className={styles.lkserv__description}>
+            <h3 className={`${styles.main__description} m-0`}>
               Получите больше услуг в личном кабинете
-            </h2>
-            <p className={styles.more_services__description}>
+            </h3>
+            <p className='m-0'>
               Elementum magna ac tempor, facilisis tristique mauris. Et
               penatibus sit sed in ante in ultrices. Senectus aliquam dictum
               eleifend mi pharetra morbi.
@@ -35,13 +36,13 @@ function LkServices(): JSX.Element {
       <Row className="row mt-3 m-0">
         {steps.map((step, index) => (
           <Card
-            className="card-hover border-0 col-lg-3 col-12 col-md-6 mr-md-1 px-3 text-center text-sm-start"
+            className="card-hover border-0 col-lg-3 col-md-6 col-12 mr-md-1 text-center text-sm-start"
             key={index}
           >
             <Card.Body>
-              <h3 className="text-info">0{index + 1}</h3>
-              <h4 className={styles.step__title}>{step.title}</h4>
-              <p className={styles.step__description}>{step.description}</p>
+              <h4 className="text-info">0{index + 1}</h4>
+              <h5 className={styles.lkserv__title}>{step.title}</h5>
+              <p className='m-0'>{step.description}</p>
             </Card.Body>
           </Card>
         ))}

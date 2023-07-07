@@ -11,7 +11,7 @@ const BgParallax = dynamic(() => import('../../_finder/BgParallax'), { ssr: fals
 
 function Hero(): JSX.Element {
   return (
-    <div className={`${styles.hero__container} my-3`}>
+    <div className={`${styles.hero__container} mt-3`}>
       <BgParallax
         imgSrc='/img/hero/hero.png'
         type='scroll' // scale, opacity, scroll-opacity, scale-opacity

@@ -35,7 +35,7 @@ const articles = [
 ]
 function Articles() {
   return (
-    <section>
+    <section className={styles.my124}>
       <MainTitle
         subtitle={'Индивидуальный подход'}
         title={'Персонализированные услуги и статьи под любой запрос'}

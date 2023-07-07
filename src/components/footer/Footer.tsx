@@ -78,12 +78,12 @@ function Footer() {
   return (
     <footer
       id="footer"
-      className="footer bg-secondary mt-5"
+      className="footer bg-secondary"
       itemScope
       itemType="http://schema.org/WPFooter"
       itemID="/#footer"
     >
-      <Container className={styles.footer__container + ' px-5'}>
+      <Container className={`${styles.footer__container} px-5`}>
         <Row className={styles.footer__row}>
           <Col className={styles.footer__column}>
             <section

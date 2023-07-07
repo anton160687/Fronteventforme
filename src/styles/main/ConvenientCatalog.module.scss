@@ -1,7 +1,7 @@
 @import '/src/styles/mixins';
 
 .concat__row {
-  @include adaptiv-value('margin-top', 124, 10);
+  @include adaptiv-value('margin-top', 124, 24);
   @media (max-width: 1140px) {
     flex-direction: column-reverse;
   }
@@ -22,6 +22,7 @@
   }
   @media (max-width: 576px) {
     gap: 24px;
+    margin-bottom: 0px;
   }
 }
 

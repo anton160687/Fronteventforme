@@ -17,13 +17,13 @@ function TopLocations({ locations, title, href = '', text = 'Показать в
     return locations.map((location: LocationCard, index: number) => (
       <div
         key={index}
-        className={`${styles.locations_wrapper} card-hover shadow-sm ${index === 0 ? styles.locations_wrapper_1 : ''}`}
+        className={`${styles.locations__wrapper} card-hover shadow-sm ${index === 0 ? styles.locations__wrapper_1 : ''}`}
       >
         <Link
           href={`catalog/places/${location.id}`}
           className={styles.locations__overlay}
         >
-          <div className={styles.overlay_wrapper}>
+          <div className={styles.locations__overlay_wrapper}>
             <div className={`${styles.locations__description} pb-3 ps-3`}>
               <h3 className={`${styles.description__title} mb-1`}>
                 {location.title}
