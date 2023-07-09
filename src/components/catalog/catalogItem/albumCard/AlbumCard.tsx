@@ -39,7 +39,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
         >
           <figcaption>
             <h4 className="mb-2">{title}</h4>
-            {showMoreRender(description, 250, isDetailsOpen, setIsDetailsOpen)}
+            {showMoreRender(description, 280, isDetailsOpen, setIsDetailsOpen)}
           </figcaption>
 
           {/* // className="w-md-50 w-75" */}

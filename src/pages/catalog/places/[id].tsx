@@ -1,22 +1,17 @@
-import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Col, Row, Card, Button, Spinner } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import ArticleWeddings from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddings';
 import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
 import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
 import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
 import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDetails';
 import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
 import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
-import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
+import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/SimilarItemsSlider';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
-import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
-import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
-import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import { API, BreadCrumbsLinks, Paths } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
@@ -106,9 +101,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                     welcome_zones={place.welcome_zones}
                     outside_reg={place.outsites_reg}
                   />
-                  {/* //! поправить адаптив */}
                   <WeddingPhotosContainer />
-                  {/* //! поправить адаптив */}
                   <ArticleWeddingsContainer />
                   <YandexReview place={place} />
                   <LocalRating />
@@ -117,19 +110,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
                 {/* боковой контейнер справа на странице */}
                 <Col xl={4} lg={8} className={styles.right__container}>
-                  <div className={styles.popular__container}>
-                    {/* тестовые данные, потом - удалить */}
-                    <RatingStars rating={3.7} voices={58} />
-                    {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-                    <div className={styles.popular__text}>
-                      <p className={styles.popular__par}>
-                        В избранном у&nbsp;<span>{234} человека </span>
-                      </p>
-                      <p className={styles.popular__par}>
-                        Забронировано&nbsp;<span>{12} раз </span>
-                      </p>
-                    </div>
-                  </div>
+                  <Popularity />
 
                   {/* тестовые данные, потом - удалить */}
                   <BookingForm

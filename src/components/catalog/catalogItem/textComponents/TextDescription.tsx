@@ -3,6 +3,7 @@ import { PlaceReceived } from '@/types/placeType';
 import { LOCATION } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import { title } from 'process';
+import React from 'react';
 
 type TextDescriptionProps = {
   item: PlaceReceived;
@@ -21,12 +22,12 @@ function TextDescription({ item }: TextDescriptionProps) {
   function renderLocations() {
     if (locations.length !== 0) {
       return locations.map((location, i) => (
-        <>
-          <span key={i} className={styles.text_locations}>
+        <React.Fragment key={i}>
+          <span className={styles.text_locations}>
             {location}
             {i < locations.length - 1 && ','}
           </span>{' '}
-        </>
+        </React.Fragment>
       ));
     }
     return 'Не указано';
@@ -66,7 +67,7 @@ function TextDescription({ item }: TextDescriptionProps) {
 
   function derscriptionRender(array: descriptionType[]) {
     return (
-      <ul className="w-50 list-unstyled">
+      <ul className="w-100 w-md-50 list-unstyled">
         {array.map(({ title, value }) => (
           <li
             key={title}

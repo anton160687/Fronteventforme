@@ -1,4 +1,4 @@
-import { Card, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { cards } from '@/mocks/cards';
 import ArticleWeddings from './ArticleWeddings';
 import styles from '@/styles/catalog/places/Places.module.scss';
@@ -7,11 +7,12 @@ function ArticleWeddingsContainer() {
   const { articles } = cards || {};
 
   return (
-    <Row className={'justify-content-between' + styles.mb40}>
-      <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2 w-100">
-        Статьи о свадьбах на площадке “Villa Arcobaleno”
-      </Card.Title>
-      <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
+    <Row className={'justify-content-between ' + styles.mb40}>
+      <h4 className="mb-4">Статьи о свадьбах на площадке “Villa Arcobaleno”</h4>
+      <div
+        className="d-flex flex-wrap flex-md-nowrap"
+        style={{ gap: '1.5rem' }}
+      >
         {articles &&
           articles.map((item) => (
             <ArticleWeddings

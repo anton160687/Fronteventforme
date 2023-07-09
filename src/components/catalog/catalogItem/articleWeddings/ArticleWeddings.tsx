@@ -17,10 +17,7 @@ function ArticleWeddings({
 }: ArticleWeddingsProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
   return (
-    <figure
-      // style={{ maxWidth: '350px' }}
-      className=" card-hover text-decoration-none text-dark rounded-3 px-2 w-75 w-md-50"
-    >
+    <figure className="text-decoration-none text-dark rounded-3 w-auto card card-body border-0 shadow-sm card-hover p-0">
       <ImageLoader
         src={pathImg}
         width={416}
@@ -30,7 +27,7 @@ function ArticleWeddings({
         alt={`Обложка статьи ${title}`}
         className="card-img-top"
       />
-      <figcaption className="p-3">
+      <figcaption className="p-4">
         <p className="border-0 text-primary my-1">
           <i className="fi-calendar text-primary me-2" />
           {dateText}

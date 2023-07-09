@@ -109,7 +109,7 @@ function LocalReviews({ id }: LocalReviewsProps) {
   }
 
   return (
-    <section className="">
+    <section className="mb-4 mb-xl-0">
       {/* Add review modal */}
       <Modal centered show={modalShow} onHide={() => setModalShow(false)}>
         <Modal.Header className="d-block position-relative border-0 pb-0 px-sm-5 px-4">
@@ -184,7 +184,7 @@ function LocalReviews({ id }: LocalReviewsProps) {
       </Modal>
 
       {/* Кнопка и сортировка */}
-      <div className="d-flex flex-sm-row flex-column align-items-sm-center justify-content-between mb-4 pb-2">
+      <div className="d-flex flex-sm-row flex-column align-items-sm-center justify-content-between mb-1 pb-2">
         {addReviewBtnRender()}
         <Form.Group
           controlId="sortby"
@@ -194,7 +194,7 @@ function LocalReviews({ id }: LocalReviewsProps) {
             <i className="fi-arrows-sort mt-n1 me-2 align-middle text-muted"></i>
             Сортировать по:
           </Form.Label>
-          <Form.Select style={{ minWidth: '180px' }}>
+          <Form.Select>
             {options.map(({ title, value }) => (
               <option key={title + value} value={value}>
                 {title}
@@ -212,7 +212,7 @@ function LocalReviews({ id }: LocalReviewsProps) {
         onSelect={handleSelect}
       >
         {navItems.map((item, index) => (
-          <Nav.Item key={index} className={index === 0 ? 'ms-0' : ''}>
+          <Nav.Item key={index} className={`${index === 0 ? 'ms-0' : ''} mt-3`}>
             <Nav.Link
               eventKey={item.value}
               data-index={item.value}
@@ -225,8 +225,8 @@ function LocalReviews({ id }: LocalReviewsProps) {
       </Nav>
       {renderReviews(reviews)}
 
-      <div className="mt-3 d-flex justify-content-between align-items-center">
-        <nav aria-label="Reviews pagination">
+      <div className="mt-3 d-flex flex-sm-row flex-column align-items-sm-center justify-content-between">
+        <nav aria-label="Reviews pagination" className="mb-3 mb-md-0">
           <PaginationBar
             currentPage={1}
             totalCount={10}

@@ -146,7 +146,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const descriptionRender = (name: string, value: string | number) => {
     return (
-      <div className={styles.slider_text}>
+      <div className={styles.slider_text} key={name}>
         <p>{name}</p>
         <p className="fw-bold ms-1 text-end">{value}</p>
       </div>

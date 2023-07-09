@@ -54,7 +54,7 @@
   font-size: 16px;
   line-height: 150%;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   color: #1f1b2d;
 
   & > span {
@@ -144,12 +144,6 @@
   }
 }
 
-@media (max-width: 385px) {
-  .text__cuisine_btn {
-    font-size: 0.75rem;
-  }
-}
-
 .text__details_container {
   margin-bottom: 2.5rem;
 }
@@ -163,7 +157,7 @@
 .slider_text {
   color: $gray900;
   display: flex;
-  @include fz(12, 16);
+  @include fz(14, 16);
   justify-content: space-between;
   font-weight: 500;
 

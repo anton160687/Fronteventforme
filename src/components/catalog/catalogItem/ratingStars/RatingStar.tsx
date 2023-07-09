@@ -8,9 +8,9 @@ type RatingStarsProps = {
 
 function RatingStars({ rating, voices }: RatingStarsProps) {
   return (
-    <div className="d-flex h-100 flex-column justify-content-center">
-      <h1 className="m-0">{rating}</h1>
-      <p className={styles.rating__stars}>
+    <div className="d-flex h-100 flex-column justify-content-center align-self-center align-self-md-start">
+      <h1 className="mx-sm-0 my-0 mx-auto">{rating}</h1>
+      <p className={styles.rating__stars + ' mx-sm-0 mx-auto'}>
         <StarRating rating={rating} />
       </p>
       <p className="m-0 fs-sm text-nowrap">{voices} отзывов</p>
