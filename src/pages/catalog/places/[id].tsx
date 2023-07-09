@@ -24,6 +24,7 @@ import WeddingPhotosContainer from '@/components/catalog/catalogItem/weddingPhot
 import ArticleWeddingsContainer from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddingsContainer';
 import YandexReview from '@/components/catalog/catalogItem/yandexReview/YandexReview';
 import LocalReviews from '@/components/catalog/catalogItem/localReviews/LocalReviews';
+import Popularity from '@/components/catalog/catalogItem/popularity/Popularity';
 
 type CatalogItemProps = {
   place: PlaceReceived;

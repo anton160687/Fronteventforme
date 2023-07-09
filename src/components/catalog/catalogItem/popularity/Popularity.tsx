@@ -1,5 +1,6 @@
 import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import styles from '@/styles/catalog/places/Places.module.scss';
+
 function Popularity() {
   return (
     <div className={styles.popular__container}>
