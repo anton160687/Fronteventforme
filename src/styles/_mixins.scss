@@ -8,15 +8,17 @@ $white: #ffffff;
 $transition: all 0.25s ease-in-out;
 $gray: #666276;
 $gray100: #f9f8fa;
+$gray400: #D5D2DC;
 $gray600: #9691A4;
-$gray800: #454056;
+$gray700: #454056;
+$gray800: #666276;
 $gray900: #1f1b2d;
 $star: #fdbc31;
 $black: #1f1b2d;
 $hover: #fe7566;
 
 //адаптивный шрифт
-//min-fz - минимальный размер шрифта (используется для мобильных устройств)
+//$min-fz - минимальный размер шрифта (используется для мобильных устройств)
 //$max-fz - максимальный размер шрифта
 @mixin fz($min-fz, $max-fz) {
   $add-fz: $max-fz - $min-fz;

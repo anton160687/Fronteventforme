@@ -1,0 +1,74 @@
+@import '/src/styles/mixins';
+
+.concat__row {
+  @include adaptiv-value('margin-top', 124, 24);
+  @media (max-width: 1140px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.concat__column {
+  @media (max-width: 1140px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.concat__btns {
+  gap: 48px;
+  @media (max-width: 1140px) {
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 576px) {
+    gap: 24px;
+    margin-bottom: 0px;
+  }
+}
+
+.concat__btn {
+  @media (max-width: 576px) {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+.concat__links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 50%;
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.concat__link {
+  text-decoration: none;
+  color: $gray800;
+  &:hover {
+    color: $primary;
+  }
+}
+
+.concat__card {
+  height: 240px;
+  margin-right: 24px;
+  box-shadow: 0px 4px 12px 0px rgba(31, 27, 45, 0.08);
+  box-sizing: border-box;
+  padding: 20px 32px;
+  border-radius: 0.75rem;
+  & > h3 {
+    color: inherit;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    margin: 16px 0;
+  }
+  &:hover {
+    box-shadow: 0px 4px 12px 0px rgba(254, 149, 137, 0.4);
+  }
+}
+.concat__description {
+  @include fz(12, 16);
+}

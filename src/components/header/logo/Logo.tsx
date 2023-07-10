@@ -16,6 +16,7 @@ function Logo() {
       <meta itemProp="telephone" content="tel:4065550120" />
       <Link href="https://eventforme.ru" className="d-block" itemProp="url">
         <Image
+          className={styles.header__logo_img}
           src="/img/header/logo.svg"
           width={143}
           height={33}

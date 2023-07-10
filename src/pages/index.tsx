@@ -1,15 +1,15 @@
+import { Container } from 'react-bootstrap';
 import Hero from '@/components/main/hero/Hero';
-import SupplierCard from '@/components/main/supplierCard/supplierCard';
-import PlanWeddingCard from '@/components/main/planWeddingCard/planWeddingCard';
-import SupplierSlider from '@/components/main/supplierSlider/supplierSlider';
-import MoreServices from '@/components/main/moreServices/moreServices';
-import { Locations } from '@/components/main/locations/locations';
-import { ConvenientCatalog } from '@/components/main/convenientCtlg/convenientCatalog';
-import { PersonServices } from '@/components/main/cardIndividualApproach/PersonService';
-import { CardsLink } from '@/components/main/cardsLink/cardsLink';
+import TopCards from '@/components/main/topCards/TopCards';
+import ConvenientCatalog from '@/components/main/convenientCatalog/ConvenientCatalog';
+import TopLocations from '@/components/main/topLocations/TopLocations';
+import Articles from '@/components/main/articles/Articles';
+import LkServices from '@/components/main/lkServices/LkServices';
+import TopBusiness from '@/components/main/topBusiness/TopBusiness';
+import SupplierCard from '@/components/main/supplierCard/SupplierCard';
+import PlanWedding from '@/components/main/planWedding/PlanWedding';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
-import { Container } from 'react-bootstrap';
 
 type HomeProps = {
   topLocations: LocationCard[];
@@ -20,33 +20,29 @@ export default function Home({ topLocations = mockLocationCards }: HomeProps) {
     <main>
       <Hero />
       <Container className="px-5">
-        <CardsLink />
+        <TopCards />
         <ConvenientCatalog />
-        <Locations
+        <h2 className='d-none'>Лучшие площадки Москвы</h2>
+        <TopLocations
           locations={topLocations}
           title={'ТОП-5 площадок разных категорий г. Москва'}
-          isShowAll={false}
         />
-        <MoreServices />
-        <SupplierSlider />
-        <Locations
+        <Articles />
+        <LkServices />
+        <TopBusiness />
+        <TopLocations
           locations={topLocations}
           title={'Лучшие локации'}
-          isShowAll={true}
-          showAllTxt="Показать все"
+          text="Показать все"
         />
-        <PersonServices />
       </Container>
       <SupplierCard />
-      <Container>
-        <PlanWeddingCard />
-      </Container>
+      <PlanWedding />
     </main>
   );
 }
 
 // Здесь должен быть запрос на URL с топовыми площадками.
-// Пока соотв. API нет, используем мок-массив.
 // export const getServerSideProps = async () => {
 //   const API = process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_URL : URL;
 //   const response = await fetch(`${API}`);

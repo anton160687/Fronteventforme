@@ -8,16 +8,16 @@ import RegisterBtn from '@/components/main/registerBtn/registerBtn';
 
 function SupplierCard() {
   return (
-    <section className={styles.py64 + ' bg-secondary'}>
-      <Container as="section" className="px-5">
-        <Row className="align-items-center">
+    <section className={`${styles.my124} bg-secondary`}>
+      <Container className="px-5">
+        <Row className={`${styles.py64} align-items-center`}>
           <Col
             ms={12}
             lg={6}
             className="text-lg-start text-center mb-4 mb-lg-0"
           >
-            <h2 className={styles.supplierFZ}>Стань нашим исполнителем</h2>
-            <p className="pb-3 fs-lg">
+            <h2 className={styles.supplier__title}>Стань нашим исполнителем</h2>
+            <p className={styles.supplier__text}>
               Длинная подпись предоставляемой услуги на несколько небольших
               строчек
             </p>

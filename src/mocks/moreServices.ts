@@ -9,10 +9,10 @@ export const steps = [
     },
     {
         title: 'Получите чек-лист',
-        description: 'Cursus duis ridiculus purus eget velit mattis id vel. Semper aliquet auctor cras dui odio ege.'
+        description: 'Cursus duis ridiculus purus eget velit mattis id vel. Semper aliquet auctor cras dui odio.'
     },
     {
-        title: 'Переписывайтесь с исполнителями',
+        title: 'Чат с исполнителями',
         description: 'Sit auctor aliquam leo duis. Praesent ut penatibus faucibus nibh arcu tempor adipiscing.'
     },
     ]

@@ -5,7 +5,7 @@ import CityInput from '../city/CityInput';
 import { Paths } from '@/constant';
 import styles from '@/styles/header/Header.module.scss';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type HeaderNavbarProps = {
   isAuth: boolean;
@@ -59,10 +59,21 @@ const lkNavigation = [
 
 function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
   const router = useRouter();
+  const [currentPath, setCurrentPath] = useState<string>('');
+    
   const [show, setShow] = useState<boolean>(false);
   function handleToggle() {
     setShow(!show);
   }
+// Дополнительный стейт необходим для SSR, т.к. при серверной генерации мы не м. обратиться к router
+  useEffect(()=> {
+    setCurrentPath(router.asPath);
+  }, [])
+
+  useEffect(()=> {
+    setCurrentPath(router.asPath);
+    setShow(false);
+  }, [router])
 
   function renderNavigation(array: typeof navigation, customClass: string = '') {
     return array.map(({ id, path, text }) => (
@@ -75,7 +86,7 @@ function HeaderNavbar({ isAuth }: HeaderNavbarProps) {
       >
         <Link
           href={path}
-          className={`${styles.navbar__item} ${router.asPath === path ? "active" : ""} nav-link`}
+          className={`${styles.navbar__item} ${currentPath === path ? "active" : ""} nav-link`}
           itemProp="url"
         >
           <span itemProp="name">{text}</span>

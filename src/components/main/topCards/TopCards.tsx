@@ -1,20 +1,17 @@
 import { cards } from '@/mocks/cards';
-import { FC } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
-import { Card } from './card';
+import {  Col, Row } from 'react-bootstrap';
+import TopCard from './TopCard';
+import styles from '@/styles/main/Main.module.scss';
 
-export const CardsLink: FC = () => {
+
+function TopCards () {
   const { cardsLinkArrey } = cards || {};
-
-  if (!cardsLinkArrey) {
-  }
-
   return (
-    <Container as="section" style={{ marginTop: '104px', padding: '0' }}>
+    <section className={styles.my124}>
       <Row>
         <Col sm={12} className="text-center">
           <p className="mb-3">Портал EventForMe</p>
-          <h1 className="mb-5">
+          <h1 className="mb-4">
             Сайт, в котором есть всё необходимое
             <br />
             для планирования свадьбы{' '}
@@ -22,9 +19,10 @@ export const CardsLink: FC = () => {
         </Col>
       </Row>
       <Row>
+        <h2 className='d-none'>Возможности EventForMe</h2>
         {cardsLinkArrey &&
           cardsLinkArrey.map((item) => (
-            <Card
+            <TopCard
               key={item.id}
               title={item.title}
               description={item.description}
@@ -32,6 +30,8 @@ export const CardsLink: FC = () => {
             />
           ))}
       </Row>
-    </Container>
+    </section>
   );
 };
+
+export default TopCards;
