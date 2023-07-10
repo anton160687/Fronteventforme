@@ -13,10 +13,9 @@ import { Paths } from '@/constant';
 import styles from '@/styles/catalog/places/Places.module.scss';
 
 export function SimilarItemsSlider() {
-  
   return (
-    <>
-      <div className="d-sm-flex align-items-center justify-content-between mt-5 mb-2 ">
+    <section className={styles.mt124}>
+      <div className="d-sm-flex align-items-center justify-content-between">
         <h2 className={'h2 mb-0 ' + styles.similarItems__title}>
           Похожие площадки
         </h2>
@@ -93,7 +92,7 @@ export function SimilarItemsSlider() {
           className="d-none d-xxl-block mt-n5 me-n5"
         />
       </div>
-    </>
+    </section>
   );
 }
 

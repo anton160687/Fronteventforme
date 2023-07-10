@@ -64,7 +64,7 @@ function LKNavigation({
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           {user.is_bride === undefined ? (
             <div className="w-100 h-100 d-flex justify-content-center mt-5">
               <Spinner className="centered" />

@@ -78,17 +78,15 @@
   }
 }
 
-
 // блок описания под верхними картинками
 .location__flex_container {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
 }
 
 .location__map {
   display: flex;
-  justify-content: space-between;
+  white-space: nowrap;
   align-items: baseline;
   gap: 10px;
   text-decoration: none;
@@ -112,7 +110,7 @@
 }
 
 .location__description_container_li {
-  &>span {
+  & > span {
     font-weight: 700;
     font-size: 16px;
     line-height: 150%;

@@ -20,12 +20,11 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
   return (
     <div
       className={
-        styles.text__cuisine_container +
-        ' border-0 mb-xl-5 mb-md-4 mb-sm-3 d-flex'
+        `${styles.text__cuisine_container} ${styles.mb40}` + ' border-0 d-flex'
       }
     >
       <Card.Body className="p-0">
-        <Card.Title as="h4" className="mb-3">
+        <Card.Title as="h2" className="mb-3 fs-4">
           Детали о кухне площадки:
         </Card.Title>
         {cuisines && (
@@ -34,7 +33,7 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
             {cuisines}
           </Card.Text>
         )}
-        <Card.Text className="mb-2">
+        <Card.Text>
           <i className="fi-ticket me-2 fs-sm" />
           {kids ? 'Есть детское меню' : 'Детского меню нет'}
         </Card.Text>

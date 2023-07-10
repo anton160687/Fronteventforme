@@ -17,22 +17,25 @@ export function showMoreRender(
   description: string,
   length: number,
   isDetailsOpen: boolean,
-  setIsDetailsOpen: Dispatch<SetStateAction<boolean>>
+  setIsDetailsOpen: Dispatch<SetStateAction<boolean>>,
+  customClass?: string
 ): JSX.Element {
   const new_description = description.slice(0, length) + '...';
   return (
     <>
       {description.length < length ? (
-        <p>{description}</p>
+      <p className={customClass}>{description}</p>
       ) : (
         <>
-          <p style={isDetailsOpen ? { display: 'none' } : {}}>
+          <p className={customClass + ' mb-0'}
+            style={isDetailsOpen ? { display: 'none' } : {}}
+          >
             {new_description}
           </p>
           <p style={!isDetailsOpen ? { display: 'none' } : {}}>{description}</p>
           <p
             onClick={() => setIsDetailsOpen((prev) => !prev)}
-            className="mb-0 text-primary cursor-pointer fs-base"
+            className="m-0 mt-2 text-primary cursor-pointer fs-base"
             style={{ fontWeight: '500' }}
           >
             {isDetailsOpen ? 'Свернуть' : 'Показать еще'}
@@ -61,10 +64,3 @@ export const SlidesCount = ({
     </div>
   </div>
 );
-
-// Единый Вид Названия
-export function capitalize(str: string) {
-  return str.replace(/(^|\s)\S/g, function (a) {
-    return a.toUpperCase();
-  });
-}

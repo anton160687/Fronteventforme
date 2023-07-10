@@ -140,7 +140,7 @@ function AddBusinessPage() {
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           <Row>
             <Col lg={8}>
               <Form onSubmit={handleSubmit}>

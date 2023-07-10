@@ -13,7 +13,7 @@ import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-fullscreen.css';
 import 'swiper/css/bundle';
 import styles from '@/styles/catalog/places/Places.module.scss';
-import { SlidesCount } from '@/components/helpers';
+import { SlidesCount, showMoreRender } from '@/components/helpers';
 
 type AlbumCardProps = {
   id: number;
@@ -25,23 +25,25 @@ type AlbumCardProps = {
 function AlbumCard({ id, title, description, images }: AlbumCardProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [totalSlides, setTotalSlides] = useState(0);
+  //отображение "Показать еще"
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
-    <>
+    <article>
       {(description || images?.length > 0) && (
         <figure
-          id="territory"
+          id={id===0 ? "territory" : ''}
           className={
             id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
           }
         >
           <figcaption>
-            <h4 className="mb-3">{title}</h4>
-            <p className="mb-2">{description}</p>
+            <h2 className="mb-2 fs-4">{title}</h2>
+            {showMoreRender(description, 280, isDetailsOpen, setIsDetailsOpen)}
           </figcaption>
 
           {/* // className="w-md-50 w-75" */}
-          <div className="align-self-center">
+          <div>
             {images?.length > 1 ? (
               <LightGallery
                 plugins={[lgThumbnail, lgZoom, lgFullScreen]}
@@ -96,7 +98,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                 src={images?.length === 1 ? images[0] : '/img/emptyPhoto.png'}
                 height={270}
                 width={500}
-                imgalt={images?.length === 1 ? title : 'No image'}
+                alt={images?.length === 1 ? title : 'No image'}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
@@ -109,7 +111,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
           </div>
         </figure>
       )}
-    </>
+      </article>
   );
 }
 

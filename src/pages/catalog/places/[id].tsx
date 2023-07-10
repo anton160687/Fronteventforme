@@ -1,32 +1,29 @@
-import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import { Col, Row, Card, Button, Spinner } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import AnchorBtns from '@/components/catalog/catalogItem/anchorBtns/AnchorBtns';
 import BookingForm from '@/components/bookingForm/BookingForm';
 import ContactForm from '@/components/bookingForm/ContactForm';
-import WeddingsPhotos from '@/components/catalog/catalogItem/weddingPhotos/WeddingsPhotos';
-import ArticleWeddings from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddings';
 import TextDescription from '@/components/catalog/catalogItem/textComponents/TextDescription';
 import TextFeatures from '@/components/catalog/catalogItem/textComponents/TextFeatures';
 import TextEvents from '@/components/catalog/catalogItem/textComponents/TextEvents';
 import TextDetails from '@/components/catalog/catalogItem/textComponents/TextDetails';
 import TextKitchen from '@/components/catalog/catalogItem/textComponents/TextKitchen';
 import PlaceAreas from '@/components/catalog/catalogItem/placeAreas/PlaceAreas';
-import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/similarItemsSlider';
+import { SimilarItemsSlider } from '@/components/catalog/catalogItem/similarItemsSlider/SimilarItemsSlider';
 import LocationDescription from '@/components/catalog/catalogItem/locationPhotos/LocationDescription';
-import YaMap from '@/components/catalog/catalogItem/yaMap/yaMap';
-import YaComments from '@/components/catalog/catalogItem/yaComments/YaComments';
-import RatingStars from '@/components/catalog/catalogItem/ratingStars/RatingStar';
 import { API, BreadCrumbsLinks, Paths } from '@/constant';
 import { User } from '@/types/user';
 import { PlaceReceived } from '@/types/placeType';
 import styles from '@/styles/catalog/places/Places.module.scss';
 import AlbumCardContainer from '@/components/catalog/catalogItem/albumCard/AlbumCardContainer';
-import { cards } from '@/mocks/cards';
 import LocationPhotos from '@/components/catalog/catalogItem/locationPhotos/LocationPhotos';
 import LocalRating from '@/components/catalog/catalogItem/localRating/LocalRating';
 import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
+import WeddingPhotosContainer from '@/components/catalog/catalogItem/weddingPhotos/WeddingPhotosContainer';
+import ArticleWeddingsContainer from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddingsContainer';
+import YandexReview from '@/components/catalog/catalogItem/yandexReview/YandexReview';
+import Popularity from '@/components/catalog/catalogItem/popularity/Popularity';
 
 type CatalogItemProps = {
   place: PlaceReceived;
@@ -34,8 +31,6 @@ type CatalogItemProps = {
 };
 
 export default function CatalogItem({ place, user }: CatalogItemProps) {
-  const { weddingPhotos } = cards || {};
-  const { articles } = cards || {};
   const territory = [
     {
       id: 0,
@@ -60,7 +55,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           {!place ? (
             <div className="w-100 h-100 d-flex justify-content-center mt-5">
               <Spinner className="centered" />
@@ -74,7 +69,7 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
               {/* общий контейнер страницы на все блоки под верхними фото */}
               <Row className={styles.main__container}>
                 {/* основной контейнер слева на странице */}
-                <Col xl={8} className={styles.left__container}>
+                <Col xl={8} className={styles.left__container + ' pe-lg-4'}>
                   <LocationDescription
                     title={place.title}
                     areasNumber={place.areas?.length}
@@ -106,66 +101,16 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                     welcome_zones={place.welcome_zones}
                     outside_reg={place.outsites_reg}
                   />
-                  <Row className="my-xl-4 my-md-3 my-sm-2">
-                    <Card.Title as="h4" className="mb-xl-4 mb-md-3 mb-sm-2">
-                      Фото проведенных свадеб на площадке
-                    </Card.Title>
-                    <div className="d-flex justify-content-evenly">
-                      {weddingPhotos &&
-                        weddingPhotos.map((item) => (
-                          <WeddingsPhotos
-                            key={item.id}
-                            title={item.title}
-                            description={item.description}
-                            pathImg={item.pathImg}
-                          />
-                        ))}
-                    </div>
-                  </Row>
-                  <Row className="justify-content-between my-xl-4 my-md-3 my-sm-2">
-                    <Card.Title
-                      as="h4"
-                      className="mb-xl-4 mb-md-3 mb-sm-2 w-100"
-                    >
-                      Статьи о свадьбах на площадке “Villa Arcobaleno”
-                    </Card.Title>
-                    <div className="d-flex justify-content-center justify-content-md-evenly flex-wrap">
-                      {articles &&
-                        articles.map((item) => (
-                          <ArticleWeddings
-                            key={item.id}
-                            title={item.title}
-                            description={item.description}
-                            pathImg={item.pathImg}
-                            dateText={item.dateText}
-                          />
-                        ))}
-                    </div>
-                  </Row>
-                  <div id="map" className={styles.map__container}>
-                    <YaMap lat={place.width} long={place.longitude} />
-                  </div>
-                  <div id="comments" className={styles.comments__container}>
-                    <YaComments id={place.id_yandex} />
-                  </div>
-                  <LocalRating />
+                  <WeddingPhotosContainer />
+                  <ArticleWeddingsContainer />
+                  <YandexReview place={place} />
+                  <LocalRating place={place} />
+                  
                 </Col>
 
                 {/* боковой контейнер справа на странице */}
                 <Col xl={4} lg={8} className={styles.right__container}>
-                  <div className={styles.popular__container}>
-                    {/* тестовые данные, потом - удалить */}
-                    <RatingStars rating={3.7} voices={58} />
-                    {/* <RatingStars rating={item?.rating?.rating || 0 } voices={item?.rating?.votes || 0} /> */}
-                    <div className={styles.popular__text}>
-                      <p className={styles.popular__par}>
-                        В избранном у&nbsp;<span>{234} человека </span>
-                      </p>
-                      <p className={styles.popular__par}>
-                        Забронировано&nbsp;<span>{12} раз </span>
-                      </p>
-                    </div>
-                  </div>
+                  <Popularity />
 
                   {/* тестовые данные, потом - удалить */}
                   <BookingForm
@@ -178,12 +123,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
 
                   <ContactForm />
                 </Col>
+                <SimilarItemsSlider />
               </Row>
-              <SimilarItemsSlider />
-              {/* @ts-ignore: bootstrap bag*/}
-              <Button as={Link} href="#">
-                К началу страницы
-              </Button>
             </>
           )}
         </Container>

@@ -18,7 +18,7 @@ function Terms(): JSX.Element {
 
   return (
     <main>
-      <Container className={`mt-5 mx-auto px-5 ` + styles.terms}>
+      <Container className={'mt-5 mx-auto ' + styles.terms}>
         <h2 className="mb-md-4 mb-3 pb-md-2">Пользовательское Соглашение</h2>
         <>
           <p>

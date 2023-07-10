@@ -160,7 +160,7 @@ function OffersPage(): JSX.Element {
 
         <Nav
           variant="tabs"
-          defaultActiveKey="published"
+          defaultActiveKey={contextMenuTypeEnum.Published}
           className="fs-base border-bottom justify-content-center justify-content-sm-start"
           onSelect={handleSelect}
         >

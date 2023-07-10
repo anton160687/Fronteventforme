@@ -21,7 +21,7 @@ function SuccessPage() {
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           <Row>
             <h2>Бизнес (или площадка) успешно отправлен(а) на модерацию</h2>
             <p style={{ color: '#454056' }}>

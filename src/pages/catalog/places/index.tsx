@@ -55,7 +55,7 @@ function CatalogPlaces({
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           <Row className="mx-0">
             <Title title={'Площадки'} quantity={totalCount} />
             <PlaceTypesSlider />

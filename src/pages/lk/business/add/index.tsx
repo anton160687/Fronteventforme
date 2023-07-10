@@ -44,7 +44,7 @@ function AddBusiness() {
     <>
       <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       <main>
-        <Container className="px-5">
+        <Container>
           <h2>Добавление бизнеса</h2>
           <div className={styles.lk__header}>
             <i className="fi-grid" /> <h3>Категория</h3>

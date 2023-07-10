@@ -56,11 +56,11 @@ function BookingForm({ avatar, first_name, last_name, phone, email }: BookingFor
     return (
         <div className={styles.booking__container}>
             <div className={styles.booking__heading}>
-                <h4 className={styles.booking__title}>
+                <h2 className={styles.booking__title + ' fs-4'}>
                     Хотите забронировать для вашей свадьбы?
-                </h4>
+                </h2>
                 <Image src={avatar} width={100} height={100} alt='avatar' className={styles.booking__avatar} />
-                <h4 className={styles.booking__title}>{first_name} {last_name}</h4>
+                <h3 className={styles.booking__title + ' fs-4'}>{first_name} {last_name}</h3>
                 <Link href={`tel:${phone}`} className={styles.booking__link}>
                     <span><i className="fi-phone" /></span><p>{phone}</p>
                 </Link>

@@ -1,5 +1,4 @@
 import { contextMenuTypeEnum } from '@/constant';
-import styles from '@/styles/catalog/places/Places.module.scss';
 import { Dispatch, SetStateAction } from 'react';
 import { Dropdown } from 'react-bootstrap';
 

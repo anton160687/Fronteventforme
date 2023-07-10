@@ -12,11 +12,12 @@ import lgFullScreen from 'lightgallery/plugins/fullscreen';
 import React, { useEffect, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import DatePicker from 'react-datepicker';
-
+import { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
 import { AreaReceived } from '@/types/areaType';
 import { COLOR_HALL, SCHEME_OF_PAYMENT, TYPE_AREA } from '@/constant';
-import { SlidesCount, capitalize, showMoreRender } from '@/components/helpers';
+import { SlidesCount, showMoreRender } from '@/components/helpers';
 import CalculateCost from './CalculateCost';
 
 type PlaceAreaProps = {
@@ -32,6 +33,10 @@ const findTitle = (dictionary: string[][], value: string): string => {
 
   return title[1];
 };
+
+//язык календаря
+registerLocale('ru', ru);
+setDefaultLocale('ru');
 
 function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   //отображение "Показать еще"
@@ -141,9 +146,9 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
 
   const descriptionRender = (name: string, value: string | number) => {
     return (
-      <div className={styles.slider_text}>
+      <div className={styles.slider_text} key={name}>
         <p>{name}</p>
-        <p className={styles.slider_text_data}>{value}</p>
+        <p className="fw-bold ms-1 text-end">{value}</p>
       </div>
     );
   };
@@ -151,13 +156,15 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
   return (
     <>
       <section
-        className={'card card-body border-0 shadow-sm card-hover mb-xl-5 mb-4'}
+        className={
+          'card card-body border-0 shadow-sm card-hover ' + styles.mb40
+        }
       >
-        <h4 className="h4 text-weight-bold">{capitalize(area.title)}</h4>
-        <div className="d-flex mb-3" style={{ fontWeight: '500' }}>
+        <h2 className="fs-4">{area.title}</h2>
+        <div className="d-block d-sm-flex mb-3" style={{ fontWeight: '500' }}>
           <CalculateCost average_check={average_check} area={area} />
 
-          <div className={styles.calendar_wrapper}>
+          <div className={styles.calendar_wrapper + ' ms-sm-3 mt-3 mt-sm-0'}>
             <button
               onClick={() => setIsCalendarShown((prev) => !prev)}
               className={styles.busy_btn}
@@ -274,8 +281,12 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
               </div>
             )}
             {area.detail_location.length > 0 && (
-              <div className={styles.slider_details + ' order-1 mt-5 mt-md-0'}>
-                <h4 className="h4">Детали</h4>
+              <div
+                className={
+                  styles.slider_details + ' order-1 mt-2 mt-md-0 text-dark'
+                }
+              >
+                <h3 className="fs-4">Детали</h3>
                 {showMoreRender(
                   area.detail_location,
                   100,

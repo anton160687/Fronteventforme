@@ -694,3 +694,13 @@ export const schemaData = {
     },
   ],
 };
+
+export enum ReviewTabs {
+  Location = 'location',
+  Cleanliness = 'cleanliness',
+  Service = 'service',
+  Kitchen = 'kitchen',
+  Comfort = 'comfort',
+  Quality = 'quality',
+  Interier = 'interier',
+}

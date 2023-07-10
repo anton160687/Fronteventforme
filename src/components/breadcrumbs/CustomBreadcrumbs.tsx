@@ -20,13 +20,14 @@ type CustomBreadcrumbsProps = {
 };
 
 const url = 'http//eventforme.ru';
-const schemaData: SchemaType = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [],
-};
 
 function CustomBreadcrumbs({ breadcrumbs }: CustomBreadcrumbsProps) {
+  const schemaData: SchemaType = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [],
+  };
+
   function generateBreadcrumbs() {
     return breadcrumbs.map((breadcrumb, index) => {
       const crumbSchema: CrumbSchemaType = {
@@ -59,7 +60,7 @@ function CustomBreadcrumbs({ breadcrumbs }: CustomBreadcrumbsProps) {
 
   return (
     <>
-      <nav className="mb-4 pt-md-3 container px-5">
+      <nav className="mb-4 pt-md-3 container">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -7,6 +7,7 @@ import SSRProvider from 'react-bootstrap/SSRProvider';
 import { YMaps } from '@pbe/react-yandex-maps';
 import { schemaData } from '@/constant';
 import '../styles/scss/theme.scss';
+import ScrollTopButton from '@/components/_finder/ScrollTopButton';
 
 export default function App({ Component, pageProps }: AppProps) {
   let YA_API: string = '';
@@ -49,6 +50,12 @@ export default function App({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          <ScrollTopButton
+            showOffset={600}
+            duration={800}
+            easing="easeInOutQuart"
+            tooltip="Наверх"
+          />
         </YMaps>
       </SSRProvider>
     </Provider>

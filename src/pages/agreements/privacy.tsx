@@ -6,7 +6,7 @@ import Link from 'next/link';
 function Privacy(): JSX.Element {
   return (
     <main>
-      <Container className={`mt-5 mx-auto px-5 ` + styles.privacy}>
+      <Container className={'mt-5 mx-auto ' + styles.privacy}>
         <h2 className="mb-md-4 mb-3 pb-md-2">Политика Конфиденциальности</h2>
         <h6>
           Политика в отношении обработки и конфиденциальности персональных
