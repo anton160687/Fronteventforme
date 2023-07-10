@@ -22,8 +22,9 @@ function ContactForm() {
   }
 
   return (
-    <div className={styles.contactform__container}>
-      <h5>Отправьте запрос на звонок и&nbsp;узнайте детали о площадке</h5>
+      <div className={styles.contactform__container}>
+          <h2 className="d-none">Форма для связи с владельцем площадки</h2>
+          <h3 className='fs-5'>Отправьте запрос на звонок и&nbsp;узнайте детали о площадке</h3>
       <InputGroup size="sm" className="d-lg-flex flex-nowrap">
         <div className={styles.input__frame}>
           <i className="fi-phone position-absolute text-muted top-50 translate-middle-y ps-1 ms-2"></i>

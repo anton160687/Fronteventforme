@@ -18,17 +18,16 @@ export function showMoreRender(
   length: number,
   isDetailsOpen: boolean,
   setIsDetailsOpen: Dispatch<SetStateAction<boolean>>,
-  className?: string
+  customClass?: string
 ): JSX.Element {
   const new_description = description.slice(0, length) + '...';
   return (
     <>
       {description.length < length ? (
-        <p className={className}>{description}</p>
+      <p className={customClass}>{description}</p>
       ) : (
         <>
-          <p
-            className={className + ' mb-0'}
+          <p className={customClass + ' mb-0'}
             style={isDetailsOpen ? { display: 'none' } : {}}
           >
             {new_description}

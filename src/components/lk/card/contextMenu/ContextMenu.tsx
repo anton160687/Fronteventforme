@@ -1,5 +1,4 @@
-import { ContextMenuTypeEnum } from '@/constant';
-import styles from '@/styles/catalog/places/Places.module.scss';
+import { contextMenuTypeEnum } from '@/constant';
 import { Dispatch, SetStateAction } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
@@ -38,19 +37,19 @@ function ContextMenu({ setShow, contextMenu }: ContextMenuProps): JSX.Element {
   let declined: ContextMenuType[] = draftContextMenu;
 
   switch (contextMenu) {
-    case ContextMenuTypeEnum.Published:
+    case contextMenuTypeEnum.Published:
       menu = publishedContextMenu;
       break;
-    case ContextMenuTypeEnum.Moderation:
+    case contextMenuTypeEnum.Moderation:
       menu = moderateContextMenu;
       break;
-    case ContextMenuTypeEnum.Declined:
+    case contextMenuTypeEnum.Declined:
       menu = draftContextMenu;
       break;
-    case ContextMenuTypeEnum.Draft:
+    case contextMenuTypeEnum.Draft:
       menu = draftContextMenu;
       break;
-    case ContextMenuTypeEnum.Archive:
+    case contextMenuTypeEnum.Archive:
       menu = archiveContextMenu;
       break;
   }

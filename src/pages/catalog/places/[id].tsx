@@ -23,7 +23,6 @@ import CustomBreadcrumbs from '@/components/breadcrumbs/CustomBreadcrumbs';
 import WeddingPhotosContainer from '@/components/catalog/catalogItem/weddingPhotos/WeddingPhotosContainer';
 import ArticleWeddingsContainer from '@/components/catalog/catalogItem/articleWeddings/ArticleWeddingsContainer';
 import YandexReview from '@/components/catalog/catalogItem/yandexReview/YandexReview';
-import LocalReviews from '@/components/catalog/catalogItem/localReviews/LocalReviews';
 import Popularity from '@/components/catalog/catalogItem/popularity/Popularity';
 
 type CatalogItemProps = {
@@ -105,8 +104,8 @@ export default function CatalogItem({ place, user }: CatalogItemProps) {
                   <WeddingPhotosContainer />
                   <ArticleWeddingsContainer />
                   <YandexReview place={place} />
-                  <LocalRating />
-                  <LocalReviews id={place.id} />
+                  <LocalRating place={place} />
+                  
                 </Col>
 
                 {/* боковой контейнер справа на странице */}

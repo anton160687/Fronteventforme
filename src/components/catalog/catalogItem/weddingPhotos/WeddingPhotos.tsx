@@ -9,8 +9,8 @@ type WeddingPhotosProps = {
 
 function WeddingPhotos({ title, description, pathImg }: WeddingPhotosProps) {
   return (
+      <article>
     <Link
-      id="album"
       href="#"
       style={{ maxWidth: '196px' }}
       className="text-center card-hover text-decoration-none text-dark card card-body border-0 shadow-sm card-hover rounded-3 p-0"
@@ -18,13 +18,12 @@ function WeddingPhotos({ title, description, pathImg }: WeddingPhotosProps) {
       <figure>
         <Image src={pathImg} alt="Обложка" width={200} height={100} />
         <figcaption>
-          <p className="fs-7 my-2">
-            <strong>{title}</strong>
-          </p>
+          <h3 className='fs-base my-2'>{title}</h3>
           <p className="fs-sm mb-0">{description}</p>
         </figcaption>
       </figure>
-    </Link>
+          </Link>
+      </article>
   );
 }
 

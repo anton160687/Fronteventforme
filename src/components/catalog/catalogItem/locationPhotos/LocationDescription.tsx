@@ -19,7 +19,7 @@ function LocationDescription({
   return (
     <>
       <div className={styles.location__flex_container}>
-        <h4>{title}</h4>
+        <h1 className='fs-4'>{title}</h1>
         {areasNumber && (
           <Card.Footer className="fs-sm d-flex flex-wrap align-items-center justify-content-evenly">
             <span className="text-nowrap ps-2">

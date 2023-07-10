@@ -1,6 +1,8 @@
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import RatingStars from '../ratingStars/RatingStar';
 import { Row, Col } from 'react-bootstrap';
+import { PlaceReceived } from '@/types/placeType';
+import LocalReviews from '@/components/catalog/catalogItem/localReviews/LocalReviews';
 
 const RatingSections = [
   { id: 1, key: '', title: 'Интерьер', rating: 4.8 },
@@ -12,7 +14,13 @@ const RatingSections = [
   { id: 7, key: '', title: 'Цена/качество', rating: 4.8 },
 ];
 
-function LocalRating() {
+
+type LocalRatingProps = {
+    place: PlaceReceived;
+};
+
+
+function LocalRating({ place }: LocalRatingProps) {
   function renderRating() {
     return RatingSections.map(({ id, title, rating }) => (
       <Row key={id} className="mb-2 fs-sm">
@@ -34,14 +42,12 @@ function LocalRating() {
   }
 
   return (
-    <section className="w-100 mb-4">
-      <h4>Отзывы</h4>
+      <section className="w-100 mb-4">
+          <h2 className='fs-4'>Отзывы</h2>
       <Row>
-        {/* xs={12} sm={10} */}
         <Col sm={12} md={10} className="order-md-1 order-2">
           {renderRating()}
         </Col>
-        {/* xs={12} sm={2} */}
         <Col
           sm={12}
           md={2}
@@ -49,7 +55,8 @@ function LocalRating() {
         >
           <RatingStars rating={4.9} voices={38} />
         </Col>
-      </Row>
+          </Row>
+      <LocalReviews id={place.id} />
     </section>
   );
 }

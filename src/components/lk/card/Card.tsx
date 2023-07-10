@@ -5,7 +5,7 @@ import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { numberOfAreas } from '@/services/parse.service';
 import { useState } from 'react';
 import DeleteModal from '../deleteModal/DeleteModal';
-import { ContextMenuTypeEnum } from '@/constant';
+import { contextMenuTypeEnum } from '@/constant';
 import ContextMenu from './contextMenu/ContextMenu';
 import styles from '@/styles/lk/Lk.module.scss';
 
@@ -19,7 +19,7 @@ type LKCardProps = {
 function LKCard({
   card,
   deleteCard,
-  contextMenu = ContextMenuTypeEnum.Base,
+  contextMenu = contextMenuTypeEnum.Base,
 }: LKCardProps): JSX.Element {
   //Modal
   const [show, setShow] = useState<boolean>(false);
@@ -65,13 +65,13 @@ function LKCard({
             >
               <h5 className={styles.card__title}>{card.title}</h5>
             </Link>
-            {contextMenu === ContextMenuTypeEnum.Wishlist ||
-            contextMenu === ContextMenuTypeEnum.Base ? (
+            {contextMenu === contextMenuTypeEnum.Wishlist ||
+            contextMenu === contextMenuTypeEnum.Base ? (
               <OverlayTrigger
                 placement="left"
                 overlay={
                   <Tooltip>
-                    {contextMenu === ContextMenuTypeEnum.Wishlist
+                    {contextMenu === contextMenuTypeEnum.Wishlist
                       ? 'Убрать из Избранного'
                       : 'Добавить в Избранное'}
                   </Tooltip>
@@ -80,7 +80,7 @@ function LKCard({
                 <Button className="text-primary btn btn-icon btn-light btn-xs rounded-circle shadow-sm">
                   <i
                     className={`${
-                      contextMenu === ContextMenuTypeEnum.Wishlist
+                      contextMenu === contextMenuTypeEnum.Wishlist
                         ? 'fi-heart-filled'
                         : 'fi-heart'
                     }`}

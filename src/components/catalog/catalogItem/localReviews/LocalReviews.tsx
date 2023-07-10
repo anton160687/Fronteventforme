@@ -109,7 +109,7 @@ function LocalReviews({ id }: LocalReviewsProps) {
   }
 
   return (
-    <section className="mb-4 mb-xl-0">
+    <div className="mb-4 mb-xl-0">
       {/* Add review modal */}
       <Modal centered show={modalShow} onHide={() => setModalShow(false)}>
         <Modal.Header className="d-block position-relative border-0 pb-0 px-sm-5 px-4">
@@ -234,12 +234,12 @@ function LocalReviews({ id }: LocalReviewsProps) {
             pageSize={4}
             query={''}
             path={Paths.Places + `/${id}`}
-            className="mb-0"
+            customClass="mb-0"
           />
         </nav>
         {addReviewBtnRender()}
       </div>
-    </section>
+    </div>
   );
 }
 

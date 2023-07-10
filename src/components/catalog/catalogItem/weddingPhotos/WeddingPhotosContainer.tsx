@@ -7,7 +7,7 @@ function WeddingPhotosContainer() {
   const { weddingPhotos } = cards || {};
   return (
     <Row className={styles.mb40}>
-      <h4 className="mb-4">Фото проведенных свадеб на площадке</h4>
+      <h2 className="mb-4 fs-4">Фото проведенных свадеб на площадке</h2>
       <div
         className="d-flex justify-content-evenly flex-wrap flex-md-nowrap"
         style={{ gap: '1.5rem' }}

@@ -29,16 +29,16 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
-    <>
+    <article>
       {(description || images?.length > 0) && (
         <figure
-          id="territory"
+          id={id===0 ? "territory" : ''}
           className={
             id % 2 === 0 ? styles.text_territory_reverse : styles.text_territory
           }
         >
           <figcaption>
-            <h4 className="mb-2">{title}</h4>
+            <h2 className="mb-2 fs-4">{title}</h2>
             {showMoreRender(description, 280, isDetailsOpen, setIsDetailsOpen)}
           </figcaption>
 
@@ -98,7 +98,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
                 src={images?.length === 1 ? images[0] : '/img/emptyPhoto.png'}
                 height={270}
                 width={500}
-                imgalt={images?.length === 1 ? title : 'No image'}
+                alt={images?.length === 1 ? title : 'No image'}
                 quality={100}
                 className={
                   id % 2 === 0 ? styles.rounded_left : styles.rounded_right
@@ -111,7 +111,7 @@ function AlbumCard({ id, title, description, images }: AlbumCardProps) {
           </div>
         </figure>
       )}
-    </>
+      </article>
   );
 }
 

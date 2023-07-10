@@ -24,7 +24,7 @@ function TextKitchen({ kids, kitchens }: TextKitchenProps) {
       }
     >
       <Card.Body className="p-0">
-        <Card.Title as="h4" className="mb-3">
+        <Card.Title as="h2" className="mb-3 fs-4">
           Детали о кухне площадки:
         </Card.Title>
         {cuisines && (

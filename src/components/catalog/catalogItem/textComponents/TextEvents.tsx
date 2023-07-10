@@ -71,7 +71,7 @@ function TextEvents({ events }: TextEventProps) {
     <Row className={styles.mb40}>
       {events.length > 0 && (
         <>
-          <h4>Подходит для:</h4>
+          <h2 className='fs-4'>Подходит для:</h2>
 
           {events.length < elInLine ? (
             <ul className="flex-column flex-sm-row d-flex flex-wrap justify-content-between list-unstyled w-100">

@@ -1,4 +1,4 @@
-import { LKSectionsTitles, Paths, ContextMenuTypeEnum } from '@/constant';
+import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
 import { useState } from 'react';
 import styles from '@/styles/lk/Lk.module.scss';
 import { PlaceCardType } from '@/types/catalog';
@@ -22,22 +22,22 @@ import LKNavigation from '@/components/lk/navigation/LKNavigation';
 const navItems = [
   {
     title: 'Опубликовано',
-    value: ContextMenuTypeEnum.Published,
+    value: contextMenuTypeEnum.Published,
     icon: 'fi-file',
   },
   {
     title: 'На модерации',
-    value: ContextMenuTypeEnum.Moderation,
+    value: contextMenuTypeEnum.Moderation,
     icon: 'fi-users',
   },
   {
     title: 'Черновики',
-    value: ContextMenuTypeEnum.Draft,
+    value: contextMenuTypeEnum.Draft,
     icon: 'fi-file-clean',
   },
   {
     title: 'Архив',
-    value: ContextMenuTypeEnum.Archive,
+    value: contextMenuTypeEnum.Archive,
     icon: 'fi-archive',
   },
 ];
@@ -48,7 +48,7 @@ function OffersPage(): JSX.Element {
   const [declinedCards, setDeclinedCards] = useState<PlaceCardType[]>([]);
   //context menu content
   const [menuType, setMenuType] = useState<string>(
-    ContextMenuTypeEnum.Published
+    contextMenuTypeEnum.Published
   );
 
   //Modal
@@ -60,23 +60,23 @@ function OffersPage(): JSX.Element {
     e: React.SyntheticEvent<unknown>
   ) => {
     switch (eventKey) {
-      case ContextMenuTypeEnum.Published:
-        setMenuType(ContextMenuTypeEnum.Published);
+      case contextMenuTypeEnum.Published:
+        setMenuType(contextMenuTypeEnum.Published);
         setCards(placesPublished);
         setDeclinedCards([]);
         break;
-      case ContextMenuTypeEnum.Moderation:
-        setMenuType(ContextMenuTypeEnum.Moderation);
+      case contextMenuTypeEnum.Moderation:
+        setMenuType(contextMenuTypeEnum.Moderation);
         setCards(placesModerate);
         setDeclinedCards(placesDeclined);
         break;
-      case ContextMenuTypeEnum.Draft:
-        setMenuType(ContextMenuTypeEnum.Draft);
+      case contextMenuTypeEnum.Draft:
+        setMenuType(contextMenuTypeEnum.Draft);
         setCards(placesDraft);
         setDeclinedCards([]);
         break;
-      case ContextMenuTypeEnum.Archive:
-        setMenuType(ContextMenuTypeEnum.Archive);
+      case contextMenuTypeEnum.Archive:
+        setMenuType(contextMenuTypeEnum.Archive);
         setCards(placesArchive);
         setDeclinedCards([]);
         break;
@@ -94,12 +94,12 @@ function OffersPage(): JSX.Element {
   const moderationCardsRenderCheck = () => {
     return (
       <>
-        {menuType === ContextMenuTypeEnum.Moderation ? (
+        {menuType === contextMenuTypeEnum.Moderation ? (
           <>
             {cards.length > 0 && <h3>На проверке</h3>}
             {cardsRender(cards, menuType)}
             {declinedCards.length > 0 && <h3>Отклонено</h3>}
-            {cardsRender(declinedCards, ContextMenuTypeEnum.Declined)}
+            {cardsRender(declinedCards, contextMenuTypeEnum.Declined)}
           </>
         ) : (
           cardsRender(cards, menuType)
@@ -125,13 +125,13 @@ function OffersPage(): JSX.Element {
 
   const emptyStateRender = () => {
     switch (menuType) {
-      case ContextMenuTypeEnum.Published:
+      case contextMenuTypeEnum.Published:
         return <EmptyBusiness />;
-      case ContextMenuTypeEnum.Moderation:
+      case contextMenuTypeEnum.Moderation:
         return <EmptyModeration />;
-      case ContextMenuTypeEnum.Draft:
+      case contextMenuTypeEnum.Draft:
         return <EmptyDrafts />;
-      case ContextMenuTypeEnum.Archive:
+      case contextMenuTypeEnum.Archive:
         return <EmptyArchive />;
     }
   };
@@ -160,7 +160,7 @@ function OffersPage(): JSX.Element {
 
         <Nav
           variant="tabs"
-          defaultActiveKey={ContextMenuTypeEnum.Published}
+          defaultActiveKey={contextMenuTypeEnum.Published}
           className="fs-base border-bottom justify-content-center justify-content-sm-start"
           onSelect={handleSelect}
         >

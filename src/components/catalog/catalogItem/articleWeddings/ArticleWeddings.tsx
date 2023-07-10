@@ -16,7 +16,8 @@ function ArticleWeddings({
   dateText,
 }: ArticleWeddingsProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false);
-  return (
+    return (
+      <article>
     <figure className="text-decoration-none text-dark rounded-3 w-auto card card-body border-0 shadow-sm card-hover p-0">
       <ImageLoader
         src={pathImg}
@@ -32,12 +33,11 @@ function ArticleWeddings({
           <i className="fi-calendar text-primary me-2" />
           {dateText}
         </p>
-        <p className="fs-7 my-2">
-          <strong>{title}</strong>
-        </p>
+         <h3 className='my-2 fs-base'>{title}</h3>
         {showMoreRender(description, 120, isDetailsOpen, setIsDetailsOpen)}
       </figcaption>
-    </figure>
+            </figure>
+        </article>
   );
 }
 

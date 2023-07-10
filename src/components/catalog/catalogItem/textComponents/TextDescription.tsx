@@ -82,8 +82,8 @@ function TextDescription({ item }: TextDescriptionProps) {
   }
 
   return (
-    <Row id="review" className="mb-xl-5 mb-md-4 mb-sm-3 d-flex">
-      <h4>Описание:</h4>
+      <Row id="review" className="mb-xl-5 mb-md-4 mb-sm-3 d-flex">
+          <h2 className='fs-4'>Описание:</h2>
       <Col
         className={
           styles.text__description_container + ' d-flex justify-content-between'

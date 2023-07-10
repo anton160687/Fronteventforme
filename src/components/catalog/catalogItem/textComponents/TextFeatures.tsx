@@ -47,8 +47,8 @@ function TextFeatures({
   return (
     <Row className={styles.mb40}>
       {featureListFirst.length > 0 && (
-        <>
-          <h4>Особенности</h4>
+              <>
+                  <h2 className='fs-4'>Особенности</h2>
           <Row className="d-flex justify-content-between">
             <ul className="list-unstyled w-auto mb-0">
               {renderFeatures(featureListFirst)}

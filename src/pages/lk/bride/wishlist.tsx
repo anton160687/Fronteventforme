@@ -1,6 +1,6 @@
 import ImageLoader from '@/components/_finder/ImageLoader';
 import LKCard from '@/components/lk/card/Card';
-import { LKSectionsTitles, Paths, ContextMenuTypeEnum } from '@/constant';
+import { LKSectionsTitles, Paths, contextMenuTypeEnum } from '@/constant';
 import { placesPublished } from '@/mocks/catalogPlaces';
 import { PlaceCardType } from '@/types/catalog';
 import { ChangeEvent, useState } from 'react';
@@ -60,7 +60,7 @@ function WishlistPage(): JSX.Element {
             </div>
             {cards.map((card, indx) => (
               <LKCard
-                contextMenu={ContextMenuTypeEnum.Wishlist}
+                contextMenu={contextMenuTypeEnum.Wishlist}
                 card={card}
                 key={indx}
                 deleteCard={deleteCard}

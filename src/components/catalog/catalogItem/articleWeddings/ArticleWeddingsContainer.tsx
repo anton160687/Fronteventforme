@@ -8,7 +8,7 @@ function ArticleWeddingsContainer() {
 
   return (
     <Row className={'justify-content-between ' + styles.mb40}>
-      <h4 className="mb-4">Статьи о свадьбах на площадке “Villa Arcobaleno”</h4>
+      <h2 className="mb-4 fs-4">Статьи о свадьбах на площадке “Villa Arcobaleno”</h2>
       <div
         className="d-flex flex-wrap flex-md-nowrap"
         style={{ gap: '1.5rem' }}

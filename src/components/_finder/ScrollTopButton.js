@@ -26,7 +26,7 @@ const ScrollTopButton = ({ showOffset, duration, easing, tooltip }) => {
   }
 
   return (
-    <button type='btton' className={`btn-scroll-top${show ? ' show' : ''}`} onClick={scrollToTop}>
+    <button type='button' className={`btn-scroll-top${show ? ' show' : ''}`} onClick={scrollToTop}>
       <span className='btn-scroll-top-tooltip text-muted fs-sm me-2'>{tooltip}</span>
       <i className='btn-scroll-top-icon fi-chevron-up'></i>
     </button>

@@ -10,7 +10,7 @@ type PaginationProps = {
   pageSize: number;
   query: string;
   path: string;
-  className?: string;
+  customClass?: string;
 };
 
 function PaginationBar({
@@ -20,7 +20,7 @@ function PaginationBar({
   pageSize,
   query,
   path,
-  className,
+    customClass,
 }: PaginationProps) {
   const paginationRange = usePagination({
     currentPage,
@@ -64,7 +64,7 @@ function PaginationBar({
   return (
     <Pagination
       size="lg"
-      className={'justify-content-center justify-content-lg-start ' + className}
+          className={'justify-content-center justify-content-lg-start ' + customClass}
     >
       {currentPage !== 1 && (
         <Link

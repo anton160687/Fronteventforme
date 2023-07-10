@@ -14,7 +14,7 @@ function TextDetails({ description }: TextDetailsProps) {
     <Card id="details" className={'border-0 ' + styles.mb40}>
       {description.length > 0 && (
         <Card.Body className="p-0">
-          <Card.Title as="h4" className="mb-3">
+          <Card.Title as="h2" className="mb-3 fs-4">
             Детали площадки
           </Card.Title>
 

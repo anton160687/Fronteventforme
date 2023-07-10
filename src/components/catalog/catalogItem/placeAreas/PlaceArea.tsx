@@ -160,7 +160,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
           'card card-body border-0 shadow-sm card-hover ' + styles.mb40
         }
       >
-        <h4 className="h4 text-weight-bold">{area.title}</h4>
+        <h2 className="fs-4">{area.title}</h2>
         <div className="d-block d-sm-flex mb-3" style={{ fontWeight: '500' }}>
           <CalculateCost average_check={average_check} area={area} />
 
@@ -286,7 +286,7 @@ function PlaceArea({ area, average_check }: PlaceAreaProps): JSX.Element {
                   styles.slider_details + ' order-1 mt-2 mt-md-0 text-dark'
                 }
               >
-                <h4 className="h4">Детали</h4>
+                <h3 className="fs-4">Детали</h3>
                 {showMoreRender(
                   area.detail_location,
                   100,

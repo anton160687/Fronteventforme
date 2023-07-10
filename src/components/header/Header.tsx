@@ -43,7 +43,7 @@ function Header() {
       itemScope
       itemType="http://schema.org/WPHeader"
       itemID="/#header"
-      className="sticky-top bg-white"
+    //  className="sticky-top bg-white"
     >
       <Container>
         <Row className="align-items-baseline mx-0">
