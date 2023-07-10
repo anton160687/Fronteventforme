@@ -6,7 +6,7 @@ import TopLocations from '@/components/main/topLocations/TopLocations';
 import Articles from '@/components/main/articles/Articles';
 import LkServices from '@/components/main/lkServices/LkServices';
 import TopBusiness from '@/components/main/topBusiness/TopBusiness';
-import SupplierCard from '@/components/main/supplierCard/SuppliersCard';
+import SupplierCard from '@/components/main/supplierCard/SupplierCard';
 import PlanWedding from '@/components/main/planWedding/PlanWedding';
 import { LocationCard } from '@/types/locationCard';
 import { mockLocationCards } from '@/mocks/locationCards';
