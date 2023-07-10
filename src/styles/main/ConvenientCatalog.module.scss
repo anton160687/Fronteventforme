@@ -4,6 +4,8 @@
   @include adaptiv-value('margin-top', 124, 24);
   @media (max-width: 1140px) {
     flex-direction: column-reverse;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -11,6 +13,9 @@
   @media (max-width: 1140px) {
     width: 100%;
     text-align: center;
+  }
+  @media (max-width: 450px) {
+    text-align: start;
   }
 }
 
@@ -23,6 +28,9 @@
   @media (max-width: 576px) {
     gap: 24px;
     margin-bottom: 0px;
+  }
+  @media (max-width: 450px) {
+    justify-content: flex-start;
   }
 }
 

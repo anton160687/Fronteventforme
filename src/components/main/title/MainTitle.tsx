@@ -7,7 +7,7 @@ type MainTitleProps = {
 
 export function MainTitle({ title, subtitle }: MainTitleProps): JSX.Element {
   return (
-    <div className='d-flex flex-column align-items-center'>
+    <div className={`${styles.main__title_container} d-flex flex-column`}>
       <p className={styles.main__subtitle}>{subtitle}</p>
       <h2 className={styles.main__title}>{title}</h2>
     </div>

@@ -22,7 +22,7 @@ function ArticleCard({ article }: ArticleCardProps) {
         <Link href={path} className="card-img-top overflow-hidden">
           <Image
             src={src}
-            className="rounded-2 mb-3"
+            className={`${styles.article__image} rounded-2 mb-3`}
             alt="card image"
             width={isBig ? 663 : 306}
             height={324}

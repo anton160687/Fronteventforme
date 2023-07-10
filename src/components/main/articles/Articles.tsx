@@ -50,13 +50,13 @@ function Articles() {
         </Link>
       </div>
 
-      <Row className={`${styles.articles__row} mb-4 justify-content-center justify-content-lg-start`}>
+      <Row className={`${styles.articles__row} mb-4 justify-content-lg-start`}>
         <ArticleCard article={articles[0]} />
         <ArticleCard article={articles[1]} />
         <ArticleCard article={articles[2]} />
       </Row>
 
-      <Row className={`${styles.articles__row} mb-4 justify-content-center justify-content-lg-start`}>
+      <Row className={`${styles.articles__row} mb-4 justify-content-lg-start`}>
         <ArticleCard article={articles[1]} />
         <ArticleCard article={articles[0]} />
         <ArticleCard article={articles[2]} />

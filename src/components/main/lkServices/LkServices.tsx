@@ -39,7 +39,7 @@ function LkServices(): JSX.Element {
             className="card-hover border-0 col-lg-3 col-md-6 col-12 mr-md-1 text-center text-sm-start"
             key={index}
           >
-            <Card.Body>
+            <Card.Body className={styles.lkserv__card}>
               <h4 className="text-info">0{index + 1}</h4>
               <h5 className={styles.lkserv__title}>{step.title}</h5>
               <p className={`${styles.lkserv__text} m-0`}>{step.description}</p>

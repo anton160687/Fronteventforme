@@ -15,7 +15,7 @@ function TopCard({ title, description, pathImg }: TopCardProps) {
       className="card text-decoration-none card-hover border-0 align-items-center col-lg-4 col-md-6 col-sm-12 mt-4"
       style={{ padding: "12px" }}
     >
-      <div className="card-body p-0 col-lg-12 col-md-10 col-sm-8">
+      <div className={styles.topcard__container}>
         <h3 className="card-title mb-3">{title}</h3>
         <p className={`${styles.topcard__description} card-text mb-4`}>
           {description}

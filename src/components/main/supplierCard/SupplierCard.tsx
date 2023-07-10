@@ -9,12 +9,12 @@ import RegisterBtn from '@/components/main/registerBtn/registerBtn';
 function SupplierCard() {
   return (
     <section className={`${styles.my124} bg-secondary`}>
-      <Container className="px-5">
+      <Container>
         <Row className={`${styles.py64} align-items-center`}>
           <Col
             ms={12}
             lg={6}
-            className="text-lg-start text-center mb-4 mb-lg-0"
+            className={`${styles.align_start} text-lg-start text-center mb-4 mb-lg-0`}
           >
             <h2 className={styles.supplier__title}>Стань нашим исполнителем</h2>
             <p className={styles.supplier__text}>

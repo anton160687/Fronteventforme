@@ -16,6 +16,12 @@
   @include adaptiv-value(margin-bottom, 124, 42);
 }
 
+.align_start {
+  @media (max-width: 450px) {
+    text-align: start !important;
+  }
+}
+
 .btn__link {
   color: #ffffff;
   text-decoration: none;
@@ -74,9 +80,21 @@
     line-height: 100%;
   }
 
+  @media (max-width: 450px) {
+    text-align: start;
+  }
+
   @media (max-width: 475px) {
     line-height: 100%;
     margin-bottom: 24px;
+  }
+}
+
+.main__title_container {
+  align-items: center;
+
+  @media (max-width: 450px) {
+    align-items: flex-start;
   }
 }
 
@@ -94,11 +112,8 @@
 .main__description {
   font-weight: 700;
   // line-height: 42px;
-  @include fz(16, 32);
-
-  @media (max-width: 576px) {
-    line-height: 180%;
-  }
+  @include fz(18, 32);
+  @include adaptiv-value(margin-bottom, 16, 8);
 }
 
 .hide {
@@ -118,6 +133,23 @@
   gap: 24px;
 }
 
+.topcard__container {
+  &>h3 {
+    @include fz(16, 28);
+  }
+
+  @media (max-width: 991px) {
+    text-align: center;
+    max-width: 415px;
+    //может потребоваться фикс.высота
+    // min-height: 132px;
+  }
+
+  @media (max-width: 450px) {
+    text-align: start;
+  }
+}
+
 .topcard__description {
   @include fz(12, 18);
   color: $gray;
@@ -125,8 +157,14 @@
 
 //Articles
 .articles__row {
+  justify-content: center;
+
   @media (max-width: 991px) {
     justify-content: center;
+  }
+
+  @media (max-width: 450px) {
+    justify-content: start;
   }
 }
 
@@ -139,6 +177,10 @@
     width: unset !important;
     margin-bottom: 12px;
   }
+  
+  @media (max-width: 450px) {
+    width: 100% !important;
+  }
 }
 
 .article__card_sm {
@@ -149,6 +191,15 @@
     order: 2;
     width: unset !important;
     margin-bottom: 12px;
+  }
+  @media (max-width: 450px) {
+    width: 100% !important;
+  }
+}
+
+.article__image {
+  @media (max-width: 450px) {
+    width: 100%;
   }
 }
 
@@ -367,12 +418,20 @@
   }
 }
 
+.lkserv__card {
+  @include adaptiv-value(padding, 20, 5);
+  @media (max-width: 450px) {
+    text-align: start;
+  }
+}
+
 .lkserv__title {
   color: $gray900;
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
 }
+
 .lkserv__text {
   @include fz(14, 16);
 }
@@ -388,6 +447,7 @@
   @include fz(14, 20);
   max-width: 600px;
   margin-bottom: 32px;
+
   @media (max-width: 991px) {
     max-width: unset;
   }

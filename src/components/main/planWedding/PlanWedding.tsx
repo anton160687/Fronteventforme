@@ -7,7 +7,7 @@ import { MainTitle } from '@/components/main/title/MainTitle';
 function PlanWedding() {
   return (
     <section className={styles.m124}>
-      <Container className="px-5 text-center">
+      <Container className={`${styles.align_start} text-center`}>
         <MainTitle
           subtitle={'Портал EventForMe'}
           title={'Организуйте свадьбу с нашей помощью и создайте воспоминания на всю жизнь'
