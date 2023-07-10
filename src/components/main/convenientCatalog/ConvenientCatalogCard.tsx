@@ -18,7 +18,7 @@ function ConCatCard({ card }: cardProps) {
       <div className={styles.concat__card}>
         <i className={`${nameImg} text-${color} fs-2`}></i>
         <h3>{title}</h3>
-        <p className={styles.description}>{description}</p>
+        <p className={styles.concat__description}>{description}</p>
       </div>
     </Link>
   )

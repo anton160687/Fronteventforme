@@ -16,7 +16,7 @@ function LkServices(): JSX.Element {
             <h3 className={`${styles.main__description} m-0`}>
               Получите больше услуг в личном кабинете
             </h3>
-            <p className='m-0'>
+            <p className={`${styles.lkserv__text} m-0`}>
               Elementum magna ac tempor, facilisis tristique mauris. Et
               penatibus sit sed in ante in ultrices. Senectus aliquam dictum
               eleifend mi pharetra morbi.
@@ -42,7 +42,7 @@ function LkServices(): JSX.Element {
             <Card.Body>
               <h4 className="text-info">0{index + 1}</h4>
               <h5 className={styles.lkserv__title}>{step.title}</h5>
-              <p className='m-0'>{step.description}</p>
+              <p className={`${styles.lkserv__text} m-0`}>{step.description}</p>
             </Card.Body>
           </Card>
         ))}

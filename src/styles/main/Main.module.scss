@@ -119,7 +119,7 @@
 }
 
 .topcard__description {
-  @include fz(9, 18);
+  @include fz(12, 18);
   color: $gray;
 }
 
@@ -358,12 +358,12 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: flex-start;
 
   @media (max-width: 991px) {
     width: 100%;
     padding-top: 0px;
     margin-bottom: 24px;
-    align-items: center;
   }
 }
 
@@ -372,6 +372,9 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 30px;
+}
+.lkserv__text {
+  @include fz(14, 16);
 }
 
 //SuppCard

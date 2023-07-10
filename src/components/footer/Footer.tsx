@@ -148,6 +148,7 @@ function Footer() {
               itemScope
               itemType="https://schema.org/SiteNavigationElement"
               itemID={`/#footerNavBtn`}
+              className={styles.footer__catalog_btncontainer}
             >
               <Button
                 // @ts-ignore: bootstrap bag*
